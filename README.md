@@ -1,3 +1,5 @@
+> This is 1.21.8 Fabric/Forge/NeoForge version 1.3.4
+
 # Fancy Toasts 🎉
 There is a reason why you are here. It might be curiosity. But I think you are here because of there old-fashion advancement toasts! This is a Minecraft Mod that changes plain, boring, and annoying advancement toasts to something new and interesting!
 
@@ -5,9 +7,6 @@ There is a reason why you are here. It might be curiosity. But I think you are h
 
 ### Download
 Try it out on [CurseForge](https://www.curseforge.com/minecraft/mc-mods/fancy-toasts) or [Modrinth](https://modrinth.com/mod/fancytoasts). Other sources are not mine.
-
-### Version
-This is 1.21.8 Fabric/Forge/NeoForge version 1.3.4
 
 # Description 🏗️
 Adds new advancement toast system into Minecraft. Currently mod has 8 variants, because of 2 animation styles and 4 texture types. Supports config screen on Fabric (Mod Menu)/Forge/NeoForge
