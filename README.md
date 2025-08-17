@@ -48,7 +48,7 @@ If you enjoy this mod, and want more updates and support to future versions, the
 
 ## v1.3.3
 * New features:
-  * New texture type `Modern`
+  * Texture type `Modern`
 * Bug fixes:
   * NeoForge crashes when open `Config` screen
   * Forge looses `mixin`s after build
