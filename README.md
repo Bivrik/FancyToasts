@@ -9,7 +9,7 @@ There is a reason why you are here. It might be curiosity. But I think you are h
 Try it out on [CurseForge](https://www.curseforge.com/minecraft/mc-mods/fancy-toasts) or [Modrinth](https://modrinth.com/mod/fancytoasts). Other sources are not mine.
 
 # Description 🏗️
-Adds new advancement toast system into Minecraft. Currently mod has 8 variants, because of 2 animation styles and 4 texture types. Supports config screen on Fabric (Mod Menu)/Forge/NeoForge
+Adds new advancement toast system into Minecraft. Currently mod has 8 toast variants, because of 2 animation styles and 4 texture types. Supports config screen on Fabric (Mod Menu)/Forge/NeoForge
 
 ### Animations
 * Standard
