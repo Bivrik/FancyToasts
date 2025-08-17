@@ -51,11 +51,15 @@ If you enjoy this mod, and want more updates and support to future versions, the
 * Bug fixes:
   * NeoForge crashes when open `Config` screen
   * Forge looses `mixin`s after build
+* Adjustments:
+  * Changed slightly code for easier version changes and multiloader support
 > Port to Fabric/Forge/NeoForge (18.08.25)
 
 ## v1.3.2
 * Bug fixes:
   * Wrong audio delaying due to pause menu
+* Adjustments:
+  * Changed links
 > Bug fixes (14.08.25)
 
 ## v1.3.1
