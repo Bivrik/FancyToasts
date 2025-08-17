@@ -1,0 +1,13 @@
+{
+  "modmenu.descriptionTranslation.fancytoasts": "Rediseña el antiguo sistema advancement toast, reemplazándolo por uno más atractivo e interesante.",
+  "fancytoasts.gui.close": "Cancelar",
+  "fancytoasts.gui.save_changes": "Guardar cambios",
+  "fancytoasts.gui.animation_type": "Tipo de animación:",
+  "fancytoasts.gui.texture_type": "Tipo de textura:",
+  "fancytoasts.gui.config_title": "Ajustes de Fancy Toasts",
+  "fancytoasts.gui.standard": "Estándar",
+  "fancytoasts.gui.playful": "Juguetón",
+  "fancytoasts.gui.vanilla": "Vanilla Estilo",
+  "fancytoasts.gui.nature": "Naturaleza",
+  "fancytoasts.gui.og": "OG"
+}

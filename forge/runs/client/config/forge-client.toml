@@ -1,0 +1,6 @@
+#Client only settings, mostly things related to rendering
+[client]
+	#When enabled, Forge will show any warnings that occurred during loading.
+	showLoadWarnings = true
+	#When enabled, Forge will allow mipmaps to be lowered in real-time. This is the default behavior in vanilla. Use this if you experience issues with resource packs that use textures lower than 8x8.
+	allowMipmapLowering = false

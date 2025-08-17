@@ -1,0 +1,4 @@
+/advancement revoke dev everything
+/advancement revoke Dev everything
+/advancement revoke dev everything
+/advancement revoke @a everything

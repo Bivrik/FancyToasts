@@ -1,0 +1,24 @@
+{
+  "mappings": {
+    "net/bivrik/fancytoasts/mixin/ToastManagerMixin": {
+      "clear": "Lnet/minecraft/client/gui/components/toasts/ToastManager;m_351584_()V",
+      "render": "Lnet/minecraft/client/gui/components/toasts/ToastManager;m_356673_(Lnet/minecraft/client/gui/GuiGraphics;)V",
+      "addToast": "Lnet/minecraft/client/gui/components/toasts/ToastManager;m_351591_(Lnet/minecraft/client/gui/components/toasts/Toast;)V"
+    },
+    "net/bivrik/fancytoasts/mixin/AdvancementToastMixinAccessor": {
+      "advancement": "f_94795_:Lnet/minecraft/advancements/AdvancementHolder;"
+    }
+  },
+  "data": {
+    "searge": {
+      "net/bivrik/fancytoasts/mixin/ToastManagerMixin": {
+        "clear": "Lnet/minecraft/client/gui/components/toasts/ToastManager;m_351584_()V",
+        "render": "Lnet/minecraft/client/gui/components/toasts/ToastManager;m_356673_(Lnet/minecraft/client/gui/GuiGraphics;)V",
+        "addToast": "Lnet/minecraft/client/gui/components/toasts/ToastManager;m_351591_(Lnet/minecraft/client/gui/components/toasts/Toast;)V"
+      },
+      "net/bivrik/fancytoasts/mixin/AdvancementToastMixinAccessor": {
+        "advancement": "f_94795_:Lnet/minecraft/advancements/AdvancementHolder;"
+      }
+    }
+  }
+}

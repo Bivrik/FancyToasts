@@ -1,0 +1,13 @@
+{
+  "modmenu.descriptionTranslation.fancytoasts": "重新设计了旧的进步吐司系统，取而代之的是一个更有吸引力和有趣的系统.",
+  "fancytoasts.gui.close": "取消",
+  "fancytoasts.gui.save_changes": "保存更改",
+  "fancytoasts.gui.animation_type": "动画类型:",
+  "fancytoasts.gui.texture_type": "纹理类型:",
+  "fancytoasts.gui.config_title": "Fancy Toasts 设置",
+  "fancytoasts.gui.standard": "标准",
+  "fancytoasts.gui.playful": "好玩的",
+  "fancytoasts.gui.vanilla": "Vanilla 风格",
+  "fancytoasts.gui.nature": "大自然",
+  "fancytoasts.gui.og": "OG"
+}

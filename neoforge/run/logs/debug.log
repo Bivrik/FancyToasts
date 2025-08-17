@@ -1,0 +1,202 @@
+[17авг.2025 22:14:48.903] [main/INFO] [cpw.mods.modlauncher.Launcher/MODLAUNCHER]: ModLauncher running: args [--launchTarget, neoforgeclientdev, --version, 21.8.32, --assetIndex, 26, --assetsDir, C:\\Users\\Markv\\.gradle\\caches\\neoformruntime\\assets, --fml.fmlVersion, 9.0.16, --fml.mcVersion, 1.21.8, --fml.neoForgeVersion, 21.8.32, --fml.neoFormVersion, 20250717.133445]
+[17авг.2025 22:14:48.905] [main/INFO] [cpw.mods.modlauncher.Launcher/MODLAUNCHER]: JVM identified as Oracle Corporation Java HotSpot(TM) 64-Bit Server VM 21.0.7+8-LTS-245
+[17авг.2025 22:14:48.906] [main/INFO] [cpw.mods.modlauncher.Launcher/MODLAUNCHER]: ModLauncher 9.0 starting: java version 21.0.7 by Oracle Corporation; OS Windows 10 arch amd64 version 10.0
+[17авг.2025 22:14:48.970] [main/WARN] [net.neoforged.fml.loading.FMLConfig/CORE]: Configuration file C:\Users\Markv\IdeaProjects\Port\FancyToasts\neoforge\run\config\fml.toml is not correct. Correcting
+[17авг.2025 22:14:48.971] [main/WARN] [net.neoforged.fml.loading.FMLConfig/CORE]: Incorrect key [debugOpenGl] was corrected from null to false
+[17авг.2025 22:14:48.971] [main/WARN] [net.neoforged.fml.loading.FMLConfig/CORE]: Incorrect key [earlyLoadingScreenTheme] was corrected from null to 
+[17авг.2025 22:14:48.972] [main/WARN] [net.neoforged.fml.loading.FMLConfig/CORE]: Incorrect key [earlyWindowFBScale] was corrected from 1 to null
+[17авг.2025 22:14:48.972] [main/WARN] [net.neoforged.fml.loading.FMLConfig/CORE]: Incorrect key [earlyWindowSkipGLVersions] was corrected from [] to null
+[17авг.2025 22:14:48.972] [main/WARN] [net.neoforged.fml.loading.FMLConfig/CORE]: Incorrect key [earlyWindowSquir] was corrected from false to null
+[17авг.2025 22:14:48.999] [main/INFO] [net.neoforged.fml.loading.ImmediateWindowHandler/]: Loading ImmediateWindowProvider fmlearlywindow
+[17авг.2025 22:14:49.407] [main/INFO] [mixin/]: SpongePowered MIXIN Subsystem Version=0.8.7 Source=union:/C:/Users/Markv/.gradle/caches/modules-2/files-2.1/net.fabricmc/sponge-mixin/0.15.2+mixin.0.8.7/2af2f021d8e02a0220dc27a7a72b4666d66d44ca/sponge-mixin-0.15.2+mixin.0.8.7.jar%23157!/ Service=ModLauncher Env=CLIENT
+[17авг.2025 22:14:49.416] [main/WARN] [net.neoforged.fml.loading.FMLConfig/CORE]: Configuration file C:\Users\Markv\IdeaProjects\Port\FancyToasts\neoforge\run\config\fml.toml is not correct. Correcting
+[17авг.2025 22:14:49.705] [fml-loadingscreen/INFO] [net.neoforged.fml.earlydisplay.render.LoadingScreenRenderer/]: GL info: NVIDIA GeForce GTX 1650/PCIe/SSE2 GL version 3.2.0 NVIDIA 560.94, NVIDIA Corporation
+[17авг.2025 22:14:49.769] [main/INFO] [net.neoforged.fml.loading.moddiscovery.locators.JarInJarDependencyLocator/]: Found 2 dependencies adding them to mods collection
+[17авг.2025 22:14:49.771] [main/INFO] [net.neoforged.fml.loading.moddiscovery.ModDiscoverer/]: 
+     Mod List:
+		Name Version (Mod Id)
+
+		FancyToasts 1.3.3 (fancytoasts)
+		Minecraft 1.21.8 (minecraft)
+		NeoForge 21.8.32 (neoforge)
+[17авг.2025 22:14:50.499] [main/INFO] [mixin/]: Compatibility level set to JAVA_18
+[17авг.2025 22:14:50.501] [main/INFO] [mixin/]: Compatibility level set to JAVA_21
+[17авг.2025 22:14:50.504] [main/INFO] [cpw.mods.modlauncher.LaunchServiceHandler/MODLAUNCHER]: Launching target 'neoforgeclientdev' with arguments [--version, 21.8.32, --assetsDir, C:\Users\Markv\.gradle\caches\neoformruntime\assets, --assetIndex, 26]
+[17авг.2025 22:14:50.537] [main/WARN] [mixin/]: Reference map 'fancytoasts.refmap.json' for fancytoasts.mixins.json could not be read. If this is a development environment you can ignore this message
+[17авг.2025 22:14:51.802] [Datafixer Bootstrap/INFO] [com.mojang.datafixers.DataFixerBuilder/]: 272 Datafixer optimizations took 452 milliseconds
+[17авг.2025 22:14:51.812] [pool-6-thread-1/INFO] [MixinExtras|Service/]: Initializing MixinExtras via com.llamalad7.mixinextras.service.MixinExtrasServiceImpl(version=0.5.0).
+[17авг.2025 22:14:56.410] [main/WARN] [net.minecraft.commands.Commands/]: Ambiguity between arguments [teleport, location] and [teleport, destination] with inputs: [0.1 -0.5 .9, 0 0 0]
+[17авг.2025 22:14:56.411] [main/WARN] [net.minecraft.commands.Commands/]: Ambiguity between arguments [teleport, location] and [teleport, targets] with inputs: [0.1 -0.5 .9, 0 0 0]
+[17авг.2025 22:14:56.414] [main/WARN] [net.minecraft.commands.Commands/]: Ambiguity between arguments [teleport, destination] and [teleport, targets] with inputs: [Player, 0123, @e, dd12be42-52a9-4a91-a8a1-11c01849e498]
+[17авг.2025 22:14:56.415] [main/WARN] [net.minecraft.commands.Commands/]: Ambiguity between arguments [teleport, targets] and [teleport, destination] with inputs: [Player, 0123, dd12be42-52a9-4a91-a8a1-11c01849e498]
+[17авг.2025 22:14:56.416] [main/WARN] [net.minecraft.commands.Commands/]: Ambiguity between arguments [teleport, targets, location] and [teleport, targets, destination] with inputs: [0.1 -0.5 .9, 0 0 0]
+[17авг.2025 22:14:56.418] [main/WARN] [net.minecraft.commands.Commands/]: Ambiguity between arguments [waypoint, modify, waypoint, color, reset] and [waypoint, modify, waypoint, color, color] with inputs: [reset]
+[17авг.2025 22:14:56.475] [modloading-worker-0/INFO] [Fancy Toasts/]: fancytoasts config file loaded.
+[17авг.2025 22:14:56.476] [modloading-worker-0/INFO] [Fancy Toasts/]: Common init on NeoForge in a development environment.
+[17авг.2025 22:14:56.480] [modloading-worker-0/INFO] [net.neoforged.neoforge.common.NeoForgeMod/NEOFORGE-MOD]: NeoForge mod loading, version 21.8.32, for MC 1.21.8
+[17авг.2025 22:14:56.782] [modloading-sync-worker/WARN] [net.neoforged.fml.config.ConfigTracker/CONFIG]: Configuration file C:\Users\Markv\IdeaProjects\Port\FancyToasts\neoforge\run\config\neoforge-client.toml is not correct. Correcting
+[17авг.2025 22:14:56.887] [Render thread/WARN] [net.minecraft.server.packs.VanillaPackResourcesBuilder/]: Assets URL 'union:/C:/Users/Markv/IdeaProjects/Port/FancyToasts/neoforge/build/moddev/artifacts/neoforge-21.8.32.jar%23212!/assets/.mcassetsroot' uses unexpected schema
+[17авг.2025 22:14:56.888] [Render thread/WARN] [net.minecraft.server.packs.VanillaPackResourcesBuilder/]: Assets URL 'union:/C:/Users/Markv/IdeaProjects/Port/FancyToasts/neoforge/build/moddev/artifacts/neoforge-21.8.32.jar%23212!/data/.mcassetsroot' uses unexpected schema
+[17авг.2025 22:14:56.911] [Render thread/INFO] [com.mojang.authlib.yggdrasil.YggdrasilAuthenticationService/]: Environment: Environment[sessionHost=https://sessionserver.mojang.com, servicesHost=https://api.minecraftservices.com, name=PROD]
+[17авг.2025 22:14:56.918] [Render thread/INFO] [net.minecraft.client.Minecraft/]: Setting user: Dev
+[17авг.2025 22:14:57.083] [Render thread/INFO] [net.minecraft.client.Minecraft/]: Backend library: LWJGL version 3.3.3+5
+[17авг.2025 22:14:57.178] [Render thread/INFO] [net.minecraft.client.Minecraft/]: Using optional rendering extensions: GL_ARB_buffer_storage, GL_KHR_debug, GL_ARB_vertex_attrib_binding, GL_ARB_direct_state_access
+[17авг.2025 22:14:57.852] [Render thread/INFO] [net.minecraft.server.packs.resources.ReloadableResourceManager/]: Reloading ResourceManager: vanilla, mod_resources, mod/fancytoasts, mod/neoforge
+[17авг.2025 22:14:57.902] [resourceLoad/INFO] [net.minecraft.client.gui.font.providers.UnihexProvider/]: Found unifont_pua-16.0.03.hex, loading
+[17авг.2025 22:14:57.902] [resourceLoad/INFO] [net.minecraft.client.gui.font.providers.UnihexProvider/]: Found unifont_all_no_pua-16.0.03.hex, loading
+[17авг.2025 22:14:58.083] [resourceLoad/INFO] [net.minecraft.client.gui.font.providers.UnihexProvider/]: Found unifont_jp_patch-16.0.03.hex, loading
+[17авг.2025 22:14:59.088] [Render thread/INFO] [com.mojang.blaze3d.audio.Library/]: OpenAL initialized on device OpenAL Soft on Динамики (2- Sound Blaster G3)
+[17авг.2025 22:14:59.089] [Render thread/INFO] [net.minecraft.client.sounds.SoundEngine/SOUNDS]: Sound engine started
+[17авг.2025 22:14:59.179] [Render thread/INFO] [net.minecraft.client.renderer.texture.TextureAtlas/]: Created: 1024x512x4 minecraft:textures/atlas/blocks.png-atlas
+[17авг.2025 22:14:59.186] [Render thread/INFO] [net.minecraft.client.renderer.texture.TextureAtlas/]: Created: 256x256x4 minecraft:textures/atlas/signs.png-atlas
+[17авг.2025 22:14:59.187] [Render thread/INFO] [net.minecraft.client.renderer.texture.TextureAtlas/]: Created: 512x512x4 minecraft:textures/atlas/shield_patterns.png-atlas
+[17авг.2025 22:14:59.188] [Render thread/INFO] [net.minecraft.client.renderer.texture.TextureAtlas/]: Created: 512x512x4 minecraft:textures/atlas/banner_patterns.png-atlas
+[17авг.2025 22:14:59.188] [Render thread/INFO] [net.minecraft.client.renderer.texture.TextureAtlas/]: Created: 2048x1024x4 minecraft:textures/atlas/armor_trims.png-atlas
+[17авг.2025 22:14:59.191] [Render thread/INFO] [net.minecraft.client.renderer.texture.TextureAtlas/]: Created: 256x256x4 minecraft:textures/atlas/chest.png-atlas
+[17авг.2025 22:14:59.194] [Render thread/INFO] [net.minecraft.client.renderer.texture.TextureAtlas/]: Created: 128x64x4 minecraft:textures/atlas/decorated_pot.png-atlas
+[17авг.2025 22:14:59.194] [Render thread/INFO] [net.minecraft.client.renderer.texture.TextureAtlas/]: Created: 512x256x4 minecraft:textures/atlas/shulker_boxes.png-atlas
+[17авг.2025 22:14:59.195] [Render thread/INFO] [net.minecraft.client.renderer.texture.TextureAtlas/]: Created: 512x256x4 minecraft:textures/atlas/beds.png-atlas
+[17авг.2025 22:14:59.197] [Render thread/INFO] [net.minecraft.client.renderer.texture.TextureAtlas/]: Created: 64x64x0 minecraft:textures/atlas/map_decorations.png-atlas
+[17авг.2025 22:14:59.365] [Render thread/INFO] [net.minecraft.client.renderer.texture.TextureAtlas/]: Created: 512x256x0 minecraft:textures/atlas/particles.png-atlas
+[17авг.2025 22:14:59.366] [Render thread/INFO] [net.minecraft.client.renderer.texture.TextureAtlas/]: Created: 512x256x0 minecraft:textures/atlas/paintings.png-atlas
+[17авг.2025 22:14:59.367] [Render thread/INFO] [net.minecraft.client.renderer.texture.TextureAtlas/]: Created: 1024x512x0 minecraft:textures/atlas/gui.png-atlas
+[17авг.2025 22:14:59.371] [Render thread/INFO] [net.neoforged.neoforge.client.entity.animation.json.AnimationLoader/]: Loaded 0 entity animations
+[17авг.2025 22:15:09.903] [Render thread/INFO] [Fancy Toasts/]: fancytoasts config file saved.
+[17авг.2025 22:15:12.281] [Render thread/INFO] [Fancy Toasts/]: fancytoasts config file saved.
+[17авг.2025 22:15:18.880] [Render thread/WARN] [net.minecraft.server.MinecraftServer/]: Missing data pack tests
+[17авг.2025 22:15:19.738] [Render thread/INFO] [net.minecraft.world.item.crafting.RecipeManager/]: Loaded 1407 recipes
+[17авг.2025 22:15:19.753] [Render thread/INFO] [net.minecraft.advancements.AdvancementTree/]: Loaded 1520 advancements
+[17авг.2025 22:15:19.756] [Render thread/INFO] [net.neoforged.neoforge.common.crafting.RecipePriorityManager/]: Loaded 0 recipe priority overrides
+[17авг.2025 22:15:22.918] [Render thread/INFO] [net.minecraft.world.item.crafting.RecipeManager/]: Loaded 1407 recipes
+[17авг.2025 22:15:22.923] [Render thread/INFO] [net.minecraft.advancements.AdvancementTree/]: Loaded 1520 advancements
+[17авг.2025 22:15:22.923] [Render thread/INFO] [net.neoforged.neoforge.common.crafting.RecipePriorityManager/]: Loaded 0 recipe priority overrides
+[17авг.2025 22:15:23.030] [Server thread/INFO] [net.minecraft.client.server.IntegratedServer/]: Starting integrated minecraft server version 1.21.8
+[17авг.2025 22:15:23.030] [Server thread/INFO] [net.minecraft.server.MinecraftServer/]: Generating keypair
+[17авг.2025 22:15:23.339] [Server thread/INFO] [net.minecraft.server.MinecraftServer/]: Preparing start region for dimension minecraft:overworld
+[17авг.2025 22:15:24.356] [progressListener/INFO] [net.minecraft.server.level.progress.LoggerChunkProgressListener/]: Preparing spawn area: 0%
+[17авг.2025 22:15:24.356] [progressListener/INFO] [net.minecraft.server.level.progress.LoggerChunkProgressListener/]: Preparing spawn area: 0%
+[17авг.2025 22:15:24.356] [progressListener/INFO] [net.minecraft.server.level.progress.LoggerChunkProgressListener/]: Preparing spawn area: 0%
+[17авг.2025 22:15:24.830] [Server thread/INFO] [net.neoforged.neoforge.server.permission.PermissionAPI/]: Successfully initialized permission handler neoforge:default_handler
+[17авг.2025 22:15:24.844] [progressListener/INFO] [net.minecraft.server.level.progress.LoggerChunkProgressListener/]: Time elapsed: 1498 ms
+[17авг.2025 22:15:24.891] [Server thread/INFO] [net.minecraft.client.server.IntegratedServer/]: Changing view distance to 8, from 10
+[17авг.2025 22:15:24.891] [Server thread/INFO] [net.minecraft.client.server.IntegratedServer/]: Changing simulation distance to 5, from 0
+[17авг.2025 22:15:25.555] [Server thread/INFO] [net.minecraft.server.players.PlayerList/]: Dev[local:E:c0a78ff1] logged in with entity id 66 at (37.59966935186415, 114.17216695887674, 95.61413792974656)
+[17авг.2025 22:15:25.611] [Server thread/INFO] [net.minecraft.server.MinecraftServer/]: Dev joined the game
+[17авг.2025 22:15:25.776] [Render thread/INFO] [net.minecraft.client.renderer.DynamicUniformStorage/]: Resizing Dynamic Transforms UBO, capacity limit of 2 reached during a single frame. New capacity will be 4.
+[17авг.2025 22:15:25.799] [Render thread/INFO] [net.minecraft.advancements.AdvancementTree/]: Loaded 54 advancements
+[17авг.2025 22:15:25.870] [Render thread/INFO] [net.minecraft.client.renderer.DynamicUniformStorage/]: Resizing Dynamic Transforms UBO, capacity limit of 4 reached during a single frame. New capacity will be 8.
+[17авг.2025 22:15:26.036] [Render thread/INFO] [net.minecraft.client.renderer.DynamicUniformStorage/]: Resizing Dynamic Transforms UBO, capacity limit of 8 reached during a single frame. New capacity will be 16.
+[17авг.2025 22:15:26.128] [Render thread/INFO] [net.minecraft.client.renderer.DynamicUniformStorage/]: Resizing Dynamic Transforms UBO, capacity limit of 16 reached during a single frame. New capacity will be 32.
+[17авг.2025 22:15:26.254] [Render thread/INFO] [net.minecraft.client.renderer.DynamicUniformStorage/]: Resizing Dynamic Transforms UBO, capacity limit of 32 reached during a single frame. New capacity will be 64.
+[17авг.2025 22:15:26.601] [Render thread/INFO] [net.minecraft.client.renderer.DynamicUniformStorage/]: Resizing Dynamic Transforms UBO, capacity limit of 64 reached during a single frame. New capacity will be 128.
+[17авг.2025 22:15:26.765] [Render thread/INFO] [net.minecraft.client.renderer.DynamicUniformStorage/]: Resizing Dynamic Transforms UBO, capacity limit of 128 reached during a single frame. New capacity will be 256.
+[17авг.2025 22:15:27.021] [Render thread/INFO] [net.minecraft.client.renderer.DynamicUniformStorage/]: Resizing Dynamic Transforms UBO, capacity limit of 256 reached during a single frame. New capacity will be 512.
+[17авг.2025 22:15:27.382] [Server thread/INFO] [net.minecraft.server.MinecraftServer/]: [Dev: Revoked 1520 advancements from Dev]
+[17авг.2025 22:15:27.421] [Render thread/INFO] [net.minecraft.client.gui.components.ChatComponent/]: [System] [CHAT] Revoked 1520 advancements from Dev
+[17авг.2025 22:15:27.426] [Render thread/INFO] [net.minecraft.advancements.AdvancementTree/]: Forgot about advancement minecraft:recipes/combat/crossbow
+[17авг.2025 22:15:27.426] [Render thread/INFO] [net.minecraft.advancements.AdvancementTree/]: Forgot about advancement minecraft:recipes/decorations/lantern
+[17авг.2025 22:15:27.426] [Render thread/INFO] [net.minecraft.advancements.AdvancementTree/]: Forgot about advancement minecraft:recipes/redstone/hopper
+[17авг.2025 22:15:27.426] [Render thread/INFO] [net.minecraft.advancements.AdvancementTree/]: Forgot about advancement minecraft:recipes/misc/netherite_scrap
+[17авг.2025 22:15:27.427] [Render thread/INFO] [net.minecraft.advancements.AdvancementTree/]: Forgot about advancement minecraft:recipes/redstone/heavy_weighted_pressure_plate
+[17авг.2025 22:15:27.427] [Render thread/INFO] [net.minecraft.advancements.AdvancementTree/]: Forgot about advancement minecraft:story/form_obsidian
+[17авг.2025 22:15:27.427] [Render thread/INFO] [net.minecraft.advancements.AdvancementTree/]: Forgot about advancement minecraft:story/lava_bucket
+[17авг.2025 22:15:27.427] [Render thread/INFO] [net.minecraft.advancements.AdvancementTree/]: Forgot about advancement minecraft:story/deflect_arrow
+[17авг.2025 22:15:27.427] [Render thread/INFO] [net.minecraft.advancements.AdvancementTree/]: Forgot about advancement minecraft:story/obtain_armor
+[17авг.2025 22:15:27.427] [Render thread/INFO] [net.minecraft.advancements.AdvancementTree/]: Forgot about advancement minecraft:story/shiny_gear
+[17авг.2025 22:15:27.428] [Render thread/INFO] [net.minecraft.advancements.AdvancementTree/]: Forgot about advancement minecraft:story/enchant_item
+[17авг.2025 22:15:27.428] [Render thread/INFO] [net.minecraft.advancements.AdvancementTree/]: Forgot about advancement minecraft:story/mine_diamond
+[17авг.2025 22:15:27.428] [Render thread/INFO] [net.minecraft.advancements.AdvancementTree/]: Forgot about advancement minecraft:story/iron_tools
+[17авг.2025 22:15:27.428] [Render thread/INFO] [net.minecraft.advancements.AdvancementTree/]: Forgot about advancement minecraft:story/smelt_iron
+[17авг.2025 22:15:27.428] [Render thread/INFO] [net.minecraft.advancements.AdvancementTree/]: Forgot about advancement minecraft:story/upgrade_tools
+[17авг.2025 22:15:27.428] [Render thread/INFO] [net.minecraft.advancements.AdvancementTree/]: Forgot about advancement minecraft:story/mine_stone
+[17авг.2025 22:15:27.428] [Render thread/INFO] [net.minecraft.advancements.AdvancementTree/]: Forgot about advancement minecraft:recipes/building_blocks/diamond_block
+[17авг.2025 22:15:27.429] [Render thread/WARN] [net.minecraft.advancements.AdvancementTree/]: Told to remove advancement minecraft:story/form_obsidian but I don't know what that is
+[17авг.2025 22:15:27.429] [Render thread/INFO] [net.minecraft.advancements.AdvancementTree/]: Forgot about advancement minecraft:recipes/tools/diamond_hoe
+[17авг.2025 22:15:27.429] [Render thread/INFO] [net.minecraft.advancements.AdvancementTree/]: Forgot about advancement minecraft:recipes/tools/diamond_axe
+[17авг.2025 22:15:27.429] [Render thread/INFO] [net.minecraft.advancements.AdvancementTree/]: Forgot about advancement minecraft:recipes/tools/diamond_shovel
+[17авг.2025 22:15:27.429] [Render thread/WARN] [net.minecraft.advancements.AdvancementTree/]: Told to remove advancement minecraft:story/enchant_item but I don't know what that is
+[17авг.2025 22:15:27.429] [Render thread/INFO] [net.minecraft.advancements.AdvancementTree/]: Forgot about advancement minecraft:story/form_obsidian
+[17авг.2025 22:15:27.429] [Render thread/INFO] [net.minecraft.advancements.AdvancementTree/]: Forgot about advancement minecraft:story/lava_bucket
+[17авг.2025 22:15:27.430] [Render thread/INFO] [net.minecraft.advancements.AdvancementTree/]: Forgot about advancement minecraft:story/deflect_arrow
+[17авг.2025 22:15:27.430] [Render thread/INFO] [net.minecraft.advancements.AdvancementTree/]: Forgot about advancement minecraft:story/obtain_armor
+[17авг.2025 22:15:27.430] [Render thread/INFO] [net.minecraft.advancements.AdvancementTree/]: Forgot about advancement minecraft:story/shiny_gear
+[17авг.2025 22:15:27.430] [Render thread/INFO] [net.minecraft.advancements.AdvancementTree/]: Forgot about advancement minecraft:story/enchant_item
+[17авг.2025 22:15:27.430] [Render thread/INFO] [net.minecraft.advancements.AdvancementTree/]: Forgot about advancement minecraft:story/mine_diamond
+[17авг.2025 22:15:27.430] [Render thread/INFO] [net.minecraft.advancements.AdvancementTree/]: Forgot about advancement minecraft:story/iron_tools
+[17авг.2025 22:15:27.430] [Render thread/INFO] [net.minecraft.advancements.AdvancementTree/]: Forgot about advancement minecraft:story/smelt_iron
+[17авг.2025 22:15:27.430] [Render thread/INFO] [net.minecraft.advancements.AdvancementTree/]: Forgot about advancement minecraft:story/upgrade_tools
+[17авг.2025 22:15:27.431] [Render thread/INFO] [net.minecraft.advancements.AdvancementTree/]: Forgot about advancement minecraft:story/mine_stone
+[17авг.2025 22:15:27.431] [Render thread/INFO] [net.minecraft.advancements.AdvancementTree/]: Forgot about advancement minecraft:story/root
+[17авг.2025 22:15:27.431] [Render thread/INFO] [net.minecraft.advancements.AdvancementTree/]: Forgot about advancement minecraft:recipes/redstone/iron_trapdoor
+[17авг.2025 22:15:27.431] [Render thread/INFO] [net.minecraft.advancements.AdvancementTree/]: Forgot about advancement minecraft:recipes/combat/diamond_chestplate
+[17авг.2025 22:15:27.431] [Render thread/WARN] [net.minecraft.advancements.AdvancementTree/]: Told to remove advancement minecraft:story/lava_bucket but I don't know what that is
+[17авг.2025 22:15:27.431] [Render thread/WARN] [net.minecraft.advancements.AdvancementTree/]: Told to remove advancement minecraft:story/iron_tools but I don't know what that is
+[17авг.2025 22:15:27.431] [Render thread/INFO] [net.minecraft.advancements.AdvancementTree/]: Forgot about advancement minecraft:nether/netherite_armor
+[17авг.2025 22:15:27.432] [Render thread/INFO] [net.minecraft.advancements.AdvancementTree/]: Forgot about advancement minecraft:nether/obtain_ancient_debris
+[17авг.2025 22:15:27.432] [Render thread/INFO] [net.minecraft.advancements.AdvancementTree/]: Forgot about advancement minecraft:nether/root
+[17авг.2025 22:15:27.432] [Render thread/INFO] [net.minecraft.advancements.AdvancementTree/]: Forgot about advancement minecraft:recipes/tools/iron_shovel
+[17авг.2025 22:15:27.432] [Render thread/INFO] [net.minecraft.advancements.AdvancementTree/]: Forgot about advancement minecraft:recipes/misc/bucket
+[17авг.2025 22:15:27.432] [Render thread/INFO] [net.minecraft.advancements.AdvancementTree/]: Forgot about advancement minecraft:recipes/combat/iron_sword
+[17авг.2025 22:15:27.432] [Render thread/WARN] [net.minecraft.advancements.AdvancementTree/]: Told to remove advancement minecraft:story/smelt_iron but I don't know what that is
+[17авг.2025 22:15:27.432] [Render thread/INFO] [net.minecraft.advancements.AdvancementTree/]: Forgot about advancement minecraft:recipes/combat/iron_boots
+[17авг.2025 22:15:27.433] [Render thread/INFO] [net.minecraft.advancements.AdvancementTree/]: Forgot about advancement minecraft:recipes/decorations/smithing_table
+[17авг.2025 22:15:27.433] [Render thread/WARN] [net.minecraft.advancements.AdvancementTree/]: Told to remove advancement minecraft:nether/obtain_ancient_debris but I don't know what that is
+[17авг.2025 22:15:27.433] [Render thread/INFO] [net.minecraft.advancements.AdvancementTree/]: Forgot about advancement minecraft:recipes/combat/diamond_leggings
+[17авг.2025 22:15:27.433] [Render thread/INFO] [net.minecraft.advancements.AdvancementTree/]: Forgot about advancement minecraft:recipes/transportation/minecart
+[17авг.2025 22:15:27.433] [Render thread/INFO] [net.minecraft.advancements.AdvancementTree/]: Forgot about advancement minecraft:recipes/tools/iron_pickaxe
+[17авг.2025 22:15:27.433] [Render thread/INFO] [net.minecraft.advancements.AdvancementTree/]: Forgot about advancement minecraft:recipes/combat/diamond_helmet
+[17авг.2025 22:15:27.433] [Render thread/WARN] [net.minecraft.advancements.AdvancementTree/]: Told to remove advancement minecraft:story/mine_diamond but I don't know what that is
+[17авг.2025 22:15:27.434] [Render thread/WARN] [net.minecraft.advancements.AdvancementTree/]: Told to remove advancement minecraft:story/shiny_gear but I don't know what that is
+[17авг.2025 22:15:27.434] [Render thread/INFO] [net.minecraft.advancements.AdvancementTree/]: Forgot about advancement minecraft:recipes/tools/iron_axe
+[17авг.2025 22:15:27.434] [Render thread/INFO] [net.minecraft.advancements.AdvancementTree/]: Forgot about advancement minecraft:recipes/tools/iron_hoe
+[17авг.2025 22:15:27.434] [Render thread/INFO] [net.minecraft.advancements.AdvancementTree/]: Forgot about advancement minecraft:recipes/decorations/chain
+[17авг.2025 22:15:27.434] [Render thread/INFO] [net.minecraft.advancements.AdvancementTree/]: Forgot about advancement minecraft:recipes/combat/diamond_sword
+[17авг.2025 22:15:27.434] [Render thread/INFO] [net.minecraft.advancements.AdvancementTree/]: Forgot about advancement minecraft:recipes/combat/diamond_boots
+[17авг.2025 22:15:27.434] [Render thread/WARN] [net.minecraft.advancements.AdvancementTree/]: Told to remove advancement minecraft:nether/netherite_armor but I don't know what that is
+[17авг.2025 22:15:27.434] [Render thread/INFO] [net.minecraft.advancements.AdvancementTree/]: Forgot about advancement minecraft:recipes/combat/shield
+[17авг.2025 22:15:27.435] [Render thread/INFO] [net.minecraft.advancements.AdvancementTree/]: Forgot about advancement minecraft:recipes/decorations/iron_bars
+[17авг.2025 22:15:27.435] [Render thread/INFO] [net.minecraft.advancements.AdvancementTree/]: Forgot about advancement minecraft:recipes/misc/iron_nugget
+[17авг.2025 22:15:27.435] [Render thread/INFO] [net.minecraft.advancements.AdvancementTree/]: Forgot about advancement minecraft:recipes/redstone/iron_door
+[17авг.2025 22:15:27.435] [Render thread/INFO] [net.minecraft.advancements.AdvancementTree/]: Forgot about advancement minecraft:recipes/combat/iron_chestplate
+[17авг.2025 22:15:27.435] [Render thread/WARN] [net.minecraft.advancements.AdvancementTree/]: Told to remove advancement minecraft:story/deflect_arrow but I don't know what that is
+[17авг.2025 22:15:27.435] [Render thread/WARN] [net.minecraft.advancements.AdvancementTree/]: Told to remove advancement minecraft:story/obtain_armor but I don't know what that is
+[17авг.2025 22:15:27.435] [Render thread/INFO] [net.minecraft.advancements.AdvancementTree/]: Forgot about advancement minecraft:recipes/decorations/jukebox
+[17авг.2025 22:15:27.436] [Render thread/WARN] [net.minecraft.advancements.AdvancementTree/]: Told to remove advancement minecraft:story/upgrade_tools but I don't know what that is
+[17авг.2025 22:15:27.436] [Render thread/INFO] [net.minecraft.advancements.AdvancementTree/]: Forgot about advancement minecraft:recipes/combat/iron_helmet
+[17авг.2025 22:15:27.436] [Render thread/INFO] [net.minecraft.advancements.AdvancementTree/]: Forgot about advancement minecraft:recipes/tools/diamond_pickaxe
+[17авг.2025 22:15:27.436] [Render thread/INFO] [net.minecraft.advancements.AdvancementTree/]: Forgot about advancement minecraft:recipes/misc/netherite_scrap_from_blasting
+[17авг.2025 22:15:27.436] [Render thread/INFO] [net.minecraft.advancements.AdvancementTree/]: Forgot about advancement minecraft:recipes/combat/iron_leggings
+[17авг.2025 22:15:27.436] [Render thread/INFO] [net.minecraft.advancements.AdvancementTree/]: Forgot about advancement minecraft:recipes/tools/shears
+[17авг.2025 22:15:27.436] [Render thread/INFO] [net.minecraft.advancements.AdvancementTree/]: Forgot about advancement minecraft:recipes/building_blocks/iron_block
+[17авг.2025 22:15:27.436] [Render thread/INFO] [net.minecraft.advancements.AdvancementTree/]: Loaded 2 advancements
+[17авг.2025 22:15:27.635] [Render thread/INFO] [net.minecraft.client.renderer.DynamicUniformStorage/]: Resizing Dynamic Transforms UBO, capacity limit of 512 reached during a single frame. New capacity will be 1024.
+[17авг.2025 22:15:29.666] [Server thread/INFO] [net.minecraft.server.MinecraftServer/]: Dev has made the advancement [Diamonds!]
+[17авг.2025 22:15:29.678] [Render thread/INFO] [net.minecraft.client.gui.components.ChatComponent/]: [System] [CHAT] Dev has made the advancement [Diamonds!]
+[17авг.2025 22:15:29.752] [Render thread/INFO] [net.minecraft.advancements.AdvancementTree/]: Loaded 21 advancements
+[17авг.2025 22:15:31.427] [Render thread/INFO] [net.minecraft.client.renderer.DynamicUniformStorage/]: Resizing Dynamic Transforms UBO, capacity limit of 1024 reached during a single frame. New capacity will be 2048.
+[17авг.2025 22:15:33.433] [Server thread/INFO] [net.minecraft.client.server.IntegratedServer/]: Saving and pausing game...
+[17авг.2025 22:15:33.446] [Server thread/INFO] [net.minecraft.server.MinecraftServer/]: Saving chunks for level 'ServerLevel[New World]'/minecraft:overworld
+[17авг.2025 22:15:33.472] [Server thread/INFO] [net.minecraft.server.MinecraftServer/]: Saving chunks for level 'ServerLevel[New World]'/minecraft:the_end
+[17авг.2025 22:15:33.473] [Server thread/INFO] [net.minecraft.server.MinecraftServer/]: Saving chunks for level 'ServerLevel[New World]'/minecraft:the_nether
+[17авг.2025 22:15:34.384] [Server thread/INFO] [net.minecraft.client.server.IntegratedServer/]: Saving and pausing game...
+[17авг.2025 22:15:34.391] [Server thread/INFO] [net.minecraft.server.MinecraftServer/]: Saving chunks for level 'ServerLevel[New World]'/minecraft:overworld
+[17авг.2025 22:15:34.401] [Server thread/INFO] [net.minecraft.server.MinecraftServer/]: Saving chunks for level 'ServerLevel[New World]'/minecraft:the_end
+[17авг.2025 22:15:34.401] [Server thread/INFO] [net.minecraft.server.MinecraftServer/]: Saving chunks for level 'ServerLevel[New World]'/minecraft:the_nether
+[17авг.2025 22:15:38.133] [Server thread/INFO] [net.minecraft.client.server.IntegratedServer/]: Saving and pausing game...
+[17авг.2025 22:15:38.212] [Server thread/INFO] [net.minecraft.server.MinecraftServer/]: Saving chunks for level 'ServerLevel[New World]'/minecraft:overworld
+[17авг.2025 22:15:38.221] [Server thread/INFO] [net.minecraft.server.MinecraftServer/]: Saving chunks for level 'ServerLevel[New World]'/minecraft:the_end
+[17авг.2025 22:15:38.222] [Server thread/INFO] [net.minecraft.server.MinecraftServer/]: Saving chunks for level 'ServerLevel[New World]'/minecraft:the_nether
+[17авг.2025 22:15:38.938] [Server thread/INFO] [net.minecraft.server.network.ServerGamePacketListenerImpl/]: Dev lost connection: Disconnected
+[17авг.2025 22:15:38.938] [Server thread/INFO] [net.minecraft.server.MinecraftServer/]: Dev left the game
+[17авг.2025 22:15:39.255] [Server thread/INFO] [net.minecraft.server.network.ServerCommonPacketListenerImpl/]: Stopping singleplayer server as player logged out
+[17авг.2025 22:15:39.265] [Server thread/INFO] [net.minecraft.server.MinecraftServer/]: Stopping server
+[17авг.2025 22:15:39.266] [Server thread/INFO] [net.minecraft.server.MinecraftServer/]: Saving players
+[17авг.2025 22:15:39.266] [Server thread/INFO] [net.minecraft.server.MinecraftServer/]: Saving worlds
+[17авг.2025 22:15:40.158] [Server thread/INFO] [net.minecraft.server.MinecraftServer/]: Saving chunks for level 'ServerLevel[New World]'/minecraft:overworld
+[17авг.2025 22:15:40.396] [Server thread/INFO] [net.minecraft.server.MinecraftServer/]: Saving chunks for level 'ServerLevel[New World]'/minecraft:the_end
+[17авг.2025 22:15:40.455] [Server thread/INFO] [net.minecraft.server.MinecraftServer/]: Saving chunks for level 'ServerLevel[New World]'/minecraft:the_nether
+[17авг.2025 22:15:40.544] [Server thread/INFO] [net.minecraft.server.MinecraftServer/]: ThreadedAnvilChunkStorage (New World): All chunks are saved
+[17авг.2025 22:15:40.544] [Server thread/INFO] [net.minecraft.server.MinecraftServer/]: ThreadedAnvilChunkStorage (DIM1): All chunks are saved
+[17авг.2025 22:15:40.544] [Server thread/INFO] [net.minecraft.server.MinecraftServer/]: ThreadedAnvilChunkStorage (DIM-1): All chunks are saved
+[17авг.2025 22:15:40.544] [Server thread/INFO] [net.minecraft.server.MinecraftServer/]: ThreadedAnvilChunkStorage: All dimensions are saved
+[17авг.2025 22:15:41.497] [Render thread/INFO] [net.minecraft.client.Minecraft/]: Stopping!
