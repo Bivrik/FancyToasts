@@ -38,12 +38,14 @@ If you enjoy this mod, and want more updates and support to future versions, the
 ### Plans
 * More animations
 * More textures
+* More languages
 * Port to every possible version in the world
 * Maybe rework of animations to make them easier to make?
 * Custom sounds?
+* FTBQuests compatibility?
+* Jade compatibility?
 
 # Changelog 📝
-> Only `default` branch
 
 ## v1.3.3
 * New features:
