@@ -1,0 +1,13 @@
+{
+  "fancytoasts.gui.close": "キャンセル",
+  "fancytoasts.gui.save_changes": "変更を保存",
+  "fancytoasts.gui.animation_type": "アニメーションタイプ：",
+  "fancytoasts.gui.texture_type": "テクスチャタイプ：",
+  "fancytoasts.gui.config_title": "Fancy Toasts 設定",
+  "fancytoasts.gui.standard": "標準",
+  "fancytoasts.gui.playful": "遊び心",
+  "fancytoasts.gui.vanilla": "バニラ風",
+  "fancytoasts.gui.nature": "自然",
+  "fancytoasts.gui.og": "オリジナル",
+  "fancytoasts.gui.modern": "モダン"
+}
