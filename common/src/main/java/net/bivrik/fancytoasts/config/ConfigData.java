@@ -1,22 +1,22 @@
 package net.bivrik.fancytoasts.config;
 
 import net.bivrik.fancytoasts.client.toast.animation.AnimationType;
-import net.bivrik.fancytoasts.texture.TextureType;
+import net.minecraft.resources.ResourceLocation;
 
 public class ConfigData {
     private final AnimationType animationType;
-    private final TextureType textureType;
+    private final ResourceLocation textureId;
 
-    public ConfigData(AnimationType animationType, TextureType textureType) {
+    public ConfigData(AnimationType animationType, ResourceLocation textureId) {
         this.animationType = animationType;
-        this.textureType = textureType;
+        this.textureId = textureId;
     }
 
     public AnimationType getAnimationType() {
         return animationType;
     }
 
-    public TextureType getTextureType() {
-        return textureType;
+    public ResourceLocation getTextureId() {
+        return textureId;
     }
 }

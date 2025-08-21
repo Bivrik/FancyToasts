@@ -4,19 +4,14 @@
     <facet type="minecraft" name="Minecraft">
       <configuration>
         <autoDetectTypes>
-          <platformType>FORGE</platformType>
           <platformType>MIXIN</platformType>
-          <platformType>MCP</platformType>
+          <platformType>FORGE</platformType>
         </autoDetectTypes>
         <projectReimportVersion>1</projectReimportVersion>
       </configuration>
     </facet>
   </component>
   <component name="McpModuleSettings">
-    <option name="mappingFile" value="C:\Users\Markv\IdeaProjects\Port\FancyToasts\forge\build\createMcpToSrg\output.tsrg" />
-    <option name="mcpVersion" value="official_1.21.8" />
-    <option name="minecraftVersion" value="1.21.8" />
-    <option name="platformVersion" value="58.0.5" />
-    <option name="srgType" value="TSRG" />
+    <option name="srgType" value="SRG" />
   </component>
 </module>

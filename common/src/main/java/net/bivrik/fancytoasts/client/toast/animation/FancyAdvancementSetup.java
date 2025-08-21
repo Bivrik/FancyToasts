@@ -1,6 +1,6 @@
 package net.bivrik.fancytoasts.client.toast.animation;
 
-import net.bivrik.fancytoasts.texture.TextureUV;
+import net.bivrik.fancytoasts.client.toast.texture.TextureUV;
 import net.minecraft.advancements.DisplayInfo;
 import net.minecraft.resources.ResourceLocation;
 

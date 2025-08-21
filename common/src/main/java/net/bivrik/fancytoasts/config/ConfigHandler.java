@@ -1,19 +1,24 @@
 package net.bivrik.fancytoasts.config;
 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
+import com.google.gson.*;
 import net.bivrik.fancytoasts.Common;
 import net.bivrik.fancytoasts.Constants;
+import net.bivrik.fancytoasts.Debug;
 import net.bivrik.fancytoasts.client.toast.animation.AnimationType;
-import net.bivrik.fancytoasts.texture.TextureType;
+import net.bivrik.fancytoasts.utility.FancyResourceLocation;
+import net.minecraft.resources.ResourceLocation;
 
 import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.lang.reflect.Type;
 
 public class ConfigHandler {
-    private static final Gson GSON = new GsonBuilder().setPrettyPrinting().create();
+    private static final Gson GSON = new GsonBuilder()
+            .setPrettyPrinting()
+            .registerTypeAdapter(ResourceLocation.class, new ResourceLocationAdapter())
+            .create();
     private static final File CONFIG_FILE = new File("./config/" + Constants.MOD_ID + ".json");
 
     public static ConfigData load() {
@@ -22,27 +27,29 @@ public class ConfigHandler {
         if (CONFIG_FILE.exists() && CONFIG_FILE.length() > 0) {
             try (FileReader reader = new FileReader(CONFIG_FILE)) {
                 data = GSON.fromJson(reader, ConfigData.class);
-                Constants.LOGGER.info(Constants.MOD_ID + " config file loaded.");
+                Debug.message("Config file loaded with data:");
+                showDebug(data);
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }
         }
         else {
-            data = new ConfigData(AnimationType.STANDARD, TextureType.VANILLA);
+            data = new ConfigData(AnimationType.STANDARD, FancyResourceLocation.of("toast/vanilla"));
             save(data);
-            Constants.LOGGER.info(Constants.MOD_ID + " config file created.");
+            Debug.message("Config file created with data:");
+            showDebug(data);
         }
 
         return data;
     }
 
-
-    public static void save(AnimationType animationType, TextureType textureType) {
-        var data = new ConfigData(animationType, textureType);
+    public static void save(AnimationType animationType, ResourceLocation textureId) {
+        var data = new ConfigData(animationType, textureId);
 
         try (FileWriter writer = new FileWriter(CONFIG_FILE)) {
             GSON.toJson(data, writer);
-            Constants.LOGGER.info(Constants.MOD_ID + " config file saved.");
+            Debug.message("Config file saved with data:");
+            showDebug(data);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -50,6 +57,25 @@ public class ConfigHandler {
         Common.CONFIG = data;
     }
     public static void save(ConfigData data) {
-        save(data.getAnimationType(), data.getTextureType());
+        save(data.getAnimationType(), data.getTextureId());
+    }
+
+    private static void showDebug(ConfigData data) {
+        Debug.message("===================================");
+        Debug.message("Animation Type: " + data.getAnimationType());
+        Debug.message("Texture ID: " + data.getTextureId());
+        Debug.message("===================================");
+    }
+
+    private static class ResourceLocationAdapter implements JsonSerializer<ResourceLocation>, JsonDeserializer<ResourceLocation> {
+        @Override
+        public ResourceLocation deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context) {
+            return ResourceLocation.parse(json.getAsString());
+        }
+
+        @Override
+        public JsonElement serialize(ResourceLocation src, Type typeOfSrc, JsonSerializationContext context) {
+            return new JsonPrimitive(src.toString());
+        }
     }
 }

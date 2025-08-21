@@ -1,4 +1,4 @@
-package net.bivrik.fancytoasts.client.toast.preset;
+package net.bivrik.fancytoasts.client.toast.animation.preset;
 
 import net.bivrik.fancytoasts.client.toast.FancyAdvancementToast;
 import net.bivrik.fancytoasts.client.toast.animation.Appearance;

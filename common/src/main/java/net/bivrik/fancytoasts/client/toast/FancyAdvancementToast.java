@@ -3,8 +3,8 @@ package net.bivrik.fancytoasts.client.toast;
 import net.bivrik.fancytoasts.client.toast.animation.AnimationType;
 import net.bivrik.fancytoasts.client.toast.animation.FancyAdvancementToastAnimation;
 import net.bivrik.fancytoasts.client.toast.animation.FancyAdvancementSetup;
-import net.bivrik.fancytoasts.texture.TextureType;
-import net.bivrik.fancytoasts.texture.TextureUV;
+import net.bivrik.fancytoasts.client.toast.texture.ToastTextureRegistry;
+import net.bivrik.fancytoasts.client.toast.texture.TextureUV;
 import net.minecraft.advancements.Advancement;
 import net.minecraft.advancements.DisplayInfo;
 import net.minecraft.client.Minecraft;
@@ -30,11 +30,11 @@ public class FancyAdvancementToast {
     private long time;
     private int playedSoundsCount = 0;
 
-    public FancyAdvancementToast(Advancement advancement, TextureType textureType, AnimationType animationType) {
+    public FancyAdvancementToast(Advancement advancement, ResourceLocation textureId, AnimationType animationType) {
         DisplayInfo display = advancement.display().orElse(null);
 
         animation = AnimationType.ANIMATIONS.get(animationType).get();
-        ResourceLocation texture = TextureType.TEXTURES.get(textureType);
+        ResourceLocation texture = ToastTextureRegistry.getTexture(textureId);
 
         switch (Objects.requireNonNull(display).getType()) {
             case TASK -> {

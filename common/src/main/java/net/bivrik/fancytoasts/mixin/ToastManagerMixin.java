@@ -40,7 +40,7 @@ public class ToastManagerMixin {
         if (toast instanceof AdvancementToast) {
             info.cancel();
             Advancement advancement = ((IAdvancementAccessor) toast).getAdvancementHolder().value();
-            FancyAdvancementToast fancyAdvancement = new FancyAdvancementToast(advancement, Common.CONFIG.getTextureType(), Common.CONFIG.getAnimationType());
+            FancyAdvancementToast fancyAdvancement = new FancyAdvancementToast(advancement, Common.CONFIG.getTextureId(), Common.CONFIG.getAnimationType());
             ADVANCEMENT_TOASTS.add(fancyAdvancement);
         }
     }
@@ -76,9 +76,9 @@ public class ToastManagerMixin {
     @Unique
     private void fancyToasts$setCurrentAdvancement() {
         fancyToasts$current = ADVANCEMENT_TOASTS.getFirst();
-        fancyToasts$current.playSounds(minecraft.getSoundManager());
-
         ADVANCEMENT_TOASTS.removeFirst();
+
+        fancyToasts$current.playSounds(minecraft.getSoundManager());
         fancyToasts$startTime = Util.getMillis();
     }
 
