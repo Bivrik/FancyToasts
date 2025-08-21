@@ -1,4 +1,4 @@
-package net.bivrik.fancytoasts.renderer;
+package net.bivrik.fancytoasts.client.renderer;
 
 import net.bivrik.fancytoasts.Constants;
 import net.minecraft.client.gui.GuiGraphics;

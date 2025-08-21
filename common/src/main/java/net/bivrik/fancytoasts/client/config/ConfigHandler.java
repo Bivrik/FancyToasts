@@ -1,4 +1,4 @@
-package net.bivrik.fancytoasts.config;
+package net.bivrik.fancytoasts.client.config;
 
 import com.google.gson.*;
 import net.bivrik.fancytoasts.Common;

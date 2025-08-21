@@ -1,7 +1,7 @@
 package net.bivrik.fancytoasts;
 
-import net.bivrik.fancytoasts.config.ConfigData;
-import net.bivrik.fancytoasts.config.ConfigHandler;
+import net.bivrik.fancytoasts.client.config.ConfigData;
+import net.bivrik.fancytoasts.client.config.ConfigHandler;
 import net.bivrik.fancytoasts.platform.Services;
 import net.bivrik.fancytoasts.client.toast.texture.TextureLocations;
 import net.bivrik.fancytoasts.client.toast.texture.ToastTextureRegistry;

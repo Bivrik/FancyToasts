@@ -1,8 +1,8 @@
-package net.bivrik.fancytoasts.gui;
+package net.bivrik.fancytoasts.client.gui;
 
 import net.bivrik.fancytoasts.Common;
 import net.bivrik.fancytoasts.client.toast.animation.AnimationType;
-import net.bivrik.fancytoasts.config.ConfigHandler;
+import net.bivrik.fancytoasts.client.config.ConfigHandler;
 import net.bivrik.fancytoasts.client.toast.texture.ToastTextureRegistry;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.Button;

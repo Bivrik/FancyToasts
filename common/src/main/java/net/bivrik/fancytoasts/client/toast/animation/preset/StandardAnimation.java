@@ -3,7 +3,7 @@ package net.bivrik.fancytoasts.client.toast.animation.preset;
 import net.bivrik.fancytoasts.client.toast.FancyAdvancementToast;
 import net.bivrik.fancytoasts.client.toast.animation.Appearance;
 import net.bivrik.fancytoasts.client.toast.animation.FancyAdvancementToastAnimation;
-import net.bivrik.fancytoasts.renderer.GUIHelper;
+import net.bivrik.fancytoasts.client.renderer.GUIHelper;
 import net.bivrik.fancytoasts.utility.MathEasing;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;

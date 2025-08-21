@@ -1,7 +1,7 @@
 package net.bivrik.fancytoasts.client.toast.animation;
 
 import net.bivrik.fancytoasts.client.toast.FancyAdvancementToast;
-import net.bivrik.fancytoasts.renderer.GUIHelper;
+import net.bivrik.fancytoasts.client.renderer.GUIHelper;
 import net.bivrik.fancytoasts.client.toast.texture.TextureUV;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;

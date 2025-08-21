@@ -3,6 +3,7 @@ package net.bivrik.fancytoasts.gui;
 import com.terraformersmc.modmenu.api.ConfigScreenFactory;
 import com.terraformersmc.modmenu.api.ModMenuApi;
 import net.bivrik.fancytoasts.Constants;
+import net.bivrik.fancytoasts.client.gui.ConfigScreen;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 

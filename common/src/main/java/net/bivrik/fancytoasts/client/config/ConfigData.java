@@ -1,4 +1,4 @@
-package net.bivrik.fancytoasts.config;
+package net.bivrik.fancytoasts.client.config;
 
 import net.bivrik.fancytoasts.client.toast.animation.AnimationType;
 import net.minecraft.resources.ResourceLocation;

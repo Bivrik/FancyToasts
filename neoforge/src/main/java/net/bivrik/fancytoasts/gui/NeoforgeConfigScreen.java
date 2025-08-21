@@ -1,6 +1,7 @@
 package net.bivrik.fancytoasts.gui;
 
 import net.bivrik.fancytoasts.Constants;
+import net.bivrik.fancytoasts.client.gui.ConfigScreen;
 import net.neoforged.fml.ModLoadingContext;
 import net.neoforged.fml.event.lifecycle.FMLClientSetupEvent;
 import net.neoforged.neoforge.client.gui.IConfigScreenFactory;

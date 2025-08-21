@@ -3,7 +3,7 @@ package net.bivrik.fancytoasts.mixin;
 import net.bivrik.fancytoasts.Common;
 import net.bivrik.fancytoasts.client.toast.IAdvancementAccessor;
 import net.bivrik.fancytoasts.client.toast.FancyAdvancementToast;
-import net.bivrik.fancytoasts.renderer.GUIHelper;
+import net.bivrik.fancytoasts.client.renderer.GUIHelper;
 import net.minecraft.Util;
 import net.minecraft.advancements.Advancement;
 import net.minecraft.client.Minecraft;

@@ -1,6 +1,7 @@
 package net.bivrik.fancytoasts.gui;
 
 import net.bivrik.fancytoasts.Constants;
+import net.bivrik.fancytoasts.client.gui.ConfigScreen;
 import net.minecraftforge.client.ConfigScreenHandler;
 import net.minecraftforge.fml.ModLoadingContext;
 
