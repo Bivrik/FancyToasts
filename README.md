@@ -34,6 +34,7 @@ If you enjoy this mod, and want more updates and support to future versions, the
 * Spanish (es_es) > translator
 * German (de_de) > translator
 * Chinese (zh_tw) > translator
+* Japanese (ja_jp) > PExPE3
 
 ### Plans
 * More animations
@@ -46,6 +47,9 @@ If you enjoy this mod, and want more updates and support to future versions, the
 * Jade compatibility?
 
 # Changelog 📝
+
+## v1.4.0
+> Working
 
 ## v1.3.3
 * New features:
