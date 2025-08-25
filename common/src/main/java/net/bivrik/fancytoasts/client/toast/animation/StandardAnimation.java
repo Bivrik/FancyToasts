@@ -1,8 +1,6 @@
-package net.bivrik.fancytoasts.client.toast.animation.preset;
+package net.bivrik.fancytoasts.client.toast.animation;
 
 import net.bivrik.fancytoasts.client.toast.FancyAdvancementToast;
-import net.bivrik.fancytoasts.client.toast.animation.Appearance;
-import net.bivrik.fancytoasts.client.toast.animation.FancyAdvancementToastAnimation;
 import net.bivrik.fancytoasts.client.renderer.GUIHelper;
 import net.bivrik.fancytoasts.utility.MathEasing;
 import net.minecraft.client.Minecraft;
@@ -25,10 +23,10 @@ public class StandardAnimation extends FancyAdvancementToastAnimation {
 
     @Override
     public void draw(GuiGraphics graphics, Minecraft minecraft, FancyAdvancementToast fancyToast,  long time) {
-        float iconAppearProgress = getProgress(time, ICON_APPEARANCE);
-        float bannerAppearProgress = getProgress(time, BANNER_APPEARANCE);
-        float backgroundAppearProgress = getProgress(time, BACKGROUND_APPEARANCE);
-        float textAppearProgress = getProgress(time, TEXT_APPEARANCE);
+        float iconAppearProgress = ICON_APPEARANCE.getProgress(time);
+        float bannerAppearProgress = BANNER_APPEARANCE.getProgress(time);
+        float backgroundAppearProgress = BACKGROUND_APPEARANCE.getProgress(time);
+        float textAppearProgress = TEXT_APPEARANCE.getProgress(time);
         float fadeOutProgress = getProgress(time, FADE_OUT_DURATION, DURATION - FADE_OUT_DURATION);
 
         var setup = this.getSetup();

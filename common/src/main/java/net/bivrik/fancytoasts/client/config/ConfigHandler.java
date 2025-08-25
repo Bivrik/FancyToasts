@@ -1,81 +1,78 @@
 package net.bivrik.fancytoasts.client.config;
 
-import com.google.gson.*;
 import net.bivrik.fancytoasts.Common;
-import net.bivrik.fancytoasts.Constants;
 import net.bivrik.fancytoasts.Debug;
-import net.bivrik.fancytoasts.client.toast.animation.AnimationType;
-import net.bivrik.fancytoasts.utility.FancyResourceLocation;
+import net.bivrik.fancytoasts.client.util.FileHelper;
+import net.bivrik.fancytoasts.client.util.Paths;
+import net.bivrik.fancytoasts.client.toast.registry.ToastAnimationRegistry;
+import net.bivrik.fancytoasts.client.util.TextureLocations;
+import net.bivrik.fancytoasts.client.toast.registry.ToastTextureRegistry;
+import net.bivrik.fancytoasts.client.util.ResLoc;
 import net.minecraft.resources.ResourceLocation;
 
 import java.io.File;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.lang.reflect.Type;
+import java.util.Optional;
 
 public class ConfigHandler {
-    private static final Gson GSON = new GsonBuilder()
-            .setPrettyPrinting()
-            .registerTypeAdapter(ResourceLocation.class, new ResourceLocationAdapter())
-            .create();
-    private static final File CONFIG_FILE = new File("./config/" + Constants.MOD_ID + ".json");
+    private static final File CONFIG_DIR = new File(Paths.CONFIG);
+    private static final File CONFIG_FILE = new File(Paths.CONFIG_FILE);
 
     public static ConfigData load() {
-        ConfigData data;
+        FileHelper.tryCreateDir(CONFIG_DIR);
 
-        if (CONFIG_FILE.exists() && CONFIG_FILE.length() > 0) {
-            try (FileReader reader = new FileReader(CONFIG_FILE)) {
-                data = GSON.fromJson(reader, ConfigData.class);
-                Debug.message("Config file loaded with data:");
-                showDebug(data);
-            } catch (IOException e) {
-                throw new RuntimeException(e);
+        ConfigData data;
+        if (JsonHelper.isValid(CONFIG_FILE)) {
+            Optional<ConfigData> optionalData = JsonHelper.tryToRead(CONFIG_FILE, ConfigData.class);
+
+            if (optionalData.isPresent()) {
+                data = optionalData.get();
+
+                if (ToastTextureRegistry.isRegistered(data.getTextureId())
+                        && ToastAnimationRegistry.isRegistered(data.getAnimationId())) {
+
+                    Debug.message("Config file loaded with following data:");
+                    showData(data);
+
+                    return data;
+                }
             }
         }
-        else {
-            data = new ConfigData(AnimationType.STANDARD, FancyResourceLocation.of("toast/vanilla"));
-            save(data);
-            Debug.message("Config file created with data:");
-            showDebug(data);
-        }
+
+        Debug.error("Config file is outdated or corrupted!");
+        data = getStandardData();
+        save(data);
 
         return data;
     }
 
-    public static void save(AnimationType animationType, ResourceLocation textureId) {
-        var data = new ConfigData(animationType, textureId);
+    private static ConfigData getStandardData() {
+        Debug.warn("Default data is created");
+        return new ConfigData(
+                ResLoc.of("animation/standard"),
+                TextureLocations.VANILLA);
+    }
 
-        try (FileWriter writer = new FileWriter(CONFIG_FILE)) {
-            GSON.toJson(data, writer);
-            Debug.message("Config file saved with data:");
-            showDebug(data);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
+    public static void save(ConfigData data) {
+        FileHelper.tryCreateDir(CONFIG_DIR);;
+
+        if (JsonHelper.tryToWrite(CONFIG_FILE, data)) {
+            Debug.message("Config file saved with following data:");
+            showData(data);
+        }
+        else {
+            Debug.error("Could not save config file!");
         }
 
         Common.CONFIG = data;
     }
-    public static void save(ConfigData data) {
-        save(data.getAnimationType(), data.getTextureId());
+    public static void save(ResourceLocation animationId, ResourceLocation textureId) {
+        save(new ConfigData(animationId, textureId));
     }
 
-    private static void showDebug(ConfigData data) {
-        Debug.message("===================================");
-        Debug.message("Animation Type: " + data.getAnimationType());
+    private static void showData(ConfigData data) {
+        Debug.message("===========================");
+        Debug.message("Animation ID: " + data.getAnimationId());
         Debug.message("Texture ID: " + data.getTextureId());
-        Debug.message("===================================");
-    }
-
-    private static class ResourceLocationAdapter implements JsonSerializer<ResourceLocation>, JsonDeserializer<ResourceLocation> {
-        @Override
-        public ResourceLocation deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context) {
-            return ResourceLocation.parse(json.getAsString());
-        }
-
-        @Override
-        public JsonElement serialize(ResourceLocation src, Type typeOfSrc, JsonSerializationContext context) {
-            return new JsonPrimitive(src.toString());
-        }
+        Debug.message("===========================");
     }
 }

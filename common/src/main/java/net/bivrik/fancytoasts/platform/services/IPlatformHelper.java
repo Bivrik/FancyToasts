@@ -3,9 +3,9 @@ package net.bivrik.fancytoasts.platform.services;
 public interface IPlatformHelper {
 
     /**
-     * Gets the name of the current platform
+     * Gets the displayName of the current platform
      *
-     * @return The name of the current platform.
+     * @return The displayName of the current platform.
      */
     String getPlatformName();
 
@@ -25,9 +25,9 @@ public interface IPlatformHelper {
     boolean isDevelopmentEnvironment();
 
     /**
-     * Gets the name of the environment type as a string.
+     * Gets the displayName of the environment type as a string.
      *
-     * @return The name of the environment type.
+     * @return The displayName of the environment type.
      */
     default String getEnvironmentName() {
         return isDevelopmentEnvironment() ? "development" : "production";

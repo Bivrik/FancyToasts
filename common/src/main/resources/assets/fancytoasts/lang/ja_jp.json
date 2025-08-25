@@ -4,10 +4,14 @@
   "fancytoasts.gui.animation_type": "アニメーションタイプ：",
   "fancytoasts.gui.texture_type": "テクスチャタイプ：",
   "fancytoasts.gui.config_title": "Fancy Toasts 設定",
-  "fancytoasts.gui.standard": "標準",
-  "fancytoasts.gui.playful": "遊び心",
-  "fancytoasts.gui.vanilla": "バニラ風",
-  "fancytoasts.gui.nature": "自然",
-  "fancytoasts.gui.og": "オリジナル",
-  "fancytoasts.gui.modern": "モダン"
+  "fancytoasts.animation.standard": "標準",
+  "fancytoasts.animation.playful": "遊び心",
+  "fancytoasts.texture.vanilla": "バニラ風",
+  "fancytoasts.texture.nature": "自然",
+  "fancytoasts.texture.og": "オリジナル",
+  "fancytoasts.texture.modern": "モダン",
+
+  "fancytoasts.gui.unknown": "不明",
+  "fancytoasts.texture.terracraft": "テラクラフト",
+  "fancytoasts.texture.steamy": "蒸気"
 }

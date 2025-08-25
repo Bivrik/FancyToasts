@@ -1,14 +1,16 @@
 {
-  "modmenu.descriptionTranslation.fancytoasts": "Изменяет старую систему оповещений о достижениях, заменяя её на более привлекательную и интересную.",
   "fancytoasts.gui.close": "Отмена",
   "fancytoasts.gui.save_changes": "Сохранить",
   "fancytoasts.gui.animation_type": "Тип анимации:",
   "fancytoasts.gui.texture_type": "Тип текстур:",
   "fancytoasts.gui.config_title": "Настройки Fancy Toasts",
-  "fancytoasts.gui.standard": "Стандартный",
-  "fancytoasts.gui.playful": "Игривый",
-  "fancytoasts.gui.vanilla": "Стиль Майнкрафта",
-  "fancytoasts.gui.nature": "Природа",
-  "fancytoasts.gui.og": "OG",
-  "fancytoasts.gui.modern": "Модерн"
+  "fancytoasts.gui.unknown": "Неизвестно",
+  "fancytoasts.animation.standard": "Стандартный",
+  "fancytoasts.animation.playful": "Игривый",
+  "fancytoasts.texture.vanilla": "Стиль Майнкрафта",
+  "fancytoasts.texture.nature": "Природа",
+  "fancytoasts.texture.og": "OG",
+  "fancytoasts.texture.modern": "Модерн",
+  "fancytoasts.texture.terracraft": "Терракрафт",
+  "fancytoasts.texture.steamy": "ПК любитель"
 }

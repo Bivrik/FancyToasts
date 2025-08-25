@@ -1,9 +1,9 @@
 package net.bivrik.fancytoasts.client.toast;
 
-import net.bivrik.fancytoasts.client.toast.animation.AnimationType;
+import net.bivrik.fancytoasts.Debug;
 import net.bivrik.fancytoasts.client.toast.animation.FancyAdvancementToastAnimation;
 import net.bivrik.fancytoasts.client.toast.animation.FancyAdvancementSetup;
-import net.bivrik.fancytoasts.client.toast.texture.ToastTextureRegistry;
+import net.bivrik.fancytoasts.client.toast.registry.ToastAnimationRegistry;
 import net.bivrik.fancytoasts.client.toast.texture.TextureUV;
 import net.minecraft.advancements.Advancement;
 import net.minecraft.advancements.DisplayInfo;
@@ -30,11 +30,10 @@ public class FancyAdvancementToast {
     private long time;
     private int playedSoundsCount = 0;
 
-    public FancyAdvancementToast(Advancement advancement, ResourceLocation textureId, AnimationType animationType) {
+    public FancyAdvancementToast(Advancement advancement, ResourceLocation texture, ResourceLocation animationId) {
         DisplayInfo display = advancement.display().orElse(null);
 
-        animation = AnimationType.ANIMATIONS.get(animationType).get();
-        ResourceLocation texture = ToastTextureRegistry.getTexture(textureId);
+        animation = ToastAnimationRegistry.getAnimation(animationId).get();
 
         switch (Objects.requireNonNull(display).getType()) {
             case TASK -> {
@@ -50,6 +49,8 @@ public class FancyAdvancementToast {
                 toastSound = SoundEvents.UI_TOAST_CHALLENGE_COMPLETE;
             }
         }
+
+        Debug.message("Created new Fancy Advancement Toast: {}", display.getTitle());
     }
 
     public void draw(GuiGraphics graphics, Minecraft minecraft) {

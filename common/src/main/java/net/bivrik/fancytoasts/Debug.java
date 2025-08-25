@@ -26,7 +26,4 @@ public class Debug {
     public static void error(String msg, Object... args) {
         LOGGER.error(msg, args);
     }
-    public static void error(String msg, Throwable e) {
-        LOGGER.error(msg, e);
-    }
 }

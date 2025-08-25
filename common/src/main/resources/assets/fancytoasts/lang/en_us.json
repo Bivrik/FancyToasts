@@ -4,10 +4,13 @@
   "fancytoasts.gui.animation_type": "Animation Type:",
   "fancytoasts.gui.texture_type": "Texture Type:",
   "fancytoasts.gui.config_title": "Fancy Toasts Configs",
-  "fancytoasts.gui.standard": "Standard",
-  "fancytoasts.gui.playful": "Playful",
-  "fancytoasts.gui.vanilla": "Vanilla Style",
-  "fancytoasts.gui.nature": "Nature",
-  "fancytoasts.gui.og": "OG",
-  "fancytoasts.gui.modern": "Modern"
+  "fancytoasts.gui.unknown": "Unknown",
+  "fancytoasts.animation.standard": "Standard",
+  "fancytoasts.animation.playful": "Playful",
+  "fancytoasts.texture.vanilla": "Vanilla Style",
+  "fancytoasts.texture.nature": "Nature",
+  "fancytoasts.texture.og": "OG",
+  "fancytoasts.texture.modern": "Modern",
+  "fancytoasts.texture.terracraft": "Terracraft",
+  "fancytoasts.texture.steamy": "Steamy"
 }

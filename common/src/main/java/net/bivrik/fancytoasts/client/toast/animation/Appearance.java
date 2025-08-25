@@ -8,4 +8,7 @@ public record Appearance(int duration, int startPoint) {
     public static float getProgress(long time, Appearance appearance) {
         return getProgress(time, appearance.duration(), appearance.startPoint());
     }
+    public float getProgress(long time) {
+        return getProgress(time, this.duration, this.startPoint);
+    }
 }

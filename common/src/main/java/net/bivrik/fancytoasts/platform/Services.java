@@ -6,8 +6,8 @@ import net.bivrik.fancytoasts.platform.services.IPlatformHelper;
 import java.util.ServiceLoader;
 
 // This code is used to load a service for the current environment. Implementation of the service must be defined
-// manually by including a text file in META-INF/services named with the fully qualified class name of the service.
-// Inside the file you should write the fully qualified class name of the implementation to load for the platform.
+// manually by including a text file in META-INF/services named with the fully qualified class displayName of the service.
+// Inside the file you should write the fully qualified class displayName of the implementation to load for the platform.
 public class Services {
     public static final IPlatformHelper PLATFORM = load(IPlatformHelper.class);
 

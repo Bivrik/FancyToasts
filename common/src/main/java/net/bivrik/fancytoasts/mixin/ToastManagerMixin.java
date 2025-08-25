@@ -40,7 +40,7 @@ public class ToastManagerMixin {
         if (toast instanceof AdvancementToast) {
             info.cancel();
             Advancement advancement = ((IAdvancementAccessor) toast).getAdvancementHolder().value();
-            FancyAdvancementToast fancyAdvancement = new FancyAdvancementToast(advancement, Common.CONFIG.getTextureId(), Common.CONFIG.getAnimationType());
+            FancyAdvancementToast fancyAdvancement = new FancyAdvancementToast(advancement, Common.CONFIG.getTextureId(), Common.CONFIG.getAnimationId());
             ADVANCEMENT_TOASTS.add(fancyAdvancement);
         }
     }
