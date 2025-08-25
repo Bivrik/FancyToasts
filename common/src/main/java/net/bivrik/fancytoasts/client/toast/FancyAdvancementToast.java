@@ -50,7 +50,7 @@ public class FancyAdvancementToast {
             }
         }
 
-        Debug.message("Created new Fancy Advancement Toast: {}", display.getTitle());
+        Debug.message("Created new Fancy Advancement Toast: {}", display.getTitle().getString());
     }
 
     public void draw(GuiGraphics graphics, Minecraft minecraft) {

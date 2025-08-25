@@ -2,14 +2,14 @@ package net.bivrik.fancytoasts;
 
 import net.bivrik.fancytoasts.client.config.ConfigData;
 import net.bivrik.fancytoasts.client.config.ConfigHandler;
-import net.bivrik.fancytoasts.client.toast.registry.ToastAnimationRegistry;
+import net.bivrik.fancytoasts.client.config.ConfigTextureManager;
 import net.bivrik.fancytoasts.client.toast.animation.PlayfulAnimation;
 import net.bivrik.fancytoasts.client.toast.animation.StandardAnimation;
-import net.bivrik.fancytoasts.client.config.ConfigTextureManager;
-import net.bivrik.fancytoasts.platform.Services;
-import net.bivrik.fancytoasts.client.util.TextureLocations;
+import net.bivrik.fancytoasts.client.toast.registry.ToastAnimationRegistry;
 import net.bivrik.fancytoasts.client.toast.registry.ToastTextureRegistry;
 import net.bivrik.fancytoasts.client.util.ResLoc;
+import net.bivrik.fancytoasts.client.util.TextureLocations;
+import net.bivrik.fancytoasts.platform.Services;
 import net.minecraft.resources.ResourceLocation;
 
 // Only Vanilla code base

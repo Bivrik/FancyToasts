@@ -32,4 +32,10 @@ public interface IPlatformHelper {
     default String getEnvironmentName() {
         return isDevelopmentEnvironment() ? "development" : "production";
     }
+
+    /**
+     * Methods for jade compatibility.
+     */
+    void tryDisableJade();
+    void tryEnableJade();
 }

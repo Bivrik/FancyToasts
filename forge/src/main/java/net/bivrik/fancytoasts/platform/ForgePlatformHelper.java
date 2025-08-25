@@ -20,4 +20,10 @@ public class ForgePlatformHelper implements IPlatformHelper {
     public boolean isDevelopmentEnvironment() {
         return !FMLLoader.isProduction();
     }
+
+    @Override
+    public void tryDisableJade() {}
+
+    @Override
+    public void tryEnableJade() {}
 }

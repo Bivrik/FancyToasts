@@ -37,6 +37,10 @@ repositories {
         filter { includeGroup('org.parchmentmc.data') }
     }
     maven {
+        name = 'Jade'
+        url = 'https://api.modrinth.com/maven'
+    }
+    maven {
         name = 'BlameJared'
         url = 'https://maven.blamejared.com'
     }

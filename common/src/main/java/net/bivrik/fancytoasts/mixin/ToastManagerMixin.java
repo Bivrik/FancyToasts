@@ -4,6 +4,7 @@ import net.bivrik.fancytoasts.Common;
 import net.bivrik.fancytoasts.client.toast.IAdvancementAccessor;
 import net.bivrik.fancytoasts.client.toast.FancyAdvancementToast;
 import net.bivrik.fancytoasts.client.renderer.GUIHelper;
+import net.bivrik.fancytoasts.platform.Services;
 import net.minecraft.Util;
 import net.minecraft.advancements.Advancement;
 import net.minecraft.client.Minecraft;
@@ -42,6 +43,7 @@ public class ToastManagerMixin {
             Advancement advancement = ((IAdvancementAccessor) toast).getAdvancementHolder().value();
             FancyAdvancementToast fancyAdvancement = new FancyAdvancementToast(advancement, Common.CONFIG.getTextureId(), Common.CONFIG.getAnimationId());
             ADVANCEMENT_TOASTS.add(fancyAdvancement);
+            Services.PLATFORM.tryDisableJade();
         }
     }
 
@@ -54,6 +56,9 @@ public class ToastManagerMixin {
         if (fancyToasts$current == null) {
             if (!ADVANCEMENT_TOASTS.isEmpty()) {
                 fancyToasts$setCurrentAdvancement();
+            }
+            else {
+                Services.PLATFORM.tryEnableJade();
             }
 
             return;
