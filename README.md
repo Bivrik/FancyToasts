@@ -9,19 +9,23 @@ There is a reason why you are here. It might be curiosity. But I think you are h
 Try it out on [CurseForge](https://www.curseforge.com/minecraft/mc-mods/fancy-toasts) or [Modrinth](https://modrinth.com/mod/fancytoasts). Other sources are not mine.
 
 # Description 🏗️
-Adds new advancement toast system into Minecraft. Currently mod has 8 toast variants, because of 2 animation styles and 4 texture types. Supports config screen on Fabric (Mod Menu)/Forge/NeoForge
+Adds new advancement toast system into Minecraft. Currently mod has 18 toast variants, because of 3 animation styles and 6 texture types. Supports config screen on Fabric (Mod Menu)/Forge/NeoForge
 
 ### Animations
 * Standard
-> More calm and steady. I would say it's Vanilla-like.
+> Calm and steady. I would say it's Vanilla-like.
 * Playful
-> More jiggy, bouncy, and, well... playful! More experimental one.
+> Jiggy, bouncy, and, well... playful! More experimental one.
+* Quirky
+> Uhm... well, quite unusual among previous two. Has different layout and more energetic.
 
 ### Textures
 * Vanilla-Like
 * Nature
 * OG
 * Modern
+* Terracraft
+* Steamy
 
 # Other 🔎
 
@@ -34,7 +38,7 @@ If you enjoy this mod, and want more updates and support to future versions, the
 * Spanish (es_es) > translator
 * German (de_de) > translator
 * Chinese (zh_tw) > translator
-* Japanese (ja_jp) > PExPE3
+* Japanese (ja_jp) > PExPE3 (new names translated by me for now)
 
 ### Plans
 * More animations
@@ -44,12 +48,25 @@ If you enjoy this mod, and want more updates and support to future versions, the
 * Maybe rework of animations to make them easier to make?
 * Custom sounds?
 * FTBQuests compatibility?
-* Jade compatibility?
+##### Completed
+* Custom textures
+* Jade compatibility
 
 # Changelog 📝
 
 ## v1.4.0
-> Working
+* New features:
+  * Support for custom textures in configs! Create your own textures using simple template and json file! Guide: [proccessing]
+  * Texture type `Steamy`
+  * Texture type `Terracraft`
+  * Animation type `Quirky`
+  * Jade compatibility! Now jade display hides, when advancement is showed
+* Bug fixes:
+  * Sometimes delyaed sound
+* Adjustments:
+  * Updated configs (not the screen)
+  * Changed registration system and half of the code in general
+> Yet biggest update with custom texture system (26.08.25)
 
 ## v1.3.3
 * New features:
