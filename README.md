@@ -60,7 +60,7 @@ If you enjoy this mod, and want more updates and support to future versions, the
 
 ## v1.4.0
 * New features:
-  * Support for custom textures in configs! Create your own textures using simple template and json file! Guide: [proccessing]
+  * Support for custom textures in configs! Create your own textures using simple template and json file!
   * Texture type `Steamy`
   * Texture type `Terracraft`
   * Animation type `Quirky`
