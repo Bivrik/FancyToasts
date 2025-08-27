@@ -45,12 +45,14 @@ If you enjoy this mod, and want more updates and support to future versions, the
 * Japanese (ja_jp) > PExPE3 (new names translated by me for now)
 
 ### Plans
+* Config GUI rework (v1.4.1)
 * More animations
 * More textures
 * More languages
 * Port to every possible version in the world
-* Maybe rework of animations to make them easier to make?
-* Custom sounds?
+* Maybe rework of animations to make them easier to make? (v1.5?)
+* Change sounds (1.4.1)
+* Custom sounds? (v1.5?)
 * FTBQuests compatibility?
 ##### Completed
 * Custom textures
