@@ -9,6 +9,7 @@ import net.bivrik.fancytoasts.client.util.TextureLocations;
 import net.bivrik.fancytoasts.client.toast.registry.ToastTextureRegistry;
 import net.bivrik.fancytoasts.client.util.ResLoc;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.sounds.SoundEvents;
 
 import java.io.File;
 import java.util.Optional;
@@ -28,7 +29,8 @@ public class ConfigHandler {
                 data = optionalData.get();
 
                 if (ToastTextureRegistry.isRegistered(data.getTextureId())
-                        && ToastAnimationRegistry.isRegistered(data.getAnimationId())) {
+                        && ToastAnimationRegistry.isRegistered(data.getAnimationId())
+                        && data.getSoundIds() != null ) {
 
                     Debug.message("Config file loaded with following data:");
                     showData(data);
@@ -47,7 +49,7 @@ public class ConfigHandler {
 
     private static ConfigData getStandardData() {
         Debug.warn("Default data is created");
-        return new ConfigData(ResLoc.of("animation/standard"), TextureLocations.VANILLA, true);
+        return STANDARD_DATA;
     }
 
     public static void save(ConfigData data) {
@@ -63,14 +65,24 @@ public class ConfigHandler {
 
         Common.CONFIG = data;
     }
-    public static void save(ResourceLocation animationId, ResourceLocation textureId, boolean jadeCompatibility) {
-        save(new ConfigData(animationId, textureId, jadeCompatibility));
-    }
 
     private static void showData(ConfigData data) {
         Debug.message("===========================");
         Debug.message("Animation ID: " + data.getAnimationId());
         Debug.message("Texture ID: " + data.getTextureId());
+        Debug.message("Task Sound ID: " + data.getTaskSoundId());
+        Debug.message("Goal Sound ID: " + data.getGoalSoundId());
+        Debug.message("Challenge Sound ID: " + data.getChallengeSoundId());
         Debug.message("===========================");
     }
+
+    public static final ConfigData STANDARD_DATA = new ConfigData(
+            ResLoc.of("animation/standard"),
+            TextureLocations.VANILLA,
+            new ResourceLocation[] {
+                    SoundEvents.ALLAY_AMBIENT_WITH_ITEM.location(),
+                    SoundEvents.FIREWORK_ROCKET_TWINKLE_FAR.location(),
+                    SoundEvents.UI_TOAST_CHALLENGE_COMPLETE.location()
+            }
+    );
 }

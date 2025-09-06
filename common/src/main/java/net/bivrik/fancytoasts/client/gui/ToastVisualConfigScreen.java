@@ -34,7 +34,6 @@ public class ToastVisualConfigScreen extends Screen {
         this.parent = parent;
         animationId = Common.CONFIG.getAnimationId();
         textureId = Common.CONFIG.getTextureId();
-        jadeCompatibility = Common.CONFIG.getJadeCompatibility();
         initialTextureId = textureId;
     }
 
@@ -89,7 +88,7 @@ public class ToastVisualConfigScreen extends Screen {
                         ConfigTextureManager.registerInMinecraft(textureId);
                     }
 
-                    ConfigHandler.save(animationId, textureId, jadeCompatibility);
+                    //ConfigHandler.save(animationId, textureId, );
                     openPreviousScreen();
                 }
         ).bounds(width / 2 + 10, height - 40, 120, 20).build();

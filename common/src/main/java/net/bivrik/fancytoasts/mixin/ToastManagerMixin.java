@@ -44,9 +44,9 @@ public class ToastManagerMixin {
             FancyAdvancementToast fancyAdvancement = new FancyAdvancementToast(advancement, Common.CONFIG.getTextureId(), Common.CONFIG.getAnimationId());
             ADVANCEMENT_TOASTS.add(fancyAdvancement);
 
-            if (Common.CONFIG.getJadeCompatibility()) {
+            //if (Common.CONFIG.getJadeCompatibility()) {
                 Services.PLATFORM.tryDisableJade();
-            }
+            //}
         }
     }
 
@@ -60,7 +60,8 @@ public class ToastManagerMixin {
             if (!ADVANCEMENT_TOASTS.isEmpty()) {
                 fancyToasts$setCurrentAdvancement();
             }
-            else if (Common.CONFIG.getJadeCompatibility()) {
+            else {
+                //
                 Services.PLATFORM.tryEnableJade();
             }
 

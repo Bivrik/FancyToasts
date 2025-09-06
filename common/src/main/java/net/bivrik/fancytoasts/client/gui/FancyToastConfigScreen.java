@@ -1,6 +1,9 @@
 package net.bivrik.fancytoasts.client.gui;
 
+import net.bivrik.fancytoasts.Common;
 import net.bivrik.fancytoasts.Debug;
+import net.bivrik.fancytoasts.client.config.ConfigData;
+import net.bivrik.fancytoasts.client.config.ConfigHandler;
 import net.bivrik.fancytoasts.client.toast.registry.ToastAnimationRegistry;
 import net.bivrik.fancytoasts.client.toast.registry.ToastTextureRegistry;
 import net.minecraft.client.gui.GuiGraphics;
@@ -20,6 +23,10 @@ import java.util.*;
 public class FancyToastConfigScreen extends Screen {
     private final Screen parent;
 
+    private ResourceLocation animationId;
+    private ResourceLocation textureId;
+    private ResourceLocation[] soundIds;
+
     private enum VisualSettingType {
         TEXTURES,
         ANIMATIONS,
@@ -30,6 +37,10 @@ public class FancyToastConfigScreen extends Screen {
     public FancyToastConfigScreen(String title, Screen parent) {
         super(Component.literal(title));
         this.parent = parent;
+
+        this.animationId = Common.CONFIG.getAnimationId();
+        this.textureId = Common.CONFIG.getTextureId();
+        this.soundIds = Common.CONFIG.getSoundIds();
     }
 
     @Override
@@ -37,6 +48,7 @@ public class FancyToastConfigScreen extends Screen {
         Button doneButton = Button.builder(
                 CommonComponents.GUI_DONE,
                 (button) -> {
+                    ConfigHandler.save(new ConfigData(animationId, textureId, soundIds));
                     Objects.requireNonNull(this.minecraft).setScreen(parent);
                 }
         ).bounds(this.width / 2 + 100 - 125 + 4, this.height - 26, 150, 20).build();
@@ -50,7 +62,7 @@ public class FancyToastConfigScreen extends Screen {
         ).bounds(this.width / 2 - 125 - 4, this.height - 26, 100, 20).build();
         this.addRenderableWidget(backButton);
 
-        CycleButton<VisualSettingType> visualSettingTypeCycleButton = CycleButton.builder(this::test)
+        CycleButton<VisualSettingType> visualSettingTypeCycleButton = CycleButton.builder(this::getLabelComponent)
                 .displayOnlyValue()
                 .withValues(VisualSettingType.values())
                 .withInitialValue(visualSettingType)
@@ -89,13 +101,18 @@ public class FancyToastConfigScreen extends Screen {
         this.list.setResponder(this::Yes);
     }
 
-    private Component test(VisualSettingType visualSettingType) {
+    private Component getLabelComponent(VisualSettingType visualSettingType) {
         return Component.translatable("fancytoasts.gui.label." + visualSettingType.toString().toLowerCase());
     }
 
     private void Yes(ResourceLocation t) {
         entry = t;
-        Debug.message(t + " yes");
+
+        switch (visualSettingType) {
+            case TEXTURES -> this.textureId = t;
+            case ANIMATIONS -> this.animationId = t;
+            case SOUNDS -> this.soundIds[0] = t;
+        }
     }
 
     private ResourceLocation entry;
