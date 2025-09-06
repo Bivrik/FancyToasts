@@ -60,6 +60,9 @@ If you enjoy this mod, and want more updates and support to future versions, the
 
 # Changelog 📝
 
+## v1.4.1
+> Working ...
+
 ## v1.4.0
 * New features:
   * Support for custom textures in configs! Create your own textures using simple template and json file!
