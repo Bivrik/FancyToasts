@@ -47,9 +47,7 @@ public class ConfigHandler {
 
     private static ConfigData getStandardData() {
         Debug.warn("Default data is created");
-        return new ConfigData(
-                ResLoc.of("animation/standard"),
-                TextureLocations.VANILLA);
+        return new ConfigData(ResLoc.of("animation/standard"), TextureLocations.VANILLA, true);
     }
 
     public static void save(ConfigData data) {
@@ -65,8 +63,8 @@ public class ConfigHandler {
 
         Common.CONFIG = data;
     }
-    public static void save(ResourceLocation animationId, ResourceLocation textureId) {
-        save(new ConfigData(animationId, textureId));
+    public static void save(ResourceLocation animationId, ResourceLocation textureId, boolean jadeCompatibility) {
+        save(new ConfigData(animationId, textureId, jadeCompatibility));
     }
 
     private static void showData(ConfigData data) {

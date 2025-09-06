@@ -19,20 +19,22 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.CommonColors;
 import org.jetbrains.annotations.NotNull;
 
-public class ConfigScreen extends Screen {
+public class ToastVisualConfigScreen extends Screen {
     private final Screen parent;
     private ResourceLocation animationId;
     private ResourceLocation textureId;
+    private boolean jadeCompatibility;
     private final ResourceLocation initialTextureId;
 
     boolean isConfigTexture;
 
-    public ConfigScreen(String title, Screen parent) {
+    public ToastVisualConfigScreen(String title, Screen parent) {
         super(Component.literal(title));
 
         this.parent = parent;
         animationId = Common.CONFIG.getAnimationId();
         textureId = Common.CONFIG.getTextureId();
+        jadeCompatibility = Common.CONFIG.getJadeCompatibility();
         initialTextureId = textureId;
     }
 
@@ -87,7 +89,7 @@ public class ConfigScreen extends Screen {
                         ConfigTextureManager.registerInMinecraft(textureId);
                     }
 
-                    ConfigHandler.save(animationId, textureId);
+                    ConfigHandler.save(animationId, textureId, jadeCompatibility);
                     openPreviousScreen();
                 }
         ).bounds(width / 2 + 10, height - 40, 120, 20).build();
@@ -100,6 +102,19 @@ public class ConfigScreen extends Screen {
                 }
         ).bounds(width / 2 - 130, height - 40, 120, 20).build();
 
+        // Jade compatibility toggle button
+        CycleButton<Boolean> jadeCompatToggle = CycleButton.onOffBuilder()
+                .displayOnlyValue()
+                .create(
+                        width / 2 - 60, 150,
+                        120, 20,
+                        Component.literal("test"),
+                        (button, bool) -> {
+                            jadeCompatibility = bool;
+                        }
+                );
+
+        this.addRenderableWidget(jadeCompatToggle);
         this.addRenderableWidget(textureCycleButton);
         this.addRenderableWidget(animationCycleButton);
         this.addRenderableWidget(saveButton);

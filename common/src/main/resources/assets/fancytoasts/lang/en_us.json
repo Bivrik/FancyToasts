@@ -13,5 +13,9 @@
   "fancytoasts.texture.og": "OG",
   "fancytoasts.texture.modern": "Modern",
   "fancytoasts.texture.terracraft": "Terracraft",
-  "fancytoasts.texture.steamy": "Steamy"
+  "fancytoasts.texture.steamy": "Steamy",
+
+  "fancytoasts.gui.label.textures": "Textures",
+  "fancytoasts.gui.label.animations": "Animations",
+  "fancytoasts.gui.label.sounds": "Sounds"
 }
