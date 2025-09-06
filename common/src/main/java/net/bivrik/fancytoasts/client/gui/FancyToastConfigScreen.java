@@ -60,6 +60,7 @@ public class FancyToastConfigScreen extends Screen {
                         Component.empty(),
                         (button, value) -> {
                             visualSettingType = value;
+
                             this.editBox.setValue("");
                             addResourceLocationsList();
                         });
