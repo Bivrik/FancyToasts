@@ -87,6 +87,7 @@ public class FancyToastConfigScreen extends Screen {
         this.list.fillList(settingType.getKeySet());
 
         if (type == SettingType.SOUNDS) {
+            advancementType = AdvancementType.TASK;
             this.addRenderableWidget(this.advancementTypeCycleButton);
         }
         else {
