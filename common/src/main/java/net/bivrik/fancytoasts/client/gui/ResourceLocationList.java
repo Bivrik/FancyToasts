@@ -1,6 +1,5 @@
 package net.bivrik.fancytoasts.client.gui;
 
-import net.bivrik.fancytoasts.Debug;
 import net.minecraft.Util;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
@@ -14,24 +13,20 @@ import net.minecraft.sounds.SoundEvents;
 import net.minecraft.util.CommonColors;
 import org.jetbrains.annotations.NotNull;
 
-import java.util.List;
 import java.util.function.Consumer;
 
 public class ResourceLocationList extends ObjectSelectionList<ResourceLocationList.Entry> {
     public abstract static class Entry extends ObjectSelectionList.Entry<Entry> {}
 
-    private final List<ResourceLocation> resourceLocations;
+    private ResourceLocation[] resourceLocations;
     private Consumer<ResourceLocation> responder;
 
-    public ResourceLocationList(Minecraft minecraft, int width, int height, int x, int y, int itemHeight, List<ResourceLocation> resourceLocations) {
+    public ResourceLocationList(Minecraft minecraft, int width, int height, int x, int y, int itemHeight, ResourceLocation[] resourceLocations) {
         super(minecraft, width, height, y, itemHeight);
         this.setX(x);
 
         this.resourceLocations = resourceLocations;
-
-        for (ResourceLocation location : this.resourceLocations) {
-            this.addEntry(new ResourceLocationListEntry(this, location));
-        }
+        this.fillList(this.resourceLocations);
     }
 
     public void setResponder(Consumer<ResourceLocation> responder) {
@@ -48,10 +43,21 @@ public class ResourceLocationList extends ObjectSelectionList<ResourceLocationLi
         this.refreshScrollAmount();
 
         for (ResourceLocation location : resourceLocations) {
-            if (!location.toLanguageKey().contains(filter)) {
+            if (location.toLanguageKey().compareTo(filter) != 0) {
                 continue;
             }
 
+            this.addEntry(new ResourceLocationListEntry(this, location));
+        }
+    }
+
+    public void fillList(ResourceLocation[] resourceLocations) {
+        this.clearEntries();
+        this.refreshScrollAmount();
+
+        this.resourceLocations = resourceLocations;
+
+        for (ResourceLocation location : this.resourceLocations) {
             this.addEntry(new ResourceLocationListEntry(this, location));
         }
     }

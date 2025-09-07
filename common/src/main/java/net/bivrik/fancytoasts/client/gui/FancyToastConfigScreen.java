@@ -1,11 +1,11 @@
 package net.bivrik.fancytoasts.client.gui;
 
 import net.bivrik.fancytoasts.Common;
-import net.bivrik.fancytoasts.Debug;
 import net.bivrik.fancytoasts.client.config.ConfigData;
 import net.bivrik.fancytoasts.client.config.ConfigHandler;
 import net.bivrik.fancytoasts.client.toast.registry.ToastAnimationRegistry;
 import net.bivrik.fancytoasts.client.toast.registry.ToastTextureRegistry;
+import net.minecraft.advancements.AdvancementType;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.gui.components.CycleButton;
@@ -22,106 +22,90 @@ import java.util.*;
 
 public class FancyToastConfigScreen extends Screen {
     private final Screen parent;
+    private final ConfigData configData;
 
-    private ResourceLocation animationId;
-    private ResourceLocation textureId;
-    private ResourceLocation[] soundIds;
+    private SettingType settingType = SettingType.TEXTURES;
+    private AdvancementType advancementType = AdvancementType.TASK;
+    private ResourceLocation entry;
 
-    private enum VisualSettingType {
-        TEXTURES,
-        ANIMATIONS,
-        SOUNDS;
-    }
-    private VisualSettingType visualSettingType = VisualSettingType.TEXTURES;
+    private Button doneButton;
+    private Button backButton;
+    private CycleButton<SettingType> settingTypeCycleButton;
+    private CycleButton<AdvancementType> advancementTypeCycleButton;
+    private EditBox editBox;
+    private ResourceLocationList list;
+
+    private final int PADDING = 8;
+    private final int MARGIN = 33;
+    private final int BUTTON_HEIGHT = 20;
+    private final int BUTTON_WIDTH = 150;
 
     public FancyToastConfigScreen(String title, Screen parent) {
         super(Component.literal(title));
         this.parent = parent;
-
-        this.animationId = Common.CONFIG.getAnimationId();
-        this.textureId = Common.CONFIG.getTextureId();
-        this.soundIds = Common.CONFIG.getSoundIds();
+        configData = Common.CONFIG;
     }
 
     @Override
     protected void init() {
-        Button doneButton = Button.builder(
-                CommonComponents.GUI_DONE,
-                (button) -> {
-                    ConfigHandler.save(new ConfigData(animationId, textureId, soundIds));
-                    Objects.requireNonNull(this.minecraft).setScreen(parent);
-                }
-        ).bounds(this.width / 2 + 100 - 125 + 4, this.height - 26, 150, 20).build();
-        this.addRenderableWidget(doneButton);
+        this.doneButton = this.addRenderableWidget(Button.builder(CommonComponents.GUI_DONE, (button) -> this.done())
+                .bounds(this.width / 2 + 100 - 125 + 4, this.height - 26, BUTTON_WIDTH, BUTTON_HEIGHT).build());
 
-        Button backButton = Button.builder(
-                CommonComponents.GUI_BACK,
-                (button) -> {
-                    Objects.requireNonNull(this.minecraft).setScreen(parent);
-                }
-        ).bounds(this.width / 2 - 125 - 4, this.height - 26, 100, 20).build();
-        this.addRenderableWidget(backButton);
+        this.backButton = this.addRenderableWidget(Button.builder(CommonComponents.GUI_BACK, (button) -> this.toParentScreen())
+                .bounds(this.width / 2 - 125 - 4, this.height - 26, 100, BUTTON_HEIGHT).build());
 
-        CycleButton<VisualSettingType> visualSettingTypeCycleButton = CycleButton.builder(this::getLabelComponent)
-                .displayOnlyValue()
-                .withValues(VisualSettingType.values())
-                .withInitialValue(visualSettingType)
-                .create(
-                        width - 128, 33,
-                        120, 20,
-                        Component.empty(),
-                        (button, value) -> {
-                            visualSettingType = value;
+        this.settingTypeCycleButton = this.addRenderableWidget(CycleButton.builder(SettingType::getDisplayName).displayOnlyValue()
+                .withValues(SettingType.values()).withInitialValue(settingType)
+                .create(width - 128, MARGIN, 120, BUTTON_HEIGHT, Component.empty(), (button, value) -> this.setSettingType(value)));
 
-                            this.editBox.setValue("");
-                            addResourceLocationsList();
-                        });
-        this.addRenderableWidget(visualSettingTypeCycleButton);
+        this.advancementTypeCycleButton = CycleButton.builder(AdvancementType::getDisplayName).displayOnlyValue()
+                .withValues(AdvancementType.values()).withInitialValue(advancementType)
+                .create(width / 2 - 128, MARGIN, 120, BUTTON_HEIGHT, Component.empty(), (button, value) -> this.setAdvancementType(value));
 
-        addResourceLocationsList();
+        this.list = this.addRenderableWidget(new ResourceLocationList(this.minecraft,
+                this.width / 2 + 60 - PADDING, this.height - 28 - MARGIN * 2,
+                this.width / 2 - 60, 28 + MARGIN,
+                18, settingType.getKeySet()));
+        this.list.setResponder(this::onSelectedEntry);
 
-        this.editBox = this.addRenderableWidget(new EditBox(this.font, this.width / 2 - 60, 33, this.width / 2 - 60 - 8 - 8, 20, this.editBox, Component.literal("Test")));
+        this.editBox = this.addRenderableWidget(new EditBox(this.font, this.width / 2 - 60, MARGIN, this.width / 2 - 60 - PADDING * 2, BUTTON_HEIGHT, this.editBox, Component.literal("Test")));
         this.editBox.setResponder(list::onFilterUpdate);
     }
 
-    private void addResourceLocationsList() {
-        this.removeWidget(this.list);
+    private void done() {
+        ConfigHandler.save(configData);
+        toParentScreen();
+    }
 
-        List<ResourceLocation> listContent = null;
-        switch (visualSettingType) {
-            case TEXTURES -> listContent = new ArrayList<>(ToastTextureRegistry.getIds());
-            case ANIMATIONS -> listContent = new ArrayList<>(ToastAnimationRegistry.getIds());
-            case SOUNDS -> listContent = new ArrayList<>(BuiltInRegistries.SOUND_EVENT.keySet());
+    private void toParentScreen() {
+        Objects.requireNonNull(this.minecraft).setScreen(parent);
+    }
+
+    private void setSettingType(SettingType type) {
+        settingType = type;
+        this.editBox.setValue("");
+        this.list.fillList(settingType.getKeySet());
+
+        if (type == SettingType.SOUNDS) {
+            this.addRenderableWidget(this.advancementTypeCycleButton);
         }
-
-        this.list = this.addRenderableWidget(new ResourceLocationList(this.minecraft,
-                this.width / 2 + 60 - 8, this.height - 28 - 33 - 33,
-                this.width / 2 - 60, 28 + 33,
-                18, listContent));
-        this.list.setResponder(this::Yes);
-    }
-
-    private Component getLabelComponent(VisualSettingType visualSettingType) {
-        return Component.translatable("fancytoasts.gui.label." + visualSettingType.toString().toLowerCase());
-    }
-
-    private void Yes(ResourceLocation t) {
-        entry = t;
-
-        switch (visualSettingType) {
-            case TEXTURES -> this.textureId = t;
-            case ANIMATIONS -> this.animationId = t;
-            case SOUNDS -> this.soundIds[0] = t;
+        else {
+            this.removeWidget(this.advancementTypeCycleButton);
         }
     }
 
-    private ResourceLocation entry;
-    private ResourceLocationList list;
-    private EditBox editBox;
+    private void setAdvancementType(AdvancementType type) {
+        advancementType = type;
+    }
 
     @Override
     public void onClose() {
-        Objects.requireNonNull(this.minecraft).setScreen(parent);
+        toParentScreen();
+    }
+
+    private void onSelectedEntry(ResourceLocation entry) {
+        settingType.apply(this, entry);
+        this.entry = entry;
     }
 
     @Override
@@ -130,10 +114,10 @@ public class FancyToastConfigScreen extends Screen {
 
         guiGraphics.drawCenteredString(this.font, "Customization Settings", this.width / 2, 12, -1);
 
-        renderDarkBackground(guiGraphics, 8, 33, this.width / 2 - 60 - 8 - 8, this.height - 33 - 33);
+        renderDarkBackground(guiGraphics, PADDING, MARGIN, this.width / 2 - 60 - PADDING * 2, this.height - MARGIN * 2);
 
         if (entry != null) {
-            guiGraphics.drawString(this.font, entry.toLanguageKey(), 8, 33 + 9, -1);
+            guiGraphics.drawString(this.font, entry.toLanguageKey(), PADDING, MARGIN + 9, -1);
         }
     }
 
@@ -142,5 +126,54 @@ public class FancyToastConfigScreen extends Screen {
         guiGraphics.blit(RenderPipelines.GUI_TEXTURED, resourcelocation, x, y, 0, 0, width, height, 32, 32);
         guiGraphics.blit(RenderPipelines.GUI_TEXTURED, Screen.HEADER_SEPARATOR, x, y, 0, 0, width, 2, 32, 2);
         guiGraphics.blit(RenderPipelines.GUI_TEXTURED, Screen.FOOTER_SEPARATOR, x, y + height, 0, 0, width, 2, 32, 2);
+    }
+
+    private enum SettingType {
+        TEXTURES("textures") {
+            @Override
+            void apply(FancyToastConfigScreen instance, ResourceLocation entry) {
+                instance.configData.setTextureId(entry);
+            }
+
+            @Override
+            ResourceLocation[] getKeySet() {
+                return ToastTextureRegistry.getIds().toArray(new ResourceLocation[0]);
+            }
+        },
+        ANIMATIONS("animations") {
+            @Override
+            void apply(FancyToastConfigScreen instance, ResourceLocation entry) {
+                instance.configData.setAnimationId(entry);
+            }
+
+            @Override
+            ResourceLocation[] getKeySet() {
+                return ToastAnimationRegistry.getIds().toArray(new ResourceLocation[0]);
+            }
+        },
+        SOUNDS("sounds") {
+            @Override
+            void apply(FancyToastConfigScreen instance, ResourceLocation entry) {
+                instance.configData.putSound(instance.advancementType, entry);
+            }
+
+            @Override
+            ResourceLocation[] getKeySet() {
+                return BuiltInRegistries.SOUND_EVENT.keySet().toArray(new ResourceLocation[0]);
+            }
+        };
+
+        abstract void apply(FancyToastConfigScreen instance, ResourceLocation entry);
+        abstract ResourceLocation[] getKeySet();
+
+        private final String name;
+
+        SettingType(String name) {
+            this.name = name;
+        }
+
+        public static Component getDisplayName(SettingType type) {
+            return Component.translatable("fancytoasts.gui.label." + type.name);
+        }
     }
 }

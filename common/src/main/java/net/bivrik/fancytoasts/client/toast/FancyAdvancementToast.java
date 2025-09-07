@@ -7,6 +7,7 @@ import net.bivrik.fancytoasts.client.toast.animation.FancyAdvancementSetup;
 import net.bivrik.fancytoasts.client.toast.registry.ToastAnimationRegistry;
 import net.bivrik.fancytoasts.client.toast.texture.TextureUV;
 import net.minecraft.advancements.Advancement;
+import net.minecraft.advancements.AdvancementType;
 import net.minecraft.advancements.DisplayInfo;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
@@ -40,15 +41,15 @@ public class FancyAdvancementToast {
         switch (Objects.requireNonNull(display).getType()) {
             case GOAL -> {
                 animation.setup(new FancyAdvancementSetup(texture, TextureUV.GOAL_FRAME_UV, display, 0x00FFFF, 0xFFFFFF));
-                toastSoundId = Common.CONFIG.getGoalSoundId();
+                toastSoundId = Common.CONFIG.getSoundId(AdvancementType.GOAL);
             }
             case CHALLENGE -> {
                 animation.setup(new FancyAdvancementSetup(texture, TextureUV.CHALLENGE_FRAME_UV, display, 0xEA3CFF, 0x00FFFF));
-                toastSoundId = Common.CONFIG.getChallengeSoundId();
+                toastSoundId = Common.CONFIG.getSoundId(AdvancementType.CHALLENGE);
             }
             default -> {
                 animation.setup(new FancyAdvancementSetup(texture, TextureUV.TASK_FRAME_UV, display, 0xFFFF00, 0xFFFFFF));
-                toastSoundId = Common.CONFIG.getTaskSoundId();
+                toastSoundId = Common.CONFIG.getSoundId(AdvancementType.TASK);
             }
         }
 

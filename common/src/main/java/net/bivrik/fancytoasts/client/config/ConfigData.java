@@ -1,39 +1,43 @@
 package net.bivrik.fancytoasts.client.config;
 
+import net.minecraft.advancements.AdvancementType;
 import net.minecraft.resources.ResourceLocation;
 
-public class ConfigData {
-    private final ResourceLocation animationId;
-    private final ResourceLocation textureId;
-    private final ResourceLocation[] soundIds = new ResourceLocation[3];
+import java.util.EnumMap;
+import java.util.Map;
 
-    public ConfigData(ResourceLocation animationId, ResourceLocation textureId, ResourceLocation[] soundIds) {
+public class ConfigData {
+    private ResourceLocation animationId;
+    private ResourceLocation textureId;
+    private final Map<AdvancementType, ResourceLocation> soundIds = new EnumMap<>(AdvancementType.class);
+
+    public ConfigData(ResourceLocation animationId, ResourceLocation textureId, Map<AdvancementType, ResourceLocation> soundIds) {
         this.animationId = animationId;
         this.textureId = textureId;
-        System.arraycopy(soundIds, 0, this.soundIds, 0, this.soundIds.length);
+        this.soundIds.putAll(soundIds);
     }
 
     public ResourceLocation getAnimationId() {
         return animationId;
     }
 
+    public void setAnimationId(ResourceLocation id) {
+        animationId = id;
+    }
+
     public ResourceLocation getTextureId() {
         return textureId;
     }
 
-    public ResourceLocation[] getSoundIds() {
-        return soundIds;
+    public void setTextureId(ResourceLocation id) {
+        textureId = id;
     }
 
-    public ResourceLocation getTaskSoundId() {
-        return soundIds[0];
+    public ResourceLocation getSoundId(AdvancementType type) {
+        return soundIds.get(type);
     }
 
-    public ResourceLocation getGoalSoundId() {
-        return soundIds[1];
-    }
-
-    public ResourceLocation getChallengeSoundId() {
-        return soundIds[2];
+    public void putSound(AdvancementType type, ResourceLocation location) {
+        soundIds.put(type, location);
     }
 }

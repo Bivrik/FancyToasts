@@ -8,10 +8,11 @@ import net.bivrik.fancytoasts.client.toast.registry.ToastAnimationRegistry;
 import net.bivrik.fancytoasts.client.util.TextureLocations;
 import net.bivrik.fancytoasts.client.toast.registry.ToastTextureRegistry;
 import net.bivrik.fancytoasts.client.util.ResLoc;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.advancements.AdvancementType;
 import net.minecraft.sounds.SoundEvents;
 
 import java.io.File;
+import java.util.Map;
 import java.util.Optional;
 
 public class ConfigHandler {
@@ -29,8 +30,7 @@ public class ConfigHandler {
                 data = optionalData.get();
 
                 if (ToastTextureRegistry.isRegistered(data.getTextureId())
-                        && ToastAnimationRegistry.isRegistered(data.getAnimationId())
-                        && data.getSoundIds() != null ) {
+                        && ToastAnimationRegistry.isRegistered(data.getAnimationId())) {
 
                     Debug.message("Config file loaded with following data:");
                     showData(data);
@@ -70,19 +70,19 @@ public class ConfigHandler {
         Debug.message("===========================");
         Debug.message("Animation ID: " + data.getAnimationId());
         Debug.message("Texture ID: " + data.getTextureId());
-        Debug.message("Task Sound ID: " + data.getTaskSoundId());
-        Debug.message("Goal Sound ID: " + data.getGoalSoundId());
-        Debug.message("Challenge Sound ID: " + data.getChallengeSoundId());
+        Debug.message("Task Sound ID: " + data.getSoundId(AdvancementType.TASK));
+        Debug.message("Goal Sound ID: " + data.getSoundId(AdvancementType.GOAL));
+        Debug.message("Challenge Sound ID: " + data.getSoundId(AdvancementType.CHALLENGE));
         Debug.message("===========================");
     }
 
     public static final ConfigData STANDARD_DATA = new ConfigData(
             ResLoc.of("animation/standard"),
             TextureLocations.VANILLA,
-            new ResourceLocation[] {
-                    SoundEvents.ALLAY_AMBIENT_WITH_ITEM.location(),
-                    SoundEvents.FIREWORK_ROCKET_TWINKLE_FAR.location(),
-                    SoundEvents.UI_TOAST_CHALLENGE_COMPLETE.location()
-            }
+            Map.of(
+                    AdvancementType.TASK, SoundEvents.ALLAY_AMBIENT_WITH_ITEM.location(),
+                    AdvancementType.GOAL, SoundEvents.FIREWORK_ROCKET_TWINKLE_FAR.location(),
+                    AdvancementType.CHALLENGE, SoundEvents.UI_TOAST_CHALLENGE_COMPLETE.location()
+            )
     );
 }
