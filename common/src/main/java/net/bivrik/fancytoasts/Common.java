@@ -13,6 +13,8 @@ import net.bivrik.fancytoasts.client.util.TextureLocations;
 import net.bivrik.fancytoasts.platform.Services;
 import net.minecraft.resources.ResourceLocation;
 
+import java.util.Locale;
+
 // Only Vanilla code base
 public class Common {
     public static ConfigData CONFIG;
@@ -35,36 +37,43 @@ public class Common {
     private static void registerTextures() {
         registerTexture(
                 TextureLocations.VANILLA,
-                "vanilla"
+                "vanilla",
+                "fancytoasts.texture.vanilla.description"
         );
         registerTexture(
                 TextureLocations.NATURE,
-                "nature"
+                "nature",
+                "fancytoasts.texture.nature.description"
         );
         registerTexture(
                 TextureLocations.OG,
-                "og"
+                "og",
+                "fancytoasts.texture.og.description"
         );
         registerTexture(
                 TextureLocations.MODERN,
-                "modern"
+                "modern",
+                "fancytoasts.texture.modern.description"
         );
         registerTexture(
                 TextureLocations.STEAMY,
-                "steamy"
+                "steamy",
+                "fancytoasts.texture.steamy.description"
         );
         registerTexture(
                 TextureLocations.TERRACRAFT,
-                "terracraft"
+                "terracraft",
+                "fancytoasts.texture.terracraft.description"
         );
     }
 
-    private static void registerTexture(ResourceLocation id, String name) {
+    private static void registerTexture(ResourceLocation id, String name, String description) {
         ToastTextureRegistry.register(
                 id,
                 Constants.MOD_ID,
                 name,
-                "Bivrik"
+                Constants.MOD_NAME,
+                description
         );
     }
 
@@ -73,21 +82,24 @@ public class Common {
                 ResLoc.of("animation/standard"),
                 StandardAnimation::new,
                 Constants.MOD_ID,
-                "standard"
+                "standard",
+                "fancytoasts.animation.standard.description"
         );
 
         ToastAnimationRegistry.register(
                 ResLoc.of("animation/playful"),
                 PlayfulAnimation::new,
                 Constants.MOD_ID,
-                "playful"
+                "playful",
+                "fancytoasts.animation.playful.description"
         );
 
         ToastAnimationRegistry.register(
                 ResLoc.of("animation/quirky"),
                 QuirkyAnimation::new,
                 Constants.MOD_ID,
-                "quirky"
+                "quirky",
+                "fancytoasts.animation.quirky.description"
         );
     }
 }

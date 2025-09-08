@@ -14,21 +14,24 @@ import java.util.Map;
 public class ToastTextureRegistry {
     private static final Map<ResourceLocation, ToastTextureData> TEXTURES = new HashMap<>();
 
-    public static boolean register(ResourceLocation id, String modId, String name, String author) {
+    public static boolean register(ResourceLocation id, String modId, String name, String author, String description) {
         if (TEXTURES.containsKey(id)) {
             Debug.error("{} already exists! It needs to be unique", id);
             return false;
         }
 
         Component componentName;
+        Component componentDescription;
         if (modId != null) {
             componentName = ComponentHelper.getTranslatableToastTexture(modId, name);
+            componentDescription = Component.translatable(description);
         }
         else {
             componentName = Component.literal(name);
+            componentDescription = Component.literal(description);
         }
 
-        var data = new ToastTextureData(componentName, author);
+        var data = new ToastTextureData(componentName, author, componentDescription);
         TEXTURES.put(id, data);
 
         Debug.message("Registered {}", id);
@@ -39,10 +42,10 @@ public class ToastTextureRegistry {
         getIds().removeIf(id -> id.toString().contains("config"));
     }
 
-    private static ToastTextureData getData(ResourceLocation id) {
+    public static ToastTextureData getData(ResourceLocation id) {
         return TEXTURES.computeIfAbsent(id, key -> {
             Debug.error("Texture {} is missing", key);
-            return new ToastTextureData(ComponentHelper.getTranslatableToastTexture(Constants.MOD_ID, "vanilla"), "Bivrik");
+            return new ToastTextureData(ComponentHelper.getTranslatableToastTexture(Constants.MOD_ID, "vanilla"), "Fancy Toasts", Component.translatable("fancytoasts.texture.vanilla.description"));
         });
     }
 
@@ -51,11 +54,11 @@ public class ToastTextureRegistry {
     }
 
     public static Component getTextureName(ResourceLocation id) {
-        return getData(id).name();
+        return getData(id).getName();
     }
 
     public static Component getTextureAuthor(ResourceLocation id) {
-        return getData(id).author();
+        return getData(id).getAuthor();
     }
 
     public static Collection<ResourceLocation> getIds() {

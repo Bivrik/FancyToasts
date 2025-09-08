@@ -40,4 +40,8 @@ public class ConfigData {
     public void putSound(AdvancementType type, ResourceLocation location) {
         soundIds.put(type, location);
     }
+
+    public ConfigData get() {
+        return new ConfigData(this.animationId, this.textureId, this.soundIds);
+    }
 }

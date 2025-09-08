@@ -98,7 +98,7 @@ public class ConfigTextureManager {
                         ToastTextureData data = optionalData.get();
                         ResourceLocation id = ResourceLocation.fromNamespaceAndPath(Constants.MOD_ID, textureFile.getPath().replace("\\", "/").replaceFirst("./", ""));
 
-                        if (ToastTextureRegistry.register(id, null, data.name().getString(), data.author().getString())) {
+                        if (ToastTextureRegistry.register(id, null, data.getName().getString(), data.getAuthor().getString(), data.getDescription().getString())) {
                             CONFIG_TEXTURES_CASH.put(id, textureFile.toPath());
                         }
                     }
