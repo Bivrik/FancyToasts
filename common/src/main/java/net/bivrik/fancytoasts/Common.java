@@ -3,6 +3,7 @@ package net.bivrik.fancytoasts;
 import net.bivrik.fancytoasts.client.config.ConfigData;
 import net.bivrik.fancytoasts.client.config.ConfigHandler;
 import net.bivrik.fancytoasts.client.config.ConfigTextureManager;
+import net.bivrik.fancytoasts.client.gui.SplashManager;
 import net.bivrik.fancytoasts.client.toast.animation.QuirkyAnimation;
 import net.bivrik.fancytoasts.client.toast.animation.PlayfulAnimation;
 import net.bivrik.fancytoasts.client.toast.animation.StandardAnimation;
@@ -11,15 +12,30 @@ import net.bivrik.fancytoasts.client.toast.registry.ToastTextureRegistry;
 import net.bivrik.fancytoasts.client.util.ResLoc;
 import net.bivrik.fancytoasts.client.util.TextureLocations;
 import net.bivrik.fancytoasts.platform.Services;
+import net.minecraft.client.Minecraft;
 import net.minecraft.resources.ResourceLocation;
-
-import java.util.Locale;
 
 // Only Vanilla code base
 public class Common {
+    private static SplashManager splashManager;
+
     public static ConfigData CONFIG;
 
-    public static void init() {
+    public static void onMinecraftInitialization(Minecraft minecraft) {
+        var id = CONFIG.getTextureId();
+        if (id.toString().contains("config")) {
+            ConfigTextureManager.registerInMinecraft(id);
+        }
+
+        splashManager = new SplashManager(minecraft.getUser());
+        splashManager.load(minecraft.getResourceManager());
+    }
+
+    public static SplashManager getSplashManager() {
+        return splashManager;
+    }
+
+    public static void onModInitialization() {
         if (Services.PLATFORM.isModLoaded(Constants.MOD_ID)) {
             Debug.message("Common init on {} in a {} environment.", Services.PLATFORM.getPlatformName(), Services.PLATFORM.getEnvironmentName());
 

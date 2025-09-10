@@ -1,8 +1,8 @@
 {
   "fancytoasts.gui.unknown": "Unknown",
-  "fancytoasts.gui.config.title": "Fancy Toasts Configs",
+  "fancytoasts.gui.config.title": "Fancy Toasts",
   "fancytoasts.gui.config.customization_title": "Customization Settings",
-  "fancytoasts.gui.config.general_settings": "General Settings",
+  "fancytoasts.gui.config.general_title": "General Settings",
   "fancytoasts.gui.label.textures": "Textures",
   "fancytoasts.gui.label.animations": "Animations",
   "fancytoasts.gui.label.sounds": "Sounds",
@@ -11,6 +11,8 @@
   "fancytoasts.gui.label.challenge": "Challenge",
   "fancytoasts.gui.label.author": "Author:",
   "fancytoasts.gui.label.description": "Description:",
+  "fancytoasts.gui.label.general_settings": "Settings",
+  "fancytoasts.gui.label.toast_settings": "Toast settings",
 
   "fancytoasts.animation.standard": "Standard",
   "fancytoasts.animation.standard.description": "Standard animation. Calm and steady, sliding gently. In some sort of Vanilla Style",
@@ -30,5 +32,7 @@
   "fancytoasts.texture.terracraft": "Terracraft",
   "fancytoasts.texture.terracraft.description": "What is it? I think I saw a big red eye in the skies! Oh, wait, it dashes... Inspired by Terraria",
   "fancytoasts.texture.steamy": "Steamy",
-  "fancytoasts.texture.steamy.description": "I spent 1500 hours to get 100%! Are you proud of me, mom? Inspired by Steam"
+  "fancytoasts.texture.steamy.description": "I spent 1500 hours to get 100%! Are you proud of me, mom? Inspired by Steam",
+
+  "fancytoasts.sound.minecraft.description": "Built-in sound from Minecraft"
 }

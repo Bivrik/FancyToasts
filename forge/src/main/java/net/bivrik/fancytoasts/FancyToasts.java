@@ -8,7 +8,7 @@ import net.minecraftforge.fml.common.Mod;
 public class FancyToasts {
 
     public FancyToasts() {
-        Common.init();
+        Common.onModInitialization();
 
         ForgeConfigScreen.registerConfigScreen(ModLoadingContext.get());
     }

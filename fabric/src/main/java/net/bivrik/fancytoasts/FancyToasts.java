@@ -6,6 +6,6 @@ public class FancyToasts implements ModInitializer {
 
     @Override
     public void onInitialize() {
-        Common.init();
+        Common.onModInitialization();
     }
 }

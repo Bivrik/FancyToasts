@@ -1,8 +1,8 @@
 {
   "fancytoasts.gui.unknown": "Неизвестно",
-  "fancytoasts.gui.config.title": "Fancy Toasts настройки",
+  "fancytoasts.gui.config.title": "Fancy Toasts",
   "fancytoasts.gui.config.customization_title": "Настройки кастомизации",
-  "fancytoasts.gui.config.general_settings": "Основные настройки",
+  "fancytoasts.gui.config.general_title": "Основные настройки",
   "fancytoasts.gui.label.textures": "Текстуры",
   "fancytoasts.gui.label.animations": "Анимации",
   "fancytoasts.gui.label.sounds": "Звуки",
@@ -11,6 +11,8 @@
   "fancytoasts.gui.label.challenge": "Испытание",
   "fancytoasts.gui.label.author": "Автор:",
   "fancytoasts.gui.label.description": "Описание:",
+  "fancytoasts.gui.label.general_settings": "Настройки",
+  "fancytoasts.gui.label.toast_settings": "Настройки тоста",
 
   "fancytoasts.animation.standard": "Стандарт",
   "fancytoasts.animation.standard.description": "Стандартная аманиция. Спокойная и аккуратная, нежно въезжающая. В каком-то смысле в стиле Minecraft",
@@ -30,5 +32,7 @@
   "fancytoasts.texture.terracraft": "Терракрафт",
   "fancytoasts.texture.terracraft.description": "Что это? Мне кажется, или я увидел большой красный глаз в небе! Подожди, он... Вдохновленно Terraria",
   "fancytoasts.texture.steamy": "Любитель ПК",
-  "fancytoasts.texture.steamy.description": "Я потратил 1500 часов для получения 100%! Ты гордишься мной, мам? Вдохновленно Steam"
+  "fancytoasts.texture.steamy.description": "Я потратил 1500 часов для получения 100%! Ты гордишься мной, мам? Вдохновленно Steam",
+
+  "fancytoasts.sound.minecraft.description": "Стандартный звук из Minecraft"
 }
