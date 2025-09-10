@@ -18,7 +18,6 @@ import net.minecraft.resources.ResourceLocation;
 // Only Vanilla code base
 public class Common {
     private static SplashManager splashManager;
-
     public static ConfigData CONFIG;
 
     public static void onMinecraftInitialization(Minecraft minecraft) {
