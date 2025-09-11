@@ -35,7 +35,7 @@ public class InformationList extends AbstractSelectionList<InformationList.Entry
 
         this.addLine(displayData.getName(), CommonColors.YELLOW);
         if (isConfig) {
-            this.addLine(Component.translatable("Custom"), CommonColors.SOFT_RED);
+            this.addLine(Component.translatable("fancytoasts.gui.custom"), CommonColors.SOFT_RED);
         }
         this.addSpace();
         this.addLine(Component.translatable("fancytoasts.gui.label.author"), CommonColors.WHITE);
