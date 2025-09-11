@@ -8,10 +8,10 @@ public class ComponentHelper {
 
     private static Component getTranslatableComponent(String modId, String name, TranslatableType type) {
         StringBuilder translationKey = new StringBuilder(DEFAULT_ID);
-        if (modId.compareTo(DEFAULT_ID) != 0) {
+        if (modId != null && modId.compareTo(DEFAULT_ID) != 0) {
             translationKey.append(".").append(modId);
         }
-        translationKey.append(".").append(type.name().toLowerCase()).append(".").append(name);
+        translationKey.append(".").append(type.getName()).append(".toast.").append(name);
 
         return Component.translatable(translationKey.toString());
     }
@@ -38,7 +38,17 @@ public class ComponentHelper {
     }
 
     private enum TranslatableType {
-        ANIMATION,
-        TEXTURE
+        ANIMATION("animations"),
+        TEXTURE("textures");
+
+        private final String name;
+
+        TranslatableType(String name) {
+            this.name = name;
+        }
+
+        public String getName() {
+            return name;
+        }
     }
 }
