@@ -1,6 +1,7 @@
 package net.bivrik.fancytoasts.client.gui;
 
 import net.bivrik.fancytoasts.Debug;
+import net.bivrik.fancytoasts.client.toast.texture.ToastTextureData;
 import net.minecraft.Util;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
@@ -22,14 +23,15 @@ import java.util.function.Consumer;
 
 public class ResourceLocationList extends ObjectSelectionList<ResourceLocationList.Entry> {
     private ResourceLocation[] resourceLocations;
+    private SettingType settingType;
     private Consumer<ResourceLocation> acceptResponder;
     private Consumer<ResourceLocation> selectResponder;
 
-    public ResourceLocationList(Minecraft minecraft, int width, int height, int x, int y, int itemHeight, ResourceLocation[] resourceLocations) {
+    public ResourceLocationList(Minecraft minecraft, int width, int height, int x, int y, int itemHeight, SettingType settingType) {
         super(minecraft, width, height, y, itemHeight);
         this.setX(x);
 
-        this.setResourceLocations(resourceLocations);
+        setResourceLocations(settingType);
     }
 
     public void setAcceptResponder(Consumer<ResourceLocation> acceptResponder) {
@@ -56,28 +58,30 @@ public class ResourceLocationList extends ObjectSelectionList<ResourceLocationLi
     }
 
     public void onFilterUpdate(String filter) {
-        this.clear();
+        clear();
         filter = filter.toLowerCase(Locale.ROOT);
 
-        for (ResourceLocation location : this.resourceLocations) {
-            if (!location.toLanguageKey().toLowerCase(Locale.ROOT).contains(filter)) {
+        for (ResourceLocation location : resourceLocations) {
+            if (!settingType.getDisplayData(location).getName().getString().toLowerCase(Locale.ROOT).contains(filter)) {
                 continue;
             }
 
-            this.addEntry(new ResourceLocationListEntry(this, location));
+            this.addEntry(new ResourceLocationListEntry(this, location, settingType.getDisplayData(location).getName()));
         }
     }
 
-    public void setResourceLocations(ResourceLocation[] resourceLocations) {
-        this.resourceLocations = resourceLocations;
-        this.refillList();
+    public void setResourceLocations(SettingType settingType) {
+        this.settingType = settingType;
+        this.resourceLocations = this.settingType.getKeySet();
+
+        refillList();
     }
 
     private void refillList() {
-        this.clear();
+        clear();
 
-        for (ResourceLocation location : this.resourceLocations) {
-            this.addEntry(new ResourceLocationListEntry(this, location));
+        for (ResourceLocation location : resourceLocations) {
+            this.addEntry(new ResourceLocationListEntry(this, location, settingType.getDisplayData(location).getName()));
         }
     }
 
@@ -114,14 +118,13 @@ public class ResourceLocationList extends ObjectSelectionList<ResourceLocationLi
 
         private long lastClickTime;
 
-        public ResourceLocationListEntry(ResourceLocationList list, ResourceLocation location) {
+        public ResourceLocationListEntry(ResourceLocationList list, ResourceLocation location, Component name) {
             this.list = list;
             this.location = location;
             this.minecraft = this.list.minecraft;
             this.font = this.minecraft.font;
 
-            String name = this.location.toLanguageKey().replace('/', '.').replace(".png", "").replace("s.gui.advancement_toasts","");
-            this.nameList = this.font.split(Component.translatable(name), this.list.getRowWidth() - 8 - 2);
+            this.nameList = this.font.split(name, this.list.getRowWidth() - 8 - 2);
         }
 
         @Override

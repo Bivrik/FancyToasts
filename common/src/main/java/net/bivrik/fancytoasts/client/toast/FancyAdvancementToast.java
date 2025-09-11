@@ -15,7 +15,6 @@ import net.minecraft.client.resources.sounds.SimpleSoundInstance;
 import net.minecraft.client.sounds.SoundManager;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 
 import java.util.Objects;
@@ -41,19 +40,19 @@ public class FancyAdvancementToast {
         switch (Objects.requireNonNull(display).getType()) {
             case GOAL -> {
                 animation.setup(new FancyAdvancementSetup(texture, TextureUV.GOAL_FRAME_UV, display, 0x00FFFF, 0xFFFFFF));
-                toastSoundId = Common.CONFIG.getSoundId(AdvancementType.GOAL);
+                toastSoundId = Common.getToastConfig().getSoundId(AdvancementType.GOAL);
             }
             case CHALLENGE -> {
                 animation.setup(new FancyAdvancementSetup(texture, TextureUV.CHALLENGE_FRAME_UV, display, 0xEA3CFF, 0x00FFFF));
-                toastSoundId = Common.CONFIG.getSoundId(AdvancementType.CHALLENGE);
+                toastSoundId = Common.getToastConfig().getSoundId(AdvancementType.CHALLENGE);
             }
             default -> {
                 animation.setup(new FancyAdvancementSetup(texture, TextureUV.TASK_FRAME_UV, display, 0xFFFF00, 0xFFFFFF));
-                toastSoundId = Common.CONFIG.getSoundId(AdvancementType.TASK);
+                toastSoundId = Common.getToastConfig().getSoundId(AdvancementType.TASK);
             }
         }
 
-        Debug.message("Created new Fancy Advancement Toast: {}", display.getTitle().getString());
+        Debug.info("Created new Fancy Advancement Toast: {}", display.getTitle().getString());
     }
 
     public void draw(GuiGraphics graphics, Minecraft minecraft) {

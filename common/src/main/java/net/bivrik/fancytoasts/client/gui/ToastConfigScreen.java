@@ -1,19 +1,16 @@
 package net.bivrik.fancytoasts.client.gui;
 
 import net.bivrik.fancytoasts.Common;
-import net.bivrik.fancytoasts.Constants;
-import net.bivrik.fancytoasts.client.config.ConfigData;
+import net.bivrik.fancytoasts.client.config.ToastConfigData;
 import net.bivrik.fancytoasts.client.config.ConfigHandler;
-import net.bivrik.fancytoasts.client.toast.registry.ToastAnimationRegistry;
-import net.bivrik.fancytoasts.client.toast.registry.ToastTextureRegistry;
 import net.bivrik.fancytoasts.client.toast.texture.ToastTextureData;
 import net.minecraft.advancements.AdvancementType;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.gui.components.CycleButton;
 import net.minecraft.client.gui.components.EditBox;
+import net.minecraft.client.gui.components.Tooltip;
 import net.minecraft.client.gui.screens.Screen;
-import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.network.chat.CommonComponents;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
@@ -25,11 +22,11 @@ import static net.bivrik.fancytoasts.client.gui.LayoutValues.*;
 
 public class ToastConfigScreen extends Screen {
     private final Screen parent;
-    private final ConfigData configData;
+    private final ToastConfigData toastConfigData;
 
     private SettingType settingType = SettingType.TEXTURES;
     private AdvancementType advancementType = AdvancementType.TASK;
-    private ToastTextureData displayData = settingType.getDisplayData(Common.CONFIG.getTextureId());
+    private ToastTextureData displayData = settingType.getDisplayData(Common.getToastConfig().getTextureId());
 
     private Button doneButton;
     private Button backButton;
@@ -42,7 +39,15 @@ public class ToastConfigScreen extends Screen {
     public ToastConfigScreen(Component title, Screen parent) {
         super(title);
         this.parent = parent;
-        this.configData = Common.CONFIG.get();
+        this.toastConfigData = Common.getToastConfig();
+    }
+
+    public AdvancementType getAdvancementType() {
+        return advancementType;
+    }
+
+    public ToastConfigData getConfigData() {
+        return toastConfigData;
     }
 
     @Override
@@ -55,16 +60,40 @@ public class ToastConfigScreen extends Screen {
 
         this.settingTypeCycleButton = this.addRenderableWidget(CycleButton.builder(SettingType::getDisplayName).displayOnlyValue()
                 .withValues(SettingType.values()).withInitialValue(settingType)
+                .withTooltip((settingType) -> {
+                    Tooltip tooltip;
+
+                    switch (settingType) {
+                        case TEXTURES -> tooltip = Tooltip.create(Component.translatable("fancytoasts.gui.tooltip.textures"));
+                        case ANIMATIONS -> tooltip = Tooltip.create(Component.translatable("fancytoasts.gui.tooltip.animations"));
+                        case SOUNDS -> tooltip = Tooltip.create(Component.translatable("fancytoasts.gui.tooltip.sounds"));
+                        default -> throw new MatchException(null, null);
+                    }
+
+                    return tooltip;
+                })
                 .create(this.width - 128, MARGIN, 120, BUTTON_HEIGHT, Component.empty(), (button, value) -> this.setSettingType(value)));
 
         this.advancementTypeCycleButton = CycleButton.builder(this::getAdvancementTypeDisplayName).displayOnlyValue()
                 .withValues(AdvancementType.values()).withInitialValue(advancementType)
+                .withTooltip((advancementType) -> {
+                    Tooltip tooltip;
+
+                    switch (advancementType) {
+                        case TASK -> tooltip = Tooltip.create(Component.translatable("fancytoasts.gui.tooltip.task"));
+                        case GOAL -> tooltip = Tooltip.create(Component.translatable("fancytoasts.gui.tooltip.goal"));
+                        case CHALLENGE -> tooltip = Tooltip.create(Component.translatable("fancytoasts.gui.tooltip.challenge"));
+                        default -> throw new MatchException(null, null);
+                    }
+
+                    return tooltip;
+                })
                 .create(PADDING, MARGIN, 120, BUTTON_HEIGHT, Component.empty(), (button, value) -> this.setAdvancementType(value));
 
         this.resLocList = this.addRenderableWidget(new ResourceLocationList(this.minecraft,
                 this.width / 2 + 60 - PADDING, this.height - 20 - PADDING - MARGIN * 2 - 2,
                 this.width / 2 - 60, 20 + PADDING + MARGIN,
-                18, settingType.getKeySet()));
+                18, settingType));
         this.resLocList.setAcceptResponder(this::onAcceptedEntry);
         this.resLocList.setSelectResponder(this::onSelectedEntry);
 
@@ -73,7 +102,7 @@ public class ToastConfigScreen extends Screen {
                 PADDING, 20 + PADDING + MARGIN,
                 displayData, settingType.getCurrentId(this).toLanguageKey().contains("config")));
 
-        this.editBox = this.addRenderableWidget(new EditBox(this.font, this.width / 2 - 60, MARGIN, this.width / 2 - 60 - PADDING * 2, BUTTON_HEIGHT, this.editBox, Component.literal("Type...")));
+        this.editBox = this.addRenderableWidget(new EditBox(this.font, this.width / 2 - 60, MARGIN, this.width / 2 - 60 - PADDING * 2, BUTTON_HEIGHT, this.editBox, Component.literal("...")));
         this.editBox.setResponder(resLocList::onFilterUpdate);
 
         this.tryAddAdvancementTypeCycleButton();
@@ -84,7 +113,7 @@ public class ToastConfigScreen extends Screen {
     }
 
     private void done() {
-        ConfigHandler.save(configData);
+        ConfigHandler.save(toastConfigData);
         toParentScreen();
     }
 
@@ -95,7 +124,7 @@ public class ToastConfigScreen extends Screen {
     private void setSettingType(SettingType type) {
         settingType = type;
         this.editBox.setValue("");
-        this.resLocList.setResourceLocations(settingType.getKeySet());
+        this.resLocList.setResourceLocations(settingType);
         this.tryAddAdvancementTypeCycleButton();
     }
 
@@ -137,86 +166,5 @@ public class ToastConfigScreen extends Screen {
         super.render(guiGraphics, mouseX, mouseY, partialTick);
 
         guiGraphics.drawCenteredString(this.font, this.title, this.width / 2, 12, -1);
-    }
-
-    private enum SettingType {
-        TEXTURES("textures") {
-            @Override
-            void apply(ToastConfigScreen instance, ResourceLocation id) {
-                instance.configData.setTextureId(id);
-            }
-
-            @Override
-            ToastTextureData getDisplayData(ResourceLocation id) {
-                return ToastTextureRegistry.getData(id);
-            }
-
-            @Override
-            ResourceLocation getCurrentId(ToastConfigScreen instance) {
-                return instance.configData.getTextureId();
-            }
-
-            @Override
-            ResourceLocation[] getKeySet() {
-                return ToastTextureRegistry.getIds().toArray(new ResourceLocation[0]);
-            }
-        },
-        ANIMATIONS("animations") {
-            @Override
-            void apply(ToastConfigScreen instance, ResourceLocation id) {
-                instance.configData.setAnimationId(id);
-            }
-
-            @Override
-            ToastTextureData getDisplayData(ResourceLocation id) {
-                return ToastAnimationRegistry.getData(id);
-            }
-
-            @Override
-            ResourceLocation getCurrentId(ToastConfigScreen instance) {
-                return instance.configData.getAnimationId();
-            }
-
-            @Override
-            ResourceLocation[] getKeySet() {
-                return ToastAnimationRegistry.getIds().toArray(new ResourceLocation[0]);
-            }
-        },
-        SOUNDS("sounds") {
-            @Override
-            void apply(ToastConfigScreen instance, ResourceLocation id) {
-                instance.configData.putSound(instance.advancementType, id);
-            }
-
-            @Override
-            ToastTextureData getDisplayData(ResourceLocation id) {
-                return new ToastTextureData(Component.translatable(id.toLanguageKey()), "Minecraft", Component.translatable(Constants.MOD_ID + ".sound.minecraft.description"));
-            }
-
-            @Override
-            ResourceLocation getCurrentId(ToastConfigScreen instance) {
-                return instance.configData.getSoundId(instance.advancementType);
-            }
-
-            @Override
-            ResourceLocation[] getKeySet() {
-                return BuiltInRegistries.SOUND_EVENT.keySet().toArray(new ResourceLocation[0]);
-            }
-        };
-
-        abstract void apply(ToastConfigScreen instance, ResourceLocation entry);
-        abstract ToastTextureData getDisplayData(ResourceLocation id);
-        abstract ResourceLocation getCurrentId(ToastConfigScreen instance);
-        abstract ResourceLocation[] getKeySet();
-
-        private final String name;
-
-        SettingType(String name) {
-            this.name = name;
-        }
-
-        public static Component getDisplayName(SettingType type) {
-            return Component.translatable("fancytoasts.gui.label." + type.name);
-        }
     }
 }

@@ -1,8 +1,8 @@
 package net.bivrik.fancytoasts.client.toast.registry;
 
-import net.bivrik.fancytoasts.Constants;
 import net.bivrik.fancytoasts.Debug;
 import net.bivrik.fancytoasts.client.toast.texture.ToastTextureData;
+import net.bivrik.fancytoasts.client.util.FileType;
 import net.bivrik.fancytoasts.utility.ComponentHelper;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
@@ -21,21 +21,25 @@ public class ToastTextureRegistry {
         }
 
         Component componentName;
-        Component componentDescription;
+        Component translatableDescription;
         if (modId != null) {
             componentName = ComponentHelper.getTranslatableToastTexture(modId, name);
-            componentDescription = Component.translatable(description);
+            translatableDescription = Component.translatable(description);
         }
         else {
             componentName = Component.literal(name);
-            componentDescription = Component.literal(description);
+            translatableDescription = Component.literal(description);
         }
 
-        var data = new ToastTextureData(componentName, author, componentDescription);
+        var data = new ToastTextureData(componentName, author, translatableDescription);
         TEXTURES.put(id, data);
 
-        Debug.message("Registered {}", id);
+        Debug.info("Registered {}", id);
         return true;
+    }
+
+    public static boolean register(ResourceLocation id, String modId, String name, String author) {
+        return register(id, modId, name, author, modId + ".textures.toast." + name + ".description");
     }
 
     public static void clearCustom() {
@@ -45,7 +49,7 @@ public class ToastTextureRegistry {
     public static ToastTextureData getData(ResourceLocation id) {
         return TEXTURES.computeIfAbsent(id, key -> {
             Debug.error("Texture {} is missing", key);
-            return new ToastTextureData(ComponentHelper.getTranslatableToastTexture(Constants.MOD_ID, "vanilla"), "Fancy Toasts", Component.translatable("fancytoasts.texture.vanilla.description"));
+            return new ToastTextureData(Component.translatable("fancytoasts.textures.toast.vanilla"), "Fancy Toasts", Component.translatable("fancytoasts.textures.vanilla.description"));
         });
     }
 

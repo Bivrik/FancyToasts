@@ -6,10 +6,10 @@ import org.slf4j.LoggerFactory;
 public class Debug {
     private static final Logger LOGGER = LoggerFactory.getLogger(Constants.MOD_NAME);
 
-    public static void message(String msg) {
+    public static void info(String msg) {
         LOGGER.info(msg);
     }
-    public static void message(String msg, Object... args) {
+    public static void info(String msg, Object... args) {
         LOGGER.info(msg, args);
     }
 

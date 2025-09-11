@@ -2,6 +2,7 @@ package net.bivrik.fancytoasts.client.gui;
 
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.Button;
+import net.minecraft.client.gui.components.CycleButton;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.network.chat.CommonComponents;
 import net.minecraft.network.chat.Component;
@@ -26,6 +27,8 @@ public class GeneralConfigScreen extends Screen {
     protected void init() {
         backButton = this.addRenderableWidget(Button.builder(CommonComponents.GUI_BACK, (button) -> toParentScreen())
                 .bounds(this.width / 2 - BUTTON_WIDTH / 2, this.height - BUTTON_HEIGHT - 6, BUTTON_WIDTH, BUTTON_HEIGHT).build());
+
+
     }
 
     private void toParentScreen() {

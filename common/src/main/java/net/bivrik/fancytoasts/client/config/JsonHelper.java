@@ -34,7 +34,7 @@ public class JsonHelper {
     public static <T> Optional<T> tryToRead(File jsonFile, Class<T> toClass) {
         try (FileReader reader = new FileReader(jsonFile)) {
             return Optional.of(GSON.fromJson(reader, toClass));
-        } catch (IOException e) {
+        } catch (Exception e) {
             Debug.error("Could not read json file {}: {}", jsonFile.getName(), e.getMessage());
             return Optional.empty();
         }
@@ -43,7 +43,7 @@ public class JsonHelper {
     public static boolean tryToWrite(File jsonFile, Object fromClass) {
         try (FileWriter writer = new FileWriter(jsonFile)) {
             GSON.toJson(fromClass, writer);
-        } catch (IOException e) {
+        } catch (Exception e) {
             Debug.error("Could not write json file {}: {}", jsonFile.getName(), e.getMessage());
             return false;
         }

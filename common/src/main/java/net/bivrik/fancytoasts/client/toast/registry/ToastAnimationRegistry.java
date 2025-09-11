@@ -28,13 +28,17 @@ public class ToastAnimationRegistry {
 
         ANIMATIONS.put(id, new ToastAnimationHandler(animation, new ToastTextureData(translatableName, Constants.MOD_NAME, translatableDescription)));
 
-        Debug.message("Registered {}", id);
+        Debug.info("Registered {}", id);
+    }
+
+    public static void register(ResourceLocation id, Supplier<FancyAdvancementToastAnimation> animation, String modId, String name) {
+        register(id, animation, modId, name, modId + ".animations.toast." + name + ".description");
     }
 
     private static ToastAnimationHandler getAnimationHandler(ResourceLocation id) {
         return ANIMATIONS.computeIfAbsent(id, key -> {
             Debug.error("Animation {} is missing", key);
-            return new ToastAnimationHandler(StandardAnimation::new, new ToastTextureData(ComponentHelper.getTranslatableToastAnimation(Constants.MOD_ID, "animation/standard"), Constants.MOD_NAME, Component.translatable("fancytoasts.animation.standard.description")));
+            return new ToastAnimationHandler(StandardAnimation::new, new ToastTextureData(Component.translatable("fancytoasts.animations.toast.standard"), Constants.MOD_NAME, Component.translatable("fancytoasts.animations.toast.standard.description")));
         });
     }
 

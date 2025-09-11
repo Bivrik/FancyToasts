@@ -6,3 +6,11 @@ Now toasts taste better
 Ka-Chow
 Do ya' need some butter?
 ._.
+Do not look at code
+5000 downloads!
+09.12.2025
+Herobrine was added
+Herobrine was deleted
+Toast + Butter = Nice
+newToast("You are a sweetheart");
+Toastification!

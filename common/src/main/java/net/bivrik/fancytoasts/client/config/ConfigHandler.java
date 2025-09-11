@@ -1,88 +1,70 @@
 package net.bivrik.fancytoasts.client.config;
 
 import net.bivrik.fancytoasts.Common;
+import net.bivrik.fancytoasts.Constants;
 import net.bivrik.fancytoasts.Debug;
 import net.bivrik.fancytoasts.client.util.FileHelper;
 import net.bivrik.fancytoasts.client.util.Paths;
-import net.bivrik.fancytoasts.client.toast.registry.ToastAnimationRegistry;
-import net.bivrik.fancytoasts.client.util.TextureLocations;
-import net.bivrik.fancytoasts.client.toast.registry.ToastTextureRegistry;
-import net.bivrik.fancytoasts.client.util.ResLoc;
-import net.minecraft.advancements.AdvancementType;
-import net.minecraft.sounds.SoundEvents;
 
 import java.io.File;
-import java.util.Map;
 import java.util.Optional;
 
 public class ConfigHandler {
     private static final File CONFIG_DIR = new File(Paths.CONFIG);
-    private static final File CONFIG_FILE = new File(Paths.CONFIG_FILE);
 
-    public static ConfigData load() {
+    private static <T extends ConfigData> T tryGetInstance(Class<T> configDataClass) {
+        try {
+            return configDataClass.getConstructor().newInstance();
+        } catch (Exception e) {
+            throw new RuntimeException("Failed to create an instance of " + configDataClass.getSimpleName() + " to get standard data", e);
+        }
+    }
+
+    public static <T extends ConfigData> T load(Class<T> configDataClass) {
         FileHelper.tryCreateDir(CONFIG_DIR);
 
-        ConfigData data;
-        if (JsonHelper.isValid(CONFIG_FILE)) {
-            Optional<ConfigData> optionalData = JsonHelper.tryToRead(CONFIG_FILE, ConfigData.class);
+        String className = configDataClass.getSimpleName();
+        T standardConfigData = tryGetInstance(configDataClass);
+
+        File configFile = new File(standardConfigData.getPath());
+
+        if (JsonHelper.isValid(configFile)) {
+            Optional<T> optionalData = JsonHelper.tryToRead(configFile, configDataClass);
 
             if (optionalData.isPresent()) {
-                data = optionalData.get();
+                T data = optionalData.get();
 
-                if (ToastTextureRegistry.isRegistered(data.getTextureId())
-                        && ToastAnimationRegistry.isRegistered(data.getAnimationId())) {
+                if (data.isValid()) {
+                Debug.info("Successfully read config file with following content:");
+                Debug.info(data.toString());
 
-                    Debug.message("Config file loaded with following data:");
-                    showData(data);
-
-                    return data;
+                return data;
                 }
             }
+
+            Debug.error("Config file {} is not valid or outdated", className);
+        } else {
+            Debug.error("Config file {} is not found in {}", className, standardConfigData.getPath());
         }
 
-        Debug.error("Config file is outdated or corrupted!");
-        data = getStandardData();
-        save(data);
+        Debug.warn("Loaded standard data for config: {}", className);
 
-        return data;
+        save(standardConfigData);
+        return standardConfigData;
     }
 
-    private static ConfigData getStandardData() {
-        Debug.warn("Default data is created");
-        return STANDARD_DATA;
-    }
+    public static <T extends ConfigData> void save(T configData) {
+        FileHelper.tryCreateDir(CONFIG_DIR);
 
-    public static void save(ConfigData data) {
-        FileHelper.tryCreateDir(CONFIG_DIR);;
+        File configFile = new File(configData.getPath());
 
-        if (JsonHelper.tryToWrite(CONFIG_FILE, data)) {
-            Debug.message("Config file saved with following data:");
-            showData(data);
+        if (JsonHelper.tryToWrite(configFile, configData)) {
+            Debug.info("Config file saved with following content:");
+            Debug.info(configData.toString());
+
+            Common.updateConfig(configData);
+        } else {
+            Debug.error("Config file {} could not be saved", configData.getClass().getSimpleName());
         }
-        else {
-            Debug.error("Could not save config file!");
-        }
-
-        Common.CONFIG = data;
     }
-
-    private static void showData(ConfigData data) {
-        Debug.message("===========================");
-        Debug.message("Animation ID: " + data.getAnimationId());
-        Debug.message("Texture ID: " + data.getTextureId());
-        Debug.message("Task Sound ID: " + data.getSoundId(AdvancementType.TASK));
-        Debug.message("Goal Sound ID: " + data.getSoundId(AdvancementType.GOAL));
-        Debug.message("Challenge Sound ID: " + data.getSoundId(AdvancementType.CHALLENGE));
-        Debug.message("===========================");
-    }
-
-    public static final ConfigData STANDARD_DATA = new ConfigData(
-            ResLoc.of("animation/standard"),
-            TextureLocations.VANILLA,
-            Map.of(
-                    AdvancementType.TASK, SoundEvents.ALLAY_AMBIENT_WITH_ITEM.location(),
-                    AdvancementType.GOAL, SoundEvents.FIREWORK_ROCKET_TWINKLE_FAR.location(),
-                    AdvancementType.CHALLENGE, SoundEvents.UI_TOAST_CHALLENGE_COMPLETE.location()
-            )
-    );
 }
