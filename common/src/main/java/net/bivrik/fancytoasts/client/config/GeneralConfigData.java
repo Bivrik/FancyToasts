@@ -9,10 +9,10 @@ public class GeneralConfigData extends ConfigData {
     private float goalVolume;
     private float challengeVolume;
 
-    public GeneralConfigData(boolean isJadeCompatibility, boolean areSoundsEnabled, float taskVolume, float goalVolume, float challengeVolume) {
+    public GeneralConfigData(boolean isJadeCompatEnabled, boolean areSoundsEnabled, float taskVolume, float goalVolume, float challengeVolume) {
         super(Paths.GENERAL_CONFIG_FILE);
 
-        this.isJadeCompatEnabled = isJadeCompatibility;
+        this.isJadeCompatEnabled = isJadeCompatEnabled;
         this.areSoundsEnabled = areSoundsEnabled;
         this.taskVolume = taskVolume;
         this.goalVolume = goalVolume;
@@ -39,26 +39,26 @@ public class GeneralConfigData extends ConfigData {
     public boolean areSoundsEnabled() {
         return areSoundsEnabled;
     }
-    public void setAreSoundsEnabled(boolean areSoundsEnabled) {
+    public void setSoundsEnabled(boolean areSoundsEnabled) {
         this.areSoundsEnabled = areSoundsEnabled;
     }
 
     public float getTaskVolume() {
-        return taskVolume;
+        return Math.clamp(taskVolume, 0.0f, 2.0f);
     }
     public void setTaskVolume(float taskVolume) {
         this.taskVolume = taskVolume;
     }
 
     public float getGoalVolume() {
-        return goalVolume;
+        return Math.clamp(goalVolume, 0.0f, 2.0f);
     }
     public void setGoalVolume(float goalVolume) {
         this.goalVolume = goalVolume;
     }
 
     public float getChallengeVolume() {
-        return challengeVolume;
+        return Math.clamp(challengeVolume, 0.0f, 2.0f);
     }
     public void setChallengeVolume(float challengeVolume) {
         this.challengeVolume = challengeVolume;
