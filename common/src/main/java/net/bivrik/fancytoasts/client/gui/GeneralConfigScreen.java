@@ -3,17 +3,19 @@ package net.bivrik.fancytoasts.client.gui;
 import net.bivrik.fancytoasts.Common;
 import net.bivrik.fancytoasts.client.config.ConfigHandler;
 import net.bivrik.fancytoasts.client.config.GeneralConfigData;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
-import net.minecraft.client.gui.components.AbstractSliderButton;
-import net.minecraft.client.gui.components.Button;
-import net.minecraft.client.gui.components.CycleButton;
-import net.minecraft.client.gui.components.Tooltip;
+import net.minecraft.client.gui.components.*;
 import net.minecraft.client.gui.screens.Screen;
+import net.minecraft.client.renderer.RenderPipelines;
 import net.minecraft.network.chat.CommonComponents;
 import net.minecraft.network.chat.Component;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
 import org.jetbrains.annotations.NotNull;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 import java.util.function.Consumer;
 
@@ -32,10 +34,16 @@ public class GeneralConfigScreen extends Screen {
     private VolumeSlider goalVolumeSlider;
     private VolumeSlider challengeVolumeSlider;
 
+    private final List<AbstractWidget> widgets = new ArrayList<>();
+
     public GeneralConfigScreen(Component title, Screen parent) {
         super(title);
         this.parent = parent;
         this.generalConfigData = Common.getConfigManager().getGeneralConfig();
+    }
+
+    private void addWidget(AbstractWidget aw) {
+        widgets.add(aw);
     }
 
     @Override
@@ -46,24 +54,57 @@ public class GeneralConfigScreen extends Screen {
         backButton = this.addRenderableWidget(Button.builder(CommonComponents.GUI_BACK, (button) -> toParentScreen())
                 .bounds(this.width / 2 - 125 - PADDING / 2, this.height - 20 - 6, 100, BUTTON_HEIGHT).build());
 
-        jadeCompatCycleButton = this.addRenderableWidget(CycleButton.onOffBuilder()
+        jadeCompatCycleButton = CycleButton.onOffBuilder()
                 .withInitialValue(generalConfigData.isJadeCompatEnabled())
-                .withTooltip((value) -> Tooltip.create(Component.literal("Toggles jade compatibility. If toggled, then Jade plaque will be hidden when advancement toast is appeared")))
-                .create(this.width / 2 - BUTTON_WIDTH / 2, this.height / 2, BUTTON_WIDTH, BUTTON_HEIGHT, Component.literal("Jade Compatibility"), (button, value) -> generalConfigData.setJadeCompatEnabled(value)));
+                .withTooltip((value) -> Tooltip.create(Component.translatable("fancytoasts.gui.tooltip.jade_compatibility")))
+                .create(0, 0, BUTTON_WIDTH, BUTTON_HEIGHT, Component.translatable("fancytoasts.gui.label.jade_compatibility"), (button, value) -> generalConfigData.setJadeCompatEnabled(value));
 
-        soundsEnabledCycleButton = this.addRenderableWidget(CycleButton.onOffBuilder()
+        soundsEnabledCycleButton = CycleButton.onOffBuilder()
                 .withInitialValue(generalConfigData.areSoundsEnabled())
-                .withTooltip((value) -> Tooltip.create(Component.literal("Toggles sounds. All sounds can be muted")))
-                .create(this.width / 2 - BUTTON_WIDTH / 2, this.height / 2 + 20 + PADDING, BUTTON_WIDTH, BUTTON_HEIGHT, Component.literal("Toast Sounds"), (button, value) -> generalConfigData.setSoundsEnabled(value)));
+                .withTooltip((value) -> Tooltip.create(Component.translatable("fancytoasts.gui.tooltip.sounds_enabled")))
+                .create(0, 0, BUTTON_WIDTH, BUTTON_HEIGHT, Component.translatable("fancytoasts.gui.label.sounds_enabled"), (button, value) -> generalConfigData.setSoundsEnabled(value));
 
-        taskVolumeSlider = this.addRenderableWidget(new VolumeSlider(0, 0, BUTTON_WIDTH, BUTTON_HEIGHT, Component.literal("Task Volume"), generalConfigData.getTaskVolume()));
+        taskVolumeSlider = new VolumeSlider(0, 0, BUTTON_WIDTH, BUTTON_HEIGHT, Component.translatable("fancytoasts.gui.label.task_volume"), generalConfigData.getTaskVolume());
         taskVolumeSlider.setResponder(generalConfigData::setTaskVolume);
 
-        goalVolumeSlider = this.addRenderableWidget(new VolumeSlider(0, 20 + PADDING, BUTTON_WIDTH, BUTTON_HEIGHT, Component.literal("Goal Volume"), generalConfigData.getGoalVolume()));
+        goalVolumeSlider = new VolumeSlider(0, 0, BUTTON_WIDTH, BUTTON_HEIGHT, Component.translatable("fancytoasts.gui.label.goal_volume"), generalConfigData.getGoalVolume());
         goalVolumeSlider.setResponder(generalConfigData::setGoalVolume);
 
-        challengeVolumeSlider = this.addRenderableWidget(new VolumeSlider(0, 40 + PADDING * 2, BUTTON_WIDTH, BUTTON_HEIGHT, Component.literal("Challenge Volume"), generalConfigData.getChallengeVolume()));
+        challengeVolumeSlider = new VolumeSlider(0, 0, BUTTON_WIDTH, BUTTON_HEIGHT, Component.translatable("fancytoasts.gui.label.challenge_volume"), generalConfigData.getChallengeVolume());
         challengeVolumeSlider.setResponder(generalConfigData::setChallengeVolume);
+
+        addWidget(jadeCompatCycleButton);
+        addWidget(soundsEnabledCycleButton);
+        addWidget(taskVolumeSlider);
+        addWidget(goalVolumeSlider);
+        addWidget(challengeVolumeSlider);
+
+        int y = MARGIN + PADDING;
+        for (int i = 0; i < widgets.size(); i++) {
+            int x = this.width / 2 - BUTTON_WIDTH - PADDING / 2;
+
+            if ((i & 1) == 0) {
+                if (i != 0) {
+                    y += 20 + PADDING;
+                }
+            }
+            else {
+                x += BUTTON_WIDTH + PADDING;
+            }
+
+            AbstractWidget widget = widgets.get(i);
+
+            widget.setX(x);
+            widget.setY(y);
+
+            this.addRenderableWidget(widget);
+        }
+    }
+
+    @Override
+    protected void rebuildWidgets() {
+        widgets.clear();
+        super.rebuildWidgets();
     }
 
     private void done() {
@@ -82,6 +123,11 @@ public class GeneralConfigScreen extends Screen {
 
     @Override
     public void render(@NotNull GuiGraphics graphics, int mouseX, int mouseY, float partialTick) {
+        var resourcelocation = ResourceLocation.withDefaultNamespace("textures/gui/menu_list_background.png");
+        graphics.blit(RenderPipelines.GUI_TEXTURED, resourcelocation, 0, MARGIN, 0, 0, this.width, this.height - MARGIN * 2 - 2, 32, 32);
+        graphics.blit(RenderPipelines.GUI_TEXTURED, Screen.HEADER_SEPARATOR, 0, MARGIN, 0, 0, this.width, 2, 32, 2);
+        graphics.blit(RenderPipelines.GUI_TEXTURED, Screen.FOOTER_SEPARATOR, 0, this.height - MARGIN - 2, 0, 0, width, 2, 32, 2);
+
         super.render(graphics, mouseX, mouseY, partialTick);
 
         graphics.drawCenteredString(this.font, this.title, this.width / 2, 12, -1);

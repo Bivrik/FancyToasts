@@ -14,6 +14,11 @@
   "fancytoasts.gui.label.description": "Описание:",
   "fancytoasts.gui.label.general_settings": "Настройки",
   "fancytoasts.gui.label.toast_settings": "Настройки тоста",
+  "fancytoasts.gui.label.jade_compatibility": "Совместимость с Jade",
+  "fancytoasts.gui.label.sounds_enabled": "Звуки тоста",
+  "fancytoasts.gui.label.task_volume": "Громкость достижения",
+  "fancytoasts.gui.label.goal_volume": "Громкость цели",
+  "fancytoasts.gui.label.challenge_volume": "Громкость испытания",
 
   "fancytoasts.gui.tooltip.task": "Звук появления для обычного достижения.",
   "fancytoasts.gui.tooltip.goal": "Звук появления для цели.",
@@ -21,6 +26,8 @@
   "fancytoasts.gui.tooltip.textures": "Текстуры, используемые для тоста. Пользовательские текстуры могут быть загружены из \"./config/textures\" папки.",
   "fancytoasts.gui.tooltip.animations": "Анимация, которая используется при появлении тоста.",
   "fancytoasts.gui.tooltip.sounds": "Звук, проигрывающийся в момент появляения тоста.",
+  "fancytoasts.gui.tooltip.jade_compatibility": "Переключает совместимость с Jade. Если включено, то плашка от Jade будет скрыта во время появления тоста.",
+  "fancytoasts.gui.tooltip.sounds_enabled": "Переключает глушимость звуков. Если выключена, то все звуки от тоста будут выключены.",
 
   "fancytoasts.animations.toast.standard": "Стандарт",
   "fancytoasts.animations.toast.standard.description": "Стандартная аманиция. Спокойная и аккуратная, нежно въезжающая. В каком-то смысле в стиле Minecraft",

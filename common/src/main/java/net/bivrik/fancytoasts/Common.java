@@ -58,6 +58,12 @@ public class Common {
         ConfigTextureManager.load();
     }
 
+    private static void registerAnimations() {
+        registerAnimation(DefaultLocations.Animations.STANDARD, "standard", StandardAnimation::new);
+        registerAnimation(DefaultLocations.Animations.PLAYFUL, "playful", PlayfulAnimation::new);
+        registerAnimation(DefaultLocations.Animations.QUIRKY, "quirky", QuirkyAnimation::new);
+    }
+
     private static void registerTexture(ResourceLocation id, String name) {
         ToastTextureRegistry.register(
                 id,
@@ -65,12 +71,6 @@ public class Common {
                 name,
                 Constants.MOD_NAME
         );
-    }
-
-    private static void registerAnimations() {
-        registerAnimation(DefaultLocations.Animations.STANDARD, "standard", StandardAnimation::new);
-        registerAnimation(DefaultLocations.Animations.PLAYFUL, "playful", PlayfulAnimation::new);
-        registerAnimation(DefaultLocations.Animations.QUIRKY, "quirky", QuirkyAnimation::new);
     }
 
     private static void registerAnimation(ResourceLocation id, String name, Supplier<FancyAdvancementToastAnimation> animation) {

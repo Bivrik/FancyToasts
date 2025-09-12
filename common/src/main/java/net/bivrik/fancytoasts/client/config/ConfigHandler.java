@@ -1,7 +1,6 @@
 package net.bivrik.fancytoasts.client.config;
 
 import net.bivrik.fancytoasts.Common;
-import net.bivrik.fancytoasts.Constants;
 import net.bivrik.fancytoasts.Debug;
 import net.bivrik.fancytoasts.client.util.FileHelper;
 import net.bivrik.fancytoasts.client.util.Paths;

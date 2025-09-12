@@ -38,19 +38,19 @@ public class FancyToastConfigScreen extends Screen {
         backButton = this.addRenderableWidget(Button.builder(CommonComponents.GUI_BACK, (button) -> toParentScreen())
                 .bounds(xCenter - halfButtonWidth, this.height - BUTTON_HEIGHT - 6, BUTTON_WIDTH, BUTTON_HEIGHT).build());
 
-        toastConfigButton = this.addRenderableWidget(Button.builder(Component.translatable(Constants.MOD_ID + ".gui.label.toast_settings"), (button) -> openToastConfigScreen())
+        toastConfigButton = this.addRenderableWidget(Button.builder(Component.translatable("fancytoasts.gui.label.toast_settings"), (button) -> openToastConfigScreen())
                 .bounds(xCenter - halfButtonWidth, yCenter - BUTTON_HEIGHT - PADDING / 2, BUTTON_WIDTH, BUTTON_HEIGHT).build());
 
-        generalConfigButton = this.addRenderableWidget(Button.builder(Component.translatable(Constants.MOD_ID + ".gui.label.general_settings"), (button) -> openGeneralConfigScreen())
+        generalConfigButton = this.addRenderableWidget(Button.builder(Component.translatable("fancytoasts.gui.label.general_settings"), (button) -> openGeneralConfigScreen())
                 .bounds(xCenter - halfButtonWidth, yCenter + PADDING / 2, BUTTON_WIDTH, BUTTON_HEIGHT).build());
     }
 
     private void openToastConfigScreen() {
-        Objects.requireNonNull(this.minecraft).setScreen(new ToastConfigScreen(Component.translatable(Constants.MOD_ID + ".gui.config.customization_title"), this));
+        Objects.requireNonNull(this.minecraft).setScreen(new ToastConfigScreen(Component.translatable("fancytoasts.gui.config.customization_title"), this));
     }
 
     private void openGeneralConfigScreen() {
-        Objects.requireNonNull(this.minecraft).setScreen(new GeneralConfigScreen(Component.translatable(Constants.MOD_ID + ".gui.config.general_title"), this));
+        Objects.requireNonNull(this.minecraft).setScreen(new GeneralConfigScreen(Component.translatable("fancytoasts.gui.config.general_title"), this));
     }
 
     private void toParentScreen() {

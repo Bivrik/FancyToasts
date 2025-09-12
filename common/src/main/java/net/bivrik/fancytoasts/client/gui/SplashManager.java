@@ -43,7 +43,13 @@ public class SplashManager {
 
     public String getSplash() {
         if (!splashes.isEmpty()) {
-            return splashes.get(rnd.nextInt(splashes.size()));
+            String splash = splashes.get(rnd.nextInt(splashes.size()));
+
+            if (splash.contains("{user.name}")) {
+                splash = splash.replace("{user.name}", user.getName());
+            }
+
+            return splash;
         }
 
         Debug.error("Could not get splash, it is empty");

@@ -14,3 +14,8 @@ Herobrine was deleted
 Toast + Butter = Nice
 newToast("You are a sweetheart");
 Toastification!
+Roses are red
+Violets are blue
+Toast is tasty
+And so are {user.name}
+{user.name} is gorgeous today!
