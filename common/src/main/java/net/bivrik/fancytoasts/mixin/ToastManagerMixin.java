@@ -41,12 +41,13 @@ public class ToastManagerMixin {
         if (toast instanceof AdvancementToast) {
             info.cancel();
             Advancement advancement = ((IAdvancementAccessor) toast).getAdvancementHolder().value();
-            FancyAdvancementToast fancyAdvancement = new FancyAdvancementToast(advancement, Common.getToastConfig().getTextureId(), Common.getToastConfig().getAnimationId());
+            var config = Common.getConfigManager().getToastConfig();
+            FancyAdvancementToast fancyAdvancement = new FancyAdvancementToast(advancement, config.getTextureId(), config.getAnimationId());
             ADVANCEMENT_TOASTS.add(fancyAdvancement);
 
-            //if (Common.CONFIG.getJadeCompatibility()) {
+            if (Common.getConfigManager().getGeneralConfig().isJadeCompatEnabled()) {
                 Services.PLATFORM.tryDisableJade();
-            //}
+            }
         }
     }
 
@@ -60,8 +61,7 @@ public class ToastManagerMixin {
             if (!ADVANCEMENT_TOASTS.isEmpty()) {
                 fancyToasts$setCurrentAdvancement();
             }
-            else {
-                //
+            else if (Services.PLATFORM.isJadeEnabled() && Common.getConfigManager().getGeneralConfig().isJadeCompatEnabled()) {
                 Services.PLATFORM.tryEnableJade();
             }
 

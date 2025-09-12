@@ -26,7 +26,7 @@ public class ToastConfigScreen extends Screen {
 
     private SettingType settingType = SettingType.TEXTURES;
     private AdvancementType advancementType = AdvancementType.TASK;
-    private ToastTextureData displayData = settingType.getDisplayData(Common.getToastConfig().getTextureId());
+    private ToastTextureData displayData = settingType.getDisplayData(Common.getConfigManager().getToastConfig().getTextureId());
 
     private Button doneButton;
     private Button backButton;
@@ -39,7 +39,7 @@ public class ToastConfigScreen extends Screen {
     public ToastConfigScreen(Component title, Screen parent) {
         super(title);
         this.parent = parent;
-        this.toastConfigData = Common.getToastConfig();
+        this.toastConfigData = Common.getConfigManager().getToastConfig();
     }
 
     public AdvancementType getAdvancementType() {

@@ -26,4 +26,9 @@ public class ForgePlatformHelper implements IPlatformHelper {
 
     @Override
     public void tryEnableJade() {}
+
+    @Override
+    public boolean isJadeEnabled() {
+        return false;
+    }
 }

@@ -38,4 +38,5 @@ public interface IPlatformHelper {
      */
     void tryDisableJade();
     void tryEnableJade();
+    boolean isJadeEnabled();
 }

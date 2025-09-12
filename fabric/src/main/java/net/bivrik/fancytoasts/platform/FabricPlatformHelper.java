@@ -30,4 +30,9 @@ public class FabricPlatformHelper implements IPlatformHelper {
     public void tryEnableJade() {
         JadeCompat.tryEnableJade();
     }
+
+    @Override
+    public boolean isJadeEnabled() {
+        return JadeCompat.isJadeEnabled();
+    }
 }

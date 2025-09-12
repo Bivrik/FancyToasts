@@ -27,6 +27,10 @@ public class JadeCompat {
         toggleJade();
     }
 
+    public static boolean isJadeEnabled() {
+        return isEnabled;
+    }
+
     private static void toggleJade() {
         isEnabled = !isEnabled;
         WailaConfig config = Jade.config();

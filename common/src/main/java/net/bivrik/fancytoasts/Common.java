@@ -13,22 +13,26 @@ import net.bivrik.fancytoasts.platform.Services;
 import net.minecraft.client.Minecraft;
 import net.minecraft.resources.ResourceLocation;
 
-import java.util.HashMap;
 import java.util.function.Supplier;
 
 // Only Vanilla code base
 public class Common {
     private static SplashManager splashManager;
-
-    private static final HashMap<Class<? extends ConfigData>, ConfigData> CONFIGS = new HashMap<>();
+    private static ConfigManager configManager;
 
     public static void onMinecraftInitialization(Minecraft minecraft) {
         splashManager = new SplashManager(minecraft.getUser());
         splashManager.load(minecraft.getResourceManager());
+
+        configManager = new ConfigManager();
     }
 
     public static SplashManager getSplashManager() {
         return splashManager;
+    }
+
+    public static ConfigManager getConfigManager() {
+        return configManager;
     }
 
     public static void onModInitialization() {
@@ -40,29 +44,7 @@ public class Common {
 
             Debug.info("Animations registration:");
             registerAnimations();
-
-            loadConfig(ToastConfigData.class);
-            loadConfig(GeneralConfigData.class);
         }
-    }
-
-    public static <T extends ConfigData> void loadConfig(Class<T> configDataClass) {
-        CONFIGS.remove(configDataClass);
-        var temp = ConfigHandler.load(configDataClass);
-        CONFIGS.put(configDataClass, temp);
-    }
-
-    public static <T extends ConfigData> void updateConfig(T configData) {
-        CONFIGS.remove(configData.getClass());
-        CONFIGS.put(configData.getClass(), configData);
-    }
-
-    public static GeneralConfigData getGeneralConfig() {
-        return (GeneralConfigData) CONFIGS.get(GeneralConfigData.class).get();
-    }
-
-    public static ToastConfigData getToastConfig() {
-        return (ToastConfigData) CONFIGS.get(ToastConfigData.class).get();
     }
 
     private static void registerTextures() {

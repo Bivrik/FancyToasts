@@ -62,7 +62,7 @@ public class ConfigHandler {
             Debug.info("Config file saved with following content:");
             Debug.info(configData.toString());
 
-            Common.updateConfig(configData);
+            Common.getConfigManager().updateConfig(configData);
         } else {
             Debug.error("Config file {} could not be saved", configData.getClass().getSimpleName());
         }

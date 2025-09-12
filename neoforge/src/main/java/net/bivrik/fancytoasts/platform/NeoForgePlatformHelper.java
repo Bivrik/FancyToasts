@@ -31,4 +31,9 @@ public class NeoForgePlatformHelper implements IPlatformHelper {
     public void tryEnableJade() {
         JadeCompat.tryEnableJade();
     }
+
+    @Override
+    public boolean isJadeEnabled() {
+        return JadeCompat.isJadeEnabled();
+    }
 }

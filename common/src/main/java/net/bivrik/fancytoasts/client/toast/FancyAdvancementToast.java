@@ -25,6 +25,7 @@ public class FancyAdvancementToast {
 
     private final FancyAdvancementToastAnimation animation;
     private final ResourceLocation toastSoundId;
+    private final float volume;
 
     private SoundManager soundManager;
 
@@ -38,18 +39,22 @@ public class FancyAdvancementToast {
         animation = ToastAnimationRegistry.getAnimation(animationId).get();
 
         switch (Objects.requireNonNull(display).getType()) {
+            case TASK -> {
+                animation.setup(new FancyAdvancementSetup(texture, TextureUV.TASK_FRAME_UV, display, 0xFFFF00, 0xFFFFFF));
+                toastSoundId = Common.getConfigManager().getToastConfig().getSoundId(AdvancementType.TASK);
+                volume = Common.getConfigManager().getGeneralConfig().getTaskVolume();
+            }
             case GOAL -> {
                 animation.setup(new FancyAdvancementSetup(texture, TextureUV.GOAL_FRAME_UV, display, 0x00FFFF, 0xFFFFFF));
-                toastSoundId = Common.getToastConfig().getSoundId(AdvancementType.GOAL);
+                toastSoundId = Common.getConfigManager().getToastConfig().getSoundId(AdvancementType.GOAL);
+                volume = Common.getConfigManager().getGeneralConfig().getGoalVolume();
             }
             case CHALLENGE -> {
                 animation.setup(new FancyAdvancementSetup(texture, TextureUV.CHALLENGE_FRAME_UV, display, 0xEA3CFF, 0x00FFFF));
-                toastSoundId = Common.getToastConfig().getSoundId(AdvancementType.CHALLENGE);
+                toastSoundId = Common.getConfigManager().getToastConfig().getSoundId(AdvancementType.CHALLENGE);
+                volume = Common.getConfigManager().getGeneralConfig().getChallengeVolume();
             }
-            default -> {
-                animation.setup(new FancyAdvancementSetup(texture, TextureUV.TASK_FRAME_UV, display, 0xFFFF00, 0xFFFFFF));
-                toastSoundId = Common.getToastConfig().getSoundId(AdvancementType.TASK);
-            }
+            default -> throw new RuntimeException("Could match correct advancement type");
         }
 
         Debug.info("Created new Fancy Advancement Toast: {}", display.getTitle().getString());
@@ -66,20 +71,28 @@ public class FancyAdvancementToast {
             isEnded = true;
         }
 
+        if (!Common.getConfigManager().getGeneralConfig().areSoundsEnabled()) {
+            return;
+        }
+
         int timeInSeconds = (int) (this.time / 50);
         if (playedSoundsCount == 0 && timeInSeconds == animation.getToastSoundTiming() / 50) {
-            soundManager.play(SimpleSoundInstance.forUI(Objects.requireNonNull(BuiltInRegistries.SOUND_EVENT.getValue(toastSoundId)), 1f, 0.8f));
+            soundManager.play(SimpleSoundInstance.forUI(Objects.requireNonNull(BuiltInRegistries.SOUND_EVENT.getValue(toastSoundId)), 1f, volume));
             playedSoundsCount++;
         }
         if (playedSoundsCount == 1 && timeInSeconds == animation.getDuration() / 50 - 10) {
-            soundManager.play(SimpleSoundInstance.forUI(SoundEvents.UI_TOAST_IN, 1f, 1.6f));
+            soundManager.play(SimpleSoundInstance.forUI(SoundEvents.UI_TOAST_IN, 1f, 1.5f));
             playedSoundsCount++;
         }
     }
 
     public void playSounds(SoundManager manager) {
+        if (!Common.getConfigManager().getGeneralConfig().areSoundsEnabled()) {
+            return;
+        }
+
         soundManager = manager;
-        soundManager.play(SimpleSoundInstance.forUI(SoundEvents.UI_TOAST_IN, 1f, 1.6f));
+        soundManager.play(SimpleSoundInstance.forUI(SoundEvents.UI_TOAST_IN, 1f, 1.5f));
     }
 
     public boolean isEnded() {
