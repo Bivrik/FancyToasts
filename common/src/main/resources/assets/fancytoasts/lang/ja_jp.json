@@ -1,4 +1,5 @@
 {
+  // By PExPE3
   "fancytoasts.animations.toast.standard": "標準",
   "fancytoasts.animations.toast.playful": "遊び心",
   "fancytoasts.textures.toast.vanilla": "バニラ風",
@@ -6,6 +7,7 @@
   "fancytoasts.textures.toast.og": "オリジナル",
   "fancytoasts.textures.toast.modern": "モダン",
 
+  // By Bivrik with translator
   "fancytoasts.gui.support": "Boostyで私をサポート！",
   "fancytoasts.gui.unknown": "不明",
   "fancytoasts.gui.custom": "カスタム",
