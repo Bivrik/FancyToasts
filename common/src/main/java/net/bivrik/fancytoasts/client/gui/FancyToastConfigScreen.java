@@ -1,16 +1,18 @@
 package net.bivrik.fancytoasts.client.gui;
 
 import net.bivrik.fancytoasts.Common;
-import net.bivrik.fancytoasts.Constants;
 import net.minecraft.Util;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.Button;
+import net.minecraft.client.gui.components.PlainTextButton;
+import net.minecraft.client.gui.screens.ConfirmLinkScreen;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.network.chat.CommonComponents;
 import net.minecraft.network.chat.Component;
 import net.minecraft.util.CommonColors;
 import org.jetbrains.annotations.NotNull;
 
+import java.net.URI;
 import java.util.Objects;
 
 import static net.bivrik.fancytoasts.client.gui.LayoutValues.*;
@@ -43,6 +45,10 @@ public class FancyToastConfigScreen extends Screen {
 
         generalConfigButton = this.addRenderableWidget(Button.builder(Component.translatable("fancytoasts.gui.label.general_settings"), (button) -> openGeneralConfigScreen())
                 .bounds(xCenter - halfButtonWidth, yCenter + PADDING / 2, BUTTON_WIDTH, BUTTON_HEIGHT).build());
+
+        Component supportText = Component.translatable("fancytoasts.gui.support");
+        int textWidth = this.font.width(supportText) + 1;
+        this.addRenderableWidget(new PlainTextButton(this.width - textWidth, this.height - 10, textWidth, 10, supportText, ConfirmLinkScreen.confirmLink(this, URI.create("https://boosty.to/bivrik")), this.font));
     }
 
     private void openToastConfigScreen() {
