@@ -87,17 +87,20 @@ public class StandardAnimation extends FancyAdvancementToastAnimation {
             var font = minecraft.font;
             var display = setup.display();
 
+            // Title
             graphics.drawCenteredString(font, display.getType().getDisplayName(), fancyToast.getWidth() / 2, 25, titleColor);
 
-            List<FormattedCharSequence> list = font.split(display.getTitle(), fancyToast.getWidth() - 20);
-            if (list.size() == 1) {
-                graphics.drawCenteredString(font, list.getFirst(), fancyToast.getWidth() / 2, 43, toastColor);
-            }
-            else {
-                int lineHeight = 42 - (9 * (list.size() - 1)) / 2;
-                for (FormattedCharSequence text : list) {
-                    graphics.drawCenteredString(font, text, fancyToast.getWidth() / 2, lineHeight, toastColor);
-                    lineHeight += 9;
+            // Description
+            List<FormattedCharSequence> descriptionList = font.split(display.getTitle(), fancyToast.getWidth() - 20);
+            if (!descriptionList.isEmpty()) {
+                if (descriptionList.size() == 1) {
+                    graphics.drawCenteredString(font, descriptionList.get(0), fancyToast.getWidth() / 2, 43, toastColor);
+                } else {
+                    int lineHeight = 42 - (9 * (descriptionList.size() - 1)) / 2;
+                    for (FormattedCharSequence text : descriptionList) {
+                        graphics.drawCenteredString(font, text, fancyToast.getWidth() / 2, lineHeight, toastColor);
+                        lineHeight += 9;
+                    }
                 }
             }
         }

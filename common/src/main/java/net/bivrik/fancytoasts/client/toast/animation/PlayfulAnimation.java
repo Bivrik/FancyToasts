@@ -109,25 +109,27 @@ public class PlayfulAnimation extends FancyAdvancementToastAnimation {
 
             // Title
             List<FormattedCharSequence> titleList = font.split(display.getTitle(), fancyToast.getWidth() - 16);
-            var titleLine = titleList.getFirst();
-            if (titleList.size() == 1) {
-                graphics.drawCenteredString(font, titleLine, fancyToast.getWidth() / 2, 25, titleColor);
-            }
-            else {
-                graphics.drawCenteredString(font, titleLine, fancyToast.getWidth() / 2 - font.width("...") / 2, 25, titleColor);
-                graphics.drawCenteredString(font, "...", 1 + fancyToast.getWidth() / 2 + font.width(titleLine) / 2, 25, titleColor);
+            if (!titleList.isEmpty()) {
+                FormattedCharSequence titleLine = titleList.get(0);
+                if (titleList.size() == 1) {
+                    graphics.drawCenteredString(font, titleLine, fancyToast.getWidth() / 2, 25, titleColor);
+                } else {
+                    graphics.drawCenteredString(font, titleLine, fancyToast.getWidth() / 2 - font.width("...") / 2, 25, titleColor);
+                    graphics.drawCenteredString(font, "...", 1 + fancyToast.getWidth() / 2 + font.width(titleLine) / 2, 25, titleColor);
+                }
             }
 
             // Description
             List<FormattedCharSequence> descriptionList = font.split(display.getDescription(), fancyToast.getWidth() - 16);
+            if (!descriptionList.isEmpty()) {
+                graphics.drawString(font, descriptionList.get(0), 8, 38, toastColor);
+                if (descriptionList.size() > 1) {
+                    var descriptionSecondLine = descriptionList.get(1);
 
-            graphics.drawString(font, descriptionList.getFirst(), 8, 38, toastColor);
-            if (descriptionList.size() > 1) {
-                var descriptionSecondLine = descriptionList.get(1);
-
-                graphics.drawString(font, descriptionSecondLine, 8, 47, toastColor);
-                if (descriptionList.size() > 2) {
-                    graphics.drawString(font, "...", 8 + font.width(descriptionSecondLine), 47, toastColor);
+                    graphics.drawString(font, descriptionSecondLine, 8, 47, toastColor);
+                    if (descriptionList.size() > 2) {
+                        graphics.drawString(font, "...", 8 + font.width(descriptionSecondLine), 47, toastColor);
+                    }
                 }
             }
         }

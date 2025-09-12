@@ -119,17 +119,17 @@ public class QuirkyAnimation extends FancyAdvancementToastAnimation {
 
             // Description
             List<FormattedCharSequence> descriptionList = font.split(display.getDescription(), fancyToast.getWidth() - 16);
+            if (!descriptionList.isEmpty()) {
+                graphics.drawCenteredString(font, descriptionList.get(0), toastCenterX, 12, toastColor);
+                if (descriptionList.size() > 1) {
+                    var descriptionSecondLine = descriptionList.get(1);
 
-            graphics.drawCenteredString(font, descriptionList.getFirst(), toastCenterX, 12, toastColor);
-            if (descriptionList.size() > 1) {
-                var descriptionSecondLine = descriptionList.get(1);
-
-                if (descriptionList.size() > 2) {
-                    graphics.drawCenteredString(font, descriptionSecondLine, toastCenterX - font.width("...") / 2, 21, toastColor);
-                    graphics.drawCenteredString(font, "...",  toastCenterX + font.width(descriptionSecondLine) / 2, 21, toastColor);
-                }
-                else {
-                    graphics.drawCenteredString(font, descriptionSecondLine, toastCenterX, 21, toastColor);
+                    if (descriptionList.size() > 2) {
+                        graphics.drawCenteredString(font, descriptionSecondLine, toastCenterX - font.width("...") / 2, 21, toastColor);
+                        graphics.drawCenteredString(font, "...", toastCenterX + font.width(descriptionSecondLine) / 2, 21, toastColor);
+                    } else {
+                        graphics.drawCenteredString(font, descriptionSecondLine, toastCenterX, 21, toastColor);
+                    }
                 }
             }
         }
