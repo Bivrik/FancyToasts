@@ -12,27 +12,27 @@ public class JadeCompat {
     }
 
     public static void tryDisableJade() {
-        if (!isLoaded() || !isEnabled) {
+        if (!isLoaded()) {
             return;
         }
 
-        toggleJade();
+        toggleJade(false);
     }
 
     public static void tryEnableJade() {
-        if (!isLoaded() || isEnabled) {
+        if (!isLoaded()) {
             return;
         }
 
-        toggleJade();
+        toggleJade(true);
     }
 
     public static boolean isJadeEnabled() {
         return isEnabled;
     }
 
-    private static void toggleJade() {
-        isEnabled = !isEnabled;
+    private static void toggleJade(boolean value) {
+        isEnabled = value;
         WailaConfig config = Jade.config();
         config.general().setDisplayTooltip(isEnabled);
     }

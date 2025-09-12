@@ -3,7 +3,7 @@ package net.bivrik.fancytoasts.client.config;
 import com.mojang.blaze3d.platform.NativeImage;
 import net.bivrik.fancytoasts.Constants;
 import net.bivrik.fancytoasts.Debug;
-import net.bivrik.fancytoasts.client.toast.texture.ToastTextureData;
+import net.bivrik.fancytoasts.client.toast.texture.DisplayData;
 import net.bivrik.fancytoasts.client.util.FileHelper;
 import net.bivrik.fancytoasts.client.util.FileType;
 import net.bivrik.fancytoasts.client.util.Paths;
@@ -20,7 +20,7 @@ import java.nio.file.Path;
 import java.util.*;
 
 public class ConfigTextureManager {
-    private static final Map<ResourceLocation, Path> CONFIG_TEXTURES_CASH = new HashMap<>();
+    private static final Map<ResourceLocation, Path> CONFIG_TEXTURES = new HashMap<>();
 
     private static final File TEXTURES_DIR = new File(Paths.CONFIG_TEXTURES);
 
@@ -36,7 +36,7 @@ public class ConfigTextureManager {
         }
 
         try {
-            NativeImage image = NativeImage.read(Files.readAllBytes(CONFIG_TEXTURES_CASH.get(id)));
+            NativeImage image = NativeImage.read(Files.readAllBytes(CONFIG_TEXTURES.get(id)));
             DynamicTexture dynamicTexture = new DynamicTexture(
                     () -> "config_toast_texture",
                     image
@@ -50,12 +50,15 @@ public class ConfigTextureManager {
         }
     }
 
-    public static void unregisterFromMinecraft(ResourceLocation id) {
-        Minecraft.getInstance().getTextureManager().release(id);
+    public static void unregisterFromMinecraft() {
+        for (ResourceLocation id : CONFIG_TEXTURES.keySet()) {
+            Minecraft.getInstance().getTextureManager().release(id);
+        }
     }
 
     public static void reload() {
-        CONFIG_TEXTURES_CASH.clear();
+        unregisterFromMinecraft();
+        CONFIG_TEXTURES.clear();
         ToastTextureRegistry.clearCustom();
 
         load();
@@ -92,14 +95,14 @@ public class ConfigTextureManager {
         for (File jsonFile : jsonFiles) {
             for (File textureFile : textureFiles) {
                 if (FileHelper.getRawName(textureFile).compareTo(FileHelper.getRawName(jsonFile)) == 0) {
-                    Optional<ToastTextureData> optionalData = JsonHelper.tryToRead(jsonFile, ToastTextureData.class);
+                    Optional<DisplayData> optionalData = JsonHelper.tryToRead(jsonFile, DisplayData.class);
 
                     if (optionalData.isPresent()) {
-                        ToastTextureData data = optionalData.get();
+                        DisplayData data = optionalData.get();
                         ResourceLocation id = ResourceLocation.fromNamespaceAndPath(Constants.MOD_ID, textureFile.getPath().replace("\\", "/").replaceFirst("./", ""));
 
                         if (ToastTextureRegistry.register(id, null, data.getName().getString(), data.getAuthor().getString(), data.getDescription().getString())) {
-                            CONFIG_TEXTURES_CASH.put(id, textureFile.toPath());
+                            CONFIG_TEXTURES.put(id, textureFile.toPath());
                         }
                     }
                     else {

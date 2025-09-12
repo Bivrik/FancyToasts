@@ -1,8 +1,7 @@
 package net.bivrik.fancytoasts.client.toast.registry;
 
 import net.bivrik.fancytoasts.Debug;
-import net.bivrik.fancytoasts.client.toast.texture.ToastTextureData;
-import net.bivrik.fancytoasts.client.util.FileType;
+import net.bivrik.fancytoasts.client.toast.texture.DisplayData;
 import net.bivrik.fancytoasts.utility.ComponentHelper;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
@@ -12,7 +11,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class ToastTextureRegistry {
-    private static final Map<ResourceLocation, ToastTextureData> TEXTURES = new HashMap<>();
+    private static final Map<ResourceLocation, DisplayData> TEXTURES = new HashMap<>();
 
     public static boolean register(ResourceLocation id, String modId, String name, String author, String description) {
         if (TEXTURES.containsKey(id)) {
@@ -31,7 +30,7 @@ public class ToastTextureRegistry {
             translatableDescription = Component.literal(description);
         }
 
-        var data = new ToastTextureData(componentName, author, translatableDescription);
+        var data = new DisplayData(componentName, author, translatableDescription);
         TEXTURES.put(id, data);
 
         Debug.info("Registered {}", id);
@@ -46,10 +45,10 @@ public class ToastTextureRegistry {
         getIds().removeIf(id -> id.toString().contains("config"));
     }
 
-    public static ToastTextureData getData(ResourceLocation id) {
+    public static DisplayData getData(ResourceLocation id) {
         return TEXTURES.computeIfAbsent(id, key -> {
             Debug.error("Texture {} is missing", key);
-            return new ToastTextureData(Component.translatable("fancytoasts.textures.toast.vanilla"), "Fancy Toasts", Component.translatable("fancytoasts.textures.vanilla.description"));
+            return new DisplayData(Component.translatable("fancytoasts.textures.toast.vanilla"), "Fancy Toasts", Component.translatable("fancytoasts.textures.vanilla.description"));
         });
     }
 

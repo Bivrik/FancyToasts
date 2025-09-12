@@ -34,10 +34,10 @@ public class ConfigHandler {
                 T data = optionalData.get();
 
                 if (data.isValid()) {
-                Debug.info("Successfully read config file with following content:");
-                Debug.info(data.toString());
+                    Debug.info("Successfully read config file with following content:");
+                    Debug.info(data.toString());
 
-                return data;
+                    return data;
                 }
             }
 

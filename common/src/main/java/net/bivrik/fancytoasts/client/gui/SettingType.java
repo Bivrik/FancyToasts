@@ -3,7 +3,7 @@ package net.bivrik.fancytoasts.client.gui;
 import net.bivrik.fancytoasts.Constants;
 import net.bivrik.fancytoasts.client.toast.registry.ToastAnimationRegistry;
 import net.bivrik.fancytoasts.client.toast.registry.ToastTextureRegistry;
-import net.bivrik.fancytoasts.client.toast.texture.ToastTextureData;
+import net.bivrik.fancytoasts.client.toast.texture.DisplayData;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
@@ -16,7 +16,7 @@ public enum SettingType {
         }
 
         @Override
-        ToastTextureData getDisplayData(ResourceLocation id) {
+        DisplayData getDisplayData(ResourceLocation id) {
             return ToastTextureRegistry.getData(id);
         }
 
@@ -37,7 +37,7 @@ public enum SettingType {
         }
 
         @Override
-        ToastTextureData getDisplayData(ResourceLocation id) {
+        DisplayData getDisplayData(ResourceLocation id) {
             return ToastAnimationRegistry.getData(id);
         }
 
@@ -58,8 +58,8 @@ public enum SettingType {
         }
 
         @Override
-        ToastTextureData getDisplayData(ResourceLocation id) {
-            return new ToastTextureData(Component.translatable(id.toLanguageKey()), "Minecraft", Component.translatable(Constants.MOD_ID + ".sound.minecraft.description"));
+        DisplayData getDisplayData(ResourceLocation id) {
+            return new DisplayData(Component.translatable(id.toLanguageKey()), "Minecraft", Component.translatable(Constants.MOD_ID + ".sound.minecraft.description"));
         }
 
         @Override
@@ -74,7 +74,7 @@ public enum SettingType {
     };
 
     abstract void apply(ToastConfigScreen instance, ResourceLocation entry);
-    abstract ToastTextureData getDisplayData(ResourceLocation id);
+    abstract DisplayData getDisplayData(ResourceLocation id);
     abstract ResourceLocation getCurrentId(ToastConfigScreen instance);
     abstract ResourceLocation[] getKeySet();
 

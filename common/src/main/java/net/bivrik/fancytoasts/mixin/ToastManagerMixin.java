@@ -61,7 +61,7 @@ public class ToastManagerMixin {
             if (!ADVANCEMENT_TOASTS.isEmpty()) {
                 fancyToasts$setCurrentAdvancement();
             }
-            else if (Services.PLATFORM.isJadeEnabled() && Common.getConfigManager().getGeneralConfig().isJadeCompatEnabled()) {
+            else if (!Services.PLATFORM.isJadeEnabled() && Common.getConfigManager().getGeneralConfig().isJadeCompatEnabled()) {
                 Services.PLATFORM.tryEnableJade();
             }
 

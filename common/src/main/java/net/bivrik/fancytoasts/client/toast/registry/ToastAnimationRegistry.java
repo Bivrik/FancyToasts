@@ -4,7 +4,7 @@ import net.bivrik.fancytoasts.Constants;
 import net.bivrik.fancytoasts.Debug;
 import net.bivrik.fancytoasts.client.toast.animation.FancyAdvancementToastAnimation;
 import net.bivrik.fancytoasts.client.toast.animation.StandardAnimation;
-import net.bivrik.fancytoasts.client.toast.texture.ToastTextureData;
+import net.bivrik.fancytoasts.client.toast.texture.DisplayData;
 import net.bivrik.fancytoasts.utility.ComponentHelper;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
@@ -26,7 +26,7 @@ public class ToastAnimationRegistry {
         Component translatableName = ComponentHelper.getTranslatableToastAnimation(modId, name);
         Component translatableDescription = Component.translatable(description);
 
-        ANIMATIONS.put(id, new ToastAnimationHandler(animation, new ToastTextureData(translatableName, Constants.MOD_NAME, translatableDescription)));
+        ANIMATIONS.put(id, new ToastAnimationHandler(animation, new DisplayData(translatableName, Constants.MOD_NAME, translatableDescription)));
 
         Debug.info("Registered {}", id);
     }
@@ -38,7 +38,7 @@ public class ToastAnimationRegistry {
     private static ToastAnimationHandler getAnimationHandler(ResourceLocation id) {
         return ANIMATIONS.computeIfAbsent(id, key -> {
             Debug.error("Animation {} is missing", key);
-            return new ToastAnimationHandler(StandardAnimation::new, new ToastTextureData(Component.translatable("fancytoasts.animations.toast.standard"), Constants.MOD_NAME, Component.translatable("fancytoasts.animations.toast.standard.description")));
+            return new ToastAnimationHandler(StandardAnimation::new, new DisplayData(Component.translatable("fancytoasts.animations.toast.standard"), Constants.MOD_NAME, Component.translatable("fancytoasts.animations.toast.standard.description")));
         });
     }
 
@@ -46,9 +46,9 @@ public class ToastAnimationRegistry {
         return ANIMATIONS.getOrDefault(id, null) != null;
     }
 
-    public record ToastAnimationHandler(Supplier<FancyAdvancementToastAnimation> animationFactory, ToastTextureData data) {}
+    public record ToastAnimationHandler(Supplier<FancyAdvancementToastAnimation> animationFactory, DisplayData data) {}
 
-    public static ToastTextureData getData(ResourceLocation id) {
+    public static DisplayData getData(ResourceLocation id) {
         return getAnimationHandler(id).data;
     }
 

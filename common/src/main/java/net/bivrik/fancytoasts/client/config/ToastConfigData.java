@@ -69,7 +69,16 @@ public class ToastConfigData extends ConfigData {
 
     @Override
     public boolean isValid() {
-        return ToastAnimationRegistry.isRegistered(animationId) && ToastTextureRegistry.isRegistered(textureId)
+        if (ToastTextureRegistry.isRegistered(textureId)) {
+            if (textureId.toLanguageKey().contains("config")) {
+                ConfigTextureManager.registerInMinecraft(textureId);
+            }
+        }
+        else {
+            return false;
+        }
+
+        return ToastAnimationRegistry.isRegistered(animationId)
                 && BuiltInRegistries.SOUND_EVENT.containsKey(getSoundId(AdvancementType.TASK))
                 && BuiltInRegistries.SOUND_EVENT.containsKey(getSoundId(AdvancementType.GOAL))
                 && BuiltInRegistries.SOUND_EVENT.containsKey(getSoundId(AdvancementType.CHALLENGE));

@@ -10,7 +10,7 @@ import java.util.HashMap;
 public class ConfigManager {
     private final HashMap<Class<? extends ConfigData>, ConfigData> CONFIGS = new HashMap<>();
 
-    public ConfigManager() {
+    public void loadConfigs() {
         loadConfig(ToastConfigData.class);
         loadConfig(GeneralConfigData.class);
     }

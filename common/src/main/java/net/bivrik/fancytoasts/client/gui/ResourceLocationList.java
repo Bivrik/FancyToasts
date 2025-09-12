@@ -1,7 +1,6 @@
 package net.bivrik.fancytoasts.client.gui;
 
 import net.bivrik.fancytoasts.Debug;
-import net.bivrik.fancytoasts.client.toast.texture.ToastTextureData;
 import net.minecraft.Util;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
@@ -18,7 +17,6 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
 import java.util.Locale;
-import java.util.Objects;
 import java.util.function.Consumer;
 
 public class ResourceLocationList extends ObjectSelectionList<ResourceLocationList.Entry> {

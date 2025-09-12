@@ -1,9 +1,10 @@
 package net.bivrik.fancytoasts.client.gui;
 
 import net.bivrik.fancytoasts.Common;
+import net.bivrik.fancytoasts.client.config.ConfigTextureManager;
 import net.bivrik.fancytoasts.client.config.ToastConfigData;
 import net.bivrik.fancytoasts.client.config.ConfigHandler;
-import net.bivrik.fancytoasts.client.toast.texture.ToastTextureData;
+import net.bivrik.fancytoasts.client.toast.texture.DisplayData;
 import net.minecraft.advancements.AdvancementType;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.Button;
@@ -26,7 +27,7 @@ public class ToastConfigScreen extends Screen {
 
     private SettingType settingType = SettingType.TEXTURES;
     private AdvancementType advancementType = AdvancementType.TASK;
-    private ToastTextureData displayData = settingType.getDisplayData(Common.getConfigManager().getToastConfig().getTextureId());
+    private DisplayData displayData = settingType.getDisplayData(Common.getConfigManager().getToastConfig().getTextureId());
 
     private Button doneButton;
     private Button backButton;
@@ -40,6 +41,7 @@ public class ToastConfigScreen extends Screen {
         super(title);
         this.parent = parent;
         this.toastConfigData = Common.getConfigManager().getToastConfig();
+        ConfigTextureManager.reload();
     }
 
     public AdvancementType getAdvancementType() {
@@ -118,6 +120,10 @@ public class ToastConfigScreen extends Screen {
     }
 
     private void toParentScreen() {
+        ResourceLocation textureId = toastConfigData.getTextureId();
+        if (textureId.toLanguageKey().contains("config")) {
+            ConfigTextureManager.registerInMinecraft(textureId);
+        }
         Objects.requireNonNull(this.minecraft).setScreen(parent);
     }
 

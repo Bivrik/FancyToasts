@@ -1,7 +1,7 @@
 package net.bivrik.fancytoasts.client.gui;
 
 import net.bivrik.fancytoasts.Debug;
-import net.bivrik.fancytoasts.client.toast.texture.ToastTextureData;
+import net.bivrik.fancytoasts.client.toast.texture.DisplayData;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.GuiGraphics;
@@ -18,14 +18,14 @@ import java.util.List;
 public class InformationList extends AbstractSelectionList<InformationList.Entry> {
     private final List<InformationListEntry> lines = new ArrayList<>(7);
 
-    public InformationList(Minecraft minecraft, int width, int height, int x, int y, ToastTextureData displayData, boolean isConfig) {
+    public InformationList(Minecraft minecraft, int width, int height, int x, int y, DisplayData displayData, boolean isConfig) {
         super(minecraft, width, height, y, 10);
         this.setX(x);
 
         this.update(displayData, isConfig);
     }
 
-    public void update(ToastTextureData displayData, boolean isConfig) {
+    public void update(DisplayData displayData, boolean isConfig) {
         if (displayData == null) {
             Debug.error("No Display Data to show in Information List");
             return;

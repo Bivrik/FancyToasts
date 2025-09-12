@@ -1,6 +1,7 @@
 package net.bivrik.fancytoasts.client.config;
 
 import net.bivrik.fancytoasts.client.util.Paths;
+import net.bivrik.fancytoasts.platform.Services;
 
 public class GeneralConfigData extends ConfigData {
     private boolean isJadeCompatEnabled;
@@ -34,6 +35,10 @@ public class GeneralConfigData extends ConfigData {
     }
     public void setJadeCompatEnabled(boolean isJadeCompatibility) {
         this.isJadeCompatEnabled = isJadeCompatibility;
+
+        if (!this.isJadeCompatEnabled) {
+            Services.PLATFORM.tryEnableJade();
+        }
     }
 
     public boolean areSoundsEnabled() {

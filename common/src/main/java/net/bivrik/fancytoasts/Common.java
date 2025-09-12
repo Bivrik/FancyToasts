@@ -25,6 +25,7 @@ public class Common {
         splashManager.load(minecraft.getResourceManager());
 
         configManager = new ConfigManager();
+        configManager.loadConfigs();
     }
 
     public static SplashManager getSplashManager() {
