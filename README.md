@@ -69,7 +69,7 @@ If you like my mod, you play it, and you want to see future development, hear my
 * Bug fixes:
   * Crashes when title/description of advancement is empty. No idea why it happens... but it fixed now
   * Doesn't load custom textures
-  * Text doesn't appear when toast shows
+  * Sometimes text doesn't appear when toast shows
 * Adjustments:
   * Added Boosty button in the main config screen
   * Changed config system
