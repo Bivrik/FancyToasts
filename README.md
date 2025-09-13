@@ -1,4 +1,4 @@
-> This is 1.21.8 Fabric/Forge/NeoForge version 1.4.0
+> This is 1.21.8 Fabric/Forge/NeoForge version 1.4.1
 
 # Fancy Toasts 🎉
 There is a reason why you are here. It might be curiosity. But I think you are here because of there old-fashion advancement toasts! This is a Minecraft Mod that changes plain, boring, and annoying advancement toasts to something new and interesting!
@@ -34,7 +34,7 @@ Adds new advancement toast system into Minecraft. Currently mod has 18 standard 
 # Other 🔎
 
 ### Support 🧡
-If you enjoy this mod, and want more updates and support to future versions, then consider [leaving me a tip](https://www.donationalerts.com/r/bivrik), please 🧡
+If you like my mod, you play it, and you want to see future development, hear my thoughts, or even see devlogs, then visit my [Boosty](https://boosty.to/bivrik) and support me, whether it's a one-time donation or a subscription. I will be very grateful! 🤗
 
 ### Languages
 * English (en_us)
@@ -42,26 +42,37 @@ If you enjoy this mod, and want more updates and support to future versions, the
 * Spanish (es_es) > translator
 * German (de_de) > translator
 * Chinese (zh_tw) > translator
-* Japanese (ja_jp) > PExPE3 (new names translated by me for now)
+* Japanese (ja_jp) > PExPE3 (v1.4+ by translator)
 
 ### Plans
-* Config GUI rework (v1.4.1)
-* More animations
-* More textures
+* More animations (goal: 5)
+* More textures (goal: 10)
 * More languages
 * Port to every possible version in the world
-* Maybe rework of animations to make them easier to make? (v1.5?)
-* Change sounds (1.4.1)
-* Custom sounds? (v1.5?)
+* Rework of animations to make them easier to make? (v1.5?)
+* Custom sounds? (v1.6?)
 * FTBQuests compatibility?
 ##### Completed
+* Config GUI rework
+* Ability to change sounds
 * Custom textures
 * Jade compatibility
 
 # Changelog 📝
 
 ## v1.4.1
-> Working ...
+* New features:
+  * Complete config screen overhaul! Now there are 3 screens, which makes it more user-friendly. Also much more options, descriptions, authors, searching... just check it out!
+  * Ability to change sounds! Just as quite a lot of people asked for. Now you can choose from any Minecraft built-in sounds
+  * Ability to change Jade compatibilty. As a few people suggested, were added a button to disable Jade hiding upon advancement toast showing
+  * Splashes. It isn't about why. It's about why not
+* Bug fixes:
+  * Crashes when title/description of advancement is empty. No idea why it happens... but it fixed now
+  * Doesn't load custom textures
+* Adjustments:
+  * Added Boosty button in the main config screen
+  * Changed config system
+> User-friendly gui screen update, baby (13.09.2025)
 
 ## v1.4.0
 * New features:
