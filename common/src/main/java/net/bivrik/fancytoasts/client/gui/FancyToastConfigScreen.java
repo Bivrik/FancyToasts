@@ -1,6 +1,7 @@
 package net.bivrik.fancytoasts.client.gui;
 
 import net.bivrik.fancytoasts.Common;
+import net.bivrik.fancytoasts.utility.Colors;
 import net.minecraft.Util;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.Button;
@@ -9,7 +10,6 @@ import net.minecraft.client.gui.screens.ConfirmLinkScreen;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.network.chat.CommonComponents;
 import net.minecraft.network.chat.Component;
-import net.minecraft.util.CommonColors;
 import org.jetbrains.annotations.NotNull;
 
 import java.net.URI;
@@ -77,7 +77,7 @@ public class FancyToastConfigScreen extends Screen {
         guiGraphics.pose().translate((float) this.width / 2, 12 + 9 + 4.5f);
         guiGraphics.pose().scale((float) size);
         guiGraphics.pose().translate((float) this.width / -2, -12 - 9 - 4.5f);
-        guiGraphics.drawCenteredString(this.font, splash, this.width / 2, 12 + 9, CommonColors.YELLOW);
+        guiGraphics.drawCenteredString(this.font, splash, this.width / 2, 12 + 9, Colors.YELLOW);
         guiGraphics.pose().popMatrix();
 
         guiGraphics.drawCenteredString(this.font, this.title, this.width / 2, 12, -1);

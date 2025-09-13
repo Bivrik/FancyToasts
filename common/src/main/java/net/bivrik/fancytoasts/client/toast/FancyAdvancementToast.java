@@ -6,6 +6,7 @@ import net.bivrik.fancytoasts.client.toast.animation.FancyAdvancementToastAnimat
 import net.bivrik.fancytoasts.client.toast.animation.FancyAdvancementSetup;
 import net.bivrik.fancytoasts.client.toast.registry.ToastAnimationRegistry;
 import net.bivrik.fancytoasts.client.toast.texture.TextureUV;
+import net.bivrik.fancytoasts.utility.Colors;
 import net.minecraft.advancements.Advancement;
 import net.minecraft.advancements.AdvancementType;
 import net.minecraft.advancements.DisplayInfo;
@@ -40,17 +41,17 @@ public class FancyAdvancementToast {
 
         switch (Objects.requireNonNull(display).getType()) {
             case TASK -> {
-                animation.setup(new FancyAdvancementSetup(texture, TextureUV.TASK_FRAME_UV, display, 0xFFFF00, 0xFFFFFF));
+                animation.setup(new FancyAdvancementSetup(texture, TextureUV.TASK_FRAME_UV, display, Colors.WHITE, Colors.WHITE));
                 toastSoundId = Common.getConfigManager().getToastConfig().getSoundId(AdvancementType.TASK);
                 volume = Common.getConfigManager().getGeneralConfig().getTaskVolume();
             }
             case GOAL -> {
-                animation.setup(new FancyAdvancementSetup(texture, TextureUV.GOAL_FRAME_UV, display, 0x00FFFF, 0xFFFFFF));
+                animation.setup(new FancyAdvancementSetup(texture, TextureUV.GOAL_FRAME_UV, display, Colors.CYAN, Colors.WHITE));
                 toastSoundId = Common.getConfigManager().getToastConfig().getSoundId(AdvancementType.GOAL);
                 volume = Common.getConfigManager().getGeneralConfig().getGoalVolume();
             }
             case CHALLENGE -> {
-                animation.setup(new FancyAdvancementSetup(texture, TextureUV.CHALLENGE_FRAME_UV, display, 0xEA3CFF, 0x00FFFF));
+            animation.setup(new FancyAdvancementSetup(texture, TextureUV.CHALLENGE_FRAME_UV, display, Colors.PURPLE, Colors.CYAN));
                 toastSoundId = Common.getConfigManager().getToastConfig().getSoundId(AdvancementType.CHALLENGE);
                 volume = Common.getConfigManager().getGeneralConfig().getChallengeVolume();
             }

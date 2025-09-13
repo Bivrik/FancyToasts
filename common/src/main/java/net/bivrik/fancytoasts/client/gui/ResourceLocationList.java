@@ -1,6 +1,7 @@
 package net.bivrik.fancytoasts.client.gui;
 
 import net.bivrik.fancytoasts.Debug;
+import net.bivrik.fancytoasts.utility.Colors;
 import net.minecraft.Util;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
@@ -11,7 +12,6 @@ import net.minecraft.client.resources.sounds.SimpleSoundInstance;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvents;
-import net.minecraft.util.CommonColors;
 import net.minecraft.util.FormattedCharSequence;
 import org.jetbrains.annotations.NotNull;
 
@@ -160,11 +160,11 @@ public class ResourceLocationList extends ObjectSelectionList<ResourceLocationLi
         @Override
         public void render(@NotNull GuiGraphics guiGraphics, int index, int y, int x, int width, int height, int mouseX, int mouseY, boolean hovering, float partialTick) {
             if (this.nameList.size() == 1) {
-                guiGraphics.drawString(this.font, this.nameList.getFirst(), x, y + 3, CommonColors.WHITE);
+                guiGraphics.drawString(this.font, this.nameList.getFirst(), x, y + 3, Colors.WHITE);
             }
             else {
-                guiGraphics.drawString(this.font, this.nameList.get(1), x, y + 6, CommonColors.LIGHT_GRAY);
-                guiGraphics.drawString(this.font, this.nameList.get(0), x, y, CommonColors.WHITE);
+                guiGraphics.drawString(this.font, this.nameList.get(1), x, y + 6, Colors.LIGHT_GRAY);
+                guiGraphics.drawString(this.font, this.nameList.get(0), x, y, Colors.WHITE);
             }
 
         }

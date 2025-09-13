@@ -2,13 +2,13 @@ package net.bivrik.fancytoasts.client.gui;
 
 import net.bivrik.fancytoasts.Debug;
 import net.bivrik.fancytoasts.client.toast.texture.DisplayData;
+import net.bivrik.fancytoasts.utility.Colors;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.AbstractSelectionList;
 import net.minecraft.client.gui.narration.NarrationElementOutput;
 import net.minecraft.network.chat.Component;
-import net.minecraft.util.CommonColors;
 import net.minecraft.util.FormattedCharSequence;
 import org.jetbrains.annotations.NotNull;
 
@@ -33,16 +33,16 @@ public class InformationList extends AbstractSelectionList<InformationList.Entry
 
         this.clear();
 
-        this.addLine(displayData.getName(), CommonColors.YELLOW);
+        this.addLine(displayData.getName(), Colors.YELLOW);
         if (isConfig) {
-            this.addLine(Component.translatable("fancytoasts.gui.custom"), CommonColors.SOFT_RED);
+            this.addLine(Component.translatable("fancytoasts.gui.custom"), Colors.RED);
         }
         this.addSpace();
-        this.addLine(Component.translatable("fancytoasts.gui.label.author"), CommonColors.WHITE);
-        this.addLine(displayData.getAuthor(), CommonColors.LIGHT_GRAY);
+        this.addLine(Component.translatable("fancytoasts.gui.label.author"), Colors.WHITE);
+        this.addLine(displayData.getAuthor(), Colors.LIGHT_GRAY);
         this.addSpace();
-        this.addLine(Component.translatable("fancytoasts.gui.label.description"), CommonColors.WHITE);
-        this.addLine(displayData.getDescription(), CommonColors.LIGHT_GRAY);
+        this.addLine(Component.translatable("fancytoasts.gui.label.description"), Colors.WHITE);
+        this.addLine(displayData.getDescription(), Colors.LIGHT_GRAY);
 
         this.acceptLines();
     }
