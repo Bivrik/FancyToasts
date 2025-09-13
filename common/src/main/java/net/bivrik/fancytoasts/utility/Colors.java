@@ -8,4 +8,8 @@ public class Colors {
     public static final int GRAY = -8355712;
     public static final int PURPLE = 0xEA3CFF;
     public static final int CYAN = 0x00FFFF;
+
+    public static int alpha(int alpha, int color) {
+        return alpha << 24 | color & 16777215;
+    }
 }

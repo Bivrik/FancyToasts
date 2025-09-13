@@ -1,13 +1,17 @@
 package net.bivrik.fancytoasts.client.toast.animation;
 
+import net.bivrik.fancytoasts.Debug;
 import net.bivrik.fancytoasts.client.toast.FancyAdvancementToast;
 import net.bivrik.fancytoasts.client.renderer.GUIHelper;
+import net.bivrik.fancytoasts.utility.Colors;
 import net.bivrik.fancytoasts.utility.MathEasing;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.util.ARGB;
 import net.minecraft.util.FormattedCharSequence;
 import net.minecraft.util.Mth;
 
+import java.awt.*;
 import java.util.List;
 
 import static net.bivrik.fancytoasts.client.toast.animation.Appearance.getProgress;
@@ -100,9 +104,9 @@ public class PlayfulAnimation extends FancyAdvancementToastAnimation {
         }
 
         if (textAppearProgress > 0) {
-            int a = Mth.floor(textAppearProgress * 255.0F) << 24 | 67108864;
-            int titleColor = setup.titleColor() | a;
-            int toastColor = setup.toastColor() | a;
+            int a = Mth.floor(textAppearProgress * 255.0F);
+            int titleColor = Colors.alpha(a, setup.titleColor());
+            int toastColor = Colors.alpha(a, setup.toastColor());
 
             var font = minecraft.font;
             var display = setup.display();

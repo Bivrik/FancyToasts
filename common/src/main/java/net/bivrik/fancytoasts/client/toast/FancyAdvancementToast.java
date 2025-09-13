@@ -41,7 +41,7 @@ public class FancyAdvancementToast {
 
         switch (Objects.requireNonNull(display).getType()) {
             case TASK -> {
-                animation.setup(new FancyAdvancementSetup(texture, TextureUV.TASK_FRAME_UV, display, Colors.WHITE, Colors.WHITE));
+                animation.setup(new FancyAdvancementSetup(texture, TextureUV.TASK_FRAME_UV, display, Colors.YELLOW, Colors.WHITE));
                 toastSoundId = Common.getConfigManager().getToastConfig().getSoundId(AdvancementType.TASK);
                 volume = Common.getConfigManager().getGeneralConfig().getTaskVolume();
             }
