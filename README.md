@@ -34,7 +34,7 @@ Adds new advancement toast system into Minecraft. Currently mod has 18 standard 
 # Other 🔎
 
 ### Support 🧡
-If you like my mod, you play it, and you want to see future development, hear my thoughts, get early access, or even see devlogs, then visit my [Boosty](https://boosty.to/bivrik) and support me, whether it's a one-time donation or a subscription. I will be very grateful! 🤗
+If you like my mod, you play it, and you want to see future development, hear my thoughts, get early access, or even see devlogs, then visit my [Boosty](https://boosty.to/bivrik) and support me, whether it's a one-time donation or a subscription. I will be very thankful! 🤗
 
 ### Languages
 * English (en_us)
@@ -42,7 +42,7 @@ If you like my mod, you play it, and you want to see future development, hear my
 * Spanish (es_es) > translator
 * German (de_de) > translator
 * Chinese (zh_tw) > translator
-* Japanese (ja_jp) > PExPE3 (v1.4+ by translator)
+* Japanese (ja_jp) > PExPE3
 
 ### Plans
 * More animations (goal: 5)
