@@ -6,7 +6,7 @@ There is a reason why you are here. It might be curiosity. But I think you are h
 ![Showcase Example of New Advancement Toast](https://cdn.modrinth.com/data/cached_images/d91aa3e4af50c59e851312d9b1c6f7fb8d4c9648.gif)
 
 ### Download
-Try it out on [CurseForge](https://www.curseforge.com/minecraft/mc-mods/fancy-toasts) or [Modrinth](https://modrinth.com/mod/fancytoasts). Other sources are not mine.
+Try it out on [CurseForge](https://www.curseforge.com/minecraft/mc-mods/fancy-toasts) or [Modrinth](https://modrinth.com/mod/fancy-toasts). Other sources are not mine.
 
 # CUSTOMIZATION 🤪
 ### Custom Textures
