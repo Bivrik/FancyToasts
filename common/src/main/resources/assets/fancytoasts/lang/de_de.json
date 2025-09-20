@@ -21,6 +21,10 @@
   "fancytoasts.gui.label.task_volume": "Aufgabe volumen",
   "fancytoasts.gui.label.goal_volume": "Ziel volumen",
   "fancytoasts.gui.label.challenge_volume": "Herausforderung volumen",
+  "fancytoasts.gui.label.position": "Position",
+  "fancytoasts.gui.label.position_left": "Links",
+  "fancytoasts.gui.label.position_right": "Rechts",
+  "fancytoasts.gui.label.position_center": "Center",
 
   "fancytoasts.gui.tooltip.task": "Sound für die Weiterentwicklung des Aufgabentyps.",
   "fancytoasts.gui.tooltip.goal": "Sound für die Weiterentwicklung des Zieltyps.",
@@ -30,6 +34,7 @@
   "fancytoasts.gui.tooltip.sounds": "Der Ton wird im Moment des Erscheinens des Toasts abgespielt.",
   "fancytoasts.gui.tooltip.jade_compatibility": "Schaltet die Jade-Kompatibilität um. Wenn diese Option aktiviert ist, wird die Jade-Plakette ausgeblendet, wenn Aufstiegstoast angezeigt wird.",
   "fancytoasts.gui.tooltip.sounds_enabled": "Schaltet Töne um. Wenn ausgeschaltet, werden alle Toasttöne stummgeschaltet.",
+  "fancytoasts.gui.tooltip.position": "Stellt die Position der Aufstiegstoasts oben auf dem Bildschirm dar.",
 
   "fancytoasts.animations.toast.standard": "Standard",
   "fancytoasts.animations.toast.standard.description": "Standard animation. Ruhig und stetig, sanft gleitend. In einer Art Vanille-Stil",

@@ -21,6 +21,10 @@
   "fancytoasts.gui.label.task_volume": "任务量",
   "fancytoasts.gui.label.goal_volume": "目标量",
   "fancytoasts.gui.label.challenge_volume": "挑战卷",
+  "fancytoasts.gui.label.position": "职位",
+  "fancytoasts.gui.label.position_left": "左边",
+  "fancytoasts.gui.label.position_right": "右边",
+  "fancytoasts.gui.label.position_center": "中心",
 
   "fancytoasts.gui.tooltip.task": "声音任务类型的进步。",
   "fancytoasts.gui.tooltip.goal": "声音为目标类型的进步。",
@@ -30,6 +34,7 @@
   "fancytoasts.gui.tooltip.sounds": "吐司出现的那一刻发出的声音。",
   "fancytoasts.gui.tooltip.jade_compatibility": "切换翡翠兼容性。 如果拨动，那么出现吐司时会隐藏玉匾。",
   "fancytoasts.gui.tooltip.sounds_enabled": "切换声音。 如果关闭，所有吐司声音将被静音。",
+  "fancytoasts.gui.tooltip.position": "表示前进祝酒在屏幕顶部的位置。",
 
   "fancytoasts.animations.toast.standard": "标准",
   "fancytoasts.animations.toast.standard.description": "标准动画。 沉稳稳重，轻轻滑动。 在某种香草风格",

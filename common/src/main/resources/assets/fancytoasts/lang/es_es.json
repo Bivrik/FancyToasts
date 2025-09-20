@@ -20,7 +20,11 @@
   "fancytoasts.gui.label.sounds_enabled": "Sonidos de tostadas",
   "fancytoasts.gui.label.task_volume": "Volumen de tareas",
   "fancytoasts.gui.label.goal_volume": "Volumen objetivo",
-    "fancytoasts.gui.label.challenge_volume": "Volumen de desafío",
+  "fancytoasts.gui.label.challenge_volume": "Volumen de desafío",
+  "fancytoasts.gui.label.position": "Posición",
+  "fancytoasts.gui.label.position_left": "Izquierda",
+  "fancytoasts.gui.label.position_right": "Derecha",
+  "fancytoasts.gui.label.position_center": "Centro",
 
   "fancytoasts.gui.tooltip.task": "Sonido para el avance del tipo de tarea.",
   "fancytoasts.gui.tooltip.goal": "Sonido para el avance del tipo de objetivo.",
@@ -30,6 +34,7 @@
   "fancytoasts.gui.tooltip.sounds": "Sonido reproducido en el momento de aparecer el brindis.",
   "fancytoasts.gui.tooltip.jade_compatibility": "Alterna la compatibilidad con jade. Si se activa, la placa de jade se ocultará cuando aparezca el brindis de avance.",
   "fancytoasts.gui.tooltip.sounds_enabled": "Alterna sonidos. Si está desactivado, todos los sonidos de tostadas se silenciarán.",
+  "fancytoasts.gui.tooltip.position": "Representa la posición de los Brindis de avance en la parte superior de la pantalla.",
 
   "fancytoasts.animations.toast.standard": "Estándar",
   "fancytoasts.animations.toast.standard.description": "Animación estándar. Tranquilo y estable, deslizándose suavemente. En una especie de estilo Vainilla",

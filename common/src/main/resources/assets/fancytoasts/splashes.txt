@@ -7,16 +7,25 @@ Ka-Chow
 Do ya' need some butter?
 ._.
 Do not look at code
-5000 downloads!
-09.13.2025
-13.09.2025
+14000 downloads!
 Herobrine was added
 Herobrine was deleted
 Toast + Butter = Nice
-newToast("You are a sweetheart");
+newToast("You are a sweetheart!");
 Toastification!
 Roses are red
 Violets are blue
 Toast is tasty
 And so are {user.name}
 {user.name} is gorgeous today!
+Awesomeness!
+You are butter (???)
+/advancement grant {user.name} everything
+Heartwarming thanks to you!
+Turn around...
+This text is blue
+This text is, indeed, yellow
+3 new animations!
+6 new textures!
+The happiness is a key
+The love is a lock
