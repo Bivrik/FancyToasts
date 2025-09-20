@@ -3,14 +3,18 @@
 # Fancy Toasts 🎉
 There is a reason why you are here. It might be curiosity. But I think you are here because of there old-fashion advancement toasts! This is a Minecraft Mod that changes plain, boring, and annoying advancement toasts to something new and interesting!
 
-![Showcase Example of New Advancement Toast](https://cdn.modrinth.com/data/cached_images/d91aa3e4af50c59e851312d9b1c6f7fb8d4c9648.gif)
+<img src="https://cdn.modrinth.com/data/eUziWqPC/images/4906580b5c9307549e5f6ff80306f36b49f28a8f.gif" alt="Showcase of Standard Animation" width="400"/> <img src="https://cdn.modrinth.com/data/eUziWqPC/images/a33770e45d281106e9534ce83cb68de86d528f59.gif" alt="Showcase of Playful Animation" width="400"/>
 
 ### Download
-Try it out on [CurseForge](https://www.curseforge.com/minecraft/mc-mods/fancy-toasts) or [Modrinth](https://modrinth.com/mod/fancytoasts). Other sources are not mine.
+Try it out on [CurseForge](https://www.curseforge.com/minecraft/mc-mods/fancy-toasts) or [Modrinth](https://modrinth.com/mod/fancy-toasts). Other sources are not mine.
 
 # CUSTOMIZATION 🤪
+
 ### Custom Textures
 This mods supports custom textures! Yes, you can add textures from friends, modpcaks, or create your own! It's as easy as just drawing a texture. To do so, you can follow [this guide](https://github.com/Bivrik/FancyToasts/wiki/Custom-Texture-Guide). With this, possibilities of customization are endless! If you just want to add existing texture, check out this [page](https://github.com/Bivrik/FancyToasts/wiki/Custom-Texture-Guide#using).
+
+### Custom Config Screen
+It's not only about visuals, it's also about conveniences. It adds new screens for configuration. You can change textures, animations and sounds easily, along side with more tehnical settings, such as volumes, compatibilities and etc!
 
 # Description 🏗️
 Adds new advancement toast system into Minecraft. Currently mod has 18 standard toast variants, because of 3 animation styles and 6 texture types. Supports config screen on Fabric (Mod Menu)/Forge/NeoForge
@@ -34,7 +38,7 @@ Adds new advancement toast system into Minecraft. Currently mod has 18 standard 
 # Other 🔎
 
 ### Support 🧡
-If you like my mod, you play it, and you want to see future development, hear my thoughts, get early access, or even see devlogs, then visit my [Boosty](https://boosty.to/bivrik) and support me, whether it's a one-time donation or a subscription. I will be very grateful! 🤗
+If you like my mod, you play it, and you want to see future development, hear my thoughts, get early access, or even see devlogs, then visit my [Boosty](https://boosty.to/bivrik) and support me, whether it's a one-time donation or a subscription. I will be very thankful! 🤗
 
 ### Languages
 * English (en_us)
@@ -42,7 +46,7 @@ If you like my mod, you play it, and you want to see future development, hear my
 * Spanish (es_es) > translator
 * German (de_de) > translator
 * Chinese (zh_tw) > translator
-* Japanese (ja_jp) > PExPE3 (v1.4+ by translator)
+* Japanese (ja_jp) > PExPE3
 
 ### Plans
 * More animations (goal: 5)
