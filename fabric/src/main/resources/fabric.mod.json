@@ -34,5 +34,10 @@
   },
   "suggests": {
     "another-mod": "*"
+  },
+  "custom": {
+    "badoptimizations:incompatibilities": [
+      "enable_toast_optimizations"
+    ]
   }
 }

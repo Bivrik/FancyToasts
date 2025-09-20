@@ -19,25 +19,30 @@ credits = "${credits}"
 authors = "${mod_author}"
 description = '''${description}''' # supports multiline text
 
-[[mixins]]
+[mixins]
 config = "${mod_id}.mixins.json"
 
-[[mixins]]
+[mixins]
 config = "${mod_id}.neoforge.mixins.json"
 
-[[dependencies."${mod_id}"]]
+[dependencies."${mod_id}"]
 modId = "neoforge"
 type = "required" # can be one of "required", "optional", "incompatible" or "discouraged"
 versionRange = "[${neoforge_version},)"
 ordering = "NONE" # the order that this dependency should load in relation to your mod, required to be either 'BEFORE' or 'AFTER' if the dependency is not mandatory
 side = "CLIENT" # side this dependency is applied on - 'BOTH', 'CLIENT' or 'SERVER'
 
-[[dependencies."${mod_id}"]]
+[dependencies."${mod_id}"]
 modId = "minecraft"
 type = "required"
 versionRange = "${minecraft_version_range}"
 ordering = "NONE"
 side = "BOTH"
+
+["badoptimizations:incompatibilities"]
+options = [
+    "enable_toast_optimizations"
+]
 
 # Features are specific properties of the game environment, that you may want to declare you require. This example declares
 # that your mod requires GL version 3.2 or higher. Other features will be added. They are side aware so declaring this won't
