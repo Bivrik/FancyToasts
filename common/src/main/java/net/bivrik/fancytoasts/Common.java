@@ -2,6 +2,7 @@ package net.bivrik.fancytoasts;
 
 import net.bivrik.fancytoasts.client.config.*;
 import net.bivrik.fancytoasts.client.gui.SplashManager;
+import net.bivrik.fancytoasts.client.toast.AdvancementToastManager;
 import net.bivrik.fancytoasts.client.toast.animation.FancyAdvancementToastAnimation;
 import net.bivrik.fancytoasts.client.toast.animation.QuirkyAnimation;
 import net.bivrik.fancytoasts.client.toast.animation.PlayfulAnimation;
@@ -19,6 +20,7 @@ import java.util.function.Supplier;
 public class Common {
     private static SplashManager splashManager;
     private static ConfigManager configManager;
+    private static AdvancementToastManager advancementToastManager;
 
     public static void onMinecraftInitialization(Minecraft minecraft) {
         splashManager = new SplashManager(minecraft.getUser());
@@ -26,6 +28,8 @@ public class Common {
 
         configManager = new ConfigManager();
         configManager.loadConfigs();
+
+        advancementToastManager = new AdvancementToastManager(minecraft);
     }
 
     public static SplashManager getSplashManager() {
@@ -34,6 +38,10 @@ public class Common {
 
     public static ConfigManager getConfigManager() {
         return configManager;
+    }
+
+    public static AdvancementToastManager getAdvancementToastManager() {
+        return advancementToastManager;
     }
 
     public static void onModInitialization() {
