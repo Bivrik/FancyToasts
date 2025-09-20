@@ -1,6 +1,7 @@
 package net.bivrik.fancytoasts.client.gui;
 
 import net.bivrik.fancytoasts.Common;
+import net.bivrik.fancytoasts.client.config.AdvancementToastPosition;
 import net.bivrik.fancytoasts.client.config.ConfigHandler;
 import net.bivrik.fancytoasts.client.config.GeneralConfigData;
 import net.minecraft.client.Minecraft;
@@ -33,6 +34,7 @@ public class GeneralConfigScreen extends Screen {
     private VolumeSlider taskVolumeSlider;
     private VolumeSlider goalVolumeSlider;
     private VolumeSlider challengeVolumeSlider;
+    private CycleButton<AdvancementToastPosition> advancementToastPositionCycleButton; // what are those names bro
 
     private final List<AbstractWidget> widgets = new ArrayList<>();
 
@@ -64,6 +66,11 @@ public class GeneralConfigScreen extends Screen {
                 .withTooltip((value) -> Tooltip.create(Component.translatable("fancytoasts.gui.tooltip.sounds_enabled")))
                 .create(0, 0, BUTTON_WIDTH, BUTTON_HEIGHT, Component.translatable("fancytoasts.gui.label.sounds_enabled"), (button, value) -> generalConfigData.setSoundsEnabled(value));
 
+        advancementToastPositionCycleButton = CycleButton.builder(AdvancementToastPosition::getDisplayName)
+                .withValues(AdvancementToastPosition.values()).withInitialValue(generalConfigData.getPosition())
+                .withTooltip((position) -> Tooltip.create(Component.translatable("fancytoasts.gui.tooltip.position")))
+                .create(0, 0, BUTTON_WIDTH, BUTTON_HEIGHT, Component.translatable("fancytoasts.gui.label.position"), (button, value) -> generalConfigData.setPosition(value));
+
         taskVolumeSlider = new VolumeSlider(0, 0, BUTTON_WIDTH, BUTTON_HEIGHT, Component.translatable("fancytoasts.gui.label.task_volume"), generalConfigData.getTaskVolume());
         taskVolumeSlider.setResponder(generalConfigData::setTaskVolume);
 
@@ -75,6 +82,7 @@ public class GeneralConfigScreen extends Screen {
 
         addWidget(jadeCompatCycleButton);
         addWidget(soundsEnabledCycleButton);
+        addWidget(advancementToastPositionCycleButton);
         addWidget(taskVolumeSlider);
         addWidget(goalVolumeSlider);
         addWidget(challengeVolumeSlider);
@@ -154,7 +162,7 @@ public class GeneralConfigScreen extends Screen {
         }
 
         private float getVolume() {
-            return (float) Math.round(Mth.lerp(this.value, 0.0f, 2.0f) * 10) / 10;
+            return (float) Math.round(Mth.lerp(this.value, 0.0f, 2.0f) * 100) / 100;
         }
 
         @Override
