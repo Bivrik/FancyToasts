@@ -9,6 +9,7 @@ import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.util.FormattedCharSequence;
 import net.minecraft.util.Mth;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
@@ -27,15 +28,19 @@ public class QuirkyAnimation extends FancyAdvancementToastAnimation {
     private static final Random random = new Random();
     private static float randomRotation;
 
+    private List<FormattedCharSequence> DESCRIPTION = new ArrayList<>();
+
     @Override
-    public void setup(FancyAdvancementSetup setup) {
-        super.setup(setup);
+    public void setup(FancyAdvancementSetup setup, FancyAdvancementToast toast) {
+        super.setup(setup, toast);
 
         randomRotation = random.nextFloat(-0.4f, 0.4f);
+
+        DESCRIPTION = toast.getMinecraft().font.split(setup.display().getDescription(), this.toast.getWidth() - 16);
     }
 
     @Override
-    public void draw(GuiGraphics graphics, Minecraft minecraft, FancyAdvancementToast fancyToast, long time) {
+    public void draw(GuiGraphics graphics, Minecraft minecraft, long time) {
         float iconAppearProgress = ICON_APPEARANCE.getProgress(time);
         float iconScaleProgress = ICON_SCALE.getProgress(time);
         float bannerAppearProgress = BANNER_APPEARANCE.getProgress(time);
@@ -43,7 +48,6 @@ public class QuirkyAnimation extends FancyAdvancementToastAnimation {
         float textAppearProgress = TEXT_APPEARANCE.getProgress(time);
         float fadeOutProgress = getProgress(time, FADE_OUT_DURATION, DURATION - FADE_OUT_DURATION);
 
-        var setup = this.getSetup();
         var pose = GUIHelper.get(graphics);
 
         float sinX = (float) (Math.sin(time / 800.0) * 7);
@@ -55,8 +59,8 @@ public class QuirkyAnimation extends FancyAdvancementToastAnimation {
         if (fadeOutProgress > 0) {
             float fadeOutScaleX = MathEasing.easeInLerp(1f, 0f, fadeOutProgress);
             float fadeOutRotation = MathEasing.easeInLerp(0f, randomRotation, fadeOutProgress);
-            float toastCenterX = (float) fancyToast.getWidth() / 2;
-            float toastCenterY = (float) fancyToast.getHeight() / 2;
+            float toastCenterX = (float) this.toast.getWidth() / 2;
+            float toastCenterY = (float) this.toast.getHeight() / 2;
 
             GUIHelper.push(pose);
             GUIHelper.translate(pose, toastCenterX, toastCenterY);
@@ -107,25 +111,24 @@ public class QuirkyAnimation extends FancyAdvancementToastAnimation {
 
         if (textAppearProgress > 0) {
             int a = Mth.floor(textAppearProgress * 255.0F);
-            int titleColor = Colors.alpha(a, setup.titleColor());
-            int toastColor = Colors.alpha(a, setup.toastColor());
+            int titleColor = Colors.alpha(a, this.setup.titleColor());
+            int toastColor = Colors.alpha(a, this.setup.toastColor());
 
             var font = minecraft.font;
-            var display = setup.display();
+            var display = this.setup.display();
 
-            int toastCenterX = fancyToast.getWidth() / 2;
+            int toastCenterX = this.toast.getWidth() / 2;
 
             // Title
             graphics.drawCenteredString(font, display.getType().getDisplayName(), toastCenterX, 0, titleColor);
 
             // Description
-            List<FormattedCharSequence> descriptionList = font.split(display.getDescription(), fancyToast.getWidth() - 16);
-            if (!descriptionList.isEmpty()) {
-                graphics.drawCenteredString(font, descriptionList.get(0), toastCenterX, 12, toastColor);
-                if (descriptionList.size() > 1) {
-                    var descriptionSecondLine = descriptionList.get(1);
+            if (!DESCRIPTION.isEmpty()) {
+                graphics.drawCenteredString(font, DESCRIPTION.get(0), toastCenterX, 12, toastColor);
+                if (DESCRIPTION.size() > 1) {
+                    var descriptionSecondLine = DESCRIPTION.get(1);
 
-                    if (descriptionList.size() > 2) {
+                    if (DESCRIPTION.size() > 2) {
                         graphics.drawCenteredString(font, descriptionSecondLine, toastCenterX - font.width("...") / 2, 21, toastColor);
                         graphics.drawCenteredString(font, "...", toastCenterX + font.width(descriptionSecondLine) / 2, 21, toastColor);
                     } else {

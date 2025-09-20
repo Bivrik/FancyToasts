@@ -41,17 +41,17 @@ public class FancyAdvancementToast {
 
         switch (Objects.requireNonNull(display).getType()) {
             case TASK -> {
-                animation.setup(new FancyAdvancementSetup(texture, TextureUV.TASK_FRAME_UV, display, Colors.YELLOW, Colors.WHITE));
+                animation.setup(new FancyAdvancementSetup(texture, TextureUV.TASK_FRAME_UV, display, Colors.YELLOW, Colors.WHITE), this);
                 toastSoundId = Common.getConfigManager().getToastConfig().getSoundId(AdvancementType.TASK);
                 volume = Common.getConfigManager().getGeneralConfig().getTaskVolume();
             }
             case GOAL -> {
-                animation.setup(new FancyAdvancementSetup(texture, TextureUV.GOAL_FRAME_UV, display, Colors.CYAN, Colors.WHITE));
+                animation.setup(new FancyAdvancementSetup(texture, TextureUV.GOAL_FRAME_UV, display, Colors.CYAN, Colors.WHITE), this);
                 toastSoundId = Common.getConfigManager().getToastConfig().getSoundId(AdvancementType.GOAL);
                 volume = Common.getConfigManager().getGeneralConfig().getGoalVolume();
             }
             case CHALLENGE -> {
-            animation.setup(new FancyAdvancementSetup(texture, TextureUV.CHALLENGE_FRAME_UV, display, Colors.PURPLE, Colors.CYAN));
+            animation.setup(new FancyAdvancementSetup(texture, TextureUV.CHALLENGE_FRAME_UV, display, Colors.PURPLE, Colors.CYAN), this);
                 toastSoundId = Common.getConfigManager().getToastConfig().getSoundId(AdvancementType.CHALLENGE);
                 volume = Common.getConfigManager().getGeneralConfig().getChallengeVolume();
             }
@@ -62,7 +62,7 @@ public class FancyAdvancementToast {
     }
 
     public void draw(GuiGraphics graphics, Minecraft minecraft) {
-        animation.draw(graphics, minecraft, this, time);
+        animation.draw(graphics, minecraft, time);
     }
 
     public void update(long time) {
@@ -72,28 +72,30 @@ public class FancyAdvancementToast {
             isEnded = true;
         }
 
-        if (!Common.getConfigManager().getGeneralConfig().areSoundsEnabled()) {
-            return;
-        }
-
-        int timeInSeconds = (int) (this.time / 50);
-        if (playedSoundsCount == 0 && timeInSeconds == animation.getToastSoundTiming() / 50) {
-            soundManager.play(SimpleSoundInstance.forUI(Objects.requireNonNull(BuiltInRegistries.SOUND_EVENT.getValue(toastSoundId)), 1f, volume));
-            playedSoundsCount++;
-        }
-        if (playedSoundsCount == 1 && timeInSeconds == animation.getDuration() / 50 - 10) {
-            soundManager.play(SimpleSoundInstance.forUI(SoundEvents.UI_TOAST_IN, 1f, 1.5f));
-            playedSoundsCount++;
+        if (soundManager != null) {
+            int timeInSeconds = (int) (this.time / 50);
+            if (playedSoundsCount == 0 && timeInSeconds == animation.getToastSoundTiming() / 50) {
+                soundManager.play(SimpleSoundInstance.forUI(Objects.requireNonNull(BuiltInRegistries.SOUND_EVENT.getValue(toastSoundId)), 1f, volume));
+                playedSoundsCount++;
+            }
+            if (playedSoundsCount == 1 && timeInSeconds == animation.getDuration() / 50 - 10) {
+                soundManager.play(SimpleSoundInstance.forUI(SoundEvents.UI_TOAST_IN, 1f, 1.5f));
+                playedSoundsCount++;
+            }
         }
     }
 
-    public void playSounds(SoundManager manager) {
+    public void trySetSoundManager(SoundManager soundManager) {
         if (!Common.getConfigManager().getGeneralConfig().areSoundsEnabled()) {
             return;
         }
 
-        soundManager = manager;
-        soundManager.play(SimpleSoundInstance.forUI(SoundEvents.UI_TOAST_IN, 1f, 1.5f));
+        this.soundManager = soundManager;
+        this.soundManager.play(SimpleSoundInstance.forUI(SoundEvents.UI_TOAST_IN, 1f, 1.5f));
+    }
+
+    public Minecraft getMinecraft() {
+        return Minecraft.getInstance();
     }
 
     public boolean isEnded() {

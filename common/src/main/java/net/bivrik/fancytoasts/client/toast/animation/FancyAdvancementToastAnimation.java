@@ -7,16 +7,15 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
 
 public abstract class FancyAdvancementToastAnimation {
-    private FancyAdvancementSetup setup;
+    protected FancyAdvancementSetup setup;
+    protected FancyAdvancementToast toast;
 
-    public void setup(FancyAdvancementSetup setup) {
+    public void setup(FancyAdvancementSetup setup, FancyAdvancementToast toast) {
         this.setup = setup;
-    }
-    protected FancyAdvancementSetup getSetup() {
-        return setup;
+        this.toast = toast;
     }
 
-    public abstract void draw(GuiGraphics graphics, Minecraft minecraft, FancyAdvancementToast toast, long time);
+    public abstract void draw(GuiGraphics graphics, Minecraft minecraft, long time);
 
     public abstract int getDuration();
 

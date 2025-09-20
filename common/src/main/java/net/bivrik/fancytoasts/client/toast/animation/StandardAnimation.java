@@ -1,7 +1,7 @@
 package net.bivrik.fancytoasts.client.toast.animation;
 
-import net.bivrik.fancytoasts.client.toast.FancyAdvancementToast;
 import net.bivrik.fancytoasts.client.renderer.GUIHelper;
+import net.bivrik.fancytoasts.client.toast.FancyAdvancementToast;
 import net.bivrik.fancytoasts.utility.Colors;
 import net.bivrik.fancytoasts.utility.MathEasing;
 import net.minecraft.client.Minecraft;
@@ -9,6 +9,7 @@ import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.util.FormattedCharSequence;
 import net.minecraft.util.Mth;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import static net.bivrik.fancytoasts.client.toast.animation.Appearance.getProgress;
@@ -22,15 +23,23 @@ public class StandardAnimation extends FancyAdvancementToastAnimation {
     private static final int FADE_OUT_DURATION = 2000;
     private static final int DURATION = 6000 + FADE_OUT_DURATION;
 
+    private List<FormattedCharSequence> DESCRIPTION = new ArrayList<>();
+
     @Override
-    public void draw(GuiGraphics graphics, Minecraft minecraft, FancyAdvancementToast fancyToast,  long time) {
+    public void setup(FancyAdvancementSetup setup, FancyAdvancementToast toast) {
+        super.setup(setup, toast);
+
+        DESCRIPTION = toast.getMinecraft().font.split(setup.display().getTitle(), this.toast.getWidth() - 20);
+    }
+
+    @Override
+    public void draw(GuiGraphics graphics, Minecraft minecraft, long time) {
         float iconAppearProgress = ICON_APPEARANCE.getProgress(time);
         float bannerAppearProgress = BANNER_APPEARANCE.getProgress(time);
         float backgroundAppearProgress = BACKGROUND_APPEARANCE.getProgress(time);
         float textAppearProgress = TEXT_APPEARANCE.getProgress(time);
         float fadeOutProgress = getProgress(time, FADE_OUT_DURATION, DURATION - FADE_OUT_DURATION);
 
-        var setup = this.getSetup();
         var pose = GUIHelper.get(graphics);
 
         if (fadeOutProgress > 0) {
@@ -82,24 +91,23 @@ public class StandardAnimation extends FancyAdvancementToastAnimation {
 
         if (textAppearProgress > 0) {
             int a = Mth.floor(textAppearProgress * 255.0F);
-            int titleColor = Colors.alpha(a, setup.titleColor());
-            int toastColor = Colors.alpha(a, setup.toastColor());
+            int titleColor = Colors.alpha(a, this.setup.titleColor());
+            int toastColor = Colors.alpha(a, this.setup.toastColor());
 
             var font = minecraft.font;
-            var display = setup.display();
+            var display = this.setup.display();
 
             // Title
-            graphics.drawCenteredString(font, display.getType().getDisplayName(), fancyToast.getWidth() / 2, 25, titleColor);
+            graphics.drawCenteredString(font, display.getType().getDisplayName(), this.toast.getWidth() / 2, 25, titleColor);
 
             // Description
-            List<FormattedCharSequence> descriptionList = font.split(display.getTitle(), fancyToast.getWidth() - 20);
-            if (!descriptionList.isEmpty()) {
-                if (descriptionList.size() == 1) {
-                    graphics.drawCenteredString(font, descriptionList.get(0), fancyToast.getWidth() / 2, 43, toastColor);
+            if (!DESCRIPTION.isEmpty()) {
+                if (DESCRIPTION.size() == 1) {
+                    graphics.drawCenteredString(font, DESCRIPTION.get(0), this.toast.getWidth() / 2, 43, toastColor);
                 } else {
-                    int lineHeight = 42 - (9 * (descriptionList.size() - 1)) / 2;
-                    for (FormattedCharSequence text : descriptionList) {
-                        graphics.drawCenteredString(font, text, fancyToast.getWidth() / 2, lineHeight, toastColor);
+                    int lineHeight = 42 - (9 * (DESCRIPTION.size() - 1)) / 2;
+                    for (FormattedCharSequence text : DESCRIPTION) {
+                        graphics.drawCenteredString(font, text, this.toast.getWidth() / 2, lineHeight, toastColor);
                         lineHeight += 9;
                     }
                 }
