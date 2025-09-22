@@ -1,6 +1,8 @@
 package net.bivrik.fancytoasts.client.toast;
 
+import com.mojang.blaze3d.systems.RenderSystem;
 import net.bivrik.fancytoasts.Common;
+import net.bivrik.fancytoasts.client.config.AdvancementToastScreenBehavior;
 import net.bivrik.fancytoasts.client.renderer.GUIHelper;
 import net.bivrik.fancytoasts.platform.Services;
 import net.minecraft.Util;
@@ -56,6 +58,14 @@ public class AdvancementToastManager {
 
             startTime = Util.getMillis();
         }
+    }
+
+    public boolean isScreenOpened() {
+        return minecraft.screen != null;
+    }
+
+    public boolean isRenderUnder() {
+        return Common.getConfigManager().getGeneralConfig().getScreenBehavior() == AdvancementToastScreenBehavior.BEHIND;
     }
 
     public void render(GuiGraphics graphics) {

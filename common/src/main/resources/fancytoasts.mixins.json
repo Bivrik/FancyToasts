@@ -8,7 +8,8 @@
   "client": [
     "AdvancementToastMixinAccessor",
     "MinecraftMixin",
-    "ToastManagerMixin"
+    "ToastManagerMixin",
+    "GuiMixin"
   ],
   "server": [],
   "injectors": {

@@ -25,6 +25,10 @@
   "fancytoasts.gui.label.position_left": "Left",
   "fancytoasts.gui.label.position_right": "Right",
   "fancytoasts.gui.label.position_center": "Center",
+  "fancytoasts.gui.label.screen_behavior": "Render",
+  "fancytoasts.gui.label.screen_behavior_top": "Top",
+  "fancytoasts.gui.label.screen_behavior_behind": "Behind",
+  "fancytoasts.gui.label.screen_behavior_transparent": "Transparent",
 
   "fancytoasts.gui.tooltip.task": "Sound for Task type advancement.",
   "fancytoasts.gui.tooltip.goal": "Sound for Goal type advancement.",
@@ -35,6 +39,7 @@
   "fancytoasts.gui.tooltip.jade_compatibility": "Toggles jade compatibility. If toggled, then Jade plaque will be hidden when advancement toast is appeared.",
   "fancytoasts.gui.tooltip.sounds_enabled": "Toggles sounds. If turned off, all toast sounds will be muted.",
   "fancytoasts.gui.tooltip.position": "Represents position of Advancement Toasts at the top of the screen.",
+  "fancytoasts.gui.tooltip.screen_behavior": "Represents type of render of Advancement Toasts when opened a screen (inventory, chests, etc).",
 
   "fancytoasts.animations.toast.standard": "Standard",
   "fancytoasts.animations.toast.standard.description": "Standard animation. Calm and steady, sliding gently. In some sort of Vanilla Style",

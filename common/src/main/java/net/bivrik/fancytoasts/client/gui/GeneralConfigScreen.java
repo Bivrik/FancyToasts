@@ -2,6 +2,7 @@ package net.bivrik.fancytoasts.client.gui;
 
 import net.bivrik.fancytoasts.Common;
 import net.bivrik.fancytoasts.client.config.AdvancementToastPosition;
+import net.bivrik.fancytoasts.client.config.AdvancementToastScreenBehavior;
 import net.bivrik.fancytoasts.client.config.ConfigHandler;
 import net.bivrik.fancytoasts.client.config.GeneralConfigData;
 import net.minecraft.client.Minecraft;
@@ -35,6 +36,7 @@ public class GeneralConfigScreen extends Screen {
     private VolumeSlider goalVolumeSlider;
     private VolumeSlider challengeVolumeSlider;
     private CycleButton<AdvancementToastPosition> advancementToastPositionCycleButton; // what are those names bro
+    private CycleButton<AdvancementToastScreenBehavior> advancementToastScreenBehaviorCycleButton; // I swear next update is just refactor what is THIS BRO
 
     private final List<AbstractWidget> widgets = new ArrayList<>();
 
@@ -71,6 +73,11 @@ public class GeneralConfigScreen extends Screen {
                 .withTooltip((position) -> Tooltip.create(Component.translatable("fancytoasts.gui.tooltip.position")))
                 .create(0, 0, BUTTON_WIDTH, BUTTON_HEIGHT, Component.translatable("fancytoasts.gui.label.position"), (button, value) -> generalConfigData.setPosition(value));
 
+        advancementToastScreenBehaviorCycleButton = CycleButton.builder(AdvancementToastScreenBehavior::getDisplayName)
+                .withValues(AdvancementToastScreenBehavior.values()).withInitialValue(generalConfigData.getScreenBehavior())
+                .withTooltip((position) -> Tooltip.create(Component.translatable("fancytoasts.gui.tooltip.screen_behavior")))
+                .create(0, 0, BUTTON_WIDTH, BUTTON_HEIGHT, Component.translatable("fancytoasts.gui.label.screen_behavior"), (button, value) -> generalConfigData.setScreenBehavior(value));
+
         taskVolumeSlider = new VolumeSlider(0, 0, BUTTON_WIDTH, BUTTON_HEIGHT, Component.translatable("fancytoasts.gui.label.task_volume"), generalConfigData.getTaskVolume());
         taskVolumeSlider.setResponder(generalConfigData::setTaskVolume);
 
@@ -83,6 +90,7 @@ public class GeneralConfigScreen extends Screen {
         addWidget(jadeCompatCycleButton);
         addWidget(soundsEnabledCycleButton);
         addWidget(advancementToastPositionCycleButton);
+        addWidget(advancementToastScreenBehaviorCycleButton);
         addWidget(taskVolumeSlider);
         addWidget(goalVolumeSlider);
         addWidget(challengeVolumeSlider);

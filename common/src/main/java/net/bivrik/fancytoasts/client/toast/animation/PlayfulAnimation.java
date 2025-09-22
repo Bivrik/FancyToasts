@@ -38,6 +38,8 @@ public class PlayfulAnimation extends FancyAdvancementToastAnimation {
 
     @Override
     public void draw(GuiGraphics graphics, Minecraft minecraft, long time) {
+        super.draw(graphics, minecraft, time);
+
         float iconAppearProgress = ICON_APPEARANCE.getProgress(time);
         float iconMovementProgress = ICON_MOVEMENT.getProgress(time);
         float bannerAppearProgress = BANNER_APPEARANCE.getProgress(time);

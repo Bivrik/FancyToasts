@@ -10,8 +10,9 @@ public class GeneralConfigData extends ConfigData {
     private float goalVolume;
     private float challengeVolume;
     private AdvancementToastPosition position;
+    private AdvancementToastScreenBehavior screenBehavior;
 
-    public GeneralConfigData(boolean isJadeCompatEnabled, boolean areSoundsEnabled, float taskVolume, float goalVolume, float challengeVolume, AdvancementToastPosition position) {
+    public GeneralConfigData(boolean isJadeCompatEnabled, boolean areSoundsEnabled, float taskVolume, float goalVolume, float challengeVolume, AdvancementToastPosition position, AdvancementToastScreenBehavior screenBehavior) {
         super(Paths.GENERAL_CONFIG_FILE);
 
         this.isJadeCompatEnabled = isJadeCompatEnabled;
@@ -20,6 +21,7 @@ public class GeneralConfigData extends ConfigData {
         this.goalVolume = goalVolume;
         this.challengeVolume = challengeVolume;
         this.position = position;
+        this.screenBehavior = screenBehavior;
     }
 
     public GeneralConfigData() {
@@ -31,6 +33,7 @@ public class GeneralConfigData extends ConfigData {
         this.goalVolume = 1.0f;
         this.challengeVolume = 1.0f;
         this.position = AdvancementToastPosition.CENTER;
+        this.screenBehavior = AdvancementToastScreenBehavior.TOP;
     }
 
     public boolean isJadeCompatEnabled() {
@@ -82,6 +85,13 @@ public class GeneralConfigData extends ConfigData {
         this.position = position;
     }
 
+    public AdvancementToastScreenBehavior getScreenBehavior() {
+        return screenBehavior;
+    }
+    public void setScreenBehavior(AdvancementToastScreenBehavior screenBehavior) {
+        this.screenBehavior = screenBehavior;
+    }
+
     @Override
     public boolean isValid() {
         return true;
@@ -89,11 +99,11 @@ public class GeneralConfigData extends ConfigData {
 
     @Override
     public GeneralConfigData get() {
-        return new GeneralConfigData(isJadeCompatEnabled, areSoundsEnabled, taskVolume, goalVolume, challengeVolume, position);
+        return new GeneralConfigData(isJadeCompatEnabled, areSoundsEnabled, taskVolume, goalVolume, challengeVolume, position, screenBehavior);
     }
 
     @Override
     public String toString() {
-        return super.toString().replace("}", ", ") + String.format("isJadeCompatibility='%s', areSoundsEnabled='%s', taskVolume='%s', goalVolume='%s', challengeVolume='%s', advancementToastPosition='%s'}", isJadeCompatEnabled, areSoundsEnabled, taskVolume, goalVolume, challengeVolume, position);
+        return super.toString().replace("}", ", ") + String.format("isJadeCompatibility='%s', areSoundsEnabled='%s', taskVolume='%s', goalVolume='%s', challengeVolume='%s', advancementToastPosition='%s', advancementToastScreenBehavior='%s'}", isJadeCompatEnabled, areSoundsEnabled, taskVolume, goalVolume, challengeVolume, position, screenBehavior);
     }
 }

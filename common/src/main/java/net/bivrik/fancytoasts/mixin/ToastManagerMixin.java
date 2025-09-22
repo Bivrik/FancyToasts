@@ -28,7 +28,11 @@ public class ToastManagerMixin {
 
     @Inject(at = @At("TAIL"), method = "render")
     private void onRender(GuiGraphics guiGraphics, CallbackInfo info) {
-        Common.getAdvancementToastManager().render(guiGraphics);
+        var toastManager = Common.getAdvancementToastManager();
+
+        if (!toastManager.isScreenOpened() || !toastManager.isRenderUnder()) {
+            Common.getAdvancementToastManager().render(guiGraphics);
+        }
     }
 
     @Inject(at = @At("TAIL"), method = "update")

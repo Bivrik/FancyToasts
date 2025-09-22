@@ -34,6 +34,8 @@ public class StandardAnimation extends FancyAdvancementToastAnimation {
 
     @Override
     public void draw(GuiGraphics graphics, Minecraft minecraft, long time) {
+        super.draw(graphics, minecraft, time);
+
         float iconAppearProgress = ICON_APPEARANCE.getProgress(time);
         float bannerAppearProgress = BANNER_APPEARANCE.getProgress(time);
         float backgroundAppearProgress = BACKGROUND_APPEARANCE.getProgress(time);
