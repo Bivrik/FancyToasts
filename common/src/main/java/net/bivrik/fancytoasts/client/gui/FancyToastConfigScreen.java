@@ -1,6 +1,7 @@
 package net.bivrik.fancytoasts.client.gui;
 
 import net.bivrik.fancytoasts.Common;
+import net.bivrik.fancytoasts.client.renderer.GUIHelper;
 import net.bivrik.fancytoasts.utility.Colors;
 import net.minecraft.Util;
 import net.minecraft.client.gui.GuiGraphics;
@@ -72,14 +73,19 @@ public class FancyToastConfigScreen extends Screen {
     public void render(@NotNull GuiGraphics guiGraphics, int mouseX, int mouseY, float partialTick) {
         super.render(guiGraphics, mouseX, mouseY, partialTick);
 
-        guiGraphics.pose().pushMatrix();
-        double size = Math.abs(Math.cos((double) Util.getMillis() / 250) * 0.1f) + 0.9f;
-        guiGraphics.pose().translate((float) this.width / 2, 12 + 9 + 4.5f);
-        guiGraphics.pose().scale((float) size);
-        guiGraphics.pose().translate((float) this.width / -2, -12 - 9 - 4.5f);
-        guiGraphics.drawCenteredString(this.font, splash, this.width / 2, 12 + 9, Colors.YELLOW);
-        guiGraphics.pose().popMatrix();
+        drawSplash(guiGraphics);
 
         guiGraphics.drawCenteredString(this.font, this.title, this.width / 2, 12, -1);
+    }
+
+    private void drawSplash(@NotNull GuiGraphics guiGraphics) {
+        double size = Math.abs(Math.cos((double) Util.getMillis() / 250) * 0.1f) + 0.9f;
+        var matrix = GUIHelper.get(guiGraphics);
+        GUIHelper.push(matrix);
+        GUIHelper.translate(matrix, (float) this.width / 2, 12 + 9 + 4.5f);
+        GUIHelper.scale(matrix, (float) size);
+        GUIHelper.translate(matrix, (float) this.width / -2, -12 - 9 - 4.5f);
+        guiGraphics.drawCenteredString(this.font, splash, this.width / 2, 12 + 9, Colors.YELLOW);
+        GUIHelper.pop(matrix);
     }
 }
