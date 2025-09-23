@@ -58,5 +58,10 @@
   "fancytoasts.gui.label.position_left": "左側",
   "fancytoasts.gui.label.position_right": "右側",
   "fancytoasts.gui.label.position_center": "中央に",
-  "fancytoasts.gui.tooltip.position": "画面の上部にあるアドバンストーストの位置を表します"
+  "fancytoasts.gui.tooltip.position": "画面の上部にあるアドバンストーストの位置を表します",
+  "fancytoasts.gui.label.screen_behavior": "レンダリング",
+  "fancytoasts.gui.label.screen_behavior_top": "トップ",
+  "fancytoasts.gui.label.screen_behavior_behind": "後ろ",
+  "fancytoasts.gui.label.screen_behavior_transparent": "透明",
+  "fancytoasts.gui.tooltip.screen_behavior": "画面（インベントリ、チェストなど）を開いたときのアドバンストースト用のレンダリングのタイプを表します"
 }

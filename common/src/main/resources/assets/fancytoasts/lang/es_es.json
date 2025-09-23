@@ -25,6 +25,10 @@
   "fancytoasts.gui.label.position_left": "Izquierda",
   "fancytoasts.gui.label.position_right": "Derecha",
   "fancytoasts.gui.label.position_center": "Centro",
+  "fancytoasts.gui.label.screen_behavior": "Renderizar",
+  "fancytoasts.gui.label.screen_behavior_top": "Arriba",
+  "fancytoasts.gui.label.screen_behavior_behind": "Detrás",
+  "fancytoasts.gui.label.screen_behavior_transparent": "Transparente",
 
   "fancytoasts.gui.tooltip.task": "Sonido para el avance del tipo de tarea.",
   "fancytoasts.gui.tooltip.goal": "Sonido para el avance del tipo de objetivo.",
@@ -35,6 +39,7 @@
   "fancytoasts.gui.tooltip.jade_compatibility": "Alterna la compatibilidad con jade. Si se activa, la placa de jade se ocultará cuando aparezca el brindis de avance.",
   "fancytoasts.gui.tooltip.sounds_enabled": "Alterna sonidos. Si está desactivado, todos los sonidos de tostadas se silenciarán.",
   "fancytoasts.gui.tooltip.position": "Representa la posición de los Brindis de avance en la parte superior de la pantalla.",
+  "fancytoasts.gui.tooltip.screen_behavior": "Representa el tipo de renderizado para los Brindis de Avance cuando se abre una pantalla (inventario, cofres, etc).",
 
   "fancytoasts.animations.toast.standard": "Estándar",
   "fancytoasts.animations.toast.standard.description": "Animación estándar. Tranquilo y estable, deslizándose suavemente. En una especie de estilo Vainilla",

@@ -25,6 +25,10 @@
   "fancytoasts.gui.label.position_left": "Links",
   "fancytoasts.gui.label.position_right": "Rechts",
   "fancytoasts.gui.label.position_center": "Center",
+  "fancytoasts.gui.label.screen_behavior": "Render",
+  "fancytoasts.gui.label.screen_behavior_top": "Oberen",
+  "fancytoasts.gui.label.screen_behavior_behind": "Hinter",
+  "fancytoasts.gui.label.screen_behavior_transparent": "Transparent",
 
   "fancytoasts.gui.tooltip.task": "Sound für die Weiterentwicklung des Aufgabentyps.",
   "fancytoasts.gui.tooltip.goal": "Sound für die Weiterentwicklung des Zieltyps.",
@@ -35,6 +39,7 @@
   "fancytoasts.gui.tooltip.jade_compatibility": "Schaltet die Jade-Kompatibilität um. Wenn diese Option aktiviert ist, wird die Jade-Plakette ausgeblendet, wenn Aufstiegstoast angezeigt wird.",
   "fancytoasts.gui.tooltip.sounds_enabled": "Schaltet Töne um. Wenn ausgeschaltet, werden alle Toasttöne stummgeschaltet.",
   "fancytoasts.gui.tooltip.position": "Stellt die Position der Aufstiegstoasts oben auf dem Bildschirm dar.",
+  "fancytoasts.gui.tooltip.screen_behavior": "Repräsentiert den Rendertyp für Aufstiegstoasts beim Öffnen eines Bildschirms (Inventar, Truhen usw).",
 
   "fancytoasts.animations.toast.standard": "Standard",
   "fancytoasts.animations.toast.standard.description": "Standard animation. Ruhig und stetig, sanft gleitend. In einer Art Vanille-Stil",
