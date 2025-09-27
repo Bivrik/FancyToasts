@@ -21,6 +21,14 @@
   "fancytoasts.gui.label.task_volume": "タスクタイプの音量",
   "fancytoasts.gui.label.goal_volume": "目標タイプの音量",
   "fancytoasts.gui.label.challenge_volume": "チャレンジタイプの音量",
+  "fancytoasts.gui.label.position": "位置",
+  "fancytoasts.gui.label.position_left": "左",
+  "fancytoasts.gui.label.position_right": "右",
+  "fancytoasts.gui.label.position_center": "中央",
+  "fancytoasts.gui.label.screen_behavior": "表示方法",
+  "fancytoasts.gui.label.screen_behavior_top": "最前面",
+  "fancytoasts.gui.label.screen_behavior_behind": "背面",
+  "fancytoasts.gui.label.screen_behavior_transparent": "透過",
 
   "fancytoasts.gui.tooltip.task": "タスクタイプの進捗に使用される音",
   "fancytoasts.gui.tooltip.goal": "目標タイプの進捗に使用される音",
@@ -30,6 +38,8 @@
   "fancytoasts.gui.tooltip.sounds": "トーストが表示されたときに再生される音",
   "fancytoasts.gui.tooltip.jade_compatibility": "Jadeとの互換性を切り替えます。有効化すると、進捗トーストが表示された際にJadeのプレートが非表示になります",
   "fancytoasts.gui.tooltip.sounds_enabled": "サウンドを切り替えます。オフにすると、全てのトースト音がミュートされます",
+  "fancytoasts.gui.tooltip.position": "画面上部に表示される進捗トーストの位置",
+  "fancytoasts.gui.tooltip.screen_behavior": "画面（インベントリ、チェストなど）を開いたときの進捗トーストの表示方法",
 
   "fancytoasts.animations.toast.standard": "標準",
   "fancytoasts.animations.toast.standard.description": "標準的なアニメーション。落ち着いていて安定感があり、バニラのマインクラフトの様にゆるやかにスライドします",
@@ -52,16 +62,4 @@
   "fancytoasts.textures.toast.steamy.description": "1500時間かけて実績を100%にしたんだ！ママ、誇りに思ってくれる？ Steamにインスパイアされたもの",
 
   "fancytoasts.sound.minecraft.description": "Minecraftに内蔵された音",
-
-  // By Bivrik with translator
-  "fancytoasts.gui.label.position": "ポジション",
-  "fancytoasts.gui.label.position_left": "左側",
-  "fancytoasts.gui.label.position_right": "右側",
-  "fancytoasts.gui.label.position_center": "中央に",
-  "fancytoasts.gui.tooltip.position": "画面の上部にあるアドバンストーストの位置を表します",
-  "fancytoasts.gui.label.screen_behavior": "レンダリング",
-  "fancytoasts.gui.label.screen_behavior_top": "トップ",
-  "fancytoasts.gui.label.screen_behavior_behind": "後ろ",
-  "fancytoasts.gui.label.screen_behavior_transparent": "透明",
-  "fancytoasts.gui.tooltip.screen_behavior": "画面（インベントリ、チェストなど）を開いたときのアドバンストースト用のレンダリングのタイプを表します"
 }
