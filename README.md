@@ -56,9 +56,10 @@ If you like my mod, you play it, and you want to see future development, hear my
 * Rework of animations to make them easier to make? (v1.5?)
 * Custom sounds? (v1.6?)
 * FTBQuests compatibility?
+* Personalized textures for specific mods/datapacks?
 ##### Completed
 * Config GUI rework
-* Ability to change sounds
+* Ability to change sounds, position, render type
 * Custom textures
 * Jade compatibility
 
