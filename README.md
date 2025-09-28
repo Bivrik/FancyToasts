@@ -65,7 +65,16 @@ If you like my mod, you play it, and you want to see future development, hear my
 # Changelog 📝
 
 ## v1.4.2
-> working
+* New features:
+  * Volume slider now changes by 1% instead of 10% (suggested by VaporeonScripts)
+  * Ability to change toast's general position! Top left, top center or top right
+  * Ability to change toast's render type when any screen is opened (chests, invetory, etc). Top, behind or transparent (suggested by guguz)
+* Bug fixes:
+  * Doesn't show toast when installed BadOptimizations mod
+* Adjustmets:
+  * Toast system code overhaul, which is slightly more optimizied (I hope)
+  * Slight optimization when rendering toasts
+> I wanted to call it Update Nobody Asked For, but there are a lot of community suggestions, actually
 
 ## v1.4.1
 * New features:
