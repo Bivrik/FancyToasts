@@ -6,7 +6,7 @@ import net.bivrik.fancytoasts.client.toast.animation.FancyAdvancementToastAnimat
 import net.bivrik.fancytoasts.client.toast.animation.FancyAdvancementSetup;
 import net.bivrik.fancytoasts.client.toast.registry.ToastAnimationRegistry;
 import net.bivrik.fancytoasts.client.toast.texture.TextureUV;
-import net.bivrik.fancytoasts.utility.Colors;
+import net.bivrik.fancytoasts.platform.utility.Colors;
 import net.minecraft.advancements.Advancement;
 import net.minecraft.advancements.AdvancementType;
 import net.minecraft.advancements.DisplayInfo;

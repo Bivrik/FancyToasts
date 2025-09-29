@@ -1,8 +1,8 @@
 package net.bivrik.fancytoasts.client.toast.animation;
 
-import net.bivrik.fancytoasts.client.renderer.GUIHelper;
+import net.bivrik.fancytoasts.platform.utility.GUIs;
 import net.bivrik.fancytoasts.client.toast.FancyAdvancementToast;
-import net.bivrik.fancytoasts.utility.Colors;
+import net.bivrik.fancytoasts.platform.utility.Colors;
 import net.bivrik.fancytoasts.utility.MathEasing;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
@@ -42,53 +42,53 @@ public class StandardAnimation extends FancyAdvancementToastAnimation {
         float textAppearProgress = TEXT_APPEARANCE.getProgress(time);
         float fadeOutProgress = getProgress(time, FADE_OUT_DURATION, DURATION - FADE_OUT_DURATION);
 
-        var pose = GUIHelper.get(graphics);
+        var pose = GUIs.getStack(graphics);
 
         if (fadeOutProgress > 0) {
             float fadeOutY = MathEasing.easeInLerp(0, -80, fadeOutProgress);
 
-            GUIHelper.push(pose);
-            GUIHelper.translate(pose, 0, fadeOutY);
+            GUIs.push(pose);
+            GUIs.translate(pose, 0, fadeOutY);
         }
 
         if (backgroundAppearProgress > 0) {
-            GUIHelper.push(pose);
+            GUIs.push(pose);
             if (backgroundAppearProgress != 1) {
                 int y = MathEasing.easeOutLerp(-200, 0, backgroundAppearProgress);
 
-                GUIHelper.translate(pose, 0, y);
+                GUIs.translate(pose, 0, y);
             }
             this.drawBackground(graphics);
-            GUIHelper.pop(pose);
+            GUIs.pop(pose);
         }
 
         if (bannerAppearProgress > 0) {
-            GUIHelper.push(pose);
+            GUIs.push(pose);
             if (bannerAppearProgress != 1) {
                 float xScale = MathEasing.easeOutLerp(0.0f, 1.0f, bannerAppearProgress);
 
-                GUIHelper.translate(pose, 81, 0);
-                GUIHelper.scale(pose, xScale, 1);
-                GUIHelper.translate(pose, -81, 0);
+                GUIs.translate(pose, 81, 0);
+                GUIs.scale(pose, xScale, 1);
+                GUIs.translate(pose, -81, 0);
             }
             this.drawBanner(graphics);
-            GUIHelper.pop(pose);
+            GUIs.pop(pose);
         }
 
         if (iconAppearProgress > 0) {
-            GUIHelper.push(pose);
+            GUIs.push(pose);
             if (iconAppearProgress != 1) {
                 int y = MathEasing.easeOutLerp(-100, 0, iconAppearProgress);
                 float scale = MathEasing.easeOutLerp(0.0f, 1.0f, iconAppearProgress);
 
-                GUIHelper.translate(pose, 81, 13);
-                GUIHelper.scale(pose, scale);
-                GUIHelper.translate(pose, -81, -13);
-                GUIHelper.translate(pose, 0, y);
+                GUIs.translate(pose, 81, 13);
+                GUIs.scale(pose, scale);
+                GUIs.translate(pose, -81, -13);
+                GUIs.translate(pose, 0, y);
             }
-            GUIHelper.translate(pose, 0, (float) (Math.sin(time / 500.0f) * 1.5f) - 5);
+            GUIs.translate(pose, 0, (float) (Math.sin(time / 500.0f) * 1.5f) - 5);
             this.drawIcon(graphics);
-            GUIHelper.pop(pose);
+            GUIs.pop(pose);
         }
 
         if (textAppearProgress > 0) {
@@ -117,7 +117,7 @@ public class StandardAnimation extends FancyAdvancementToastAnimation {
         }
 
         if (fadeOutProgress > 0) {
-            GUIHelper.pop(pose);
+            GUIs.pop(pose);
         }
     }
 

@@ -1,9 +1,8 @@
 package net.bivrik.fancytoasts.client.toast;
 
-import com.mojang.blaze3d.systems.RenderSystem;
 import net.bivrik.fancytoasts.Common;
 import net.bivrik.fancytoasts.client.config.AdvancementToastScreenBehavior;
-import net.bivrik.fancytoasts.client.renderer.GUIHelper;
+import net.bivrik.fancytoasts.platform.utility.GUIs;
 import net.bivrik.fancytoasts.platform.Services;
 import net.minecraft.Util;
 import net.minecraft.advancements.Advancement;
@@ -75,11 +74,11 @@ public class AdvancementToastManager {
 
         int xPos = Common.getConfigManager().getGeneralConfig().getPosition().getX(current.getWidth(), graphics.guiWidth());
 
-        var matrix = GUIHelper.get(graphics);
-        GUIHelper.push(matrix);
-        GUIHelper.translate(matrix, xPos, 20);
+        var matrix = GUIs.getStack(graphics);
+        GUIs.push(matrix);
+        GUIs.translate(matrix, xPos, 20);
         current.draw(graphics, minecraft);
-        GUIHelper.pop(matrix);
+        GUIs.pop(matrix);
     }
 
     public void clear() {

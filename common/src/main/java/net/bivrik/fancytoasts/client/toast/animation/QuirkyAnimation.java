@@ -1,8 +1,8 @@
 package net.bivrik.fancytoasts.client.toast.animation;
 
-import net.bivrik.fancytoasts.client.renderer.GUIHelper;
+import net.bivrik.fancytoasts.platform.utility.GUIs;
 import net.bivrik.fancytoasts.client.toast.FancyAdvancementToast;
-import net.bivrik.fancytoasts.utility.Colors;
+import net.bivrik.fancytoasts.platform.utility.Colors;
 import net.bivrik.fancytoasts.utility.MathEasing;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
@@ -50,13 +50,13 @@ public class QuirkyAnimation extends FancyAdvancementToastAnimation {
         float textAppearProgress = TEXT_APPEARANCE.getProgress(time);
         float fadeOutProgress = getProgress(time, FADE_OUT_DURATION, DURATION - FADE_OUT_DURATION);
 
-        var pose = GUIHelper.get(graphics);
+        var pose = GUIs.getStack(graphics);
 
         float sinX = (float) (Math.sin(time / 800.0) * 7);
         float sinY = (float) (Math.sin(time / 400.0) * 5);
 
-        GUIHelper.push(pose);
-        GUIHelper.translate(pose, sinX, sinY);
+        GUIs.push(pose);
+        GUIs.translate(pose, sinX, sinY);
 
         if (fadeOutProgress > 0) {
             float fadeOutScaleX = MathEasing.easeInLerp(1f, 0f, fadeOutProgress);
@@ -64,37 +64,37 @@ public class QuirkyAnimation extends FancyAdvancementToastAnimation {
             float toastCenterX = (float) this.toast.getWidth() / 2;
             float toastCenterY = (float) this.toast.getHeight() / 2;
 
-            GUIHelper.push(pose);
-            GUIHelper.translate(pose, toastCenterX, toastCenterY);
-            GUIHelper.scale(pose, fadeOutScaleX);
-            GUIHelper.rotate(pose, fadeOutRotation);
-            GUIHelper.translate(pose, -toastCenterX, -toastCenterY);
+            GUIs.push(pose);
+            GUIs.translate(pose, toastCenterX, toastCenterY);
+            GUIs.scale(pose, fadeOutScaleX);
+            GUIs.rotate(pose, fadeOutRotation);
+            GUIs.translate(pose, -toastCenterX, -toastCenterY);
         }
 
         if (bannerAppearProgress > 0) {
-            GUIHelper.push(pose);
+            GUIs.push(pose);
             float y = 32;
             if (bannerAppearProgress != 1) {
                 y = MathEasing.easeOutLerp(-40f, 32f, bannerAppearProgress);
             }
-            GUIHelper.translate(pose, 0, y);
+            GUIs.translate(pose, 0, y);
             this.drawBanner(graphics);
-            GUIHelper.pop(pose);
+            GUIs.pop(pose);
         }
 
         if (backgroundAppearProgress > 0) {
-            GUIHelper.push(pose);
+            GUIs.push(pose);
             int y = -25;
             if (backgroundAppearProgress != 1) {
                 y = MathEasing.easeOutLerp(-120, -25, backgroundAppearProgress);
             }
-            GUIHelper.translate(pose, 0, y);
+            GUIs.translate(pose, 0, y);
             this.drawBackground(graphics);
-            GUIHelper.pop(pose);
+            GUIs.pop(pose);
         }
 
         if (iconAppearProgress > 0) {
-            GUIHelper.push(pose);
+            GUIs.push(pose);
             float posY = 29;
             if (iconAppearProgress != 1) {
                 posY = MathEasing.easeOutLerp(-120, 29, iconAppearProgress);
@@ -102,13 +102,13 @@ public class QuirkyAnimation extends FancyAdvancementToastAnimation {
             if (iconScaleProgress != 1 && iconScaleProgress > 0) {
                 float scale = MathEasing.easeOutLerp(3f, 1f, iconScaleProgress);
 
-                GUIHelper.translate(pose, 68 + 13, 17);
-                GUIHelper.scale(pose, scale);
-                GUIHelper.translate(pose, -68 - 13, -17);
+                GUIs.translate(pose, 68 + 13, 17);
+                GUIs.scale(pose, scale);
+                GUIs.translate(pose, -68 - 13, -17);
             }
-            GUIHelper.translate(pose, 0, (float) (Math.sin(time / 400.0) * -1.2) + posY);
+            GUIs.translate(pose, 0, (float) (Math.sin(time / 400.0) * -1.2) + posY);
             this.drawIcon(graphics);
-            GUIHelper.pop(pose);
+            GUIs.pop(pose);
         }
 
         if (textAppearProgress > 0) {
@@ -141,10 +141,10 @@ public class QuirkyAnimation extends FancyAdvancementToastAnimation {
         }
 
         if (fadeOutProgress > 0) {
-            GUIHelper.pop(pose);
+            GUIs.pop(pose);
         }
 
-        GUIHelper.pop(pose);
+        GUIs.pop(pose);
     }
 
     @Override

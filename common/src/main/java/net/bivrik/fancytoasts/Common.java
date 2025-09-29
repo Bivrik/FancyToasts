@@ -9,7 +9,7 @@ import net.bivrik.fancytoasts.client.toast.animation.PlayfulAnimation;
 import net.bivrik.fancytoasts.client.toast.animation.StandardAnimation;
 import net.bivrik.fancytoasts.client.toast.registry.ToastAnimationRegistry;
 import net.bivrik.fancytoasts.client.toast.registry.ToastTextureRegistry;
-import net.bivrik.fancytoasts.client.util.DefaultLocations;
+import net.bivrik.fancytoasts.utility.DefaultLocations;
 import net.bivrik.fancytoasts.platform.Services;
 import net.minecraft.client.Minecraft;
 import net.minecraft.resources.ResourceLocation;

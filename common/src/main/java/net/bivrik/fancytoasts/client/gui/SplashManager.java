@@ -1,8 +1,7 @@
 package net.bivrik.fancytoasts.client.gui;
 
-import net.bivrik.fancytoasts.Constants;
 import net.bivrik.fancytoasts.Debug;
-import net.minecraft.client.Minecraft;
+import net.bivrik.fancytoasts.platform.utility.ResourceLocations;
 import net.minecraft.client.User;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.packs.resources.Resource;
@@ -15,7 +14,7 @@ import java.util.Optional;
 import java.util.Random;
 
 public class SplashManager {
-    private static final ResourceLocation LOCATION = ResourceLocation.fromNamespaceAndPath(Constants.MOD_ID, "splashes.txt");
+    private static final ResourceLocation LOCATION = ResourceLocations.of("splashes.txt");
     private static final Random rnd = new Random();
 
     private final User user;

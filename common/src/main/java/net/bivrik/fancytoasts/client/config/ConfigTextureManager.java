@@ -8,6 +8,7 @@ import net.bivrik.fancytoasts.client.util.FileHelper;
 import net.bivrik.fancytoasts.client.util.FileType;
 import net.bivrik.fancytoasts.client.util.Paths;
 import net.bivrik.fancytoasts.client.toast.registry.ToastTextureRegistry;
+import net.bivrik.fancytoasts.platform.utility.ResourceLocations;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.texture.DynamicTexture;
 import net.minecraft.resources.ResourceLocation;
@@ -99,7 +100,7 @@ public class ConfigTextureManager {
 
                     if (optionalData.isPresent()) {
                         DisplayData data = optionalData.get();
-                        ResourceLocation id = ResourceLocation.fromNamespaceAndPath(Constants.MOD_ID, textureFile.getPath().replace("\\", "/").replaceFirst("./", ""));
+                        ResourceLocation id = ResourceLocations.of(textureFile.getPath().replace("\\", "/").replaceFirst("./", ""));
 
                         if (ToastTextureRegistry.register(id, null, data.getName().getString(), data.getAuthor().getString(), data.getDescription().getString())) {
                             CONFIG_TEXTURES.put(id, textureFile.toPath());

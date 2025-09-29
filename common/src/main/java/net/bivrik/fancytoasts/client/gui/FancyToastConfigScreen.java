@@ -1,8 +1,8 @@
 package net.bivrik.fancytoasts.client.gui;
 
 import net.bivrik.fancytoasts.Common;
-import net.bivrik.fancytoasts.client.renderer.GUIHelper;
-import net.bivrik.fancytoasts.utility.Colors;
+import net.bivrik.fancytoasts.platform.utility.GUIs;
+import net.bivrik.fancytoasts.platform.utility.Colors;
 import net.minecraft.Util;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.Button;
@@ -80,12 +80,12 @@ public class FancyToastConfigScreen extends Screen {
 
     private void drawSplash(@NotNull GuiGraphics guiGraphics) {
         double size = Math.abs(Math.cos((double) Util.getMillis() / 250) * 0.1f) + 0.9f;
-        var matrix = GUIHelper.get(guiGraphics);
-        GUIHelper.push(matrix);
-        GUIHelper.translate(matrix, (float) this.width / 2, 12 + 9 + 4.5f);
-        GUIHelper.scale(matrix, (float) size);
-        GUIHelper.translate(matrix, (float) this.width / -2, -12 - 9 - 4.5f);
+        var matrix = GUIs.getStack(guiGraphics);
+        GUIs.push(matrix);
+        GUIs.translate(matrix, (float) this.width / 2, 12 + 9 + 4.5f);
+        GUIs.scale(matrix, (float) size);
+        GUIs.translate(matrix, (float) this.width / -2, -12 - 9 - 4.5f);
         guiGraphics.drawCenteredString(this.font, splash, this.width / 2, 12 + 9, Colors.YELLOW);
-        GUIHelper.pop(matrix);
+        GUIs.pop(matrix);
     }
 }
