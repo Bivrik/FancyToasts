@@ -1,8 +1,8 @@
 package net.bivrik.fancytoasts.client.gui;
 
 import net.bivrik.fancytoasts.Constants;
-import net.bivrik.fancytoasts.client.toast.registry.ToastAnimationRegistry;
-import net.bivrik.fancytoasts.client.toast.registry.ToastTextureRegistry;
+import net.bivrik.fancytoasts.client.toast.ToastAnimationRegistry;
+import net.bivrik.fancytoasts.client.toast.ToastTextureRegistry;
 import net.bivrik.fancytoasts.client.toast.texture.DisplayData;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.network.chat.Component;
@@ -84,7 +84,11 @@ public enum SettingType {
         this.name = name;
     }
 
-    public static Component getDisplayName(SettingType type) {
-        return Component.translatable("fancytoasts.gui.label." + type.name);
+    public Component getDisplayName() {
+        return Component.translatable("fancytoasts.gui.label." + name);
+    }
+
+    public String getName() {
+        return name;
     }
 }

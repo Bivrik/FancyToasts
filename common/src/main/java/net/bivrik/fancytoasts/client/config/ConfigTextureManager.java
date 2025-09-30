@@ -1,13 +1,12 @@
 package net.bivrik.fancytoasts.client.config;
 
 import com.mojang.blaze3d.platform.NativeImage;
-import net.bivrik.fancytoasts.Constants;
 import net.bivrik.fancytoasts.Debug;
 import net.bivrik.fancytoasts.client.toast.texture.DisplayData;
-import net.bivrik.fancytoasts.client.util.FileHelper;
-import net.bivrik.fancytoasts.client.util.FileType;
-import net.bivrik.fancytoasts.client.util.Paths;
-import net.bivrik.fancytoasts.client.toast.registry.ToastTextureRegistry;
+import net.bivrik.fancytoasts.utility.file.FileHelper;
+import net.bivrik.fancytoasts.utility.file.FileType;
+import net.bivrik.fancytoasts.utility.file.Paths;
+import net.bivrik.fancytoasts.client.toast.ToastTextureRegistry;
 import net.bivrik.fancytoasts.platform.utility.ResourceLocations;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.texture.DynamicTexture;
@@ -27,7 +26,7 @@ public class ConfigTextureManager {
 
     private static final FileFilter TEXTURE_FILES_FILTER = (file) -> {
         String name = file.getName();
-        return name.endsWith(FileType.PNG) || name.endsWith(FileType.JSON);
+        return name.endsWith(FileType.PNG.get()) || name.endsWith(FileType.JSON.get());
     };
 
     public static void registerInMinecraft(ResourceLocation id) {
@@ -82,9 +81,9 @@ public class ConfigTextureManager {
 
         for (File file : files) {
             String fileName = file.getName();
-            if (fileName.endsWith(FileType.PNG)) {
+            if (fileName.endsWith(FileType.PNG.get())) {
                 textureFiles.add(file);
-            } else if (fileName.endsWith(FileType.JSON)) {
+            } else if (fileName.endsWith(FileType.JSON.get())) {
                 jsonFiles.add(file);
             }
         }

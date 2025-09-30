@@ -1,11 +1,11 @@
-package net.bivrik.fancytoasts.client.toast.registry;
+package net.bivrik.fancytoasts.client.toast;
 
 import net.bivrik.fancytoasts.Constants;
 import net.bivrik.fancytoasts.Debug;
 import net.bivrik.fancytoasts.client.toast.animation.FancyAdvancementToastAnimation;
 import net.bivrik.fancytoasts.client.toast.animation.StandardAnimation;
 import net.bivrik.fancytoasts.client.toast.texture.DisplayData;
-import net.bivrik.fancytoasts.utility.ComponentHelper;
+import net.bivrik.fancytoasts.platform.utility.Components;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 
@@ -23,7 +23,7 @@ public class ToastAnimationRegistry {
             return;
         }
 
-        Component translatableName = ComponentHelper.getTranslatableToastAnimation(modId, name);
+        Component translatableName = Components.translatableAnimation(modId, name);
         Component translatableDescription = Component.translatable(description);
 
         ANIMATIONS.put(id, new ToastAnimationHandler(animation, new DisplayData(translatableName, Constants.MOD_NAME, translatableDescription)));

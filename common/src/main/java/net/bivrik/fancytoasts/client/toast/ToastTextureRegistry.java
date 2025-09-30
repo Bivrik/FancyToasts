@@ -1,8 +1,8 @@
-package net.bivrik.fancytoasts.client.toast.registry;
+package net.bivrik.fancytoasts.client.toast;
 
 import net.bivrik.fancytoasts.Debug;
 import net.bivrik.fancytoasts.client.toast.texture.DisplayData;
-import net.bivrik.fancytoasts.utility.ComponentHelper;
+import net.bivrik.fancytoasts.platform.utility.Components;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 
@@ -22,7 +22,7 @@ public class ToastTextureRegistry {
         Component componentName;
         Component translatableDescription;
         if (modId != null) {
-            componentName = ComponentHelper.getTranslatableToastTexture(modId, name);
+            componentName = Components.translatableTexture(modId, name);
             translatableDescription = Component.translatable(description);
         }
         else {

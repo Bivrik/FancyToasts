@@ -1,6 +1,6 @@
 package net.bivrik.fancytoasts.client.config;
 
-import net.bivrik.fancytoasts.client.util.Paths;
+import net.bivrik.fancytoasts.utility.file.Paths;
 import net.bivrik.fancytoasts.platform.Services;
 
 public class GeneralConfigData extends ConfigData {

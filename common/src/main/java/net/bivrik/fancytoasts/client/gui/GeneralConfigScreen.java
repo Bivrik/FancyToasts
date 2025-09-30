@@ -5,7 +5,6 @@ import net.bivrik.fancytoasts.client.config.AdvancementToastPosition;
 import net.bivrik.fancytoasts.client.config.AdvancementToastScreenBehavior;
 import net.bivrik.fancytoasts.client.config.ConfigHandler;
 import net.bivrik.fancytoasts.client.config.GeneralConfigData;
-import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.*;
 import net.minecraft.client.gui.screens.Screen;
@@ -18,14 +17,12 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 import java.util.function.Consumer;
 
 import static net.bivrik.fancytoasts.client.gui.LayoutValues.*;
 import static net.bivrik.fancytoasts.client.gui.LayoutValues.PADDING;
 
-public class GeneralConfigScreen extends Screen {
-    private final Screen parent;
+public class GeneralConfigScreen extends UniversalScreen {
     private final GeneralConfigData generalConfigData;
 
     private Button doneButton;
@@ -35,14 +32,13 @@ public class GeneralConfigScreen extends Screen {
     private VolumeSlider taskVolumeSlider;
     private VolumeSlider goalVolumeSlider;
     private VolumeSlider challengeVolumeSlider;
-    private CycleButton<AdvancementToastPosition> advancementToastPositionCycleButton; // what are those names bro
-    private CycleButton<AdvancementToastScreenBehavior> advancementToastScreenBehaviorCycleButton; // I swear next update is just refactor what is THIS BRO
+    private CycleButton<AdvancementToastPosition> positionCycButton;
+    private CycleButton<AdvancementToastScreenBehavior> screenBehaviorCycButton;
 
     private final List<AbstractWidget> widgets = new ArrayList<>();
 
     public GeneralConfigScreen(Component title, Screen parent) {
-        super(title);
-        this.parent = parent;
+        super(title, parent);
         this.generalConfigData = Common.getConfigManager().getGeneralConfig();
     }
 
@@ -55,7 +51,7 @@ public class GeneralConfigScreen extends Screen {
         doneButton = this.addRenderableWidget(Button.builder(CommonComponents.GUI_DONE, (button) -> done())
                 .bounds(this.width / 2 + 100 - 125 + PADDING / 2, this.height - 26, BUTTON_WIDTH, BUTTON_HEIGHT).build());
 
-        backButton = this.addRenderableWidget(Button.builder(CommonComponents.GUI_BACK, (button) -> toParentScreen())
+        backButton = this.addRenderableWidget(Button.builder(CommonComponents.GUI_BACK, (button) -> this.toParentScreen())
                 .bounds(this.width / 2 - 125 - PADDING / 2, this.height - 20 - 6, 100, BUTTON_HEIGHT).build());
 
         jadeCompatCycleButton = CycleButton.onOffBuilder()
@@ -68,12 +64,12 @@ public class GeneralConfigScreen extends Screen {
                 .withTooltip((value) -> Tooltip.create(Component.translatable("fancytoasts.gui.tooltip.sounds_enabled")))
                 .create(0, 0, BUTTON_WIDTH, BUTTON_HEIGHT, Component.translatable("fancytoasts.gui.label.sounds_enabled"), (button, value) -> generalConfigData.setSoundsEnabled(value));
 
-        advancementToastPositionCycleButton = CycleButton.builder(AdvancementToastPosition::getDisplayName)
+        positionCycButton = CycleButton.builder(AdvancementToastPosition::getDisplayName)
                 .withValues(AdvancementToastPosition.values()).withInitialValue(generalConfigData.getPosition())
                 .withTooltip((position) -> Tooltip.create(Component.translatable("fancytoasts.gui.tooltip.position")))
                 .create(0, 0, BUTTON_WIDTH, BUTTON_HEIGHT, Component.translatable("fancytoasts.gui.label.position"), (button, value) -> generalConfigData.setPosition(value));
 
-        advancementToastScreenBehaviorCycleButton = CycleButton.builder(AdvancementToastScreenBehavior::getDisplayName)
+        screenBehaviorCycButton = CycleButton.builder(AdvancementToastScreenBehavior::getDisplayName)
                 .withValues(AdvancementToastScreenBehavior.values()).withInitialValue(generalConfigData.getScreenBehavior())
                 .withTooltip((position) -> Tooltip.create(Component.translatable("fancytoasts.gui.tooltip.screen_behavior")))
                 .create(0, 0, BUTTON_WIDTH, BUTTON_HEIGHT, Component.translatable("fancytoasts.gui.label.screen_behavior"), (button, value) -> generalConfigData.setScreenBehavior(value));
@@ -89,8 +85,8 @@ public class GeneralConfigScreen extends Screen {
 
         addWidget(jadeCompatCycleButton);
         addWidget(soundsEnabledCycleButton);
-        addWidget(advancementToastPositionCycleButton);
-        addWidget(advancementToastScreenBehaviorCycleButton);
+        addWidget(positionCycButton);
+        addWidget(screenBehaviorCycButton);
         addWidget(taskVolumeSlider);
         addWidget(goalVolumeSlider);
         addWidget(challengeVolumeSlider);
@@ -125,16 +121,7 @@ public class GeneralConfigScreen extends Screen {
 
     private void done() {
         ConfigHandler.save(generalConfigData);
-        toParentScreen();
-    }
-
-    private void toParentScreen() {
-        Objects.requireNonNull(this.minecraft).setScreen(parent);
-    }
-
-    @Override
-    public void onClose() {
-        toParentScreen();
+        this.toParentScreen();
     }
 
     @Override
@@ -145,8 +132,6 @@ public class GeneralConfigScreen extends Screen {
         graphics.blit(RenderPipelines.GUI_TEXTURED, Screen.FOOTER_SEPARATOR, 0, this.height - MARGIN - 2, 0, 0, width, 2, 32, 2);
 
         super.render(graphics, mouseX, mouseY, partialTick);
-
-        graphics.drawCenteredString(this.font, this.title, this.width / 2, 12, -1);
     }
 
     private static class VolumeSlider extends AbstractSliderButton {

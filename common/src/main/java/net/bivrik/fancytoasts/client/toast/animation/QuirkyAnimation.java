@@ -40,8 +40,8 @@ public class QuirkyAnimation extends FancyAdvancementToastAnimation {
     }
 
     @Override
-    public void draw(GuiGraphics graphics, Minecraft minecraft, long time) {
-        super.draw(graphics, minecraft, time);
+    public void draw(GuiGraphics guiGraphics, Minecraft minecraft, long time) {
+        super.draw(guiGraphics, minecraft, time);
 
         float iconAppearProgress = ICON_APPEARANCE.getProgress(time);
         float iconScaleProgress = ICON_SCALE.getProgress(time);
@@ -50,7 +50,7 @@ public class QuirkyAnimation extends FancyAdvancementToastAnimation {
         float textAppearProgress = TEXT_APPEARANCE.getProgress(time);
         float fadeOutProgress = getProgress(time, FADE_OUT_DURATION, DURATION - FADE_OUT_DURATION);
 
-        var pose = GUIs.getStack(graphics);
+        var pose = GUIs.getStack(guiGraphics);
 
         float sinX = (float) (Math.sin(time / 800.0) * 7);
         float sinY = (float) (Math.sin(time / 400.0) * 5);
@@ -78,7 +78,7 @@ public class QuirkyAnimation extends FancyAdvancementToastAnimation {
                 y = MathEasing.easeOutLerp(-40f, 32f, bannerAppearProgress);
             }
             GUIs.translate(pose, 0, y);
-            this.drawBanner(graphics);
+            this.drawBanner(guiGraphics);
             GUIs.pop(pose);
         }
 
@@ -89,7 +89,7 @@ public class QuirkyAnimation extends FancyAdvancementToastAnimation {
                 y = MathEasing.easeOutLerp(-120, -25, backgroundAppearProgress);
             }
             GUIs.translate(pose, 0, y);
-            this.drawBackground(graphics);
+            this.drawBackground(guiGraphics);
             GUIs.pop(pose);
         }
 
@@ -107,7 +107,7 @@ public class QuirkyAnimation extends FancyAdvancementToastAnimation {
                 GUIs.translate(pose, -68 - 13, -17);
             }
             GUIs.translate(pose, 0, (float) (Math.sin(time / 400.0) * -1.2) + posY);
-            this.drawIcon(graphics);
+            this.drawIcon(guiGraphics);
             GUIs.pop(pose);
         }
 
@@ -122,19 +122,19 @@ public class QuirkyAnimation extends FancyAdvancementToastAnimation {
             int toastCenterX = this.toast.getWidth() / 2;
 
             // Title
-            graphics.drawCenteredString(font, display.getType().getDisplayName(), toastCenterX, 0, titleColor);
+            guiGraphics.drawCenteredString(font, display.getType().getDisplayName(), toastCenterX, 0, titleColor);
 
             // Description
             if (!DESCRIPTION.isEmpty()) {
-                graphics.drawCenteredString(font, DESCRIPTION.get(0), toastCenterX, 12, toastColor);
+                guiGraphics.drawCenteredString(font, DESCRIPTION.get(0), toastCenterX, 12, toastColor);
                 if (DESCRIPTION.size() > 1) {
                     var descriptionSecondLine = DESCRIPTION.get(1);
 
                     if (DESCRIPTION.size() > 2) {
-                        graphics.drawCenteredString(font, descriptionSecondLine, toastCenterX - font.width("...") / 2, 21, toastColor);
-                        graphics.drawCenteredString(font, "...", toastCenterX + font.width(descriptionSecondLine) / 2, 21, toastColor);
+                        guiGraphics.drawCenteredString(font, descriptionSecondLine, toastCenterX - font.width("...") / 2, 21, toastColor);
+                        guiGraphics.drawCenteredString(font, "...", toastCenterX + font.width(descriptionSecondLine) / 2, 21, toastColor);
                     } else {
-                        graphics.drawCenteredString(font, descriptionSecondLine, toastCenterX, 21, toastColor);
+                        guiGraphics.drawCenteredString(font, descriptionSecondLine, toastCenterX, 21, toastColor);
                     }
                 }
             }

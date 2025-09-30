@@ -1,4 +1,4 @@
-package net.bivrik.fancytoasts.client.util;
+package net.bivrik.fancytoasts.utility.file;
 
 import net.bivrik.fancytoasts.Debug;
 
@@ -6,7 +6,7 @@ import java.io.File;
 
 public class FileHelper {
     public static String getRawName(File file) {
-        return file.getName().replace(FileType.PNG, "").replace(FileType.JSON, "");
+        return file.getName().replace(FileType.PNG.get(), "").replace(FileType.JSON.get(), "");
     }
 
     public static boolean tryCreateDir(File directory) {

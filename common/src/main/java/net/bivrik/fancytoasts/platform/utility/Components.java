@@ -1,9 +1,9 @@
-package net.bivrik.fancytoasts.utility;
+package net.bivrik.fancytoasts.platform.utility;
 
 import net.bivrik.fancytoasts.Constants;
 import net.minecraft.network.chat.Component;
 
-public class ComponentHelper {
+public class Components {
     private static final String DEFAULT_ID = Constants.MOD_ID;
 
     private static Component getTranslatableComponent(String modId, String name, TranslatableType type) {
@@ -16,24 +16,23 @@ public class ComponentHelper {
         return Component.translatable(translationKey.toString());
     }
 
-    /*
-    Returns:
-    > fancytoasts.`modid`.texture.`displayName`
-    or
-    > fancytoasts.texture.`displayName`
-    */
-
-    public static Component getTranslatableToastTexture(String modId, String name) {
+    /**
+     * Easier way to get translatable name for textures
+     * @param modId is for texture's path. If 'null' or 'fancytoasts' then it returns default
+     * @param name is for texture's name/identifier
+     * @return fancytoasts.'modId'.textures.'displayName'
+     */
+    public static Component translatableTexture(String modId, String name) {
         return getTranslatableComponent(modId, name, TranslatableType.TEXTURE);
     }
 
-    /*
-    Returns:
-    > fancytoasts.`modid`.animation.`displayName`
-    or
-    > fancytoasts.animation.`displayName`
-    */
-    public static Component getTranslatableToastAnimation(String modId, String name) {
+    /**
+     *Easier way to get translatable name for animations
+     * @param modId is for animation's path. If 'null' or 'fancytoasts' then it returns default
+     * @param name is for animation's name/identifier
+     * @return fancytoasts.'modId'.animations.'displayName'
+     */
+    public static Component translatableAnimation(String modId, String name) {
         return getTranslatableComponent(modId, name, TranslatableType.ANIMATION);
     }
 

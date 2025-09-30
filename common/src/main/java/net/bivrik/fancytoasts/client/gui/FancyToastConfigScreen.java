@@ -18,8 +18,7 @@ import java.util.Objects;
 
 import static net.bivrik.fancytoasts.client.gui.LayoutValues.*;
 
-public class FancyToastConfigScreen extends Screen {
-    private final Screen parent;
+public class FancyToastConfigScreen extends UniversalScreen {
     private final String splash;
 
     private Button toastConfigButton;
@@ -27,8 +26,7 @@ public class FancyToastConfigScreen extends Screen {
     private Button backButton;
 
     public FancyToastConfigScreen(Component title, Screen parent) {
-        super(title);
-        this.parent = parent;
+        super(title, parent);
         this.splash = Common.getSplashManager().getSplash();
     }
 
@@ -38,7 +36,7 @@ public class FancyToastConfigScreen extends Screen {
         int yCenter = this.height / 2;
         int halfButtonWidth = BUTTON_WIDTH / 2;
 
-        backButton = this.addRenderableWidget(Button.builder(CommonComponents.GUI_BACK, (button) -> toParentScreen())
+        backButton = this.addRenderableWidget(Button.builder(CommonComponents.GUI_BACK, (button) -> this.toParentScreen())
                 .bounds(xCenter - halfButtonWidth, this.height - BUTTON_HEIGHT - 6, BUTTON_WIDTH, BUTTON_HEIGHT).build());
 
         toastConfigButton = this.addRenderableWidget(Button.builder(Component.translatable("fancytoasts.gui.label.toast_settings"), (button) -> openToastConfigScreen())
@@ -53,20 +51,11 @@ public class FancyToastConfigScreen extends Screen {
     }
 
     private void openToastConfigScreen() {
-        Objects.requireNonNull(this.minecraft).setScreen(new ToastConfigScreen(Component.translatable("fancytoasts.gui.config.customization_title"), this));
+        this.openScreen(new ToastConfigScreen(Component.translatable("fancytoasts.gui.config.customization_title"), this));
     }
 
     private void openGeneralConfigScreen() {
-        Objects.requireNonNull(this.minecraft).setScreen(new GeneralConfigScreen(Component.translatable("fancytoasts.gui.config.general_title"), this));
-    }
-
-    private void toParentScreen() {
-        Objects.requireNonNull(this.minecraft).setScreen(parent);
-    }
-
-    @Override
-    public void onClose() {
-        toParentScreen();
+        this.openScreen(new GeneralConfigScreen(Component.translatable("fancytoasts.gui.config.general_title"), this));
     }
 
     @Override
@@ -74,18 +63,14 @@ public class FancyToastConfigScreen extends Screen {
         super.render(guiGraphics, mouseX, mouseY, partialTick);
 
         drawSplash(guiGraphics);
-
-        guiGraphics.drawCenteredString(this.font, this.title, this.width / 2, 12, -1);
     }
 
     private void drawSplash(@NotNull GuiGraphics guiGraphics) {
-        double size = Math.abs(Math.cos((double) Util.getMillis() / 250) * 0.1f) + 0.9f;
-        var matrix = GUIs.getStack(guiGraphics);
-        GUIs.push(matrix);
-        GUIs.translate(matrix, (float) this.width / 2, 12 + 9 + 4.5f);
-        GUIs.scale(matrix, (float) size);
-        GUIs.translate(matrix, (float) this.width / -2, -12 - 9 - 4.5f);
+        float size = (float) (Math.abs(Math.cos((double) Util.getMillis() / 250) * 0.1f) + 0.9f);
+        var stack = GUIs.getStack(guiGraphics);
+        GUIs.push(stack);
+        GUIs.scaleAround(stack, size, (float) this.width / 2, 12 + 9 + 4.5f);
         guiGraphics.drawCenteredString(this.font, splash, this.width / 2, 12 + 9, Colors.YELLOW);
-        GUIs.pop(matrix);
+        GUIs.pop(stack);
     }
 }

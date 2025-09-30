@@ -4,7 +4,6 @@ import net.bivrik.fancytoasts.Common;
 import net.bivrik.fancytoasts.Debug;
 import net.bivrik.fancytoasts.client.toast.animation.FancyAdvancementToastAnimation;
 import net.bivrik.fancytoasts.client.toast.animation.FancyAdvancementSetup;
-import net.bivrik.fancytoasts.client.toast.registry.ToastAnimationRegistry;
 import net.bivrik.fancytoasts.client.toast.texture.TextureUV;
 import net.bivrik.fancytoasts.platform.utility.Colors;
 import net.minecraft.advancements.Advancement;

@@ -2,8 +2,8 @@ package net.bivrik.fancytoasts.client.config;
 
 import net.bivrik.fancytoasts.Common;
 import net.bivrik.fancytoasts.Debug;
-import net.bivrik.fancytoasts.client.util.FileHelper;
-import net.bivrik.fancytoasts.client.util.Paths;
+import net.bivrik.fancytoasts.utility.file.FileHelper;
+import net.bivrik.fancytoasts.utility.file.Paths;
 
 import java.io.File;
 import java.util.Optional;

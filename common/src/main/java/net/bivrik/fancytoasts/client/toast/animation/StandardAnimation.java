@@ -33,8 +33,8 @@ public class StandardAnimation extends FancyAdvancementToastAnimation {
     }
 
     @Override
-    public void draw(GuiGraphics graphics, Minecraft minecraft, long time) {
-        super.draw(graphics, minecraft, time);
+    public void draw(GuiGraphics guiGraphics, Minecraft minecraft, long time) {
+        super.draw(guiGraphics, minecraft, time);
 
         float iconAppearProgress = ICON_APPEARANCE.getProgress(time);
         float bannerAppearProgress = BANNER_APPEARANCE.getProgress(time);
@@ -42,7 +42,7 @@ public class StandardAnimation extends FancyAdvancementToastAnimation {
         float textAppearProgress = TEXT_APPEARANCE.getProgress(time);
         float fadeOutProgress = getProgress(time, FADE_OUT_DURATION, DURATION - FADE_OUT_DURATION);
 
-        var pose = GUIs.getStack(graphics);
+        var pose = GUIs.getStack(guiGraphics);
 
         if (fadeOutProgress > 0) {
             float fadeOutY = MathEasing.easeInLerp(0, -80, fadeOutProgress);
@@ -58,7 +58,7 @@ public class StandardAnimation extends FancyAdvancementToastAnimation {
 
                 GUIs.translate(pose, 0, y);
             }
-            this.drawBackground(graphics);
+            this.drawBackground(guiGraphics);
             GUIs.pop(pose);
         }
 
@@ -71,7 +71,7 @@ public class StandardAnimation extends FancyAdvancementToastAnimation {
                 GUIs.scale(pose, xScale, 1);
                 GUIs.translate(pose, -81, 0);
             }
-            this.drawBanner(graphics);
+            this.drawBanner(guiGraphics);
             GUIs.pop(pose);
         }
 
@@ -87,7 +87,7 @@ public class StandardAnimation extends FancyAdvancementToastAnimation {
                 GUIs.translate(pose, 0, y);
             }
             GUIs.translate(pose, 0, (float) (Math.sin(time / 500.0f) * 1.5f) - 5);
-            this.drawIcon(graphics);
+            this.drawIcon(guiGraphics);
             GUIs.pop(pose);
         }
 
@@ -100,16 +100,16 @@ public class StandardAnimation extends FancyAdvancementToastAnimation {
             var display = this.setup.display();
 
             // Title
-            graphics.drawCenteredString(font, display.getType().getDisplayName(), this.toast.getWidth() / 2, 25, titleColor);
+            guiGraphics.drawCenteredString(font, display.getType().getDisplayName(), this.toast.getWidth() / 2, 25, titleColor);
 
             // Description
             if (!DESCRIPTION.isEmpty()) {
                 if (DESCRIPTION.size() == 1) {
-                    graphics.drawCenteredString(font, DESCRIPTION.get(0), this.toast.getWidth() / 2, 43, toastColor);
+                    guiGraphics.drawCenteredString(font, DESCRIPTION.get(0), this.toast.getWidth() / 2, 43, toastColor);
                 } else {
                     int lineHeight = 42 - (9 * (DESCRIPTION.size() - 1)) / 2;
                     for (FormattedCharSequence text : DESCRIPTION) {
-                        graphics.drawCenteredString(font, text, this.toast.getWidth() / 2, lineHeight, toastColor);
+                        guiGraphics.drawCenteredString(font, text, this.toast.getWidth() / 2, lineHeight, toastColor);
                         lineHeight += 9;
                     }
                 }
