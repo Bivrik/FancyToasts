@@ -114,8 +114,8 @@ Plans/ideas for future update, that might be interesting
 * New features:
   * Texture type `Modern`
 * Bug fixes:
-  * NeoForge crashes when open `Config` screen
-  * Forge looses `mixin`s after build
+  * NeoForge crashes when open config screen
+  * Forge looses mixins after build
 * Adjustments:
   * Changed slightly code for easier version changes and multiloader support
 > Port to Fabric/Forge/NeoForge (18.08.25)
