@@ -21,11 +21,8 @@ Adds new advancement toast system into Minecraft. Currently mod has 18 standard 
 
 ### Animations
 * Standard
-> Calm and steady. I would say it's Vanilla-like.
 * Playful
-> Jiggy, bouncy, and, well... playful! More experimental one.
 * Quirky
-> Uhm... well, quite unusual among previous two. Has different layout and more energetic.
 
 ### Textures
 * Vanilla-Like
