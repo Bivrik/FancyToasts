@@ -41,29 +41,36 @@ Adds new advancement toast system into Minecraft. Currently mod has 18 standard 
 If you like my mod, you play it, and you want to see future development, hear my thoughts, get early access, or even see devlogs, then visit my [Boosty](https://boosty.to/bivrik) and support me, whether it's a one-time donation or a subscription. I will be very thankful! 🤗
 
 ### Languages
-* English (en_us)
-* Russian (ru_ru)
-* Spanish (es_es) > translator
-* German (de_de) > translator
-* Chinese (zh_tw) > translator
-* Japanese (ja_jp) > PExPE3
+| Language | Key | Made by |
+|----------|-----|---------|
+| English | `en_us` | |
+| Russian | `ru_ru` | |
+| Spanish | `es_es` | `translator` |
+| German | `de_de` | `translator` |
+| Chinese | `zh_tw` | `translator` |
+| Japanese | `ja_jp` | PExPE3 |
 
 ### Plans
-* More animations (goal: 5)
-* More textures (goal: 10)
+Plans/ideas for future update, that might be interesting
+
+* More animations (goal: 3/5)
+* More textures (goal: 6/10)
 * More languages
 * Port to every possible version in the world
-* Rework of animations to make them easier to make? (v1.5?)
-* Custom sounds? (v1.6?)
-* FTBQuests compatibility?
+* Rework of animations to make them easier to make?
+* Custom sounds? (v1.5?)
+* FTBQuests compatibility? (v1.4.4?)
 * Personalized textures for specific mods/datapacks?
-##### Completed
+#### Completed
 * Config GUI rework
 * Ability to change sounds, position, render type
 * Custom textures
 * Jade compatibility
 
 # Changelog 📝
+
+## v1.4.3
+> working... (tehnical)
 
 ## v1.4.2
 * New features:
