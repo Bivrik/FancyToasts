@@ -50,13 +50,13 @@ public class QuirkyAnimation extends FancyAdvancementToastAnimation {
         float textAppearProgress = TEXT_APPEARANCE.getProgress(time);
         float fadeOutProgress = getProgress(time, FADE_OUT_DURATION, DURATION - FADE_OUT_DURATION);
 
-        var pose = GUIs.getStack(guiGraphics);
+        var stack = GUIs.getStack(guiGraphics);
 
         float sinX = (float) (Math.sin(time / 800.0) * 7);
         float sinY = (float) (Math.sin(time / 400.0) * 5);
 
-        GUIs.push(pose);
-        GUIs.translate(pose, sinX, sinY);
+        GUIs.push(stack);
+        GUIs.translate(stack, sinX, sinY);
 
         if (fadeOutProgress > 0) {
             float fadeOutScaleX = MathEasing.easeInLerp(1f, 0f, fadeOutProgress);
@@ -64,37 +64,35 @@ public class QuirkyAnimation extends FancyAdvancementToastAnimation {
             float toastCenterX = (float) this.toast.getWidth() / 2;
             float toastCenterY = (float) this.toast.getHeight() / 2;
 
-            GUIs.push(pose);
-            GUIs.translate(pose, toastCenterX, toastCenterY);
-            GUIs.scale(pose, fadeOutScaleX);
-            GUIs.rotate(pose, fadeOutRotation);
-            GUIs.translate(pose, -toastCenterX, -toastCenterY);
+            GUIs.push(stack);
+            GUIs.scaleAround(stack, fadeOutScaleX, toastCenterX, toastCenterY);
+            GUIs.rotateAround(stack, fadeOutRotation, toastCenterX, toastCenterY);
         }
 
         if (bannerAppearProgress > 0) {
-            GUIs.push(pose);
+            GUIs.push(stack);
             float y = 32;
             if (bannerAppearProgress != 1) {
                 y = MathEasing.easeOutLerp(-40f, 32f, bannerAppearProgress);
             }
-            GUIs.translate(pose, 0, y);
+            GUIs.translate(stack, 0, y);
             this.drawBanner(guiGraphics);
-            GUIs.pop(pose);
+            GUIs.pop(stack);
         }
 
         if (backgroundAppearProgress > 0) {
-            GUIs.push(pose);
+            GUIs.push(stack);
             int y = -25;
             if (backgroundAppearProgress != 1) {
                 y = MathEasing.easeOutLerp(-120, -25, backgroundAppearProgress);
             }
-            GUIs.translate(pose, 0, y);
+            GUIs.translate(stack, 0, y);
             this.drawBackground(guiGraphics);
-            GUIs.pop(pose);
+            GUIs.pop(stack);
         }
 
         if (iconAppearProgress > 0) {
-            GUIs.push(pose);
+            GUIs.push(stack);
             float posY = 29;
             if (iconAppearProgress != 1) {
                 posY = MathEasing.easeOutLerp(-120, 29, iconAppearProgress);
@@ -102,13 +100,11 @@ public class QuirkyAnimation extends FancyAdvancementToastAnimation {
             if (iconScaleProgress != 1 && iconScaleProgress > 0) {
                 float scale = MathEasing.easeOutLerp(3f, 1f, iconScaleProgress);
 
-                GUIs.translate(pose, 68 + 13, 17);
-                GUIs.scale(pose, scale);
-                GUIs.translate(pose, -68 - 13, -17);
+                GUIs.scaleAround(stack, scale, 68 + 13, 17);
             }
-            GUIs.translate(pose, 0, (float) (Math.sin(time / 400.0) * -1.2) + posY);
+            GUIs.translate(stack, 0, (float) (Math.sin(time / 400.0) * -1.2) + posY);
             this.drawIcon(guiGraphics);
-            GUIs.pop(pose);
+            GUIs.pop(stack);
         }
 
         if (textAppearProgress > 0) {
@@ -141,10 +137,10 @@ public class QuirkyAnimation extends FancyAdvancementToastAnimation {
         }
 
         if (fadeOutProgress > 0) {
-            GUIs.pop(pose);
+            GUIs.pop(stack);
         }
 
-        GUIs.pop(pose);
+        GUIs.pop(stack);
     }
 
     @Override

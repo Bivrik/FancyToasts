@@ -42,53 +42,49 @@ public class StandardAnimation extends FancyAdvancementToastAnimation {
         float textAppearProgress = TEXT_APPEARANCE.getProgress(time);
         float fadeOutProgress = getProgress(time, FADE_OUT_DURATION, DURATION - FADE_OUT_DURATION);
 
-        var pose = GUIs.getStack(guiGraphics);
+        var stack = GUIs.getStack(guiGraphics);
 
         if (fadeOutProgress > 0) {
             float fadeOutY = MathEasing.easeInLerp(0, -80, fadeOutProgress);
 
-            GUIs.push(pose);
-            GUIs.translate(pose, 0, fadeOutY);
+            GUIs.push(stack);
+            GUIs.translate(stack, 0, fadeOutY);
         }
 
         if (backgroundAppearProgress > 0) {
-            GUIs.push(pose);
+            GUIs.push(stack);
             if (backgroundAppearProgress != 1) {
                 int y = MathEasing.easeOutLerp(-200, 0, backgroundAppearProgress);
 
-                GUIs.translate(pose, 0, y);
+                GUIs.translate(stack, 0, y);
             }
             this.drawBackground(guiGraphics);
-            GUIs.pop(pose);
+            GUIs.pop(stack);
         }
 
         if (bannerAppearProgress > 0) {
-            GUIs.push(pose);
+            GUIs.push(stack);
             if (bannerAppearProgress != 1) {
                 float xScale = MathEasing.easeOutLerp(0.0f, 1.0f, bannerAppearProgress);
 
-                GUIs.translate(pose, 81, 0);
-                GUIs.scale(pose, xScale, 1);
-                GUIs.translate(pose, -81, 0);
+                GUIs.scaleAround(stack, xScale, 1, 81, 0);
             }
             this.drawBanner(guiGraphics);
-            GUIs.pop(pose);
+            GUIs.pop(stack);
         }
 
         if (iconAppearProgress > 0) {
-            GUIs.push(pose);
+            GUIs.push(stack);
             if (iconAppearProgress != 1) {
                 int y = MathEasing.easeOutLerp(-100, 0, iconAppearProgress);
                 float scale = MathEasing.easeOutLerp(0.0f, 1.0f, iconAppearProgress);
 
-                GUIs.translate(pose, 81, 13);
-                GUIs.scale(pose, scale);
-                GUIs.translate(pose, -81, -13);
-                GUIs.translate(pose, 0, y);
+                GUIs.scaleAround(stack, scale, 81, 13);
+                GUIs.translate(stack, 0, y);
             }
-            GUIs.translate(pose, 0, (float) (Math.sin(time / 500.0f) * 1.5f) - 5);
+            GUIs.translate(stack, 0, (float) (Math.sin(time / 500.0f) * 1.5f) - 5);
             this.drawIcon(guiGraphics);
-            GUIs.pop(pose);
+            GUIs.pop(stack);
         }
 
         if (textAppearProgress > 0) {
@@ -117,7 +113,7 @@ public class StandardAnimation extends FancyAdvancementToastAnimation {
         }
 
         if (fadeOutProgress > 0) {
-            GUIs.pop(pose);
+            GUIs.pop(stack);
         }
     }
 
