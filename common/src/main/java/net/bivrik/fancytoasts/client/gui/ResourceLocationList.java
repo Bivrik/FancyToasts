@@ -158,15 +158,31 @@ public class ResourceLocationList extends ObjectSelectionList<ResourceLocationLi
         }
 
         @Override
-        public void render(@NotNull GuiGraphics guiGraphics, int index, int y, int x, int width, int height, int mouseX, int mouseY, boolean hovering, float partialTick) {
-            if (this.nameList.size() == 1) {
-                guiGraphics.drawString(this.font, this.nameList.getFirst(), x, y + 3, Colors.WHITE);
+        public void render(@NotNull GuiGraphics guiGraphics, int index, int y, int x, int width, int height, int mouseX, int mouseY, boolean isHovering, float partialTick) {
+            int mainColor;
+            int secondColor;
+
+            if (isFocused()) {
+                mainColor = Colors.YELLOW;
+                secondColor = Colors.PURPLE;
             }
             else {
-                guiGraphics.drawString(this.font, this.nameList.get(1), x, y + 6, Colors.LIGHT_GRAY);
-                guiGraphics.drawString(this.font, this.nameList.get(0), x, y, Colors.WHITE);
+                if (isHovering) {
+                    guiGraphics.renderOutline(x - 4, y - 2, width, height + 4, Colors.alpha(63, Colors.WHITE));
+                    guiGraphics.fill(x - 3, y - 1, x + width - 5, y + height + 1, Colors.alpha(63, Colors.BLACK));
+                }
+
+                mainColor = Colors.WHITE;
+                secondColor = Colors.LIGHT_GRAY;
             }
 
+            if (this.nameList.size() == 1) {
+                guiGraphics.drawString(this.font, this.nameList.getFirst(), x, y + 3, mainColor);
+            }
+            else {
+                guiGraphics.drawString(this.font, this.nameList.get(1), x, y + 6, secondColor);
+                guiGraphics.drawString(this.font, this.nameList.get(0), x, y, mainColor);
+            }
         }
     }
 }

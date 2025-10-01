@@ -2,6 +2,7 @@ package net.bivrik.fancytoasts.platform.utility;
 
 public class Colors {
     public static final int WHITE = -1;
+    public static final int BLACK = 0x000000;
     public static final int LIGHT_GRAY = 0xFFA0A0A0;
     public static final int YELLOW = 0xFFFFFF00;
     public static final int RED = 0xFFDC4F4F;
