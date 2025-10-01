@@ -2,12 +2,16 @@ package net.bivrik.fancytoasts.client.toast;
 
 import net.bivrik.fancytoasts.Common;
 import net.bivrik.fancytoasts.client.config.AdvancementToastScreenBehavior;
+import net.bivrik.fancytoasts.client.gui.FancyToastConfigScreen;
 import net.bivrik.fancytoasts.platform.utility.GUIs;
 import net.bivrik.fancytoasts.platform.Services;
 import net.minecraft.Util;
 import net.minecraft.advancements.Advancement;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.screens.ChatScreen;
+import net.minecraft.client.gui.screens.InBedChatScreen;
+import net.minecraft.client.gui.screens.TitleScreen;
 
 import java.util.ArrayDeque;
 import java.util.Deque;
@@ -60,7 +64,7 @@ public class AdvancementToastManager {
     }
 
     public boolean isScreenOpened() {
-        return minecraft.screen != null;
+        return minecraft.screen != null && !(minecraft.screen instanceof ChatScreen);
     }
 
     public boolean isRenderUnder() {

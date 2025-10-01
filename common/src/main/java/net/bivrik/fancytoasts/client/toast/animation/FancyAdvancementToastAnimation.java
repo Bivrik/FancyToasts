@@ -20,7 +20,8 @@ public abstract class FancyAdvancementToastAnimation {
     }
 
     public void draw(GuiGraphics guiGraphics, Minecraft minecraft, long time) {
-        if (minecraft.screen != null && Common.getConfigManager().getGeneralConfig().getScreenBehavior() == AdvancementToastScreenBehavior.TRANSPARENT) {
+        if (Common.getAdvancementToastManager().isScreenOpened()
+                && Common.getConfigManager().getGeneralConfig().getScreenBehavior() == AdvancementToastScreenBehavior.TRANSPARENT) {
             this.guiColor = Colors.alpha(126, -1);
         }
         else {
