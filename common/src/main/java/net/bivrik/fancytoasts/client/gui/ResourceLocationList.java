@@ -113,6 +113,7 @@ public class ResourceLocationList extends ObjectSelectionList<ResourceLocationLi
         private final Font font;
         private final ResourceLocationList list;
         private final List<FormattedCharSequence> nameList;
+        private final boolean isConfig;
 
         private long lastClickTime;
 
@@ -121,6 +122,7 @@ public class ResourceLocationList extends ObjectSelectionList<ResourceLocationLi
             this.location = location;
             this.minecraft = this.list.minecraft;
             this.font = this.minecraft.font;
+            this.isConfig = location.toLanguageKey().contains("config");
 
             this.nameList = this.font.split(name, this.list.getRowWidth() - 8 - 2);
         }
@@ -182,6 +184,10 @@ public class ResourceLocationList extends ObjectSelectionList<ResourceLocationLi
             else {
                 guiGraphics.drawString(this.font, this.nameList.get(1), x, y + 6, secondColor);
                 guiGraphics.drawString(this.font, this.nameList.get(0), x, y, mainColor);
+            }
+
+            if (this.isConfig) {
+                guiGraphics.drawString(this.font, Component.literal("c"), x -  12, y + 3, Colors.LIGHT_GRAY);
             }
         }
     }
