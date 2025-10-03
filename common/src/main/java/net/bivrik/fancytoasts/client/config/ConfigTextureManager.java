@@ -45,19 +45,24 @@ public class ConfigTextureManager {
             Minecraft.getInstance().getTextureManager().register(id, dynamicTexture);
 
             image.close();
+            Debug.info("Registered texture {} in Minecraft", id);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
     }
 
-    public static void unregisterFromMinecraft() {
+    public static void unregisterFromMinecraft(ResourceLocation id) {
+        Minecraft.getInstance().getTextureManager().release(id);
+        Debug.info("Unregistered texture {} from Minecraft", id);
+    }
+
+    public static void releaseTexturesFromMinecraft() {
         for (ResourceLocation id : CONFIG_TEXTURES.keySet()) {
-            Minecraft.getInstance().getTextureManager().release(id);
+            unregisterFromMinecraft(id);
         }
     }
 
     public static void reload() {
-        unregisterFromMinecraft();
         CONFIG_TEXTURES.clear();
         ToastTextureRegistry.clearCustom();
 
@@ -75,7 +80,7 @@ public class ConfigTextureManager {
             return;
         }
 
-        int initialCap = files.length / 2;
+        int initialCap = files.length / 2 - 1;
         List<File> textureFiles = new ArrayList<>(initialCap);
         List<File> jsonFiles = new ArrayList<>(initialCap);
 

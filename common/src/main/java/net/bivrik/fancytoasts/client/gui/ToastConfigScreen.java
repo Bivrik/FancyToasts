@@ -35,6 +35,7 @@ public class ToastConfigScreen extends UniversalScreen {
     public ToastConfigScreen(Component title, Screen parent) {
         super(title, parent);
         this.toastConfigData = Common.getConfigManager().getToastConfig();
+
         ConfigTextureManager.reload();
     }
 
@@ -93,7 +94,8 @@ public class ToastConfigScreen extends UniversalScreen {
 
     @Override
     protected void toParentScreen() {
-        ResourceLocation textureId = toastConfigData.getTextureId();
+        ResourceLocation textureId = Common.getConfigManager().getToastConfig().getTextureId();
+        ConfigTextureManager.releaseTexturesFromMinecraft();
         if (textureId.toLanguageKey().contains("config")) {
             ConfigTextureManager.registerInMinecraft(textureId);
         }
