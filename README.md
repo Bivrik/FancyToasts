@@ -1,4 +1,4 @@
-> This is 1.21.8 Fabric/Forge/NeoForge version 1.4.2
+> This is 1.21.8 Fabric/Forge/NeoForge version 1.4.3
 
 # Fancy Toasts 🎉
 There is a reason why you are here. It might be curiosity. But I think you are here because of there old-fashion advancement toasts! This is a Minecraft Mod that changes plain, boring, and annoying advancement toasts to something new and interesting!
@@ -38,26 +38,43 @@ Adds new advancement toast system into Minecraft. Currently mod has 18 standard 
 If you like my mod, you play it, and you want to see future development, hear my thoughts, get early access, or even see devlogs, then visit my [Boosty](https://boosty.to/bivrik) and support me, whether it's a one-time donation or a subscription. I will be very thankful! 🤗
 
 ### Languages
-| Language | Key | Made by |
-|----------|-----|---------|
-| English | `en_us` | |
-| Russian | `ru_ru` | |
-| Spanish | `es_es` | `translator` |
-| German | `de_de` | `translator` |
-| Chinese (Simplified) | `zh_cn` | Gao Xinyang |
-| Japanese | `ja_jp` | PExPE3 |
+| Language             | Key     | Made by      |
+|----------------------|---------|--------------|
+| English              | `en_us` |              |
+| Russian              | `ru_ru` |              |
+| Spanish              | `es_es` | `translator` |
+| German               | `de_de` | `translator` |
+| Chinese (Simplified) | `zh_cn` | Gao Xinyang  |
+| Japanese             | `ja_jp` | PExPE3       |
 
 ### Plans
-Plans/ideas for future update, that might be interesting
+Big goals/plans/ideas for future updates. Some of them are abstract ideas, and some are more specific 
 
+* More languages
 * More animations (goal: 3/5)
 * More textures (goal: 6/10)
-* More languages
-* Port to every possible version in the world
+* Wide version support
+  * **Currently maintaining**
+
+    | Minecraft version | Mod version       |
+    |-------------------|-------------------|
+    | 1.21.9            | 1.4.2.1-beta      |
+    | 1.21.8            | 1.4.2             |
+    | 1.21.1            | 1.4.2             |
+    | 1.20.1            | 1.4.2             |
+  * **Planned with priorities**
+
+    | Minecraft version | Port priority |
+    |-------------------|---------------|
+    | Latest (1.21.10)  | High          |
+    | 1.19.4            | High          |
+    | 1.18.2            | Low           |
+    | 1.17.1            | Low           |
+    | 1.16.5            | Medium        |
 * Rework of animations to make them easier to make?
+* Personalized textures for specific mods/datapacks?
 * Custom sounds? (v1.5?)
 * FTBQuests compatibility? (v1.4.4?)
-* Personalized textures for specific mods/datapacks?
 #### Completed
 * Config GUI rework
 * Ability to change sounds, position, render type
@@ -67,7 +84,19 @@ Plans/ideas for future update, that might be interesting
 # Changelog 📝
 
 ## v1.4.3
-> working... (tehnical)
+* New features:
+  * UI highlights. Now it's more visual appealing when selecting animation/texture/sound
+  * `Modern` texture redraw!
+  * Simplified Chinese language by Gao Xinyang (`ch_cn` instead of `ch_tw`)
+* Bug fixes:
+  * Toast becomes transparent/darken when opened chat or chat in bed
+  * Custom texture loses its texture upon opening texture selection screen
+  * Crash when texture is empty (I suppose, still not sure)
+* Adjustments:
+  * A lot of small refactor changes
+  * More helper/utility classes for easier porting
+  * ???
+> More technical update for easier maintaining (09.10.25)
 
 ## v1.4.2
 * New features:
@@ -76,10 +105,10 @@ Plans/ideas for future update, that might be interesting
   * Ability to change toast's render type when any screen is opened (chests, invetory, etc). Top, behind or transparent (suggested by guguz)
 * Bug fixes:
   * Doesn't show toast when installed BadOptimizations mod
-* Adjustmets:
+* Adjustments:
   * Toast system code overhaul, which is slightly more optimizied (I hope)
   * Slight optimization when rendering toasts
-> I wanted to call it Update Nobody Asked For, but there are a lot of community suggestions, actually
+> I wanted to call it Update Nobody Asked For, but there are a lot of community suggestions, actually (28.09.25)
 
 ## v1.4.1
 * New features:
@@ -94,7 +123,7 @@ Plans/ideas for future update, that might be interesting
 * Adjustments:
   * Added Boosty button in the main config screen
   * Changed config system
-> User-friendly gui screen update, baby (13.09.2025)
+> User-friendly gui screen update, baby (13.09.25)
 
 ## v1.4.0
 * New features:
@@ -102,7 +131,8 @@ Plans/ideas for future update, that might be interesting
   * Texture type `Steamy`
   * Texture type `Terracraft`
   * Animation type `Quirky`
-  * Jade compatibility! Now jade display hides, when advancement is showed
+  * Jade compatibility! Now jade display hides, when advancement is shown
+  * Japanese language by PExPE3 (`ja_jp`)
 * Bug fixes:
   * Sometimes delyaed sound
 * Adjustments:
