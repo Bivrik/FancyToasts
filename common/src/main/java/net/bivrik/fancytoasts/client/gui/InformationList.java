@@ -104,8 +104,8 @@ public class InformationList extends AbstractSelectionList<InformationList.Entry
         }
 
         @Override
-        public void render(@NotNull GuiGraphics guiGraphics, int index, int y, int x, int width, int height, int mouseX, int mouseY, boolean hovering, float partialTick) {
-            guiGraphics.drawString(this.font, this.content, x, y, this.color);
+        public void renderContent(@NotNull GuiGraphics guiGraphics, int mouseX, int mouseY, boolean hovering, float partialTick) {
+            guiGraphics.drawString(this.font, this.content, this.getX(), this.getY() + 3, this.color);
         }
     }
 }

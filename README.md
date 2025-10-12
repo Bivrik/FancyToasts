@@ -91,7 +91,7 @@ Big goals/plans/ideas for future updates. Some of them are abstract ideas, and s
 * Bug fixes:
   * Toast becomes transparent/darken when opened chat or chat in bed
   * Custom texture loses its texture upon opening texture selection screen
-  * Crash when texture is empty (I suppose, still not sure)
+  * Crash when there is no any custom texture in the folder
 * Adjustments:
   * A lot of small refactor changes
   * More helper/utility classes for easier porting

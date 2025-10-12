@@ -7,7 +7,8 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.ObjectSelectionList;
-import net.minecraft.client.gui.navigation.CommonInputs;
+import net.minecraft.client.input.KeyEvent;
+import net.minecraft.client.input.MouseButtonEvent;
 import net.minecraft.client.resources.sounds.SimpleSoundInstance;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
@@ -47,7 +48,7 @@ public class ResourceLocationList extends ObjectSelectionList<ResourceLocationLi
 
     @Override
     public int getRowLeft() {
-        return this.getX() + this.width / 2 - this.getRowWidth() / 2 + 4;
+        return this.getX() + this.width / 2 - this.getRowWidth() / 2 - 3;
     }
 
     @Override
@@ -88,18 +89,6 @@ public class ResourceLocationList extends ObjectSelectionList<ResourceLocationLi
         this.refreshScrollAmount();
     }
 
-    @Override
-    public boolean keyPressed(int keyCode, int scanCode, int modifiers) {
-        if (CommonInputs.selected(keyCode)) {
-            var selectedEntry = this.getSelected();
-            if (selectedEntry instanceof ResourceLocationListEntry) {
-                ((ResourceLocationListEntry) selectedEntry).accept();
-            }
-        }
-
-        return super.keyPressed(keyCode, scanCode, modifiers);
-    }
-
     protected abstract static class Entry extends ObjectSelectionList.Entry<Entry> {
         @Override
         public @NotNull Component getNarration() {
@@ -128,7 +117,7 @@ public class ResourceLocationList extends ObjectSelectionList<ResourceLocationLi
         }
 
         @Override
-        public boolean mouseClicked(double mouseX, double mouseY, int button) {
+        public boolean mouseClicked(MouseButtonEvent e, boolean isDoubleClick) {
             if (Util.getMillis() - lastClickTime >= 250L) {
                 lastClickTime = Util.getMillis();
                 select();
@@ -137,7 +126,16 @@ public class ResourceLocationList extends ObjectSelectionList<ResourceLocationLi
                 accept();
             }
 
-            return super.mouseClicked(mouseX, mouseY, button);
+            return super.mouseClicked(e, isDoubleClick);
+        }
+
+        @Override
+        public boolean keyPressed(KeyEvent e) {
+            if (e.isSelection()) {
+                accept();
+            }
+
+            return super.keyPressed(e);
         }
 
         private void select() {
@@ -160,7 +158,20 @@ public class ResourceLocationList extends ObjectSelectionList<ResourceLocationLi
         }
 
         @Override
-        public void render(@NotNull GuiGraphics guiGraphics, int index, int y, int x, int width, int height, int mouseX, int mouseY, boolean isHovering, float partialTick) {
+        public int getX() {
+            return super.getX() - 3;
+        }
+
+        @Override
+        public int getWidth() {
+            return super.getWidth() + 3;
+        }
+
+        @Override
+        public void renderContent(@NotNull GuiGraphics guiGraphics, int mouseX, int mouseY, boolean isHovering, float partialTick) {
+            int x = this.getX();
+            int y = this.getY();
+
             int mainColor;
             int secondColor;
 
@@ -170,8 +181,8 @@ public class ResourceLocationList extends ObjectSelectionList<ResourceLocationLi
             }
             else {
                 if (isHovering) {
-                    guiGraphics.renderOutline(x - 4, y - 2, width, height + 4, Colors.alpha(63, Colors.WHITE));
-                    guiGraphics.fill(x - 3, y - 1, x + width - 5, y + height + 1, Colors.alpha(63, Colors.BLACK));
+                    guiGraphics.submitOutline(x, y, getWidth(), getHeight(), Colors.alpha(63, Colors.WHITE));
+                    guiGraphics.fill(x + 1, y + 1, x + getWidth() - 1, y + getHeight() - 1, Colors.alpha(63, Colors.BLACK));
                 }
 
                 mainColor = Colors.WHITE;
@@ -179,15 +190,15 @@ public class ResourceLocationList extends ObjectSelectionList<ResourceLocationLi
             }
 
             if (this.nameList.size() == 1) {
-                guiGraphics.drawString(this.font, this.nameList.getFirst(), x, y + 3, mainColor);
+                guiGraphics.drawString(this.font, this.nameList.getFirst(), x + 3, y + 5, mainColor);
             }
             else {
-                guiGraphics.drawString(this.font, this.nameList.get(1), x, y + 6, secondColor);
-                guiGraphics.drawString(this.font, this.nameList.get(0), x, y, mainColor);
+                guiGraphics.drawString(this.font, this.nameList.get(1), x + 3, y + 8, secondColor);
+                guiGraphics.drawString(this.font, this.nameList.get(0), x + 3, y + 2, mainColor);
             }
 
             if (this.isConfig) {
-                guiGraphics.drawString(this.font, Component.literal("c"), x -  12, y + 3, Colors.LIGHT_GRAY);
+                guiGraphics.drawString(this.font, Component.literal("c"), this.getX() + this.getWidth() - 10, y + 5, Colors.LIGHT_GRAY);
             }
         }
     }
