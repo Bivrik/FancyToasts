@@ -80,7 +80,7 @@ public class ConfigTextureManager {
             return;
         }
 
-        int initialCap = files.length / 2 - 1;
+        int initialCap = Math.max(0, files.length / 2 - 1);
         List<File> textureFiles = new ArrayList<>(initialCap);
         List<File> jsonFiles = new ArrayList<>(initialCap);
 
