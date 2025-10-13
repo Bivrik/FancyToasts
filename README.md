@@ -56,21 +56,19 @@ Big goals/plans/ideas for future updates. Some of them are abstract ideas, and s
 * Wide version support
   * **Currently maintaining**
 
-    | Minecraft version | Mod version       |
-    |-------------------|-------------------|
-    | 1.21.9            | 1.4.2.1-beta      |
-    | 1.21.8            | 1.4.2             |
-    | 1.21.1            | 1.4.2             |
-    | 1.20.1            | 1.4.2             |
+    | Minecraft version  | Mod version       |
+    |--------------------|-------------------|
+    | Latest (1.21.9+10) | 1.4.3             |
+    | 1.21.1             | 1.4.3             |
+    | 1.20.1             | 1.4.3             |
   * **Planned with priorities**
 
     | Minecraft version | Port priority |
     |-------------------|---------------|
-    | Latest (1.21.10)  | High          |
     | 1.19.4            | High          |
+    | 1.16.5            | Medium        |
     | 1.18.2            | Low           |
     | 1.17.1            | Low           |
-    | 1.16.5            | Medium        |
 * Rework of animations to make them easier to make?
 * Personalized textures for specific mods/datapacks?
 * Custom sounds? (v1.5?)
@@ -87,7 +85,7 @@ Big goals/plans/ideas for future updates. Some of them are abstract ideas, and s
 * New features:
   * UI highlights. Now it's more visual appealing when selecting animation/texture/sound
   * `Modern` texture redraw!
-  * Simplified Chinese language by Gao Xinyang (`ch_cn` instead of `ch_tw`)
+  * Simplified Chinese language by Gao Xinyang (`zh_cn` instead of `zh_tw`)
 * Bug fixes:
   * Toast becomes transparent/darken when opened chat or chat in bed
   * Custom texture loses its texture upon opening texture selection screen
