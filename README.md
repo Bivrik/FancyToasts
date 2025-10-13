@@ -92,6 +92,7 @@ Big goals/plans/ideas for future updates. Some of them are abstract ideas, and s
   * Toast becomes transparent/darken when opened chat or chat in bed
   * Custom texture loses its texture upon opening texture selection screen
   * Crash when there is no any custom texture in the folder
+  * Some text not being rendered under `transparent` toast due to depth (1.21.1 and lower)
 * Adjustments:
   * A lot of small refactor changes
   * More helper/utility classes for easier porting
