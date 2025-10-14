@@ -45,6 +45,7 @@ If you like my mod, you play it, and you want to see future development, hear my
 | Spanish              | `es_es` | `translator` |
 | German               | `de_de` | `translator` |
 | Chinese (Simplified) | `zh_cn` | Gao Xinyang  |
+| Chinese (Traditional)| `zh_tw` | ChaTian      |
 | Japanese             | `ja_jp` | PExPE3       |
 
 ### Plans
