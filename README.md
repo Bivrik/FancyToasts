@@ -1,4 +1,4 @@
-> This is 1.21.9+10 Fabric/Forge/NeoForge version 1.4.3
+> This is 1.21.10 Fabric/Forge/NeoForge version 1.4.4
 
 # Fancy Toasts 🎉
 There is a reason why you are here. It might be curiosity. But I think you are here because of there old-fashion advancement toasts! This is a Minecraft Mod that changes plain, boring, and annoying advancement toasts to something new and interesting!
@@ -38,15 +38,15 @@ Adds new advancement toast system into Minecraft. Currently mod has 18 standard 
 If you like my mod, you play it, and you want to see future development, hear my thoughts, get early access, or even see devlogs, then visit my [Boosty](https://boosty.to/bivrik) and support me, whether it's a one-time donation or a subscription. I will be very thankful! 🤗
 
 ### Languages
-| Language             | Key     | Made by      |
-|----------------------|---------|--------------|
-| English              | `en_us` |              |
-| Russian              | `ru_ru` |              |
-| Spanish              | `es_es` | `translator` |
-| German               | `de_de` | `translator` |
-| Chinese (Simplified) | `zh_cn` | Gao Xinyang  |
-| Chinese (Traditional)| `zh_tw` | ChaTian      |
-| Japanese             | `ja_jp` | PExPE3       |
+| Language              | Key     | Made by      |
+|-----------------------|---------|--------------|
+| English               | `en_us` |              |
+| Russian               | `ru_ru` |              |
+| Spanish               | `es_es` | `translator` |
+| German                | `de_de` | `translator` |
+| Chinese (Simplified)  | `zh_cn` | Gao Xinyang  |
+| Chinese (Traditional) | `zh_tw` | ChaTian      |
+| Japanese              | `ja_jp` | PExPE3       |
 
 ### Plans
 Big goals/plans/ideas for future updates. Some of them are abstract ideas, and some are more specific 
@@ -57,11 +57,11 @@ Big goals/plans/ideas for future updates. Some of them are abstract ideas, and s
 * Wide version support
   * **Currently maintaining**
 
-    | Minecraft version  | Mod version       |
-    |--------------------|-------------------|
-    | Latest (1.21.9+10) | 1.4.3             |
-    | 1.21.1             | 1.4.3             |
-    | 1.20.1             | 1.4.3             |
+    | Minecraft version | Mod version       |
+    |-------------------|-------------------|
+    | Latest (1.21.10)  | 1.4.3             |
+    | 1.21.1            | 1.4.3             |
+    | 1.20.1            | 1.4.3             |
   * **Planned with priorities**
 
     | Minecraft version | Port priority |
@@ -81,6 +81,9 @@ Big goals/plans/ideas for future updates. Some of them are abstract ideas, and s
 * Jade compatibility
 
 # Changelog 📝
+
+## v1.4.4
+> working...
 
 ## v1.4.3
 * New features:
