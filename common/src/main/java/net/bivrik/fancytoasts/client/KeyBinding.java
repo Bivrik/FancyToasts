@@ -8,13 +8,15 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class KeyBinding {
-    public record keyHolder(KeyMapping key, keyExecutor executor) {}
+    public KeyBinding() {}
 
-    public final static List<keyHolder> FANCY_TOASTS_KEYS = new ArrayList<>();
+    public record keyHolder(KeyMapping key, keyExecutor executor) {}
 
     public interface keyExecutor {
         void execute();
     }
+
+    public final static List<keyHolder> FANCY_TOASTS_KEYS = new ArrayList<>();
 
     public static void registerKey(String name, int key, keyExecutor executor) {
         name = Constants.MOD_ID + "." + name;
@@ -35,9 +37,6 @@ public class KeyBinding {
             keys.add(keyHolder.key);
         }
         return keys.toArray(new KeyMapping[0]);
-    }
-
-    public KeyBinding() {
     }
 
     public void tick() {

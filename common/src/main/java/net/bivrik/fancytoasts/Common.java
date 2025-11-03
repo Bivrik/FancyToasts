@@ -1,6 +1,5 @@
 package net.bivrik.fancytoasts;
 
-import com.google.common.collect.Lists;
 import net.bivrik.fancytoasts.client.KeyBinding;
 import net.bivrik.fancytoasts.client.config.*;
 import net.bivrik.fancytoasts.client.gui.FancyToastConfigScreen;
@@ -12,17 +11,13 @@ import net.bivrik.fancytoasts.client.toast.animation.PlayfulAnimation;
 import net.bivrik.fancytoasts.client.toast.animation.StandardAnimation;
 import net.bivrik.fancytoasts.client.toast.ToastAnimationRegistry;
 import net.bivrik.fancytoasts.client.toast.ToastTextureRegistry;
-import net.bivrik.fancytoasts.platform.utility.ResourceLocations;
 import net.bivrik.fancytoasts.utility.DefaultLocations;
 import net.bivrik.fancytoasts.platform.Services;
-import net.minecraft.client.KeyMapping;
 import net.minecraft.client.Minecraft;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import org.lwjgl.glfw.GLFW;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.function.Supplier;
 
 // Only Vanilla code base
@@ -31,18 +26,6 @@ public class Common {
     private static ConfigManager configManager;
     private static AdvancementToastManager advancementToastManager;
     private static KeyBinding keyBindingManager;
-
-    public static void onMinecraftInitialization(Minecraft minecraft) {
-        splashManager = new SplashManager(minecraft.getUser());
-        splashManager.load(minecraft.getResourceManager());
-
-        configManager = new ConfigManager();
-        configManager.loadConfigs();
-
-        advancementToastManager = new AdvancementToastManager(minecraft);
-
-        keyBindingManager = new KeyBinding();
-    }
 
     public static SplashManager getSplashManager() {
         return splashManager;
@@ -54,6 +37,18 @@ public class Common {
 
     public static AdvancementToastManager getAdvancementToastManager() {
         return advancementToastManager;
+    }
+
+    public static void onMinecraftInitialization(Minecraft minecraft) {
+        splashManager = new SplashManager(minecraft.getUser());
+        splashManager.load(minecraft.getResourceManager());
+
+        configManager = new ConfigManager();
+        configManager.loadConfigs();
+
+        advancementToastManager = new AdvancementToastManager(minecraft);
+
+        keyBindingManager = new KeyBinding();
     }
 
     public static void onModInitialization() {
@@ -95,19 +90,15 @@ public class Common {
 
     private static void registerTexture(ResourceLocation id, String name) {
         ToastTextureRegistry.register(
-                id,
-                Constants.MOD_ID,
-                name,
-                Constants.MOD_NAME
+                id, Constants.MOD_ID,
+                name, Constants.MOD_NAME
         );
     }
 
     private static void registerAnimation(ResourceLocation id, String name, Supplier<FancyAdvancementToastAnimation> animation) {
         ToastAnimationRegistry.register(
-                id,
-                animation,
-                Constants.MOD_ID,
-                name
+                id, animation,
+                Constants.MOD_ID, name
         );
     }
 }

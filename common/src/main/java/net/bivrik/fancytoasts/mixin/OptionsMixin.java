@@ -1,6 +1,5 @@
 package net.bivrik.fancytoasts.mixin;
 
-import net.bivrik.fancytoasts.Common;
 import net.bivrik.fancytoasts.client.KeyBinding;
 import net.minecraft.client.KeyMapping;
 import net.minecraft.client.Options;
