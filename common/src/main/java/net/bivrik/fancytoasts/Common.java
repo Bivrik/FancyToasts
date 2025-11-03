@@ -1,7 +1,10 @@
 package net.bivrik.fancytoasts;
 
+import com.google.common.collect.Lists;
+import net.bivrik.fancytoasts.client.KeyBinding;
 import net.bivrik.fancytoasts.client.config.*;
-import net.bivrik.fancytoasts.client.gui.SplashManager;
+import net.bivrik.fancytoasts.client.gui.FancyToastConfigScreen;
+import net.bivrik.fancytoasts.client.ui.SplashManager;
 import net.bivrik.fancytoasts.client.toast.AdvancementToastManager;
 import net.bivrik.fancytoasts.client.toast.animation.FancyAdvancementToastAnimation;
 import net.bivrik.fancytoasts.client.toast.animation.QuirkyAnimation;
@@ -12,9 +15,14 @@ import net.bivrik.fancytoasts.client.toast.ToastTextureRegistry;
 import net.bivrik.fancytoasts.platform.utility.ResourceLocations;
 import net.bivrik.fancytoasts.utility.DefaultLocations;
 import net.bivrik.fancytoasts.platform.Services;
+import net.minecraft.client.KeyMapping;
 import net.minecraft.client.Minecraft;
+import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
+import org.lwjgl.glfw.GLFW;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.function.Supplier;
 
 // Only Vanilla code base
@@ -22,6 +30,7 @@ public class Common {
     private static SplashManager splashManager;
     private static ConfigManager configManager;
     private static AdvancementToastManager advancementToastManager;
+    private static KeyBinding keyBindingManager;
 
     public static void onMinecraftInitialization(Minecraft minecraft) {
         splashManager = new SplashManager(minecraft.getUser());
@@ -31,6 +40,8 @@ public class Common {
         configManager.loadConfigs();
 
         advancementToastManager = new AdvancementToastManager(minecraft);
+
+        keyBindingManager = new KeyBinding();
     }
 
     public static SplashManager getSplashManager() {
@@ -46,15 +57,23 @@ public class Common {
     }
 
     public static void onModInitialization() {
-        if (Services.PLATFORM.isModLoaded(Constants.MOD_ID)) {
-            Debug.info("Common init on {} in a {} environment.", Services.PLATFORM.getPlatformName(), Services.PLATFORM.getEnvironmentName());
-
-            Debug.info("Textures registration:");
-            registerTextures();
-
-            Debug.info("Animations registration:");
-            registerAnimations();
+        if (!Services.PLATFORM.isModLoaded(Constants.MOD_ID)) {
+            return;
         }
+
+        Debug.info("Common init on {} in a {} environment.", Services.PLATFORM.getPlatformName(), Services.PLATFORM.getEnvironmentName());
+
+        Debug.info("Textures registration:");
+        registerTextures();
+
+        Debug.info("Animations registration:");
+        registerAnimations();
+
+        KeyBinding.registerKey("config_menu", GLFW.GLFW_KEY_K, () -> new FancyToastConfigScreen(Component.empty(), null));
+    }
+
+    public static void onTick() {
+        keyBindingManager.tick();
     }
 
     private static void registerTextures() {

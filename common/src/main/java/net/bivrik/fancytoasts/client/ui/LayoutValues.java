@@ -1,4 +1,4 @@
-package net.bivrik.fancytoasts.client.gui;
+package net.bivrik.fancytoasts.client.ui;
 
 public class LayoutValues {
     public static final int PADDING = 8;

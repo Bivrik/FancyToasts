@@ -11,8 +11,12 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 public class MinecraftMixin {
 
     @Inject(at = @At("TAIL"), method = "<init>")
-    private void onInit(CallbackInfo info)
-    {
+    private void onInit(CallbackInfo info) {
         Common.onMinecraftInitialization(Minecraft.getInstance());
+    }
+
+    @Inject(at = @At("RETURN"), method = "tick")
+    private void onTick(CallbackInfo info) {
+        Common.onTick();
     }
 }

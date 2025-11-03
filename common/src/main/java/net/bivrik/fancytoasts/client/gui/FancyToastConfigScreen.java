@@ -14,9 +14,8 @@ import net.minecraft.network.chat.Component;
 import org.jetbrains.annotations.NotNull;
 
 import java.net.URI;
-import java.util.Objects;
 
-import static net.bivrik.fancytoasts.client.gui.LayoutValues.*;
+import static net.bivrik.fancytoasts.client.ui.LayoutValues.*;
 
 public class FancyToastConfigScreen extends UniversalScreen {
     private final String splash;

@@ -5,6 +5,7 @@ import net.bivrik.fancytoasts.client.config.AdvancementToastPosition;
 import net.bivrik.fancytoasts.client.config.AdvancementToastScreenBehavior;
 import net.bivrik.fancytoasts.client.config.ConfigHandler;
 import net.bivrik.fancytoasts.client.config.GeneralConfigData;
+import net.bivrik.fancytoasts.platform.Services;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.*;
 import net.minecraft.client.gui.screens.Screen;
@@ -19,8 +20,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Consumer;
 
-import static net.bivrik.fancytoasts.client.gui.LayoutValues.*;
-import static net.bivrik.fancytoasts.client.gui.LayoutValues.PADDING;
+import static net.bivrik.fancytoasts.client.ui.LayoutValues.*;
+import static net.bivrik.fancytoasts.client.ui.LayoutValues.PADDING;
 
 public class GeneralConfigScreen extends UniversalScreen {
     private final GeneralConfigData generalConfigData;
@@ -54,10 +55,12 @@ public class GeneralConfigScreen extends UniversalScreen {
         backButton = this.addRenderableWidget(Button.builder(CommonComponents.GUI_BACK, (button) -> this.toParentScreen())
                 .bounds(this.width / 2 - 125 - PADDING / 2, this.height - 20 - 6, 100, BUTTON_HEIGHT).build());
 
-        jadeCompatCycleButton = CycleButton.onOffBuilder()
-                .withInitialValue(generalConfigData.isJadeCompatEnabled())
-                .withTooltip((value) -> Tooltip.create(Component.translatable("fancytoasts.gui.tooltip.jade_compatibility")))
-                .create(0, 0, BUTTON_WIDTH, BUTTON_HEIGHT, Component.translatable("fancytoasts.gui.label.jade_compatibility"), (button, value) -> generalConfigData.setJadeCompatEnabled(value));
+        if (Services.PLATFORM.isModLoaded("jade")) {
+            jadeCompatCycleButton = CycleButton.onOffBuilder()
+                    .withInitialValue(generalConfigData.isJadeCompatEnabled())
+                    .withTooltip((value) -> Tooltip.create(Component.translatable("fancytoasts.gui.tooltip.jade_compatibility")))
+                    .create(0, 0, BUTTON_WIDTH, BUTTON_HEIGHT, Component.translatable("fancytoasts.gui.label.jade_compatibility"), (button, value) -> generalConfigData.setJadeCompatEnabled(value));
+        }
 
         soundsEnabledCycleButton = CycleButton.onOffBuilder()
                 .withInitialValue(generalConfigData.areSoundsEnabled())

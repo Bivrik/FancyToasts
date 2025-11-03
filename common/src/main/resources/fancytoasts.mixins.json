@@ -4,12 +4,12 @@
   "package": "net.bivrik.fancytoasts.mixin",
   "refmap": "${mod_id}.refmap.json",
   "compatibilityLevel": "JAVA_18",
-  "mixins": [],
   "client": [
     "AdvancementToastMixinAccessor",
+    "GuiMixin",
     "MinecraftMixin",
-    "ToastManagerMixin",
-    "GuiMixin"
+    "OptionsMixin",
+    "ToastManagerMixin"
   ],
   "server": [],
   "injectors": {

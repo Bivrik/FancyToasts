@@ -5,6 +5,9 @@ import net.bivrik.fancytoasts.client.config.ConfigTextureManager;
 import net.bivrik.fancytoasts.client.config.ToastConfigData;
 import net.bivrik.fancytoasts.client.config.ConfigHandler;
 import net.bivrik.fancytoasts.client.toast.texture.DisplayData;
+import net.bivrik.fancytoasts.client.ui.InformationList;
+import net.bivrik.fancytoasts.client.ui.ResourceLocationList;
+import net.bivrik.fancytoasts.client.ui.SettingType;
 import net.minecraft.advancements.AdvancementType;
 import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.gui.components.CycleButton;
@@ -15,7 +18,7 @@ import net.minecraft.network.chat.CommonComponents;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 
-import static net.bivrik.fancytoasts.client.gui.LayoutValues.*;
+import static net.bivrik.fancytoasts.client.ui.LayoutValues.*;
 
 public class ToastConfigScreen extends UniversalScreen {
     private final ToastConfigData toastConfigData;
@@ -54,6 +57,9 @@ public class ToastConfigScreen extends UniversalScreen {
 
         backButton = this.addRenderableWidget(Button.builder(CommonComponents.GUI_BACK, (button) -> this.toParentScreen())
                 .bounds(this.width / 2 - 125 - PADDING / 2, this.height - 20 - 6, 100, BUTTON_HEIGHT).build());
+
+        doneButton = this.createButton(CommonComponents.GUI_DONE, (button) -> done(), this.width / 2 + 100 - 125 + PADDING / 2, this.height - 26);
+        backButton = this.createButton(CommonComponents.GUI_BACK, (button) -> done(), this.width / 2 - 125 - PADDING / 2, this.height - 26, 100, BUTTON_HEIGHT);
 
         settingTypeCycButton = this.addRenderableWidget(CycleButton.builder(SettingType::getDisplayName).displayOnlyValue()
                 .withValues(SettingType.values()).withInitialValue(settingType)

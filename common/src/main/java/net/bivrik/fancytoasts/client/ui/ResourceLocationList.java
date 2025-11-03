@@ -1,4 +1,4 @@
-package net.bivrik.fancytoasts.client.gui;
+package net.bivrik.fancytoasts.client.ui;
 
 import net.bivrik.fancytoasts.Debug;
 import net.bivrik.fancytoasts.platform.utility.Colors;

@@ -10,22 +10,11 @@ public class GUIs {
         stack.translate(x, y);
     }
 
-    public static void scale(Matrix3x2fStack stack, float x, float y) {
-        stack.scale(x, y);
-    }
-    public static void scale(Matrix3x2fStack stack, float scale) {
-        stack.scale(scale);
-    }
-
     public static void scaleAround(Matrix3x2fStack stack, float sx, float sy, float ox, float oy) {
         stack.scaleAround(sx, sy, ox, oy);
     }
     public static void scaleAround(Matrix3x2fStack stack, float scale, float ox, float oy) {
         stack.scaleAround(scale, ox, oy);
-    }
-
-    public static void rotate(Matrix3x2fStack stack, float rotation) {
-        stack.rotate(rotation);
     }
 
     public static void rotateAround(Matrix3x2fStack stack, float rotation, float ox, float oy) {

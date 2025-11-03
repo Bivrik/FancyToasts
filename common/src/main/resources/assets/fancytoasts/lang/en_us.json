@@ -61,5 +61,7 @@
   "fancytoasts.textures.toast.steamy": "Steamy",
   "fancytoasts.textures.toast.steamy.description": "I spent 1500 hours to get 100%! Are you proud of me, mom? Inspired by Steam",
 
-  "fancytoasts.sound.minecraft.description": "Built-in sound from Minecraft"
+  "fancytoasts.sound.minecraft.description": "Built-in sound from Minecraft",
+
+  "fancytoasts.config_menu": "Fancy Toasts menu"
 }
