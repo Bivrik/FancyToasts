@@ -1,6 +1,7 @@
 package net.bivrik.fancytoasts.client.gui;
 
 import net.bivrik.fancytoasts.Common;
+import net.bivrik.fancytoasts.Constants;
 import net.bivrik.fancytoasts.client.config.AdvancementToastPosition;
 import net.bivrik.fancytoasts.client.config.AdvancementToastScreenBehavior;
 import net.bivrik.fancytoasts.client.config.ConfigHandler;
@@ -24,6 +25,7 @@ import static net.bivrik.fancytoasts.client.ui.LayoutValues.*;
 import static net.bivrik.fancytoasts.client.ui.LayoutValues.PADDING;
 
 public class GeneralConfigScreen extends UniversalScreen {
+    private static final Component TITLE = Component.translatable(Constants.MOD_ID + ".gui.config.general_title");
     private final GeneralConfigData generalConfigData;
 
     private Button doneButton;
@@ -38,8 +40,8 @@ public class GeneralConfigScreen extends UniversalScreen {
 
     private final List<AbstractWidget> widgets = new ArrayList<>();
 
-    public GeneralConfigScreen(Component title, Screen parent) {
-        super(title, parent);
+    public GeneralConfigScreen(Screen parent) {
+        super(TITLE, parent);
         this.generalConfigData = Common.getConfigManager().getGeneralConfig();
     }
 

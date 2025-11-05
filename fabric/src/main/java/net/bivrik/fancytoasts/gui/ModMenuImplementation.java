@@ -13,6 +13,6 @@ public class ModMenuImplementation implements ModMenuApi {
 
     @Override
     public ConfigScreenFactory<?> getModConfigScreenFactory() {
-        return (screen) -> new FancyToastConfigScreen(Component.translatable(Constants.MOD_ID + ".gui.config.title"), screen);
+        return FancyToastConfigScreen::new;
     }
 }

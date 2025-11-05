@@ -1,6 +1,8 @@
 package net.bivrik.fancytoasts.client.gui;
 
 import net.bivrik.fancytoasts.Common;
+import net.bivrik.fancytoasts.Constants;
+import net.bivrik.fancytoasts.platform.utility.Components;
 import net.bivrik.fancytoasts.platform.utility.GUIs;
 import net.bivrik.fancytoasts.platform.utility.Colors;
 import net.minecraft.Util;
@@ -22,10 +24,11 @@ public class FancyToastConfigScreen extends UniversalScreen {
 
     private Button toastConfigButton;
     private Button generalConfigButton;
+    private Button creditsScreenButton;
     private Button backButton;
 
-    public FancyToastConfigScreen(Component title, Screen parent) {
-        super(title, parent);
+    public FancyToastConfigScreen(Screen parent) {
+        super(Components.of("gui.config.title"), parent);
         this.splash = Common.getSplashManager().getSplash();
     }
 
@@ -44,17 +47,24 @@ public class FancyToastConfigScreen extends UniversalScreen {
         generalConfigButton = this.addRenderableWidget(Button.builder(Component.translatable("fancytoasts.gui.label.general_settings"), (button) -> openGeneralConfigScreen())
                 .bounds(xCenter - halfButtonWidth, yCenter + PADDING / 2, BUTTON_WIDTH, BUTTON_HEIGHT).build());
 
+        creditsScreenButton = this.addRenderableWidget(Button.builder(Component.translatable("fancytoasts.gui.label.credits"), (button) -> openCreditsScreen())
+                .bounds(xCenter - halfButtonWidth, yCenter + BUTTON_HEIGHT + PADDING * 2, BUTTON_WIDTH, BUTTON_HEIGHT).build());
+
         Component supportText = Component.translatable("fancytoasts.gui.support");
         int textWidth = this.font.width(supportText) + 1;
         this.addRenderableWidget(new PlainTextButton(this.width - textWidth, this.height - 10, textWidth, 10, supportText, ConfirmLinkScreen.confirmLink(this, URI.create("https://boosty.to/bivrik")), this.font));
     }
 
     private void openToastConfigScreen() {
-        this.openScreen(new ToastConfigScreen(Component.translatable("fancytoasts.gui.config.customization_title"), this));
+        this.openScreen(new ToastConfigScreen(this));
     }
 
     private void openGeneralConfigScreen() {
-        this.openScreen(new GeneralConfigScreen(Component.translatable("fancytoasts.gui.config.general_title"), this));
+        this.openScreen(new GeneralConfigScreen(this));
+    }
+
+    private void openCreditsScreen() {
+        this.openScreen(new CreditsScreen(this));
     }
 
     @Override

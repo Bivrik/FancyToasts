@@ -1,6 +1,7 @@
 package net.bivrik.fancytoasts.client.gui;
 
 import net.bivrik.fancytoasts.Common;
+import net.bivrik.fancytoasts.Constants;
 import net.bivrik.fancytoasts.client.config.ConfigTextureManager;
 import net.bivrik.fancytoasts.client.config.ToastConfigData;
 import net.bivrik.fancytoasts.client.config.ConfigHandler;
@@ -8,6 +9,7 @@ import net.bivrik.fancytoasts.client.toast.texture.DisplayData;
 import net.bivrik.fancytoasts.client.ui.InformationList;
 import net.bivrik.fancytoasts.client.ui.ResourceLocationList;
 import net.bivrik.fancytoasts.client.ui.SettingType;
+import net.bivrik.fancytoasts.platform.utility.Components;
 import net.minecraft.advancements.AdvancementType;
 import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.gui.components.CycleButton;
@@ -35,8 +37,8 @@ public class ToastConfigScreen extends UniversalScreen {
     private ResourceLocationList locationsList;
     private InformationList infoList;
 
-    public ToastConfigScreen(Component title, Screen parent) {
-        super(title, parent);
+    public ToastConfigScreen(Screen parent) {
+        super(Components.of("gui.config.customization_title"), parent);
         this.toastConfigData = Common.getConfigManager().getToastConfig();
 
         ConfigTextureManager.reload();
@@ -57,9 +59,6 @@ public class ToastConfigScreen extends UniversalScreen {
 
         backButton = this.addRenderableWidget(Button.builder(CommonComponents.GUI_BACK, (button) -> this.toParentScreen())
                 .bounds(this.width / 2 - 125 - PADDING / 2, this.height - 20 - 6, 100, BUTTON_HEIGHT).build());
-
-        doneButton = this.createButton(CommonComponents.GUI_DONE, (button) -> done(), this.width / 2 + 100 - 125 + PADDING / 2, this.height - 26);
-        backButton = this.createButton(CommonComponents.GUI_BACK, (button) -> done(), this.width / 2 - 125 - PADDING / 2, this.height - 26, 100, BUTTON_HEIGHT);
 
         settingTypeCycButton = this.addRenderableWidget(CycleButton.builder(SettingType::getDisplayName).displayOnlyValue()
                 .withValues(SettingType.values()).withInitialValue(settingType)

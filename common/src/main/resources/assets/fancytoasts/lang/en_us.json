@@ -29,6 +29,10 @@
   "fancytoasts.gui.label.screen_behavior_top": "Top",
   "fancytoasts.gui.label.screen_behavior_behind": "Behind",
   "fancytoasts.gui.label.screen_behavior_transparent": "Transparent",
+  "fancytoasts.gui.label.translators": "Translators",
+  "fancytoasts.gui.label.github_activists": "Github Activists",
+  "fancytoasts.gui.label.boosters": "Boosters",
+  "fancytoasts.gui.label.special_thanks": "Special Thanks",
 
   "fancytoasts.gui.tooltip.task": "Sound for Task type advancement.",
   "fancytoasts.gui.tooltip.goal": "Sound for Goal type advancement.",

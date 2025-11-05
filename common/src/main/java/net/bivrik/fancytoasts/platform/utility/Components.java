@@ -16,6 +16,10 @@ public class Components {
         return Component.translatable(translationKey.toString());
     }
 
+    public static Component of(String path) {
+        return Component.translatable(DEFAULT_ID + "." + path);
+    }
+
     /**
      * Easier way to get translatable name for textures
      * @param modId is for texture's path. If 'null' or 'fancytoasts' then it returns default

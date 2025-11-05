@@ -18,7 +18,10 @@ public class JsonHelper {
             .registerTypeAdapter(ResourceLocation.class, new ResourceLocationAdapter())
             .create();
 
-    // Gson adapters
+
+    /**
+     * Adapters for correct working Json files: ResourceLocation
+     */
     private static class ResourceLocationAdapter implements JsonSerializer<ResourceLocation>, JsonDeserializer<ResourceLocation> {
         @Override
         public ResourceLocation deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context) throws JsonParseException {
@@ -31,7 +34,21 @@ public class JsonHelper {
         }
     }
 
-    // Other
+    /**
+     * Access to {@code GSON} for specific cases
+     * @return {@code GSON}
+     */
+    public static Gson getGson() {
+        return GSON;
+    }
+
+    /**
+     * Reads a json from file.
+     * @param jsonFile file to read from.
+     * @param toClass class that {@code jsonFile} has to be transformed to.
+     * @param <T> class reference.
+     * @return optional data from {@code jsonFile} in given {@code toClass} class.
+     */
     public static <T> Optional<T> tryToRead(File jsonFile, Class<T> toClass) {
         try (FileReader reader = new FileReader(jsonFile)) {
             return Optional.of(GSON.fromJson(reader, toClass));

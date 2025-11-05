@@ -3,6 +3,7 @@ package net.bivrik.fancytoasts;
 import net.bivrik.fancytoasts.client.KeyBinding;
 import net.bivrik.fancytoasts.client.config.*;
 import net.bivrik.fancytoasts.client.gui.FancyToastConfigScreen;
+import net.bivrik.fancytoasts.client.ui.CreditsManager;
 import net.bivrik.fancytoasts.client.ui.SplashManager;
 import net.bivrik.fancytoasts.client.toast.AdvancementToastManager;
 import net.bivrik.fancytoasts.client.toast.animation.FancyAdvancementToastAnimation;
@@ -14,7 +15,6 @@ import net.bivrik.fancytoasts.client.toast.ToastTextureRegistry;
 import net.bivrik.fancytoasts.utility.DefaultLocations;
 import net.bivrik.fancytoasts.platform.Services;
 import net.minecraft.client.Minecraft;
-import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import org.lwjgl.glfw.GLFW;
 
@@ -26,6 +26,7 @@ public class Common {
     private static ConfigManager configManager;
     private static AdvancementToastManager advancementToastManager;
     private static KeyBinding keyBindingManager;
+    private static CreditsManager creditsManager;
 
     public static SplashManager getSplashManager() {
         return splashManager;
@@ -39,6 +40,10 @@ public class Common {
         return advancementToastManager;
     }
 
+    public static CreditsManager getCreditsManager() {
+        return creditsManager;
+    }
+
     public static void onMinecraftInitialization(Minecraft minecraft) {
         splashManager = new SplashManager(minecraft.getUser());
         splashManager.load(minecraft.getResourceManager());
@@ -49,6 +54,9 @@ public class Common {
         advancementToastManager = new AdvancementToastManager(minecraft);
 
         keyBindingManager = new KeyBinding();
+
+        creditsManager = new CreditsManager();
+        creditsManager.loadCredits();
     }
 
     public static void onModInitialization() {
@@ -64,7 +72,7 @@ public class Common {
         Debug.info("Animations registration:");
         registerAnimations();
 
-        KeyBinding.registerKey("config_menu", GLFW.GLFW_KEY_K, () -> new FancyToastConfigScreen(Component.empty(), null));
+        KeyBinding.registerKey("config_menu", GLFW.GLFW_KEY_K, () -> new FancyToastConfigScreen(null));
     }
 
     public static void onTick() {

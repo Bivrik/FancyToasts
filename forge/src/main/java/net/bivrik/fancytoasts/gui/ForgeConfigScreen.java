@@ -12,7 +12,7 @@ public class ForgeConfigScreen {
         context.registerExtensionPoint(
                 ConfigScreenHandler.ConfigScreenFactory.class,
                 () -> new ConfigScreenHandler.ConfigScreenFactory(
-                        (parent) -> new FancyToastConfigScreen(Component.translatable(Constants.MOD_ID + ".gui.config.title"), parent)
+                        FancyToastConfigScreen::new
                 )
         );
     }
