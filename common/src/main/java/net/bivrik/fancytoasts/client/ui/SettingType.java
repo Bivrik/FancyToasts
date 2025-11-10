@@ -5,9 +5,18 @@ import net.bivrik.fancytoasts.client.gui.ToastConfigScreen;
 import net.bivrik.fancytoasts.client.toast.ToastAnimationRegistry;
 import net.bivrik.fancytoasts.client.toast.ToastTextureRegistry;
 import net.bivrik.fancytoasts.client.toast.texture.DisplayData;
+import net.bivrik.fancytoasts.platform.utility.Components;
+import net.bivrik.fancytoasts.platform.utility.ResourceLocations;
+import net.minecraft.client.Minecraft;
 import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.core.registries.Registries;
+import net.minecraft.data.registries.RegistriesDatapackGenerator;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.server.commands.DataPackCommand;
+import net.minecraft.server.commands.PlaySoundCommand;
+import net.minecraft.server.packs.resources.ResourceManager;
+import net.minecraft.server.packs.resources.ResourceProvider;
 
 public enum SettingType {
     TEXTURES("textures") {
@@ -60,7 +69,25 @@ public enum SettingType {
 
         @Override
         public DisplayData getDisplayData(ResourceLocation id) {
-            return new DisplayData(Component.translatable(id.toLanguageKey()), "Minecraft", Component.translatable(Constants.MOD_ID + ".sound.minecraft.description"));
+            DisplayData data;
+
+            if (id.toLanguageKey().contains("minecraft")) {
+                data = new DisplayData(Component.literal(id.toLanguageKey()), "Minecraft", Components.of("sound.minecraft.description"));
+            }
+            else if (BuiltInRegistries.SOUND_EVENT.containsKey(id)) {
+                data = new DisplayData(Component.literal(id.toLanguageKey()), getAuthor(id.getNamespace()), Components.of("sound.mod.description"));
+            }
+            else {
+                data = new DisplayData(Component.literal(id.toLanguageKey()), getAuthor(id.getNamespace()), Components.of("sound.resource_pack.description"));
+            }
+
+            return data;
+        }
+
+        private String getAuthor(String namespace) {
+            var end = namespace.substring(1);
+            var start = namespace.substring(0, 1).toUpperCase();
+            return start + end;
         }
 
         @Override
@@ -70,7 +97,8 @@ public enum SettingType {
 
         @Override
         public ResourceLocation[] getKeySet() {
-            return BuiltInRegistries.SOUND_EVENT.keySet().toArray(new ResourceLocation[0]);
+            return Minecraft.getInstance().getSoundManager().getAvailableSounds().toArray(new ResourceLocation[0]);
+            //return BuiltInRegistries.SOUND_EVENT.keySet().toArray(new ResourceLocation[0]);
         }
     };
 

@@ -15,9 +15,11 @@ import net.minecraft.client.resources.sounds.SimpleSoundInstance;
 import net.minecraft.client.sounds.SoundManager;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 
 import java.util.Objects;
+import java.util.Optional;
 
 public class FancyAdvancementToast {
     private static final int WIDTH = 162;
@@ -74,7 +76,8 @@ public class FancyAdvancementToast {
         if (soundManager != null) {
             int timeInSeconds = (int) (this.time / 50);
             if (playedSoundsCount == 0 && timeInSeconds == animation.getToastSoundTiming() / 50) {
-                soundManager.play(SimpleSoundInstance.forUI(Objects.requireNonNull(BuiltInRegistries.SOUND_EVENT.getValue(toastSoundId)), 1f, volume));
+                SoundEvent tse = new SoundEvent(toastSoundId, Optional.empty());
+                soundManager.play(SimpleSoundInstance.forUI(tse, 1f, volume));
                 playedSoundsCount++;
             }
             if (playedSoundsCount == 1 && timeInSeconds == animation.getDuration() / 50 - 10) {

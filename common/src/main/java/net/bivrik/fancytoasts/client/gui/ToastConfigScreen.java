@@ -125,21 +125,22 @@ public class ToastConfigScreen extends UniversalScreen {
             this.removeWidget(this.advancementTypeCycButton);
         }
 
-        infoList.update(settingType.getDisplayData(settingType.getCurrentId(this)), settingType.getCurrentId(this).toLanguageKey().contains("config"));
+        infoList.update(settingType.getDisplayData(settingType.getCurrentId(this)), settingType.getCurrentId(this).toLanguageKey().contains("config"), true);
     }
 
     private void setAdvancementType(AdvancementType type) {
         advancementType = type;
-        infoList.update(settingType.getDisplayData(settingType.getCurrentId(this)), settingType.getCurrentId(this).toLanguageKey().contains("config"));
+        infoList.update(settingType.getDisplayData(settingType.getCurrentId(this)), settingType.getCurrentId(this).toLanguageKey().contains("config"), true);
     }
 
     private void onAcceptedEntry(ResourceLocation location) {
         settingType.apply(this, location);
-        infoList.update(displayData, settingType.getCurrentId(this).toLanguageKey().contains("config"));
+        infoList.update(displayData, settingType.getCurrentId(this).toLanguageKey().contains("config"), true);
     }
 
     private void onSelectedEntry(ResourceLocation location) {
         displayData = settingType.getDisplayData(location);
-        infoList.update(displayData, location.toLanguageKey().contains("config"));
+        boolean isCurrent = settingType.getCurrentId(this).equals(location);
+        infoList.update(displayData, location.toLanguageKey().contains("config"), isCurrent);
     }
 }

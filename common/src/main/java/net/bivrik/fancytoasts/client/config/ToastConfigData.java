@@ -1,15 +1,18 @@
 package net.bivrik.fancytoasts.client.config;
 
+import net.bivrik.fancytoasts.Debug;
 import net.bivrik.fancytoasts.client.toast.ToastAnimationRegistry;
 import net.bivrik.fancytoasts.client.toast.ToastTextureRegistry;
 import net.bivrik.fancytoasts.utility.DefaultLocations;
 import net.bivrik.fancytoasts.utility.file.Paths;
 import net.minecraft.advancements.AdvancementType;
+import net.minecraft.client.Minecraft;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvents;
 
 import java.io.File;
+import java.nio.charset.MalformedInputException;
 import java.util.EnumMap;
 import java.util.Map;
 
@@ -53,6 +56,23 @@ public class ToastConfigData extends ConfigData {
     }
 
     public ResourceLocation getSoundId(AdvancementType type) {
+        var soundManager = Minecraft.getInstance().getSoundManager();
+
+        if (!soundManager.getAvailableSounds().contains(soundIds.get(type))) {
+            Debug.warn("Saved sounds are invalid. Used standard ones");
+            switch (type) {
+                case TASK -> {
+                    return SoundEvents.ALLAY_AMBIENT_WITH_ITEM.location();
+                }
+                case GOAL -> {
+                    return SoundEvents.FIREWORK_ROCKET_TWINKLE_FAR.location();
+                }
+                case null, default -> {
+                    return SoundEvents.UI_TOAST_CHALLENGE_COMPLETE.location();
+                }
+            }
+        }
+
         return soundIds.get(type);
     }
     public void putSound(AdvancementType type, ResourceLocation location) {
@@ -78,10 +98,7 @@ public class ToastConfigData extends ConfigData {
             return false;
         }
 
-        return ToastAnimationRegistry.isRegistered(animationId)
-                && BuiltInRegistries.SOUND_EVENT.containsKey(getSoundId(AdvancementType.TASK))
-                && BuiltInRegistries.SOUND_EVENT.containsKey(getSoundId(AdvancementType.GOAL))
-                && BuiltInRegistries.SOUND_EVENT.containsKey(getSoundId(AdvancementType.CHALLENGE));
+        return ToastAnimationRegistry.isRegistered(animationId);
     }
 
     @Override
