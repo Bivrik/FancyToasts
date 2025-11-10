@@ -72,7 +72,7 @@ public class Common {
         Debug.info("Animations registration:");
         registerAnimations();
 
-        KeyBinding.registerKey("config_menu", GLFW.GLFW_KEY_K, () -> new FancyToastConfigScreen(null));
+        KeyBinding.registerKey("config_menu", GLFW.GLFW_KEY_K, () -> Minecraft.getInstance().setScreen(new FancyToastConfigScreen(null)));
     }
 
     public static void onTick() {

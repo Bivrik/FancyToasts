@@ -19,7 +19,7 @@ public class KeyBinding {
     public final static List<keyHolder> FANCY_TOASTS_KEYS = new ArrayList<>();
 
     public static void registerKey(String name, int key, keyExecutor executor) {
-        name = Constants.MOD_ID + "." + name;
+        name = "key." + Constants.MOD_ID + "." + name;
         KeyMapping bind = new KeyMapping(name, key, KeyMapping.Category.MISC);
         keyHolder keyHolder = new keyHolder(bind, executor);
 
