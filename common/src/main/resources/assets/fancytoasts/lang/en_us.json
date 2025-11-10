@@ -1,11 +1,12 @@
 {
   // By Bivrik
-  "fancytoasts.gui.support": "Support me on Boosty!",
+  "fancytoasts.gui.support": "Check out my blog on Boosty!",
   "fancytoasts.gui.unknown": "Unknown",
   "fancytoasts.gui.custom": "Custom",
   "fancytoasts.gui.config.title": "Fancy Toasts",
   "fancytoasts.gui.config.customization_title": "Customization Settings",
   "fancytoasts.gui.config.general_title": "General Settings",
+  "fancytoasts.gui.label.credits": "Credits",
   "fancytoasts.gui.label.textures": "Textures",
   "fancytoasts.gui.label.animations": "Animations",
   "fancytoasts.gui.label.sounds": "Sounds",
@@ -33,6 +34,7 @@
   "fancytoasts.gui.label.github_activists": "Github Activists",
   "fancytoasts.gui.label.boosters": "Boosters",
   "fancytoasts.gui.label.special_thanks": "Special Thanks",
+  "fancytoasts.gui.label.fallback": "No connection to load credits",
 
   "fancytoasts.gui.tooltip.task": "Sound for Task type advancement.",
   "fancytoasts.gui.tooltip.goal": "Sound for Goal type advancement.",
@@ -66,6 +68,8 @@
   "fancytoasts.textures.toast.steamy.description": "I spent 1500 hours to get 100%! Are you proud of me, mom? Inspired by Steam",
 
   "fancytoasts.sound.minecraft.description": "Built-in sound from Minecraft",
+  "fancytoasts.sound.mod.description": "Sound from a modification",
+  "fancytoasts.sound.resource_pack.description": "Sound from a resource pack",
 
-  "fancytoasts.config_menu": "Fancy Toasts menu"
+  "key.fancytoasts.config_menu": "Fancy Toasts menu"
 }

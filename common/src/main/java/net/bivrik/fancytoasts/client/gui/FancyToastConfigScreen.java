@@ -39,16 +39,16 @@ public class FancyToastConfigScreen extends UniversalScreen {
         int halfButtonWidth = BUTTON_WIDTH / 2;
 
         backButton = this.addRenderableWidget(Button.builder(CommonComponents.GUI_BACK, (button) -> this.toParentScreen())
-                .bounds(xCenter - halfButtonWidth, this.height - BUTTON_HEIGHT - 6, BUTTON_WIDTH, BUTTON_HEIGHT).build());
+                .bounds(xCenter - halfButtonWidth, this.height - BUTTON_HEIGHT - 16, BUTTON_WIDTH, BUTTON_HEIGHT).build());
 
         toastConfigButton = this.addRenderableWidget(Button.builder(Component.translatable("fancytoasts.gui.label.toast_settings"), (button) -> openToastConfigScreen())
-                .bounds(xCenter - halfButtonWidth, yCenter - BUTTON_HEIGHT - PADDING / 2, BUTTON_WIDTH, BUTTON_HEIGHT).build());
+                .bounds(xCenter - halfButtonWidth, yCenter - PADDING / 2 - BUTTON_HEIGHT / 2, BUTTON_WIDTH, BUTTON_HEIGHT).build());
 
         generalConfigButton = this.addRenderableWidget(Button.builder(Component.translatable("fancytoasts.gui.label.general_settings"), (button) -> openGeneralConfigScreen())
-                .bounds(xCenter - halfButtonWidth, yCenter + PADDING / 2, BUTTON_WIDTH, BUTTON_HEIGHT).build());
+                .bounds(xCenter - halfButtonWidth, yCenter + PADDING / 2 + BUTTON_HEIGHT / 2, halfButtonWidth - PADDING / 2, BUTTON_HEIGHT).build());
 
         creditsScreenButton = this.addRenderableWidget(Button.builder(Component.translatable("fancytoasts.gui.label.credits"), (button) -> openCreditsScreen())
-                .bounds(xCenter - halfButtonWidth, yCenter + BUTTON_HEIGHT + PADDING * 2, BUTTON_WIDTH, BUTTON_HEIGHT).build());
+                .bounds(xCenter + PADDING / 2, yCenter + PADDING / 2 + BUTTON_HEIGHT / 2, halfButtonWidth - PADDING / 2, BUTTON_HEIGHT).build());
 
         Component supportText = Component.translatable("fancytoasts.gui.support");
         int textWidth = this.font.width(supportText) + 1;

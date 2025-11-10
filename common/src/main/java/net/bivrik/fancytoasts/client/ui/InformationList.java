@@ -3,12 +3,16 @@ package net.bivrik.fancytoasts.client.ui;
 import net.bivrik.fancytoasts.Debug;
 import net.bivrik.fancytoasts.client.toast.texture.DisplayData;
 import net.bivrik.fancytoasts.platform.utility.Colors;
+import net.bivrik.fancytoasts.platform.utility.GUIs;
+import net.bivrik.fancytoasts.platform.utility.ResourceLocations;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.AbstractSelectionList;
 import net.minecraft.client.gui.narration.NarrationElementOutput;
+import net.minecraft.client.renderer.RenderPipelines;
 import net.minecraft.network.chat.Component;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.FormattedCharSequence;
 import org.jetbrains.annotations.NotNull;
 
@@ -17,19 +21,22 @@ import java.util.List;
 
 public class InformationList extends AbstractSelectionList<InformationList.Entry> {
     private final List<InformationListEntry> lines = new ArrayList<>(7);
+    private ResourceLocation location;
 
     public InformationList(Minecraft minecraft, int width, int height, int x, int y, DisplayData displayData, boolean isConfig) {
         super(minecraft, width, height, y, 10);
         this.setX(x);
 
-        this.update(displayData, isConfig);
+        this.update(displayData, isConfig, true);
     }
 
-    public void update(DisplayData displayData, boolean isConfig) {
+    public void update(DisplayData displayData, boolean isConfig, boolean isAccepted) {
         if (displayData == null) {
             Debug.error("No Display Data to show in Information List");
             return;
         }
+
+        location = isAccepted ? ResourceLocations.of("textures/icons/success.png") : ResourceLocations.of("textures/icons/looking.png");
 
         this.clear();
 
@@ -70,6 +77,13 @@ public class InformationList extends AbstractSelectionList<InformationList.Entry
         for (var line : this.lines) {
             this.addEntry(line);
         }
+    }
+
+    @Override
+    public void renderWidget(@NotNull GuiGraphics guiGraphics, int mouseX, int mouseY, float partialTick) {
+        super.renderWidget(guiGraphics, mouseX, mouseY, partialTick);
+
+        GUIs.drawTexture(guiGraphics, location, this.getRight() - 8 - 3, this.getY() + 3, 0, 0, 8, 8);
     }
 
     @Override
