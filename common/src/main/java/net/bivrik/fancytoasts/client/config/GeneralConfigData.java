@@ -33,7 +33,7 @@ public class GeneralConfigData extends ConfigData {
         this.goalVolume = 1.0f;
         this.challengeVolume = 1.0f;
         this.position = AdvancementToastPosition.CENTER;
-        this.screenBehavior = AdvancementToastScreenBehavior.TOP;
+        this.screenBehavior = AdvancementToastScreenBehavior.TRANSPARENT;
     }
 
     public boolean isJadeCompatEnabled() {
