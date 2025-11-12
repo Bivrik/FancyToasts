@@ -16,8 +16,7 @@ import net.minecraft.sounds.SoundEvents;
 import net.minecraft.util.FormattedCharSequence;
 import org.jetbrains.annotations.NotNull;
 
-import java.util.List;
-import java.util.Locale;
+import java.util.*;
 import java.util.function.Consumer;
 
 public class ResourceLocationList extends ObjectSelectionList<ResourceLocationList.Entry> {
@@ -56,12 +55,12 @@ public class ResourceLocationList extends ObjectSelectionList<ResourceLocationLi
         return this.getX() + this.width - 8;
     }
 
-    public void onFilterUpdate(String filter) {
+    public void onSearchUpdate(String search) {
         clear();
-        filter = filter.toLowerCase(Locale.ROOT);
+        search = search.toLowerCase(Locale.ROOT);
 
         for (ResourceLocation location : resourceLocations) {
-            if (!settingType.getDisplayData(location).getName().getString().toLowerCase(Locale.ROOT).contains(filter)) {
+            if (!settingType.getDisplayData(location).getName().getString().toLowerCase(Locale.ROOT).contains(search)) {
                 continue;
             }
 
@@ -69,9 +68,42 @@ public class ResourceLocationList extends ObjectSelectionList<ResourceLocationLi
         }
     }
 
+    public void onFilterUpdate(ResourceLocationFilter filter) {
+        switch (filter) {
+            case A_Z -> Arrays.sort(resourceLocations);
+            case Z_A -> Arrays.sort(resourceLocations, Collections.reverseOrder());
+            case BUILT_IN -> resourceLocations = typeSort(resourceLocations, true);
+            case CUSTOM -> resourceLocations = typeSort(resourceLocations, false);
+        }
+
+        refillList();
+    }
+
+    private ResourceLocation[] typeSort(ResourceLocation[] locations, boolean isBuiltIn) {
+        Arrays.sort(locations);
+
+        List<ResourceLocation> sorted = new ArrayList<>(locations.length / 2);
+        List<ResourceLocation> leftovers = new ArrayList<>(); // count can be 0
+
+        for (var location : locations) {
+            boolean isCustom = location.toLanguageKey().contains("config") || !location.toLanguageKey().contains("minecraft");
+
+            if (isBuiltIn != isCustom) {
+                sorted.add(location);
+            }
+            else {
+                leftovers.add(location);
+            }
+        }
+        sorted.addAll(leftovers);
+
+        return sorted.toArray(new ResourceLocation[0]);
+    }
+
     public void setResourceLocations(SettingType settingType) {
         this.settingType = settingType;
         this.resourceLocations = this.settingType.getKeySet();
+        Arrays.sort(this.resourceLocations);
 
         refillList();
     }

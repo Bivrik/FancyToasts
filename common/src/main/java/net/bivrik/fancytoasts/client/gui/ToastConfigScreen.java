@@ -1,12 +1,12 @@
 package net.bivrik.fancytoasts.client.gui;
 
 import net.bivrik.fancytoasts.Common;
-import net.bivrik.fancytoasts.Constants;
 import net.bivrik.fancytoasts.client.config.ConfigTextureManager;
 import net.bivrik.fancytoasts.client.config.ToastConfigData;
 import net.bivrik.fancytoasts.client.config.ConfigHandler;
 import net.bivrik.fancytoasts.client.toast.texture.DisplayData;
 import net.bivrik.fancytoasts.client.ui.InformationList;
+import net.bivrik.fancytoasts.client.ui.ResourceLocationFilter;
 import net.bivrik.fancytoasts.client.ui.ResourceLocationList;
 import net.bivrik.fancytoasts.client.ui.SettingType;
 import net.bivrik.fancytoasts.platform.utility.Components;
@@ -32,6 +32,7 @@ public class ToastConfigScreen extends UniversalScreen {
     private Button doneButton;
     private Button backButton;
     private CycleButton<SettingType> settingTypeCycButton;
+    private CycleButton<ResourceLocationFilter> resourceLocationFilterCycButton;
     private CycleButton<AdvancementType> advancementTypeCycButton;
     private EditBox editBox;
     private ResourceLocationList locationsList;
@@ -63,12 +64,12 @@ public class ToastConfigScreen extends UniversalScreen {
         settingTypeCycButton = this.addRenderableWidget(CycleButton.builder(SettingType::getDisplayName).displayOnlyValue()
                 .withValues(SettingType.values()).withInitialValue(settingType)
                 .withTooltip((settingType) -> Tooltip.create(Component.translatable("fancytoasts.gui.tooltip." + settingType.getName())))
-                .create(this.width - 128, MARGIN, 120, BUTTON_HEIGHT, Component.empty(), (button, value) -> setSettingType(value)));
+                .create(this.width - 88, MARGIN, 80, BUTTON_HEIGHT, Component.empty(), (button, value) -> setSettingType(value)));
 
         advancementTypeCycButton = CycleButton.builder(this::getAdvancementTypeDisplayName).displayOnlyValue()
                 .withValues(AdvancementType.values()).withInitialValue(advancementType)
                 .withTooltip((advancementType) -> Tooltip.create(Component.translatable("fancytoasts.gui.tooltip." + advancementType.getSerializedName())))
-                .create(PADDING, MARGIN, 120, BUTTON_HEIGHT, Component.empty(), (button, value) -> setAdvancementType(value));
+                .create(PADDING, MARGIN, 80, BUTTON_HEIGHT, Component.empty(), (button, value) -> setAdvancementType(value));
 
         locationsList = this.addRenderableWidget(new ResourceLocationList(this.minecraft,
                 this.width / 2 + 60 - PADDING, this.height - 20 - PADDING - MARGIN * 2 - 2,
@@ -82,8 +83,12 @@ public class ToastConfigScreen extends UniversalScreen {
                 PADDING, 20 + PADDING + MARGIN,
                 displayData, settingType.getCurrentId(this).toLanguageKey().contains("config")));
 
-        editBox = this.addRenderableWidget(new EditBox(this.font, this.width / 2 - 60, MARGIN, this.width / 2 - 60 - PADDING * 2, BUTTON_HEIGHT, this.editBox, Component.literal("...")));
-        editBox.setResponder(locationsList::onFilterUpdate);
+        editBox = this.addRenderableWidget(new EditBox(this.font, this.width / 2 - 60, MARGIN, this.width / 2 - 40 - 30 - PADDING * 4, BUTTON_HEIGHT, this.editBox, Component.literal("...")));
+        editBox.setResponder(locationsList::onSearchUpdate);
+
+        resourceLocationFilterCycButton = this.addRenderableWidget(CycleButton.builder(ResourceLocationFilter::getDisplayName).displayOnlyValue()
+                .withValues(ResourceLocationFilter.values()).withInitialValue(filter)
+                .create(this.width - 80 - PADDING * 2 - 60, MARGIN, 60, BUTTON_HEIGHT, Component.empty(), (button, value) -> setFilter(value)));
 
         tryAddAdvancementTypeCycButton();
     }
@@ -108,10 +113,19 @@ public class ToastConfigScreen extends UniversalScreen {
         super.toParentScreen();
     }
 
+    private ResourceLocationFilter filter = ResourceLocationFilter.A_Z;
+
+    private void setFilter(ResourceLocationFilter filter) {
+        editBox.setValue("");
+        locationsList.onFilterUpdate(filter);
+        this.filter = filter;
+    }
+
     private void setSettingType(SettingType type) {
         settingType = type;
         editBox.setValue("");
         locationsList.setResourceLocations(settingType);
+        locationsList.onFilterUpdate(filter);
         tryAddAdvancementTypeCycButton();
     }
 
