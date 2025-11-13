@@ -90,6 +90,7 @@ public class ToastConfigScreen extends UniversalScreen {
                 .withValues(ResourceLocationFilter.values()).withInitialValue(filter)
                 .create(this.width - 80 - PADDING * 2 - 60, MARGIN, 60, BUTTON_HEIGHT, Component.empty(), (button, value) -> setFilter(value)));
 
+        setFilter(filter);
         tryAddAdvancementTypeCycButton();
     }
 
