@@ -213,8 +213,8 @@ public class ResourceLocationList extends ObjectSelectionList<ResourceLocationLi
             }
             else {
                 if (isHovering) {
-                    guiGraphics.submitOutline(x, y, getWidth(), getHeight(), Colors.alpha(63, Colors.WHITE));
-                    guiGraphics.fill(x + 1, y + 1, x + getWidth() - 1, y + getHeight() - 1, Colors.alpha(63, Colors.BLACK));
+                    guiGraphics.fill(x, y, x + getWidth(), y + getHeight(), Colors.alpha(32, Colors.WHITE));
+                    guiGraphics.fill(x + 1, y + 1, x + getWidth() - 1, y + getHeight() - 1, Colors.alpha(128, Colors.BLACK));
                 }
 
                 mainColor = Colors.WHITE;
