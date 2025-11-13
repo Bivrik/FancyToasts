@@ -1,22 +1,14 @@
 package net.bivrik.fancytoasts.client.ui;
 
-import net.bivrik.fancytoasts.Constants;
 import net.bivrik.fancytoasts.client.gui.ToastConfigScreen;
 import net.bivrik.fancytoasts.client.toast.ToastAnimationRegistry;
 import net.bivrik.fancytoasts.client.toast.ToastTextureRegistry;
 import net.bivrik.fancytoasts.client.toast.texture.DisplayData;
 import net.bivrik.fancytoasts.platform.utility.Components;
-import net.bivrik.fancytoasts.platform.utility.ResourceLocations;
 import net.minecraft.client.Minecraft;
 import net.minecraft.core.registries.BuiltInRegistries;
-import net.minecraft.core.registries.Registries;
-import net.minecraft.data.registries.RegistriesDatapackGenerator;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.server.commands.DataPackCommand;
-import net.minecraft.server.commands.PlaySoundCommand;
-import net.minecraft.server.packs.resources.ResourceManager;
-import net.minecraft.server.packs.resources.ResourceProvider;
 
 public enum SettingType {
     TEXTURES("textures") {
@@ -98,7 +90,6 @@ public enum SettingType {
         @Override
         public ResourceLocation[] getKeySet() {
             return Minecraft.getInstance().getSoundManager().getAvailableSounds().toArray(new ResourceLocation[0]);
-            //return BuiltInRegistries.SOUND_EVENT.keySet().toArray(new ResourceLocation[0]);
         }
     };
 

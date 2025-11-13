@@ -70,8 +70,12 @@ public class ResourceLocationList extends ObjectSelectionList<ResourceLocationLi
 
     public void onFilterUpdate(ResourceLocationFilter filter) {
         switch (filter) {
-            case A_Z -> Arrays.sort(resourceLocations);
-            case Z_A -> Arrays.sort(resourceLocations, Collections.reverseOrder());
+            case A_Z -> sortAZ();
+            case Z_A -> Arrays.sort(resourceLocations, (loc1, loc2) -> {
+                String name1 = settingType.getDisplayData(loc1).getName().getString();
+                String name2 = settingType.getDisplayData(loc2).getName().getString();
+                return name2.compareTo(name1);
+            });
             case BUILT_IN -> resourceLocations = typeSort(resourceLocations, true);
             case CUSTOM -> resourceLocations = typeSort(resourceLocations, false);
         }
@@ -79,16 +83,26 @@ public class ResourceLocationList extends ObjectSelectionList<ResourceLocationLi
         refillList();
     }
 
-    private ResourceLocation[] typeSort(ResourceLocation[] locations, boolean isBuiltIn) {
-        Arrays.sort(locations);
+    private void sortAZ() {
+        Arrays.sort(resourceLocations, (loc1, loc2) -> {
+            String name1 = settingType.getDisplayData(loc1).getName().getString();
+            String name2 = settingType.getDisplayData(loc2).getName().getString();
+            return name1.compareTo(name2);
+        });
+    }
+
+    private ResourceLocation[] typeSort(ResourceLocation[] locations, boolean isBuiltInSortType) {
+        sortAZ();
 
         List<ResourceLocation> sorted = new ArrayList<>(locations.length / 2);
         List<ResourceLocation> leftovers = new ArrayList<>(); // count can be 0
 
         for (var location : locations) {
-            boolean isCustom = location.toLanguageKey().contains("config") || !location.toLanguageKey().contains("minecraft");
+            boolean isBuiltIn = location.getNamespace().equals("fancytoasts") || location.getNamespace().equals("minecraft");
+            boolean isConfig = location.toLanguageKey().contains("config");
+            boolean isCustom = !isBuiltIn || isConfig;
 
-            if (isBuiltIn != isCustom) {
+            if (isBuiltInSortType != isCustom) {
                 sorted.add(location);
             }
             else {
