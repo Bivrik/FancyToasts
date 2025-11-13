@@ -23,6 +23,7 @@ Adds new advancement toast system into Minecraft. Currently mod has 18 standard 
 * Standard
 * Playful
 * Quirky
+* Old-Like
 
 ### Textures
 * Vanilla-Like
@@ -44,6 +45,7 @@ If you like my mod, you play it, and you want to see future development, hear my
 | Russian               | `ru_ru` |              |
 | Spanish               | `es_es` | `translator` |
 | German                | `de_de` | `translator` |
+| Portuguese            | `pt_br` | `translator` |
 | Chinese (Simplified)  | `zh_cn` | Gao Xinyang  |
 | Chinese (Traditional) | `zh_tw` | ChaTian      |
 | Japanese              | `ja_jp` | PExPE3       |
@@ -52,7 +54,7 @@ If you like my mod, you play it, and you want to see future development, hear my
 Big goals/plans/ideas for future updates. Some of them are abstract ideas, and some are more specific 
 
 * More languages
-* More animations (goal: 3/5)
+* More animations (goal: 4/5)
 * More textures (goal: 6/10)
 * Wide version support
   * **Currently maintaining**
@@ -72,10 +74,11 @@ Big goals/plans/ideas for future updates. Some of them are abstract ideas, and s
     | 1.17.1            | Low           |
 * Rework of animations to make them easier to make?
 * Personalized textures for specific mods/datapacks?
-* Custom sounds? (v1.5?)
-* FTBQuests compatibility? (v1.4.4?)
+* Custom sounds? (v1.5.x?)
+* FTBQuests compatibility? (v1.4.x?)
 #### Completed
 * Config GUI rework
+* Wider support for sounds (mods, texture packs)
 * Ability to change sounds, position, render type
 * Custom textures
 * Jade compatibility
