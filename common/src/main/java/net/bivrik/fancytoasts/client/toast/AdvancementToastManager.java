@@ -46,7 +46,7 @@ public class AdvancementToastManager {
             if (current.isEnded()) {
                 current = null;
 
-                if (!Services.PLATFORM.isJadeEnabled() && Common.getConfigManager().getGeneralConfig().isJadeCompatEnabled()) {
+                if (!Services.PLATFORM.isJadeEnabled() && Common.getConfigManager().getGeneralConfig().isJadeCompatEnabled() && ADVANCEMENT_TOASTS.isEmpty()) {
                     Services.PLATFORM.tryEnableJade();
                 }
             }

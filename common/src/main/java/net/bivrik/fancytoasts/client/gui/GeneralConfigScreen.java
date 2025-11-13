@@ -88,7 +88,9 @@ public class GeneralConfigScreen extends UniversalScreen {
         challengeVolumeSlider = new VolumeSlider(0, 0, BUTTON_WIDTH, BUTTON_HEIGHT, Component.translatable("fancytoasts.gui.label.challenge_volume"), generalConfigData.getChallengeVolume());
         challengeVolumeSlider.setResponder(generalConfigData::setChallengeVolume);
 
-        addWidget(jadeCompatCycleButton);
+        if (Services.PLATFORM.isModLoaded("jade")) {
+            addWidget(jadeCompatCycleButton);
+        }
         addWidget(soundsEnabledCycleButton);
         addWidget(positionCycButton);
         addWidget(screenBehaviorCycButton);
@@ -111,10 +113,12 @@ public class GeneralConfigScreen extends UniversalScreen {
 
             AbstractWidget widget = widgets.get(i);
 
-            widget.setX(x);
-            widget.setY(y);
+            if (widget != null) {
+                widget.setX(x);
+                widget.setY(y);
 
-            this.addRenderableWidget(widget);
+                this.addRenderableWidget(widget);
+            }
         }
     }
 
