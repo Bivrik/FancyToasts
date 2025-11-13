@@ -100,8 +100,9 @@ Big goals/plans/ideas for future updates. Some of them are abstract ideas, and s
 * Adjustments:
   * Compatibility buttons (with Jade) is now hidden, when Jade is not installed
   * Better UI indicator for easier understanding which texture/animation/sound is selected, and not (suggested by ttylmatt2)
-  * Splashes!
+  * Splashes connected to ARG!
   * Support for sounds from mods and resourcepacks instead of just Minecraft ones (suggested by F0rsakenPhant0M)
+  * By default Render Type is set to `Transparent` instead of `Top`
 > I need to refactor it tho... Whatever, press UPDATE! (13.11.25)
 
 ## v1.4.3
