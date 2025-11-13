@@ -1,4 +1,4 @@
-(5 * 100)^2 downloads!
+280^2 * 4 + 56400 downloads!
 Thanks for download!
 Nothing to see here
 By Bivrik
@@ -25,7 +25,7 @@ Heartwarming thanks to you!
 Turn around...
 This text is blue
 This text is, indeed, yellow
-3 new animations!
+4 new animations!
 6 new textures!
 The happiness is a key
 The love is a lock
