@@ -1,6 +1,5 @@
 {
   // By ChaTian
-  "fancytoasts.gui.support": "在 Boosty 上支持我！",
   "fancytoasts.gui.unknown": "未知",
   "fancytoasts.gui.custom": "自訂",
   "fancytoasts.gui.config.title": "Fancy Toasts",
@@ -61,5 +60,19 @@
   "fancytoasts.textures.toast.steamy": "蒸氣風格",
   "fancytoasts.textures.toast.steamy.description": "我花了 1500 小時才拿到 100%！媽媽，妳為我驕傲嗎？靈感來自 Steam",
 
-  "fancytoasts.sound.minecraft.description": "Minecraft 內建音效"
+  "fancytoasts.sound.minecraft.description": "Minecraft 內建音效",
+
+  // By Bivrik with translator
+  "fancytoasts.gui.label.credits": "製作名單",
+  "fancytoasts.gui.label.translators": "翻譯人員",
+  "fancytoasts.gui.label.github_activists": "Github 貢獻者",
+  "fancytoasts.gui.label.boosters": "支持者",
+  "fancytoasts.gui.label.special_thanks": "特別感謝",
+  "fancytoasts.gui.label.fallback": "無法加載製作名單",
+  "fancytoasts.animations.toast.oldlike": "懷舊風格",
+  "fancytoasts.animations.toast.oldlike.description": "想要一點精緻感？靈感源自舊版進度提示。從右向左滑入，帶有精美的出現效果。",
+  "fancytoasts.sound.mod.description": "來自模組的音效",
+  "fancytoasts.sound.resource_pack.description": "來自資源包的音效",
+  "key.fancytoasts.config_menu": "Fancy Toasts 設定選單",
+  "fancytoasts.gui.support": "查看 Boosty 上的部落格！"
 }

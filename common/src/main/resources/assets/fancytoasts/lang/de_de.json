@@ -61,5 +61,16 @@
   "fancytoasts.textures.toast.steamy": "Steamy",
   "fancytoasts.textures.toast.steamy.description": "Ich habe 1500 Stunden damit verbracht, 100% zu bekommen! Bist du stolz auf mich, Mama? Inspiriert von Steam",
 
-  "fancytoasts.sound.minecraft.description": "Eingebauter Sound von Minecraft"
+  "fancytoasts.sound.minecraft.description": "Eingebauter Sound von Minecraft",
+  "fancytoasts.gui.label.credits": "Credits",
+  "fancytoasts.gui.label.translators": "Übersetzer",
+  "fancytoasts.gui.label.github_activists": "Github-Aktivisten",
+  "fancytoasts.gui.label.boosters": "Unterstützer",
+  "fancytoasts.gui.label.special_thanks": "Besonderer Dank",
+  "fancytoasts.gui.label.fallback": "Keine Verbindung zum Laden von Guthaben",
+  "fancytoasts.animations.toast.oldlike": "Altmodisch",
+  "fancytoasts.animations.toast.oldlike.description": "Fühlen Sie sich ein bisschen schick? Inspiriert von alten guten Fortschritten Toasts. Folien von rechts nach links. Mit einem ausgefallenen Erscheinen",
+  "fancytoasts.sound.mod.description": "Sound aus einer Modifikation",
+  "fancytoasts.sound.resource_pack.description": "Sound aus einem Ressourcenpaket",
+  "key.fancytoasts.config_menu": "Menü Fancy Toasts"
 }

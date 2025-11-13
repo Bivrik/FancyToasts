@@ -1,8 +1,7 @@
 ﻿{
-  // by：Gao xinyang
+  // By Gao Xinyang
   "modmenu.descriptionTranslation.fancytoasts": "重新设计了旧的进度提示系统，用更吸引人、更有趣的提示样式取而代之。",
 
-  "fancytoasts.gui.support": "在Boosty上支持我！",
   "fancytoasts.gui.unknown": "未知",
   "fancytoasts.gui.custom": "自定义",
   "fancytoasts.gui.config.title": "Fancy Toasts",
@@ -63,5 +62,19 @@
   "fancytoasts.textures.toast.steamy": "蒸汽风格",
   "fancytoasts.textures.toast.steamy.description": "我花了1500小时才达成100%完成度！妈妈你为我骄傲吗？灵感源自Steam",
 
-  "fancytoasts.sound.minecraft.description": "Minecraft内置音效"
+  "fancytoasts.sound.minecraft.description": "Minecraft内置音效",
+
+  // By Bivrik with translator
+  "fancytoasts.gui.label.credits": "鸣谢",
+  "fancytoasts.gui.label.translators": "翻译人员",
+  "fancytoasts.gui.label.github_activists": "Github 贡献者",
+  "fancytoasts.gui.label.boosters": "支持者",
+  "fancytoasts.gui.label.special_thanks": "特别感谢",
+  "fancytoasts.gui.label.fallback": "无法连接网络加载鸣谢列表",
+  "fancytoasts.animations.toast.oldlike": "怀旧风格",
+  "fancytoasts.animations.toast.oldlike.description": "想来点特别的吗？灵感来源于经典的进度提示。从右向左滑动，带有精致的出现效果。",
+  "fancytoasts.sound.mod.description": "来自模组的音效",
+  "fancytoasts.sound.resource_pack.description": "来自资源包的音效",
+  "key.fancytoasts.config_menu": "Fancy Toasts 设置菜单",
+  "fancytoasts.gui.support": "在 Boosty 上查看博客！"
 }

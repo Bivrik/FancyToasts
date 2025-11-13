@@ -1,6 +1,5 @@
 {
   // By PExPE3
-  "fancytoasts.gui.support": "Boostyで作者をサポート！",
   "fancytoasts.gui.unknown": "不明",
   "fancytoasts.gui.custom": "カスタム",
   "fancytoasts.gui.config.title": "Fancy Toasts",
@@ -61,5 +60,19 @@
   "fancytoasts.textures.toast.steamy": "スチーミー",
   "fancytoasts.textures.toast.steamy.description": "1500時間かけて実績を100%にしたんだ！ママ、誇りに思ってくれる？ Steamにインスパイアされたもの",
 
-  "fancytoasts.sound.minecraft.description": "Minecraftに内蔵された音"
+  "fancytoasts.sound.minecraft.description": "Minecraftに内蔵された音",
+
+  // By Bivrik with translator
+  "fancytoasts.gui.label.credits": "クレジット",
+  "fancytoasts.gui.label.translators": "翻訳者",
+  "fancytoasts.gui.label.github_activists": "GitHubアクティビスト",
+  "fancytoasts.gui.label.boosters": "サポーター",
+  "fancytoasts.gui.label.special_thanks": "スペシャルサンクス",
+  "fancytoasts.gui.label.fallback": "クレジットを読み込むための接続がありません",
+  "fancytoasts.animations.toast.oldlike": "旧式風",
+  "fancytoasts.animations.toast.oldlike.description": "少し気取った感じがいいですか？昔の進捗トーストにインスパイアされました。右から左へスライドし、おしゃれな出現効果付き",
+  "fancytoasts.sound.mod.description": "Modから読み込まれたサウンド",
+  "fancytoasts.sound.resource_pack.description": "リソースパックから読み込まれたサウンド",
+  "key.fancytoasts.config_menu": "Fancy Toasts メニュー",
+  "fancytoasts.gui.support": "私のBoostyブログを見てみてね！"
 }
