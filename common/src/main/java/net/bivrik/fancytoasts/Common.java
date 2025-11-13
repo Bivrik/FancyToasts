@@ -3,13 +3,10 @@ package net.bivrik.fancytoasts;
 import net.bivrik.fancytoasts.client.KeyBinding;
 import net.bivrik.fancytoasts.client.config.*;
 import net.bivrik.fancytoasts.client.gui.FancyToastConfigScreen;
+import net.bivrik.fancytoasts.client.toast.animation.*;
 import net.bivrik.fancytoasts.client.ui.CreditsManager;
 import net.bivrik.fancytoasts.client.ui.SplashManager;
 import net.bivrik.fancytoasts.client.toast.AdvancementToastManager;
-import net.bivrik.fancytoasts.client.toast.animation.FancyAdvancementToastAnimation;
-import net.bivrik.fancytoasts.client.toast.animation.QuirkyAnimation;
-import net.bivrik.fancytoasts.client.toast.animation.PlayfulAnimation;
-import net.bivrik.fancytoasts.client.toast.animation.StandardAnimation;
 import net.bivrik.fancytoasts.client.toast.ToastAnimationRegistry;
 import net.bivrik.fancytoasts.client.toast.ToastTextureRegistry;
 import net.bivrik.fancytoasts.utility.DefaultLocations;
@@ -94,6 +91,7 @@ public class Common {
         registerAnimation(DefaultLocations.Animations.STANDARD, "standard", StandardAnimation::new);
         registerAnimation(DefaultLocations.Animations.PLAYFUL, "playful", PlayfulAnimation::new);
         registerAnimation(DefaultLocations.Animations.QUIRKY, "quirky", QuirkyAnimation::new);
+        registerAnimation(DefaultLocations.Animations.OLDLIKE, "oldlike", OldlikeAnimation::new);
     }
 
     private static void registerTexture(ResourceLocation id, String name) {

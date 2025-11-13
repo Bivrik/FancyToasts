@@ -17,5 +17,6 @@ public class DefaultLocations {
         public static final ResourceLocation STANDARD = ResourceLocations.of("animations/toast/standard");
         public static final ResourceLocation PLAYFUL = ResourceLocations.of("animations/toast/playful");
         public static final ResourceLocation QUIRKY = ResourceLocations.of("animations/toast/quirky");
+        public static final ResourceLocation OLDLIKE = ResourceLocations.of("animations/toast/oldlike");
     }
 }
