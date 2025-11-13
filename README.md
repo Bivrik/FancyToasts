@@ -17,12 +17,13 @@ This mods supports custom textures! Yes, you can add textures from friends, modp
 It's not only about visuals, it's also about conveniences. It adds new screens for configuration. You can change textures, animations and sounds easily, along side with more tehnical settings, such as volumes, compatibilities and etc!
 
 # Description 🏗️
-Adds new advancement toast system into Minecraft. Currently mod has 18 standard toast variants, because of 3 animation styles and 6 texture types. Supports config screen on Fabric (Mod Menu)/Forge/NeoForge
+Adds new advancement toast system into Minecraft. Currently mod has 24 standard toast variants, because of 4 animation styles and 6 texture types. Supports config screen on Fabric (Mod Menu)/Forge/NeoForge
 
 ### Animations
 * Standard
 * Playful
 * Quirky
+* Old-Like
 
 ### Textures
 * Vanilla-Like
@@ -44,6 +45,7 @@ If you like my mod, you play it, and you want to see future development, hear my
 | Russian               | `ru_ru` |              |
 | Spanish               | `es_es` | `translator` |
 | German                | `de_de` | `translator` |
+| Portuguese            | `pt_br` | `translator` |
 | Chinese (Simplified)  | `zh_cn` | Gao Xinyang  |
 | Chinese (Traditional) | `zh_tw` | ChaTian      |
 | Japanese              | `ja_jp` | PExPE3       |
@@ -52,7 +54,7 @@ If you like my mod, you play it, and you want to see future development, hear my
 Big goals/plans/ideas for future updates. Some of them are abstract ideas, and some are more specific 
 
 * More languages
-* More animations (goal: 3/5)
+* More animations (goal: 4/5)
 * More textures (goal: 6/10)
 * Wide version support
   * **Currently maintaining**
@@ -72,10 +74,11 @@ Big goals/plans/ideas for future updates. Some of them are abstract ideas, and s
     | 1.17.1            | Low           |
 * Rework of animations to make them easier to make?
 * Personalized textures for specific mods/datapacks?
-* Custom sounds? (v1.5?)
-* FTBQuests compatibility? (v1.4.4?)
+* Custom sounds? (v1.5.x?)
+* FTBQuests compatibility? (v1.4.x?)
 #### Completed
 * Config GUI rework
+* Wider support for sounds (mods, resourcepacks)
 * Ability to change sounds, position, render type
 * Custom textures
 * Jade compatibility
@@ -83,7 +86,24 @@ Big goals/plans/ideas for future updates. Some of them are abstract ideas, and s
 # Changelog 📝
 
 ## v1.4.4
-> working...
+* New features:
+  * Community "Credits" screen! For everyone who supported or contributed!
+  * Filtering! Easier way to find sounds, textures and animations
+  * Config button inside key-bindings! No actual need to install extra mods to access config screen (got an idea because of pupcakie)
+  * Animation type `Old-Like` (suggested by Redls07)
+  * Traditional Chinese language by ChaTian (`zh_tw`)
+  * Portuguese language by translator (`pt_br`)
+* Bug fixes:
+  * UI highlight is being rendered beyond selection list
+  * More robust render checking, because of crash with some other mods (found by LiterallyLink)
+  * Filtering not working properly
+* Adjustments:
+  * Compatibility buttons (with Jade) is now hidden, when Jade is not installed
+  * Better UI indicator for easier understanding which texture/animation/sound is selected, and not (suggested by ttylmatt2)
+  * Splashes connected to ARG!
+  * Support for sounds from mods and resourcepacks instead of just Minecraft ones (suggested by F0rsakenPhant0M)
+  * By default Render Type is set to `Transparent` instead of `Top`
+> I need to refactor it tho... Whatever, press UPDATE! (13.11.25)
 
 ## v1.4.3
 * New features:
