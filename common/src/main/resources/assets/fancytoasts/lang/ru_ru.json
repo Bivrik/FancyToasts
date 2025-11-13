@@ -6,6 +6,7 @@
   "fancytoasts.gui.config.title": "Fancy Toasts",
   "fancytoasts.gui.config.customization_title": "Настройки кастомизации",
   "fancytoasts.gui.config.general_title": "Основные настройки",
+  "fancytoasts.gui.label.credits": "Благодарности",
   "fancytoasts.gui.label.textures": "Текстуры",
   "fancytoasts.gui.label.animations": "Анимации",
   "fancytoasts.gui.label.sounds": "Звуки",
@@ -29,6 +30,11 @@
   "fancytoasts.gui.label.screen_behavior_top": "Сверху",
   "fancytoasts.gui.label.screen_behavior_behind": "Сзади",
   "fancytoasts.gui.label.screen_behavior_transparent": "Прозрачно",
+  "fancytoasts.gui.label.translators": "Переводчики",
+  "fancytoasts.gui.label.github_activists": "Github активисты",
+  "fancytoasts.gui.label.boosters": "Бустеры",
+  "fancytoasts.gui.label.special_thanks": "Особая благодарность",
+  "fancytoasts.gui.label.fallback": "Нет подключения, ошибка при загрузке благодарностей",
 
   "fancytoasts.gui.tooltip.task": "Звук появления для обычного достижения.",
   "fancytoasts.gui.tooltip.goal": "Звук появления для цели.",
@@ -47,6 +53,8 @@
   "fancytoasts.animations.toast.playful.description": "Энергия! Игривость! ИГРЫ! Более дерзкий и экспериментальный",
   "fancytoasts.animations.toast.quirky": "Неординарный",
   "fancytoasts.animations.toast.quirky.description": "Дёрганный и безумный. Всегда двигается, никогда не останавливается",
+  "fancytoasts.animations.toast.oldlike": "Старший",
+  "fancytoasts.animations.toast.oldlike.description": "Чувствуешь себя роскошно? Вдохновленно старыми добрыми оповещениями о достижениях. Въезжает справа влево. С элегантным появлением",
 
   "fancytoasts.textures.toast.vanilla": "Стиль Minecraft",
   "fancytoasts.textures.toast.vanilla.description": "Вдохновленно обычными текстурами Minecraft",
@@ -61,5 +69,9 @@
   "fancytoasts.textures.toast.steamy": "Любитель ПК",
   "fancytoasts.textures.toast.steamy.description": "Я потратил 1500 часов для получения 100%! Ты гордишься мной, мам? Вдохновленно Steam",
 
-  "fancytoasts.sound.minecraft.description": "Стандартный звук из Minecraft"
+  "fancytoasts.sound.minecraft.description": "Стандартный звук из Minecraft",
+  "fancytoasts.sound.mod.description": "Звук из модификации",
+  "fancytoasts.sound.resource_pack.description": "Звук из ресурс пака",
+
+  "key.fancytoasts.config_menu": "Fancy Toasts меню"
 }
