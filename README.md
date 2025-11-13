@@ -17,7 +17,7 @@ This mods supports custom textures! Yes, you can add textures from friends, modp
 It's not only about visuals, it's also about conveniences. It adds new screens for configuration. You can change textures, animations and sounds easily, along side with more tehnical settings, such as volumes, compatibilities and etc!
 
 # Description 🏗️
-Adds new advancement toast system into Minecraft. Currently mod has 18 standard toast variants, because of 3 animation styles and 6 texture types. Supports config screen on Fabric (Mod Menu)/Forge/NeoForge
+Adds new advancement toast system into Minecraft. Currently mod has 24 standard toast variants, because of 4 animation styles and 6 texture types. Supports config screen on Fabric (Mod Menu)/Forge/NeoForge
 
 ### Animations
 * Standard
@@ -78,7 +78,7 @@ Big goals/plans/ideas for future updates. Some of them are abstract ideas, and s
 * FTBQuests compatibility? (v1.4.x?)
 #### Completed
 * Config GUI rework
-* Wider support for sounds (mods, texture packs)
+* Wider support for sounds (mods, resourcepacks)
 * Ability to change sounds, position, render type
 * Custom textures
 * Jade compatibility
@@ -86,7 +86,23 @@ Big goals/plans/ideas for future updates. Some of them are abstract ideas, and s
 # Changelog 📝
 
 ## v1.4.4
-> working...
+* New features:
+  * Community "Credits" screen! For everyone who supported or contributed!
+  * Filtering! Easier way to find sounds, textures and animations
+  * Config button inside key-bindings! No actual need to install extra mods to access config screen (got an idea because of pupcakie)
+  * Animation type `Old-Like` (suggested by Redls07)
+  * Traditional Chinese language by ChaTian (`zh_tw`)
+  * Portuguese language by translator (`pt_br`)
+* Bug fixes:
+  * UI highlight is being rendered beyond selection list
+  * More robust render checking, because of crash with some other mods (found by LiterallyLink)
+  * Filtering not working properly
+* Adjustments:
+  * Compatibility buttons (with Jade) is now hidden, when Jade is not installed
+  * Better UI indicator for easier understanding which texture/animation/sound is selected, and not (suggested by ttylmatt2)
+  * Splashes!
+  * Support for sounds from mods and resourcepacks instead of just Minecraft ones (suggested by F0rsakenPhant0M)
+> I need to refactor it tho... Whatever, press UPDATE! (13.11.25)
 
 ## v1.4.3
 * New features:
