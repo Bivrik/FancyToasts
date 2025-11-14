@@ -43,10 +43,10 @@ public class GeneralConfigData extends ConfigData {
         this.isJadeCompatEnabled = isJadeCompatibility;
 
         if (!this.isJadeCompatEnabled) {
-            Services.PLATFORM.tryEnableJade();
+            Services.JADE.tryEnable();
         }
         else {
-            Services.PLATFORM.tryDisableJade();
+            Services.JADE.tryDisable();
         }
     }
 

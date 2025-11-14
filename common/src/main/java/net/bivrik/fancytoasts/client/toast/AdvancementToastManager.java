@@ -34,7 +34,7 @@ public class AdvancementToastManager {
         ADVANCEMENT_TOASTS.add(fancyAdvancement);
 
         if (Common.getConfigManager().getGeneralConfig().isJadeCompatEnabled()) {
-            Services.PLATFORM.tryDisableJade();
+            Services.JADE.tryDisable();
         }
     }
 
@@ -46,8 +46,8 @@ public class AdvancementToastManager {
             if (current.isEnded()) {
                 current = null;
 
-                if (!Services.PLATFORM.isJadeEnabled() && Common.getConfigManager().getGeneralConfig().isJadeCompatEnabled() && ADVANCEMENT_TOASTS.isEmpty()) {
-                    Services.PLATFORM.tryEnableJade();
+                if (!Services.JADE.isEnabled() && Common.getConfigManager().getGeneralConfig().isJadeCompatEnabled() && ADVANCEMENT_TOASTS.isEmpty()) {
+                    Services.JADE.tryEnable();
                 }
             }
 
@@ -89,8 +89,8 @@ public class AdvancementToastManager {
         ADVANCEMENT_TOASTS.clear();
         current = null;
 
-        if (!Services.PLATFORM.isJadeEnabled() && Common.getConfigManager().getGeneralConfig().isJadeCompatEnabled()) {
-            Services.PLATFORM.tryEnableJade();
+        if (!Services.JADE.isEnabled() && Common.getConfigManager().getGeneralConfig().isJadeCompatEnabled()) {
+            Services.JADE.tryEnable();
         }
     }
 }

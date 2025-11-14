@@ -5,9 +5,8 @@ import net.bivrik.fancytoasts.platform.services.IPlatformHelper;
 import net.fabricmc.loader.api.FabricLoader;
 
 public class FabricPlatformHelper implements IPlatformHelper {
-
     @Override
-    public String getPlatformName() {
+    public String getName() {
         return "Fabric";
     }
 
@@ -19,20 +18,5 @@ public class FabricPlatformHelper implements IPlatformHelper {
     @Override
     public boolean isDevelopmentEnvironment() {
         return FabricLoader.getInstance().isDevelopmentEnvironment();
-    }
-
-    @Override
-    public void tryDisableJade() {
-        JadeCompat.tryDisableJade();
-    }
-
-    @Override
-    public void tryEnableJade() {
-        JadeCompat.tryEnableJade();
-    }
-
-    @Override
-    public boolean isJadeEnabled() {
-        return JadeCompat.isJadeEnabled();
     }
 }

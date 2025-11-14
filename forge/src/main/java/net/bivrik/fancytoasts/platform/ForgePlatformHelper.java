@@ -7,7 +7,7 @@ import net.minecraftforge.fml.loading.FMLLoader;
 public class ForgePlatformHelper implements IPlatformHelper {
 
     @Override
-    public String getPlatformName() {
+    public String getName() {
         return "Forge";
     }
 
@@ -19,16 +19,5 @@ public class ForgePlatformHelper implements IPlatformHelper {
     @Override
     public boolean isDevelopmentEnvironment() {
         return !FMLLoader.isProduction();
-    }
-
-    @Override
-    public void tryDisableJade() {}
-
-    @Override
-    public void tryEnableJade() {}
-
-    @Override
-    public boolean isJadeEnabled() {
-        return false;
     }
 }

@@ -8,11 +8,15 @@ public class ResourceLocations {
         return ResourceLocation.fromNamespaceAndPath(Constants.MOD_ID, path);
     }
 
+    public static ResourceLocation fromMinecraft(String path) {
+        return ResourceLocation.withDefaultNamespace(path);
+    }
+
     public static ResourceLocation parse(String location) {
         return ResourceLocation.parse(location);
     }
 
-    public static ResourceLocation get(String namespace, String path) {
+    public static ResourceLocation withNamespaceAndPath(String namespace, String path) {
         return ResourceLocation.fromNamespaceAndPath(namespace, path);
     }
 }

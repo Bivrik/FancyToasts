@@ -61,7 +61,7 @@ public class Common {
             return;
         }
 
-        Debug.info("Common init on {} in a {} environment.", Services.PLATFORM.getPlatformName(), Services.PLATFORM.getEnvironmentName());
+        Debug.info("Common init on {} in a {} environment.", Services.PLATFORM.getName(), Services.PLATFORM.getEnvironmentName());
 
         Debug.info("Textures registration:");
         registerTextures();

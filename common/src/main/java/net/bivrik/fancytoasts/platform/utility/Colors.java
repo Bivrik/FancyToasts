@@ -10,6 +10,11 @@ public class Colors {
     public static final int CYAN = 0xFF22FFFF;
 
     public static int alpha(int alpha, int color) {
+        alpha = Math.clamp(alpha, 0, 255);
         return alpha << 24 | color & 0xFFFFFF;
+    }
+
+    public static int alpha(float alpha, int color) {
+        return alpha((int) (255 * alpha), color);
     }
 }
