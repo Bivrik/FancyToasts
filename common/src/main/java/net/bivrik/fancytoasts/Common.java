@@ -5,12 +5,12 @@ import net.bivrik.fancytoasts.client.CustomTextureManager;
 import net.bivrik.fancytoasts.client.KeyBindingManager;
 import net.bivrik.fancytoasts.client.gui.FancyToastConfigScreen;
 import net.bivrik.fancytoasts.client.toast.animation.*;
-import net.bivrik.fancytoasts.client.toast.texture.DisplayData;
+import net.bivrik.fancytoasts.client.toast.DisplayData;
 import net.bivrik.fancytoasts.client.ui.CreditsManager;
 import net.bivrik.fancytoasts.client.ui.SplashManager;
 import net.bivrik.fancytoasts.client.toast.AdvancementToastManager;
-import net.bivrik.fancytoasts.client.toast.AnimationRegistry;
-import net.bivrik.fancytoasts.client.toast.TextureRegistry;
+import net.bivrik.fancytoasts.client.registries.AnimationRegistry;
+import net.bivrik.fancytoasts.client.registries.TextureRegistry;
 import net.bivrik.fancytoasts.utility.DefaultLocations;
 import net.bivrik.fancytoasts.platform.Services;
 import net.minecraft.client.Minecraft;
@@ -92,8 +92,8 @@ public class Common {
     }
 
     private static void registerTexture(ResourceLocation id, String name) {
-        TextureRegistry.register(id, Constants.MOD_ID,
-                new DisplayData(name, Constants.MOD_NAME, Constants.MOD_ID + ".textures.toasts." + name + ".description", true)
+        TextureRegistry.register(id, new DisplayData(
+                Constants.MOD_ID + ".textures.toast." + name, Constants.MOD_NAME, Constants.MOD_ID + ".textures.toast." + name + ".description", true)
         );
     }
 
@@ -105,8 +105,8 @@ public class Common {
     }
 
     private static void registerAnimation(ResourceLocation id, String name, Supplier<FancyAdvancementToastAnimation> animation) {
-        AnimationRegistry.register(id, Constants.MOD_ID, animation,
-                new DisplayData(name, Constants.MOD_NAME, Constants.MOD_ID + ".animations.toast." + name + ".description", true)
+        AnimationRegistry.register(id, animation, new DisplayData(
+                Constants.MOD_ID + ".animations.toast." + name, Constants.MOD_NAME, Constants.MOD_ID + ".animations.toast." + name + ".description", true)
         );
     }
 }

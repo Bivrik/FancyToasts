@@ -1,4 +1,4 @@
-package net.bivrik.fancytoasts.client.toast.texture;
+package net.bivrik.fancytoasts.client.toast;
 
 public record TextureUV(int u, int v) {
     public record FrameUVS(TextureUV banner, TextureUV frame) {}

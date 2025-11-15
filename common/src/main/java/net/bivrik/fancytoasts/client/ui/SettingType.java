@@ -1,9 +1,10 @@
 package net.bivrik.fancytoasts.client.ui;
 
+import net.bivrik.fancytoasts.Constants;
 import net.bivrik.fancytoasts.client.gui.ToastConfigScreen;
-import net.bivrik.fancytoasts.client.toast.AnimationRegistry;
-import net.bivrik.fancytoasts.client.toast.TextureRegistry;
-import net.bivrik.fancytoasts.client.toast.texture.DisplayData;
+import net.bivrik.fancytoasts.client.registries.AnimationRegistry;
+import net.bivrik.fancytoasts.client.registries.TextureRegistry;
+import net.bivrik.fancytoasts.client.toast.DisplayData;
 import net.minecraft.client.Minecraft;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.network.chat.Component;
@@ -63,13 +64,13 @@ public enum SettingType {
             DisplayData data;
 
             if (id.toLanguageKey().contains("minecraft")) {
-                data = new DisplayData(id.toLanguageKey(), "Minecraft", "sound.minecraft.description", false);
+                data = new DisplayData(id.toLanguageKey(), "Minecraft", Constants.MOD_ID + ".sound.minecraft.description", false);
             }
             else if (BuiltInRegistries.SOUND_EVENT.containsKey(id)) {
-                data = new DisplayData(id.toLanguageKey(), id.getNamespace(), "sound.mod.description", false);
+                data = new DisplayData(id.toLanguageKey(), id.getNamespace(), Constants.MOD_ID + ".sound.mod.description", false);
             }
             else {
-                data = new DisplayData(id.toLanguageKey(), id.getNamespace(), "sound.resource_pack.description", false);
+                data = new DisplayData(id.toLanguageKey(), id.getNamespace(), Constants.MOD_ID + ".sound.resource_pack.description", false);
             }
 
             return data;

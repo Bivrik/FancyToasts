@@ -1,9 +1,9 @@
-package net.bivrik.fancytoasts.client.toast;
+package net.bivrik.fancytoasts.client.registries;
 
 import net.bivrik.fancytoasts.Debug;
 import net.bivrik.fancytoasts.client.toast.animation.FancyAdvancementToastAnimation;
 import net.bivrik.fancytoasts.client.toast.animation.StandardAnimation;
-import net.bivrik.fancytoasts.client.toast.texture.DisplayData;
+import net.bivrik.fancytoasts.client.toast.DisplayData;
 import net.minecraft.resources.ResourceLocation;
 import org.slf4j.Logger;
 
@@ -17,20 +17,24 @@ public class AnimationRegistry {
 
     private static final Map<ResourceLocation, AnimationHandler> ANIMATIONS = new HashMap<>();
 
-    public static boolean register(ResourceLocation id, String originId, Supplier<FancyAdvancementToastAnimation> animation, DisplayData data) {
+    private static void addAnimation(ResourceLocation id, AnimationHandler handler) {
+        ANIMATIONS.put(id, handler);
+    }
+
+    public static boolean register(ResourceLocation id, Supplier<FancyAdvancementToastAnimation> animation, DisplayData data) {
         if (ANIMATIONS.containsKey(id)) {
             LOGGER.warn("{} already exists! It has to be unique", id);
             return false;
         }
 
-        ANIMATIONS.put(id, new AnimationHandler(animation, data));
+        addAnimation(id, new AnimationHandler(animation, data));
 
-        LOGGER.info("Registered {} from {}", id, originId);
+        LOGGER.info("Registered {}", id);
         return true;
     }
 
-    public static boolean register(ResourceLocation id, String originId, Supplier<FancyAdvancementToastAnimation> animation, String name, String author, String description) {
-        return register(id, originId, animation, new DisplayData(name, author, description, true));
+    public static boolean register(ResourceLocation id, Supplier<FancyAdvancementToastAnimation> animation, String name, String author, String description) {
+        return register(id, animation, new DisplayData(name, author, description, true));
     }
 
     public static boolean isRegistered(ResourceLocation id) {

@@ -4,11 +4,10 @@ import net.bivrik.fancytoasts.Common;
 import net.bivrik.fancytoasts.client.config.AdvancementToastScreenBehavior;
 import net.bivrik.fancytoasts.client.toast.FancyAdvancementToast;
 import net.bivrik.fancytoasts.platform.utility.GUIs;
-import net.bivrik.fancytoasts.client.toast.texture.TextureUV;
+import net.bivrik.fancytoasts.client.toast.TextureUV;
 import net.bivrik.fancytoasts.platform.utility.Colors;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
-import net.minecraft.util.ARGB;
 
 public abstract class FancyAdvancementToastAnimation {
     protected FancyAdvancementSetup setup;

@@ -1,5 +1,6 @@
 package net.bivrik.fancytoasts.client.ui;
 
+import net.bivrik.fancytoasts.Constants;
 import net.bivrik.fancytoasts.Debug;
 import net.bivrik.fancytoasts.platform.utility.Colors;
 import net.minecraft.Util;
@@ -99,7 +100,7 @@ public class ResourceLocationList extends ObjectSelectionList<ResourceLocationLi
 
         for (var location : locations) {
             boolean isBuiltIn = location.getNamespace().equals("fancytoasts") || location.getNamespace().equals("minecraft");
-            boolean isConfig = location.toLanguageKey().contains("config");
+            boolean isConfig = location.toLanguageKey().contains(Constants.MOD_CONFIG);
             boolean isCustom = !isBuiltIn || isConfig;
 
             if (isBuiltInSortType != isCustom) {
@@ -147,7 +148,7 @@ public class ResourceLocationList extends ObjectSelectionList<ResourceLocationLi
         private final Minecraft minecraft;
         private final Font font;
         private final ResourceLocationList list;
-        private final List<FormattedCharSequence> nameList;
+        private List<FormattedCharSequence> nameList;
         private final boolean isConfig;
 
         private long lastClickTime;
@@ -157,9 +158,11 @@ public class ResourceLocationList extends ObjectSelectionList<ResourceLocationLi
             this.location = location;
             this.minecraft = this.list.minecraft;
             this.font = this.minecraft.font;
-            this.isConfig = location.toLanguageKey().contains("config");
+            this.isConfig = location.toLanguageKey().contains(Constants.MOD_CONFIG);
 
-            this.nameList = this.font.split(name, this.list.getRowWidth() - 8 - 2);
+            if (name != null) {
+                this.nameList = this.font.split(name, this.list.getRowWidth() - 8 - 2);
+            }
         }
 
         @Override

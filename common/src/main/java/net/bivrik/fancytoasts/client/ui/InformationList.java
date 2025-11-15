@@ -1,7 +1,7 @@
 package net.bivrik.fancytoasts.client.ui;
 
 import net.bivrik.fancytoasts.Debug;
-import net.bivrik.fancytoasts.client.toast.texture.DisplayData;
+import net.bivrik.fancytoasts.client.toast.DisplayData;
 import net.bivrik.fancytoasts.platform.utility.Colors;
 import net.bivrik.fancytoasts.platform.utility.GUIs;
 import net.bivrik.fancytoasts.platform.utility.ResourceLocations;

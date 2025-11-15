@@ -2,8 +2,8 @@ package net.bivrik.fancytoasts.client.config;
 
 import net.bivrik.fancytoasts.Common;
 import net.bivrik.fancytoasts.Debug;
-import net.bivrik.fancytoasts.client.toast.AnimationRegistry;
-import net.bivrik.fancytoasts.client.toast.TextureRegistry;
+import net.bivrik.fancytoasts.client.registries.AnimationRegistry;
+import net.bivrik.fancytoasts.client.registries.TextureRegistry;
 import net.bivrik.fancytoasts.utility.DefaultLocations;
 import net.bivrik.fancytoasts.utility.file.Paths;
 import net.minecraft.advancements.AdvancementType;

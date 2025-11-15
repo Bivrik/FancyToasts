@@ -8,7 +8,6 @@ import net.minecraft.resources.ResourceLocation;
 import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
-import java.io.IOException;
 import java.lang.reflect.Type;
 import java.util.Optional;
 
@@ -20,7 +19,7 @@ public class JsonHelper {
 
 
     /**
-     * Adapters for correct working Json files: ResourceLocation
+     * Adapter for correct working Json files: ResourceLocation
      */
     private static class ResourceLocationAdapter implements JsonSerializer<ResourceLocation>, JsonDeserializer<ResourceLocation> {
         @Override

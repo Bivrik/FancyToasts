@@ -3,11 +3,11 @@ package net.bivrik.fancytoasts.client;
 import com.mojang.blaze3d.platform.NativeImage;
 import net.bivrik.fancytoasts.Debug;
 import net.bivrik.fancytoasts.client.config.JsonHelper;
-import net.bivrik.fancytoasts.client.toast.texture.DisplayData;
+import net.bivrik.fancytoasts.client.toast.DisplayData;
 import net.bivrik.fancytoasts.utility.file.FileHelper;
 import net.bivrik.fancytoasts.utility.file.FileType;
 import net.bivrik.fancytoasts.utility.file.Paths;
-import net.bivrik.fancytoasts.client.toast.TextureRegistry;
+import net.bivrik.fancytoasts.client.registries.TextureRegistry;
 import net.bivrik.fancytoasts.platform.utility.ResourceLocations;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.texture.DynamicTexture;
@@ -108,13 +108,13 @@ public class CustomTextureManager {
         for (File jsonFile : jsonFiles) {
             for (File textureFile : textureFiles) {
                 if (FileHelper.getRawName(textureFile).compareTo(FileHelper.getRawName(jsonFile)) == 0) {
-                    Optional<DisplayData> optionalData = JsonHelper.tryToRead(jsonFile, DisplayData.class);
+                    Optional<DisplayData.DTO> optionalData = JsonHelper.tryToRead(jsonFile, DisplayData.DTO.class);
 
                     if (optionalData.isPresent()) {
-                        DisplayData data = optionalData.get();
+                        DisplayData data = new DisplayData(optionalData.get());
                         ResourceLocation id = ResourceLocations.of(textureFile.getPath().replace("\\", "/").replaceFirst("./", ""));
 
-                        if (TextureRegistry.register(id, "custom", data)) {
+                        if (TextureRegistry.register(id, data)) {
                             CUSTOM_TEXTURES.put(id, textureFile.toPath());
                         }
                     }

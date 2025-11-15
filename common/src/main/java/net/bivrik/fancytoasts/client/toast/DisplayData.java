@@ -1,0 +1,66 @@
+package net.bivrik.fancytoasts.client.toast;
+
+import net.bivrik.fancytoasts.platform.utility.Components;
+import net.minecraft.network.chat.Component;
+
+public class DisplayData {
+    private final Component displayName;
+    private final Component displayAuthor;
+    private final Component displayDescription;
+
+    // isTranslatableName is true only if it's from Fancy Toasts'
+    public DisplayData(String name, String author, String description, boolean isTranslatableName) {
+        // Either Fancy Toasts' key, translatable, or anything else, not translatable
+        if (name != null) {
+            this.displayName = isTranslatableName ? Component.translatable(name) : Component.literal(getVisualAppealingString(name));
+        } else {
+            this.displayName = getUnknownFallback();
+        }
+
+        // Usually just string so don't matter, it doesn't have translation at all
+        this.displayAuthor = author != null ? Component.literal(getVisualAppealingString(author)) : getUnknownFallback();
+
+        // Translatable for Fancy Toasts' in general, Minecraft's sounds, Mods' sounds and Resource Packs' sounds, but not the custom textures
+        this.displayDescription = description != null ? Component.translatable(description) : getUnknownFallback();
+    }
+
+    public DisplayData(DTO dto) {
+        this(dto.name, dto.author, dto.description, false);
+    }
+
+    private Component getUnknownFallback() {
+        return Components.of("gui.unknown");
+    }
+
+    public Component getDisplayName() {
+        return displayName;
+    }
+
+    public Component getDisplayDescription() {
+        return displayDescription;
+    }
+
+    public Component getAuthor() {
+        return displayAuthor;
+    }
+
+    public static String getVisualAppealingString(String stringToConvert) {
+        if (isVisualAppealing(stringToConvert)) {
+            return stringToConvert;
+        }
+
+        String visualAppealingString = stringToConvert.replace('.', ' ').replace('_', ' ');
+        return visualAppealingString.substring(0, 1).toUpperCase() + visualAppealingString.substring(1);
+    }
+
+    public static boolean isVisualAppealing(String stringToCheck) {
+        return !stringToCheck.contains(".") && Character.isUpperCase(stringToCheck.charAt(0)) && !stringToCheck.contains("_");
+    }
+
+    @Override
+    public String toString() {
+        return String.format("{displayName='%s', displayAuthor='%s', displayDescription='%s'}", displayAuthor.getString(), displayAuthor.getString(), displayDescription.getString());
+    }
+
+    public record DTO(String name, String author, String description) {}
+}
