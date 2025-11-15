@@ -1,5 +1,6 @@
 package net.bivrik.fancytoasts.client.registries;
 
+import net.bivrik.fancytoasts.Constants;
 import net.bivrik.fancytoasts.Debug;
 import net.bivrik.fancytoasts.client.toast.DisplayData;
 import net.minecraft.resources.ResourceLocation;
@@ -37,14 +38,17 @@ public class TextureRegistry {
     }
     
     public static void clearCustom() {
-        getIds().removeIf(id -> id.toLanguageKey().contains("config")); // Don't forget to change `config` to `custom` EVERYWHERE, you idiot
+        TEXTURES.keySet().removeIf(id -> id.toLanguageKey().contains(Constants.MOD_CONFIG));
     }
 
     public static DisplayData getData(ResourceLocation id) {
-        return TEXTURES.computeIfAbsent(id, key -> {
-            LOGGER.error("{} is missing", key);
+        DisplayData data = TEXTURES.getOrDefault(id, null);
+        if (data == null) {
+            LOGGER.error("{} is missing, using default", id);
             return getDefaultData();
-        });
+        }
+
+        return data;
     }
     
     public static DisplayData getDefaultData() {

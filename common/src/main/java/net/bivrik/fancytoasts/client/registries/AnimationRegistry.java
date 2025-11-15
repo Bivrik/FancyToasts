@@ -42,10 +42,13 @@ public class AnimationRegistry {
     }
 
     private static AnimationHandler getAnimationHandler(ResourceLocation id) {
-        return ANIMATIONS.computeIfAbsent(id, key -> {
-            LOGGER.error("{} is missing", key);
+        AnimationHandler data = ANIMATIONS.getOrDefault(id, null);
+        if (data == null) {
+            LOGGER.error("{} is missing, using default", id);
             return getDefaultAnimationHandler();
-        });
+        }
+
+        return data;
     }
 
     private static AnimationHandler getDefaultAnimationHandler() {

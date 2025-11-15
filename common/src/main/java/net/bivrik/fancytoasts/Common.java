@@ -92,8 +92,9 @@ public class Common {
     }
 
     private static void registerTexture(ResourceLocation id, String name) {
+        String translationKeyForName = Constants.MOD_ID + ".textures.toast." + name;
         TextureRegistry.register(id, new DisplayData(
-                Constants.MOD_ID + ".textures.toast." + name, Constants.MOD_NAME, Constants.MOD_ID + ".textures.toast." + name + ".description", true)
+                translationKeyForName, Constants.MOD_NAME, translationKeyForName + ".description", true)
         );
     }
 
@@ -105,8 +106,9 @@ public class Common {
     }
 
     private static void registerAnimation(ResourceLocation id, String name, Supplier<FancyAdvancementToastAnimation> animation) {
+        String translationKeyForName = Constants.MOD_ID + ".animations.toast." + name;
         AnimationRegistry.register(id, animation, new DisplayData(
-                Constants.MOD_ID + ".animations.toast." + name, Constants.MOD_NAME, Constants.MOD_ID + ".animations.toast." + name + ".description", true)
+                translationKeyForName, Constants.MOD_NAME, translationKeyForName + ".description", true)
         );
     }
 }

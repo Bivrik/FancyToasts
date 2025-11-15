@@ -17,7 +17,7 @@ import java.util.ArrayDeque;
 import java.util.Deque;
 
 public class AdvancementToastManager {
-    private static final Deque<FancyAdvancementToast> ADVANCEMENT_TOASTS = new ArrayDeque<>();
+    private final Deque<FancyAdvancementToast> ADVANCEMENT_TOASTS = new ArrayDeque<>();
 
     private final Minecraft minecraft;
 

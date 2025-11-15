@@ -45,21 +45,33 @@ public class DisplayData {
     }
 
     public static String getVisualAppealingString(String stringToConvert) {
+        if (stringToConvert == null || stringToConvert.isEmpty()) {
+            return "";
+        }
+
         if (isVisualAppealing(stringToConvert)) {
             return stringToConvert;
         }
 
-        String visualAppealingString = stringToConvert.replace('.', ' ').replace('_', ' ');
-        return visualAppealingString.substring(0, 1).toUpperCase() + visualAppealingString.substring(1);
+        String visualAppealingString = stringToConvert.replace('.', ' ').replace('_', ' ').trim();
+
+        if (visualAppealingString.isBlank()) {
+            return "";
+        }
+
+        String firstLetter = visualAppealingString.substring(0, 1).toUpperCase();
+        String leftovers = visualAppealingString.substring(1);
+
+        return firstLetter + leftovers;
     }
 
-    public static boolean isVisualAppealing(String stringToCheck) {
+    private static boolean isVisualAppealing(String stringToCheck) {
         return !stringToCheck.contains(".") && Character.isUpperCase(stringToCheck.charAt(0)) && !stringToCheck.contains("_");
     }
 
     @Override
     public String toString() {
-        return String.format("{displayName='%s', displayAuthor='%s', displayDescription='%s'}", displayAuthor.getString(), displayAuthor.getString(), displayDescription.getString());
+        return String.format("DisplayData{name='%s', author='%s', description='%s'}", displayAuthor.getString(), displayAuthor.getString(), displayDescription.getString());
     }
 
     public record DTO(String name, String author, String description) {}
