@@ -31,7 +31,7 @@ public class ToastManagerMixin {
         var toastManager = Common.getAdvancementToastManager();
 
         if (!toastManager.isScreenOpened() || !toastManager.isRenderUnder()) {
-            Common.getAdvancementToastManager().render(guiGraphics);
+            toastManager.render(guiGraphics);
         }
     }
 

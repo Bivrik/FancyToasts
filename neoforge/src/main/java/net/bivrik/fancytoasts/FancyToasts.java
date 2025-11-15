@@ -8,7 +8,7 @@ import net.neoforged.fml.common.Mod;
 public class FancyToasts {
 
     public FancyToasts(IEventBus eventBus) {
-        Common.onModInitialization();
+        Common.onModInit();
 
         eventBus.addListener(NeoforgeConfigScreen::registerConfigScreen);
     }

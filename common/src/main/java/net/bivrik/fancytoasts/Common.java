@@ -1,6 +1,5 @@
 package net.bivrik.fancytoasts;
 
-import net.bivrik.fancytoasts.client.KeyBinding;
 import net.bivrik.fancytoasts.client.config.*;
 import net.bivrik.fancytoasts.client.gui.FancyToastConfigScreen;
 import net.bivrik.fancytoasts.client.toast.animation.*;
@@ -17,12 +16,11 @@ import org.lwjgl.glfw.GLFW;
 
 import java.util.function.Supplier;
 
-// Only Vanilla code base
 public class Common {
     private static SplashManager splashManager;
     private static ConfigManager configManager;
     private static AdvancementToastManager advancementToastManager;
-    private static KeyBinding keyBindingManager;
+    private static KeyBindingManager keyBindingManager;
     private static CreditsManager creditsManager;
 
     public static SplashManager getSplashManager() {
@@ -37,11 +35,26 @@ public class Common {
         return advancementToastManager;
     }
 
+    public static KeyBindingManager getKeyBindingManager() {
+        return keyBindingManager;
+    }
+
     public static CreditsManager getCreditsManager() {
         return creditsManager;
     }
 
-    public static void onMinecraftInitialization(Minecraft minecraft) {
+    public static void onModInit() {
+        if (!Services.PLATFORM.isModLoaded(Constants.MOD_ID)) {
+            return;
+        }
+        Debug.info("Initialization on {} in a {} environment", Services.PLATFORM.getName(), Services.PLATFORM.getEnvironmentName());
+
+        registerTextures();
+        registerAnimations();
+        registerKeyBindings();
+    }
+
+    public static void onMinecraftInit(Minecraft minecraft) {
         splashManager = new SplashManager(minecraft.getUser());
         splashManager.load(minecraft.getResourceManager());
 
@@ -50,30 +63,18 @@ public class Common {
 
         advancementToastManager = new AdvancementToastManager(minecraft);
 
-        keyBindingManager = new KeyBinding();
+        keyBindingManager = new KeyBindingManager();
 
         creditsManager = new CreditsManager();
         creditsManager.loadCredits();
     }
 
-    public static void onModInitialization() {
-        if (!Services.PLATFORM.isModLoaded(Constants.MOD_ID)) {
-            return;
-        }
-
-        Debug.info("Common init on {} in a {} environment.", Services.PLATFORM.getName(), Services.PLATFORM.getEnvironmentName());
-
-        Debug.info("Textures registration:");
-        registerTextures();
-
-        Debug.info("Animations registration:");
-        registerAnimations();
-
-        KeyBinding.registerKey("config_menu", GLFW.GLFW_KEY_K, () -> Minecraft.getInstance().setScreen(new FancyToastConfigScreen(null)));
-    }
-
     public static void onTick() {
         keyBindingManager.tick();
+    }
+
+    private static void registerKeyBindings() {
+        keyBindingManager.registerKey("config_menu", GLFW.GLFW_KEY_K, () -> Minecraft.getInstance().setScreen(new FancyToastConfigScreen(null)));
     }
 
     private static void registerTextures() {
@@ -87,18 +88,18 @@ public class Common {
         ConfigTextureManager.load();
     }
 
-    private static void registerAnimations() {
-        registerAnimation(DefaultLocations.Animations.STANDARD, "standard", StandardAnimation::new);
-        registerAnimation(DefaultLocations.Animations.PLAYFUL, "playful", PlayfulAnimation::new);
-        registerAnimation(DefaultLocations.Animations.QUIRKY, "quirky", QuirkyAnimation::new);
-        registerAnimation(DefaultLocations.Animations.OLDLIKE, "oldlike", OldlikeAnimation::new);
-    }
-
     private static void registerTexture(ResourceLocation id, String name) {
         ToastTextureRegistry.register(
                 id, Constants.MOD_ID,
                 name, Constants.MOD_NAME
         );
+    }
+
+    private static void registerAnimations() {
+        registerAnimation(DefaultLocations.Animations.STANDARD, "standard", StandardAnimation::new);
+        registerAnimation(DefaultLocations.Animations.PLAYFUL, "playful", PlayfulAnimation::new);
+        registerAnimation(DefaultLocations.Animations.QUIRKY, "quirky", QuirkyAnimation::new);
+        registerAnimation(DefaultLocations.Animations.OLDLIKE, "oldlike", OldlikeAnimation::new);
     }
 
     private static void registerAnimation(ResourceLocation id, String name, Supplier<FancyAdvancementToastAnimation> animation) {
