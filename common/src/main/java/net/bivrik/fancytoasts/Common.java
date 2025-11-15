@@ -1,13 +1,16 @@
 package net.bivrik.fancytoasts;
 
-import net.bivrik.fancytoasts.client.config.*;
+import net.bivrik.fancytoasts.client.ConfigManager;
+import net.bivrik.fancytoasts.client.CustomTextureManager;
+import net.bivrik.fancytoasts.client.KeyBindingManager;
 import net.bivrik.fancytoasts.client.gui.FancyToastConfigScreen;
 import net.bivrik.fancytoasts.client.toast.animation.*;
+import net.bivrik.fancytoasts.client.toast.texture.DisplayData;
 import net.bivrik.fancytoasts.client.ui.CreditsManager;
 import net.bivrik.fancytoasts.client.ui.SplashManager;
 import net.bivrik.fancytoasts.client.toast.AdvancementToastManager;
-import net.bivrik.fancytoasts.client.toast.ToastAnimationRegistry;
-import net.bivrik.fancytoasts.client.toast.ToastTextureRegistry;
+import net.bivrik.fancytoasts.client.toast.AnimationRegistry;
+import net.bivrik.fancytoasts.client.toast.TextureRegistry;
 import net.bivrik.fancytoasts.utility.DefaultLocations;
 import net.bivrik.fancytoasts.platform.Services;
 import net.minecraft.client.Minecraft;
@@ -22,6 +25,7 @@ public class Common {
     private static AdvancementToastManager advancementToastManager;
     private static KeyBindingManager keyBindingManager;
     private static CreditsManager creditsManager;
+    private static CustomTextureManager customTextureManager;
 
     public static SplashManager getSplashManager() {
         return splashManager;
@@ -43,38 +47,39 @@ public class Common {
         return creditsManager;
     }
 
+    public static CustomTextureManager getCustomTextureManager() {
+        return customTextureManager;
+    }
+
     public static void onModInit() {
         if (!Services.PLATFORM.isModLoaded(Constants.MOD_ID)) {
             return;
         }
         Debug.info("Initialization on {} in a {} environment", Services.PLATFORM.getName(), Services.PLATFORM.getEnvironmentName());
 
+        keyBindingManager = new KeyBindingManager();
+        configManager = new ConfigManager();
+        creditsManager = new CreditsManager();
+
         registerTextures();
         registerAnimations();
-        registerKeyBindings();
+        keyBindingManager.registerKey("config_menu", GLFW.GLFW_KEY_K, () -> Minecraft.getInstance().setScreen(new FancyToastConfigScreen(null)));
+        configManager.loadConfigs();
+        creditsManager.loadCredits();
     }
 
     public static void onMinecraftInit(Minecraft minecraft) {
         splashManager = new SplashManager(minecraft.getUser());
         splashManager.load(minecraft.getResourceManager());
 
-        configManager = new ConfigManager();
-        configManager.loadConfigs();
-
         advancementToastManager = new AdvancementToastManager(minecraft);
 
-        keyBindingManager = new KeyBindingManager();
-
-        creditsManager = new CreditsManager();
-        creditsManager.loadCredits();
+        customTextureManager = new CustomTextureManager(minecraft);
+        customTextureManager.load();
     }
 
     public static void onTick() {
         keyBindingManager.tick();
-    }
-
-    private static void registerKeyBindings() {
-        keyBindingManager.registerKey("config_menu", GLFW.GLFW_KEY_K, () -> Minecraft.getInstance().setScreen(new FancyToastConfigScreen(null)));
     }
 
     private static void registerTextures() {
@@ -84,14 +89,11 @@ public class Common {
         registerTexture(DefaultLocations.Textures.MODERN, "modern");
         registerTexture(DefaultLocations.Textures.STEAMY, "steamy");
         registerTexture(DefaultLocations.Textures.TERRACRAFT, "terracraft");
-
-        ConfigTextureManager.load();
     }
 
     private static void registerTexture(ResourceLocation id, String name) {
-        ToastTextureRegistry.register(
-                id, Constants.MOD_ID,
-                name, Constants.MOD_NAME
+        TextureRegistry.register(id, Constants.MOD_ID,
+                new DisplayData(name, Constants.MOD_NAME, Constants.MOD_ID + ".textures.toasts." + name + ".description", true)
         );
     }
 
@@ -103,9 +105,8 @@ public class Common {
     }
 
     private static void registerAnimation(ResourceLocation id, String name, Supplier<FancyAdvancementToastAnimation> animation) {
-        ToastAnimationRegistry.register(
-                id, animation,
-                Constants.MOD_ID, name
+        AnimationRegistry.register(id, Constants.MOD_ID, animation,
+                new DisplayData(name, Constants.MOD_NAME, Constants.MOD_ID + ".animations.toast." + name + ".description", true)
         );
     }
 }

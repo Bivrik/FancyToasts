@@ -1,6 +1,5 @@
 package net.bivrik.fancytoasts.platform;
 
-import net.bivrik.fancytoasts.compat.JadeCompat;
 import net.bivrik.fancytoasts.platform.services.IPlatformHelper;
 import net.fabricmc.loader.api.FabricLoader;
 

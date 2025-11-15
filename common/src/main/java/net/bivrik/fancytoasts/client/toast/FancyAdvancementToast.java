@@ -13,7 +13,6 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.resources.sounds.SimpleSoundInstance;
 import net.minecraft.client.sounds.SoundManager;
-import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
@@ -38,7 +37,7 @@ public class FancyAdvancementToast {
     public FancyAdvancementToast(Advancement advancement, ResourceLocation texture, ResourceLocation animationId) {
         DisplayInfo display = advancement.display().orElse(null);
 
-        animation = ToastAnimationRegistry.getAnimation(animationId).get();
+        animation = AnimationRegistry.getAnimation(animationId).get();
 
         switch (Objects.requireNonNull(display).getType()) {
             case TASK -> {

@@ -10,7 +10,6 @@ import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.AbstractSelectionList;
 import net.minecraft.client.gui.narration.NarrationElementOutput;
-import net.minecraft.client.renderer.RenderPipelines;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.FormattedCharSequence;
@@ -40,7 +39,7 @@ public class InformationList extends AbstractSelectionList<InformationList.Entry
 
         this.clear();
 
-        this.addLine(displayData.getName(), Colors.YELLOW);
+        this.addLine(displayData.getDisplayName(), Colors.YELLOW);
         if (isConfig) {
             this.addLine(Component.translatable("fancytoasts.gui.custom"), Colors.RED);
         }
@@ -49,7 +48,7 @@ public class InformationList extends AbstractSelectionList<InformationList.Entry
         this.addLine(displayData.getAuthor(), Colors.LIGHT_GRAY);
         this.addSpace();
         this.addLine(Component.translatable("fancytoasts.gui.label.description"), Colors.WHITE);
-        this.addLine(displayData.getDescription(), Colors.LIGHT_GRAY);
+        this.addLine(displayData.getDisplayDescription(), Colors.LIGHT_GRAY);
 
         this.acceptLines();
     }

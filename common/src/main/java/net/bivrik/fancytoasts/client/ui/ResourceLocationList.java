@@ -60,11 +60,11 @@ public class ResourceLocationList extends ObjectSelectionList<ResourceLocationLi
         search = search.toLowerCase(Locale.ROOT);
 
         for (ResourceLocation location : resourceLocations) {
-            if (!settingType.getDisplayData(location).getName().getString().toLowerCase(Locale.ROOT).contains(search)) {
+            if (!settingType.getDisplayData(location).getDisplayName().getString().toLowerCase(Locale.ROOT).contains(search)) {
                 continue;
             }
 
-            this.addEntry(new ResourceLocationListEntry(this, location, settingType.getDisplayData(location).getName()));
+            this.addEntry(new ResourceLocationListEntry(this, location, settingType.getDisplayData(location).getDisplayName()));
         }
     }
 
@@ -72,8 +72,8 @@ public class ResourceLocationList extends ObjectSelectionList<ResourceLocationLi
         switch (filter) {
             case A_Z -> sortAZ();
             case Z_A -> Arrays.sort(resourceLocations, (loc1, loc2) -> {
-                String name1 = settingType.getDisplayData(loc1).getName().getString();
-                String name2 = settingType.getDisplayData(loc2).getName().getString();
+                String name1 = settingType.getDisplayData(loc1).getDisplayName().getString();
+                String name2 = settingType.getDisplayData(loc2).getDisplayName().getString();
                 return name2.compareTo(name1);
             });
             case BUILT_IN -> resourceLocations = typeSort(resourceLocations, true);
@@ -85,8 +85,8 @@ public class ResourceLocationList extends ObjectSelectionList<ResourceLocationLi
 
     private void sortAZ() {
         Arrays.sort(resourceLocations, (loc1, loc2) -> {
-            String name1 = settingType.getDisplayData(loc1).getName().getString();
-            String name2 = settingType.getDisplayData(loc2).getName().getString();
+            String name1 = settingType.getDisplayData(loc1).getDisplayName().getString();
+            String name2 = settingType.getDisplayData(loc2).getDisplayName().getString();
             return name1.compareTo(name2);
         });
     }
@@ -126,7 +126,7 @@ public class ResourceLocationList extends ObjectSelectionList<ResourceLocationLi
         clear();
 
         for (ResourceLocation location : resourceLocations) {
-            this.addEntry(new ResourceLocationListEntry(this, location, settingType.getDisplayData(location).getName()));
+            this.addEntry(new ResourceLocationListEntry(this, location, settingType.getDisplayData(location).getDisplayName()));
         }
     }
 

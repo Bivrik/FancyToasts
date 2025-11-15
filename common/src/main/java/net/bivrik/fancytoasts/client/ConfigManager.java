@@ -1,4 +1,4 @@
-package net.bivrik.fancytoasts;
+package net.bivrik.fancytoasts.client;
 
 import net.bivrik.fancytoasts.client.config.ConfigData;
 import net.bivrik.fancytoasts.client.config.ConfigHandler;

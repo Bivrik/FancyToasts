@@ -1,10 +1,9 @@
 package net.bivrik.fancytoasts.client.ui;
 
 import net.bivrik.fancytoasts.client.gui.ToastConfigScreen;
-import net.bivrik.fancytoasts.client.toast.ToastAnimationRegistry;
-import net.bivrik.fancytoasts.client.toast.ToastTextureRegistry;
+import net.bivrik.fancytoasts.client.toast.AnimationRegistry;
+import net.bivrik.fancytoasts.client.toast.TextureRegistry;
 import net.bivrik.fancytoasts.client.toast.texture.DisplayData;
-import net.bivrik.fancytoasts.platform.utility.Components;
 import net.minecraft.client.Minecraft;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.network.chat.Component;
@@ -19,7 +18,7 @@ public enum SettingType {
 
         @Override
         public DisplayData getDisplayData(ResourceLocation id) {
-            return ToastTextureRegistry.getData(id);
+            return TextureRegistry.getData(id);
         }
 
         @Override
@@ -29,7 +28,7 @@ public enum SettingType {
 
         @Override
         public ResourceLocation[] getKeySet() {
-            return ToastTextureRegistry.getIds().toArray(new ResourceLocation[0]);
+            return TextureRegistry.getIds().toArray(new ResourceLocation[0]);
         }
     },
     ANIMATIONS("animations") {
@@ -40,7 +39,7 @@ public enum SettingType {
 
         @Override
         public DisplayData getDisplayData(ResourceLocation id) {
-            return ToastAnimationRegistry.getData(id);
+            return AnimationRegistry.getData(id);
         }
 
         @Override
@@ -50,7 +49,7 @@ public enum SettingType {
 
         @Override
         public ResourceLocation[] getKeySet() {
-            return ToastAnimationRegistry.getIds().toArray(new ResourceLocation[0]);
+            return AnimationRegistry.getIds().toArray(new ResourceLocation[0]);
         }
     },
     SOUNDS("sounds") {
@@ -64,22 +63,16 @@ public enum SettingType {
             DisplayData data;
 
             if (id.toLanguageKey().contains("minecraft")) {
-                data = new DisplayData(Component.literal(id.toLanguageKey()), "Minecraft", Components.of("sound.minecraft.description"));
+                data = new DisplayData(id.toLanguageKey(), "Minecraft", "sound.minecraft.description", false);
             }
             else if (BuiltInRegistries.SOUND_EVENT.containsKey(id)) {
-                data = new DisplayData(Component.literal(id.toLanguageKey()), getAuthor(id.getNamespace()), Components.of("sound.mod.description"));
+                data = new DisplayData(id.toLanguageKey(), id.getNamespace(), "sound.mod.description", false);
             }
             else {
-                data = new DisplayData(Component.literal(id.toLanguageKey()), getAuthor(id.getNamespace()), Components.of("sound.resource_pack.description"));
+                data = new DisplayData(id.toLanguageKey(), id.getNamespace(), "sound.resource_pack.description", false);
             }
 
             return data;
-        }
-
-        private String getAuthor(String namespace) {
-            var end = namespace.substring(1);
-            var start = namespace.substring(0, 1).toUpperCase();
-            return start + end;
         }
 
         @Override

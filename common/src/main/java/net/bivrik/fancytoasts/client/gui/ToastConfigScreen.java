@@ -1,7 +1,6 @@
 package net.bivrik.fancytoasts.client.gui;
 
 import net.bivrik.fancytoasts.Common;
-import net.bivrik.fancytoasts.client.config.ConfigTextureManager;
 import net.bivrik.fancytoasts.client.config.ToastConfigData;
 import net.bivrik.fancytoasts.client.config.ConfigHandler;
 import net.bivrik.fancytoasts.client.toast.texture.DisplayData;
@@ -42,7 +41,7 @@ public class ToastConfigScreen extends UniversalScreen {
         super(Components.of("gui.config.customization_title"), parent);
         this.toastConfigData = Common.getConfigManager().getToastConfig();
 
-        ConfigTextureManager.reload();
+        Common.getCustomTextureManager().reload();
     }
 
     public AdvancementType getAdvancementType() {
@@ -106,9 +105,9 @@ public class ToastConfigScreen extends UniversalScreen {
     @Override
     protected void toParentScreen() {
         ResourceLocation textureId = Common.getConfigManager().getToastConfig().getTextureId();
-        ConfigTextureManager.releaseTexturesFromMinecraft();
+        Common.getCustomTextureManager().releaseTexturesFromMinecraft();
         if (textureId.toLanguageKey().contains("config")) {
-            ConfigTextureManager.registerInMinecraft(textureId);
+            Common.getCustomTextureManager().registerInMinecraft(textureId);
         }
 
         super.toParentScreen();

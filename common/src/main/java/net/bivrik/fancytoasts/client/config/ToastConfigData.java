@@ -1,18 +1,17 @@
 package net.bivrik.fancytoasts.client.config;
 
+import net.bivrik.fancytoasts.Common;
 import net.bivrik.fancytoasts.Debug;
-import net.bivrik.fancytoasts.client.toast.ToastAnimationRegistry;
-import net.bivrik.fancytoasts.client.toast.ToastTextureRegistry;
+import net.bivrik.fancytoasts.client.toast.AnimationRegistry;
+import net.bivrik.fancytoasts.client.toast.TextureRegistry;
 import net.bivrik.fancytoasts.utility.DefaultLocations;
 import net.bivrik.fancytoasts.utility.file.Paths;
 import net.minecraft.advancements.AdvancementType;
 import net.minecraft.client.Minecraft;
-import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvents;
 
 import java.io.File;
-import java.nio.charset.MalformedInputException;
 import java.util.EnumMap;
 import java.util.Map;
 
@@ -89,16 +88,16 @@ public class ToastConfigData extends ConfigData {
 
     @Override
     public boolean isValid() {
-        if (ToastTextureRegistry.isRegistered(textureId)) {
+        if (TextureRegistry.isRegistered(textureId)) {
             if (textureId.toLanguageKey().contains("config")) {
-                ConfigTextureManager.registerInMinecraft(textureId);
+                Common.getCustomTextureManager().registerInMinecraft(textureId);
             }
         }
         else {
             return false;
         }
 
-        return ToastAnimationRegistry.isRegistered(animationId);
+        return AnimationRegistry.isRegistered(animationId);
     }
 
     @Override

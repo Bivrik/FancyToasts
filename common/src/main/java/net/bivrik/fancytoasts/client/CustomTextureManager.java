@@ -1,16 +1,18 @@
-package net.bivrik.fancytoasts.client.config;
+package net.bivrik.fancytoasts.client;
 
 import com.mojang.blaze3d.platform.NativeImage;
 import net.bivrik.fancytoasts.Debug;
+import net.bivrik.fancytoasts.client.config.JsonHelper;
 import net.bivrik.fancytoasts.client.toast.texture.DisplayData;
 import net.bivrik.fancytoasts.utility.file.FileHelper;
 import net.bivrik.fancytoasts.utility.file.FileType;
 import net.bivrik.fancytoasts.utility.file.Paths;
-import net.bivrik.fancytoasts.client.toast.ToastTextureRegistry;
+import net.bivrik.fancytoasts.client.toast.TextureRegistry;
 import net.bivrik.fancytoasts.platform.utility.ResourceLocations;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.texture.DynamicTexture;
 import net.minecraft.resources.ResourceLocation;
+import org.slf4j.Logger;
 
 import java.io.File;
 import java.io.FileFilter;
@@ -19,64 +21,70 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.*;
 
-public class ConfigTextureManager {
-    private static final Map<ResourceLocation, Path> CONFIG_TEXTURES = new HashMap<>();
+public class CustomTextureManager {
+    private static final Logger LOGGER = Debug.getLogger(CustomTextureManager.class);
+    private static final Map<ResourceLocation, Path> CUSTOM_TEXTURES = new HashMap<>();
 
     private static final File TEXTURES_DIR = new File(Paths.CONFIG_TEXTURES);
-
     private static final FileFilter TEXTURE_FILES_FILTER = (file) -> {
         String name = file.getName();
         return name.endsWith(FileType.PNG.get()) || name.endsWith(FileType.JSON.get());
     };
 
-    public static void registerInMinecraft(ResourceLocation id) {
-        if (!ToastTextureRegistry.isRegistered(id)) {
-            Debug.error("Could not register texture {} in minecraft texture manager", id);
+    private final Minecraft minecraft;
+
+    public CustomTextureManager(Minecraft minecraft) {
+        this.minecraft = minecraft;
+    }
+
+    public void registerInMinecraft(ResourceLocation id) {
+        if (!TextureRegistry.isRegistered(id)) {
+            LOGGER.error("Could not register {} in Minecraft, because it does not exist in Texture Registry", id);
             return;
         }
 
         try {
-            NativeImage image = NativeImage.read(Files.readAllBytes(CONFIG_TEXTURES.get(id)));
-            DynamicTexture dynamicTexture = new DynamicTexture(
-                    () -> "config_toast_texture",
-                    image
-            );
+            NativeImage image = NativeImage.read(Files.readAllBytes(CUSTOM_TEXTURES.get(id)));
+            DynamicTexture dynamicTexture = new DynamicTexture(() -> "custom_fancytoasts_texture", image);
 
-            Minecraft.getInstance().getTextureManager().register(id, dynamicTexture);
+            minecraft.getTextureManager().register(id, dynamicTexture);
 
             image.close();
-            Debug.info("Registered texture {} in Minecraft", id);
+            LOGGER.info("Registered {} in Minecraft", id);
         } catch (IOException e) {
-            throw new RuntimeException(e);
+            throw new RuntimeException("An error occurred while registering custom texture: ", e);
         }
     }
 
-    public static void unregisterFromMinecraft(ResourceLocation id) {
-        Minecraft.getInstance().getTextureManager().release(id);
-        Debug.info("Unregistered texture {} from Minecraft", id);
+    public void unregisterFromMinecraft(ResourceLocation id) {
+        minecraft.getTextureManager().release(id);
+        LOGGER.info("Unregistered {} from Minecraft", id);
     }
 
-    public static void releaseTexturesFromMinecraft() {
-        for (ResourceLocation id : CONFIG_TEXTURES.keySet()) {
+    public void releaseTexturesFromMinecraft() {
+        for (ResourceLocation id : CUSTOM_TEXTURES.keySet()) {
             unregisterFromMinecraft(id);
         }
     }
 
-    public static void reload() {
-        CONFIG_TEXTURES.clear();
-        ToastTextureRegistry.clearCustom();
+    public void clear() {
+        CUSTOM_TEXTURES.clear();
+        TextureRegistry.clearCustom();
+    }
 
+    public void reload() {
+        clear();
         load();
     }
 
-    public static void load() {
+    public void load() {
         if (FileHelper.tryCreateDir(TEXTURES_DIR)) {
             return;
         }
 
         File[] files = TEXTURES_DIR.listFiles(TEXTURE_FILES_FILTER);
         if (files == null) {
-            Debug.warn("There are no files in the config texture directory");
+            LOGGER.info("No custom textures");
             return;
         }
 
@@ -96,7 +104,7 @@ public class ConfigTextureManager {
         register(jsonFiles, textureFiles);
     }
 
-    private static void register(List<File> jsonFiles, List<File> textureFiles) {
+    private void register(List<File> jsonFiles, List<File> textureFiles) {
         for (File jsonFile : jsonFiles) {
             for (File textureFile : textureFiles) {
                 if (FileHelper.getRawName(textureFile).compareTo(FileHelper.getRawName(jsonFile)) == 0) {
@@ -106,12 +114,12 @@ public class ConfigTextureManager {
                         DisplayData data = optionalData.get();
                         ResourceLocation id = ResourceLocations.of(textureFile.getPath().replace("\\", "/").replaceFirst("./", ""));
 
-                        if (ToastTextureRegistry.register(id, null, data.getName().getString(), data.getAuthor().getString(), data.getDescription().getString())) {
-                            CONFIG_TEXTURES.put(id, textureFile.toPath());
+                        if (TextureRegistry.register(id, "custom", data)) {
+                            CUSTOM_TEXTURES.put(id, textureFile.toPath());
                         }
                     }
                     else {
-                        Debug.error("Texture data is outdated or corrupted! File: {}", jsonFile.getAbsolutePath());
+                        LOGGER.warn("Data is outdated or corrupted! File: {}", jsonFile.getAbsolutePath());
                     }
                 }
             }
