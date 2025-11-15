@@ -2,7 +2,7 @@ package net.bivrik.fancytoasts.client.toast;
 
 import net.bivrik.fancytoasts.Common;
 import net.bivrik.fancytoasts.client.config.AdvancementToastScreenBehavior;
-import net.bivrik.fancytoasts.client.gui.FancyToastConfigScreen;
+import net.bivrik.fancytoasts.client.config.GeneralConfigData;
 import net.bivrik.fancytoasts.platform.utility.GUIs;
 import net.bivrik.fancytoasts.platform.Services;
 import net.minecraft.Util;
@@ -10,43 +10,44 @@ import net.minecraft.advancements.Advancement;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.screens.ChatScreen;
-import net.minecraft.client.gui.screens.InBedChatScreen;
-import net.minecraft.client.gui.screens.TitleScreen;
 
-import java.util.ArrayDeque;
 import java.util.Deque;
+import java.util.concurrent.ConcurrentLinkedDeque;
 
 public class AdvancementToastManager {
-    private final Deque<FancyAdvancementToast> ADVANCEMENT_TOASTS = new ArrayDeque<>();
-
+    private final Deque<FancyAdvancementToast> ADVANCEMENT_TOASTS = new ConcurrentLinkedDeque<>();
     private final Minecraft minecraft;
 
-    private FancyAdvancementToast current;
-    private long startTime;
+    private volatile FancyAdvancementToast currentToast;
+    private long startingTimeOfToast;
 
     public AdvancementToastManager(Minecraft minecraft) {
         this.minecraft = minecraft;
     }
 
+    private GeneralConfigData getGeneralConfig() {
+        return Common.getConfigManager().getGeneralConfig();
+    }
+
     public void addAdvancement(Advancement advancement) {
         var toastConfig = Common.getConfigManager().getToastConfig();
-        FancyAdvancementToast fancyAdvancement = new FancyAdvancementToast(advancement, toastConfig.getTextureId(), toastConfig.getAnimationId());
-        ADVANCEMENT_TOASTS.add(fancyAdvancement);
 
-        if (Common.getConfigManager().getGeneralConfig().isJadeCompatEnabled()) {
+        FancyAdvancementToast fancyAdvancementToast = new FancyAdvancementToast(advancement, toastConfig.getTextureId(), toastConfig.getAnimationId());
+        ADVANCEMENT_TOASTS.add(fancyAdvancementToast);
+
+        if (getGeneralConfig().isJadeCompatEnabled()) {
             Services.JADE.tryDisable();
         }
     }
 
     public void update() {
-        if (current != null) {
-            long time = Util.getMillis() - startTime;
-            current.update(time);
+        if (currentToast != null) {
+            updateCurrentToast();
 
-            if (current.isEnded()) {
-                current = null;
+            if (currentToast.isEnded()) {
+                removeCurrentToast();
 
-                if (!Services.JADE.isEnabled() && Common.getConfigManager().getGeneralConfig().isJadeCompatEnabled() && ADVANCEMENT_TOASTS.isEmpty()) {
+                if (getGeneralConfig().isJadeCompatEnabled() && ADVANCEMENT_TOASTS.isEmpty()) {
                     Services.JADE.tryEnable();
                 }
             }
@@ -55,42 +56,61 @@ public class AdvancementToastManager {
         }
 
         if (!ADVANCEMENT_TOASTS.isEmpty()) {
-            current = ADVANCEMENT_TOASTS.getFirst();
-            current.trySetSoundManager(minecraft.getSoundManager());
-            ADVANCEMENT_TOASTS.removeFirst();
-
-            startTime = Util.getMillis();
+            setNewCurrentToast();
         }
+    }
+
+    public void render(GuiGraphics guiGraphics) {
+        if (!shouldRender()) {
+            return;
+        }
+
+        int xPos = getGeneralConfig().getPosition().getX(currentToast.getWidth(), guiGraphics.guiWidth());
+
+        var stack = GUIs.getStack(guiGraphics);
+        GUIs.push(stack);
+        GUIs.translate(stack, xPos, 20);
+        currentToast.draw(guiGraphics, minecraft);
+        GUIs.pop(stack);
+    }
+
+    public void clear() {
+        ADVANCEMENT_TOASTS.clear();
+        removeCurrentToast();
+
+        if (getGeneralConfig().isJadeCompatEnabled()) {
+            Services.JADE.tryEnable();
+        }
+    }
+
+    private void removeCurrentToast() {
+        currentToast = null;
+    }
+
+    private void updateCurrentToast() {
+        long time = Util.getMillis() - startingTimeOfToast;
+        currentToast.update(time);
+    }
+
+    private void setNewCurrentToast() {
+        FancyAdvancementToast nextToast = ADVANCEMENT_TOASTS.pollFirst();
+        if (nextToast != null) {
+            currentToast = nextToast;
+            currentToast.trySetSoundManager(minecraft.getSoundManager()); // change?
+
+            startingTimeOfToast = Util.getMillis();
+        }
+    }
+
+    private boolean shouldRender() {
+        return currentToast != null && !minecraft.options.hideGui;
     }
 
     public boolean isScreenOpened() {
         return minecraft.screen != null && !(minecraft.screen instanceof ChatScreen);
     }
 
-    public boolean isRenderUnder() {
-        return Common.getConfigManager().getGeneralConfig().getScreenBehavior() == AdvancementToastScreenBehavior.BEHIND;
-    }
-
-    public void render(GuiGraphics graphics) {
-        if (current == null || minecraft.options.hideGui) {
-            return;
-        }
-
-        int xPos = Common.getConfigManager().getGeneralConfig().getPosition().getX(current.getWidth(), graphics.guiWidth());
-
-        var matrix = GUIs.getStack(graphics);
-        GUIs.push(matrix);
-        GUIs.translate(matrix, xPos, 20);
-        current.draw(graphics, minecraft);
-        GUIs.pop(matrix);
-    }
-
-    public void clear() {
-        ADVANCEMENT_TOASTS.clear();
-        current = null;
-
-        if (!Services.JADE.isEnabled() && Common.getConfigManager().getGeneralConfig().isJadeCompatEnabled()) {
-            Services.JADE.tryEnable();
-        }
+    public boolean isScreenBehaviourUnder() {
+        return getGeneralConfig().getScreenBehavior() == AdvancementToastScreenBehavior.BEHIND;
     }
 }

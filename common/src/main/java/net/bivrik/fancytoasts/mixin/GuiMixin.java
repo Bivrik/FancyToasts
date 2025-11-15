@@ -1,6 +1,7 @@
 package net.bivrik.fancytoasts.mixin;
 
 import net.bivrik.fancytoasts.Common;
+import net.bivrik.fancytoasts.client.toast.AdvancementToastManager;
 import net.minecraft.client.DeltaTracker;
 import net.minecraft.client.gui.Gui;
 import net.minecraft.client.gui.GuiGraphics;
@@ -13,10 +14,13 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 public class GuiMixin {
     @Inject(at = @At("HEAD"), method = "render")
     private void onRender(GuiGraphics guiGraphics, DeltaTracker deltaTracker, CallbackInfo info) {
-        var toastManager = Common.getAdvancementToastManager();
+        AdvancementToastManager toastManager = Common.getAdvancementToastManager();
+        if (toastManager == null) {
+            return;
+        }
 
-        if (toastManager.isScreenOpened() && toastManager.isRenderUnder()) {
-            Common.getAdvancementToastManager().render(guiGraphics);
+        if (toastManager.isScreenOpened() && toastManager.isScreenBehaviourUnder()) {
+            toastManager.render(guiGraphics);
         }
     }
 }
