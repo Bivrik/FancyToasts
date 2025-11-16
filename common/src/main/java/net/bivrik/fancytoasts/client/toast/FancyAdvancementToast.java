@@ -44,7 +44,6 @@ public class FancyAdvancementToast {
 
         if (generalConfig.areSoundsEnabled()) {
             soundManager = minecraft.getSoundManager();
-            playSound(SoundEvents.UI_TOAST_IN, 1.5f);
         }
 
         AdvancementToastDisplayInfo displayInfo = new AdvancementToastDisplayInfo(oldDisplayInfo);
@@ -70,7 +69,7 @@ public class FancyAdvancementToast {
         animation.setup(setup, minecraft, getWidth(), getHeight());
         toastSoundId = Common.getConfigManager().getToastConfig().getSoundId(displayInfo.getAdvancementType());
 
-        Debug.info("Created new Fancy Advancement Toast: {}", displayInfo.getTitle().getString());
+        Debug.info("Created new advancement toast: {}", displayInfo.getTitle().getString());
     }
 
     public void draw(GuiGraphics graphics) {
@@ -87,23 +86,25 @@ public class FancyAdvancementToast {
         if (soundManager != null) {
             int timeInSeconds = (int) (this.time / 50);
 
-            if (playedSoundsCount == 0 && timeInSeconds == animation.getToastSoundTiming() / 50) {
-                playSound(toastSoundId, volume);
-                playedSoundsCount++;
-            }
-            if (playedSoundsCount == 1 && timeInSeconds == animation.getDuration() / 50 - 10) {
-                playSound(SoundEvents.UI_TOAST_IN, 1.5f);
-                playedSoundsCount++;
+            switch (playedSoundsCount) {
+                case 0 -> playSound(SoundEvents.UI_TOAST_IN, 1.5f);
+                case 1 -> {
+                    if (timeInSeconds == animation.getToastSoundTiming() / 50) {
+                        playSound(toastSoundId, volume);
+                    }
+                }
+                case 2 -> {
+                    if (timeInSeconds == animation.getDuration() / 50 - 10) {
+                        playSound(SoundEvents.UI_TOAST_IN, 1.5f);
+                    }
+                }
             }
         }
     }
 
     private void playSound(SoundEvent sound, float volume) {
-        if (soundManager == null) {
-            return;
-        }
-
         soundManager.play(SimpleSoundInstance.forUI(sound, random.nextFloat(0.95F, 1.05F), volume));
+        playedSoundsCount++;
     }
 
     private void playSound(ResourceLocation soundLocation, float volume) {
