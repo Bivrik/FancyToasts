@@ -1,19 +1,11 @@
 package net.bivrik.fancytoasts.client.toast.animation;
 
 import net.bivrik.fancytoasts.platform.utility.GUIs;
-import net.bivrik.fancytoasts.client.toast.FancyAdvancementToast;
 import net.bivrik.fancytoasts.platform.utility.Colors;
 import net.bivrik.fancytoasts.utility.MathEasing;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
-import net.minecraft.util.FormattedCharSequence;
-import net.minecraft.util.Mth;
-
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Random;
-
-import static net.bivrik.fancytoasts.client.toast.animation.Appearance.getProgress;
 
 public class QuirkyAnimation extends FancyAdvancementToastAnimation {
     private final Appearance ICON_APPEARANCE = new Appearance(2000, 0);
@@ -44,10 +36,9 @@ public class QuirkyAnimation extends FancyAdvancementToastAnimation {
         float bannerAppearProgress = BANNER_APPEARANCE.getProgress(time);
         float backgroundAppearProgress = BACKGROUND_APPEARANCE.getProgress(time);
         float textAppearProgress = TEXT_APPEARANCE.getProgress(time);
-        float fadeOutProgress = getProgress(time, FADE_OUT_DURATION, DURATION - FADE_OUT_DURATION);
+        float fadeOutProgress = Appearance.getProgress(time, FADE_OUT_DURATION, DURATION - FADE_OUT_DURATION);
 
         var stack = GUIs.getStack(guiGraphics);
-
         float globalSinX = (float) (Math.sin(time / 800.0)) * 7.0F;
         float globalSinY = (float) (Math.sin(time / 400.0)) * 5.0F;
 
@@ -69,7 +60,7 @@ public class QuirkyAnimation extends FancyAdvancementToastAnimation {
             GUIs.push(stack);
             float y = 58;
             if (bannerAppearProgress != 1) {
-                y = MathEasing.easeOutLerp(-40.0F, 58.0F, bannerAppearProgress);
+                y = MathEasing.easeOutLerp(-24.0F, 58.0F, bannerAppearProgress);
             }
             GUIs.translate(stack, 0, y);
             this.drawBanner(guiGraphics);
@@ -89,7 +80,6 @@ public class QuirkyAnimation extends FancyAdvancementToastAnimation {
         if (iconAppearProgress > 0) {
             GUIs.push(stack);
             float posY = 55;
-            float sinY = (float) (Math.sin(time / 400.0)) * -1.2F;
             if (iconAppearProgress != 1) {
                 posY = MathEasing.easeOutLerp(-95.0F, 55.0F, iconAppearProgress);
             }
@@ -97,6 +87,7 @@ public class QuirkyAnimation extends FancyAdvancementToastAnimation {
                 float scale = MathEasing.easeOutLerp(3.0f, 1.0f, iconScaleProgress);
                 GUIs.scaleAround(stack, scale, 68 + 13, 17);
             }
+            float sinY = (float) (Math.sin(time / 400.0)) * -1.2F;
             GUIs.translate(stack, 0, sinY + posY);
             this.drawIcon(guiGraphics);
             GUIs.pop(stack);
@@ -143,6 +134,6 @@ public class QuirkyAnimation extends FancyAdvancementToastAnimation {
 
     @Override
     public int getToastSoundTiming() {
-        return TEXT_APPEARANCE.startPoint() + 200;
+        return TEXT_APPEARANCE.startPoint() + 180;
     }
 }

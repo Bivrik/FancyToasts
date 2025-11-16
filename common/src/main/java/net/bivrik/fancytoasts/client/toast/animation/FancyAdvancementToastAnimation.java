@@ -138,9 +138,6 @@ public abstract class FancyAdvancementToastAnimation {
     }
 
     protected int getColor(float alpha) {
-        if (alpha == 1) {
-            return Colors.WHITE;
-        }
-        return Colors.alpha(alpha * guiAlpha, Colors.WHITE);
+        return Colors.alpha(guiAlpha * alpha, Colors.WHITE);
     }
 }
