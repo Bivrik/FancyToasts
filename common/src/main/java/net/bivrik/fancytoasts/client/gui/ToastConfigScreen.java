@@ -10,7 +10,7 @@ import net.bivrik.fancytoasts.client.ui.ResourceLocationFilter;
 import net.bivrik.fancytoasts.client.ui.ResourceLocationList;
 import net.bivrik.fancytoasts.client.ui.SettingType;
 import net.bivrik.fancytoasts.platform.utility.Components;
-import net.minecraft.advancements.AdvancementType;
+import net.bivrik.fancytoasts.platform.utility.FancyAdvancementType;
 import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.gui.components.CycleButton;
 import net.minecraft.client.gui.components.EditBox;
@@ -26,14 +26,14 @@ public class ToastConfigScreen extends UniversalScreen {
     private final ToastConfigData toastConfigData;
 
     private SettingType settingType = SettingType.TEXTURES;
-    private AdvancementType advancementType = AdvancementType.TASK;
+    private FancyAdvancementType advancementType = FancyAdvancementType.TASK;
     private DisplayData displayData = settingType.getDisplayData(Common.getConfigManager().getToastConfig().getTextureId());
 
     private Button doneButton;
     private Button backButton;
     private CycleButton<SettingType> settingTypeCycButton;
     private CycleButton<ResourceLocationFilter> resourceLocationFilterCycButton;
-    private CycleButton<AdvancementType> advancementTypeCycButton;
+    private CycleButton<FancyAdvancementType> advancementTypeCycButton;
     private EditBox editBox;
     private ResourceLocationList locationsList;
     private InformationList infoList;
@@ -45,7 +45,7 @@ public class ToastConfigScreen extends UniversalScreen {
         Common.getCustomTextureManager().reload();
     }
 
-    public AdvancementType getAdvancementType() {
+    public FancyAdvancementType getAdvancementType() {
         return advancementType;
     }
 
@@ -67,8 +67,8 @@ public class ToastConfigScreen extends UniversalScreen {
                 .create(this.width - 88, MARGIN, 80, BUTTON_HEIGHT, Component.empty(), (button, value) -> setSettingType(value)));
 
         advancementTypeCycButton = CycleButton.builder(this::getAdvancementTypeDisplayName).displayOnlyValue()
-                .withValues(AdvancementType.values()).withInitialValue(advancementType)
-                .withTooltip((advancementType) -> Tooltip.create(Component.translatable("fancytoasts.gui.tooltip." + advancementType.getSerializedName())))
+                .withValues(FancyAdvancementType.values()).withInitialValue(advancementType)
+                .withTooltip((advancementType) -> Tooltip.create(Component.translatable("fancytoasts.gui.tooltip." + advancementType.getName())))
                 .create(PADDING, MARGIN, 80, BUTTON_HEIGHT, Component.empty(), (button, value) -> setAdvancementType(value));
 
         locationsList = this.addRenderableWidget(new ResourceLocationList(this.minecraft,
@@ -94,8 +94,8 @@ public class ToastConfigScreen extends UniversalScreen {
         tryAddAdvancementTypeCycButton();
     }
 
-    private Component getAdvancementTypeDisplayName(AdvancementType type) {
-        return Component.translatable("fancytoasts.gui.label." + type.getSerializedName());
+    private Component getAdvancementTypeDisplayName(FancyAdvancementType type) {
+        return Component.translatable("fancytoasts.gui.label." + type.getName());
     }
 
     private void done() {
@@ -132,7 +132,7 @@ public class ToastConfigScreen extends UniversalScreen {
 
     private void tryAddAdvancementTypeCycButton() {
         if (settingType == SettingType.SOUNDS) {
-            advancementType = AdvancementType.TASK;
+            advancementType = FancyAdvancementType.TASK;
             advancementTypeCycButton.setValue(advancementType);
             this.addRenderableWidget(this.advancementTypeCycButton);
         }
@@ -143,7 +143,7 @@ public class ToastConfigScreen extends UniversalScreen {
         infoList.update(settingType.getDisplayData(settingType.getCurrentId(this)), settingType.getCurrentId(this).toLanguageKey().contains(Constants.MOD_CONFIG), true);
     }
 
-    private void setAdvancementType(AdvancementType type) {
+    private void setAdvancementType(FancyAdvancementType type) {
         advancementType = type;
         infoList.update(settingType.getDisplayData(settingType.getCurrentId(this)), settingType.getCurrentId(this).toLanguageKey().contains(Constants.MOD_CONFIG), true);
     }

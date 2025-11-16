@@ -16,32 +16,28 @@ import java.util.Random;
 import static net.bivrik.fancytoasts.client.toast.animation.Appearance.getProgress;
 
 public class QuirkyAnimation extends FancyAdvancementToastAnimation {
-    private static final Appearance ICON_APPEARANCE = new Appearance(2000, 0);
-    private static final Appearance ICON_SCALE = new Appearance(3500, 0);
-    private static final Appearance BANNER_APPEARANCE = new Appearance(900, 1200);
-    private static final Appearance BACKGROUND_APPEARANCE = new Appearance(1000, 1000);
-    private static final Appearance TEXT_APPEARANCE = new Appearance(1000, 1800);
+    private final Appearance ICON_APPEARANCE = new Appearance(2000, 0);
+    private final Appearance ICON_SCALE = new Appearance(3500, 0);
+    private final Appearance BANNER_APPEARANCE = new Appearance(900, 1200);
+    private final Appearance BACKGROUND_APPEARANCE = new Appearance(1000, 1000);
+    private final Appearance TEXT_APPEARANCE = new Appearance(1000, 1800);
 
-    private static final int FADE_OUT_DURATION = 1500;
-    private static final int DURATION = 5000 + FADE_OUT_DURATION;
+    private final int FADE_OUT_DURATION = 1500;
+    private final int DURATION = 5000 + FADE_OUT_DURATION;
 
-    private static final Random random = new Random();
-    private static float randomRotation;
-
-    private List<FormattedCharSequence> DESCRIPTION = new ArrayList<>();
+    private float randomRotation;
 
     @Override
-    public void setup(FancyAdvancementSetup setup, FancyAdvancementToast toast) {
-        super.setup(setup, toast);
+    public void setup(AnimationSetup setup, Minecraft minecraft, int toastWidth, int toastHeight) {
+        super.setup(setup, minecraft, toastWidth, toastHeight);
 
-        randomRotation = random.nextFloat(-0.4f, 0.4f);
-
-        DESCRIPTION = toast.getMinecraft().font.split(setup.display().getDescription(), this.toast.getWidth() - 16);
+        this.setLines(displayInfo.getAdvancementsAnnouncement(), displayInfo.getDescription());
+        randomRotation = new Random().nextFloat(-0.4f, 0.4f);
     }
 
     @Override
-    public void draw(GuiGraphics guiGraphics, Minecraft minecraft, long time) {
-        super.draw(guiGraphics, minecraft, time);
+    public void draw(GuiGraphics guiGraphics, long time) {
+        super.draw(guiGraphics, time);
 
         float iconAppearProgress = ICON_APPEARANCE.getProgress(time);
         float iconScaleProgress = ICON_SCALE.getProgress(time);
@@ -52,17 +48,17 @@ public class QuirkyAnimation extends FancyAdvancementToastAnimation {
 
         var stack = GUIs.getStack(guiGraphics);
 
-        float sinX = (float) (Math.sin(time / 800.0) * 7);
-        float sinY = (float) (Math.sin(time / 400.0) * 5);
+        float globalSinX = (float) (Math.sin(time / 800.0)) * 7.0F;
+        float globalSinY = (float) (Math.sin(time / 400.0)) * 5.0F;
 
         GUIs.push(stack);
-        GUIs.translate(stack, sinX, sinY);
+        GUIs.translate(stack, globalSinX, globalSinY - 20);
 
         if (fadeOutProgress > 0) {
             float fadeOutScaleX = MathEasing.easeInLerp(1f, 0f, fadeOutProgress);
             float fadeOutRotation = MathEasing.easeInLerp(0f, randomRotation, fadeOutProgress);
-            float toastCenterX = (float) this.toast.getWidth() / 2;
-            float toastCenterY = (float) this.toast.getHeight() / 2;
+            int toastCenterX = toastWidth / 2;
+            int toastCenterY = toastHeight / 2;
 
             GUIs.push(stack);
             GUIs.scaleAround(stack, fadeOutScaleX, toastCenterX, toastCenterY);
@@ -71,9 +67,9 @@ public class QuirkyAnimation extends FancyAdvancementToastAnimation {
 
         if (bannerAppearProgress > 0) {
             GUIs.push(stack);
-            float y = 32;
+            float y = 58;
             if (bannerAppearProgress != 1) {
-                y = MathEasing.easeOutLerp(-40f, 32f, bannerAppearProgress);
+                y = MathEasing.easeOutLerp(-40.0F, 58.0F, bannerAppearProgress);
             }
             GUIs.translate(stack, 0, y);
             this.drawBanner(guiGraphics);
@@ -82,58 +78,33 @@ public class QuirkyAnimation extends FancyAdvancementToastAnimation {
 
         if (backgroundAppearProgress > 0) {
             GUIs.push(stack);
-            int y = -25;
             if (backgroundAppearProgress != 1) {
-                y = MathEasing.easeOutLerp(-120, -25, backgroundAppearProgress);
+                float y = MathEasing.easeOutLerp(-95.0F, 0, backgroundAppearProgress);
+                GUIs.translate(stack, 0, y);
             }
-            GUIs.translate(stack, 0, y);
             this.drawBackground(guiGraphics);
             GUIs.pop(stack);
         }
 
         if (iconAppearProgress > 0) {
             GUIs.push(stack);
-            float posY = 29;
+            float posY = 55;
+            float sinY = (float) (Math.sin(time / 400.0)) * -1.2F;
             if (iconAppearProgress != 1) {
-                posY = MathEasing.easeOutLerp(-120, 29, iconAppearProgress);
+                posY = MathEasing.easeOutLerp(-95.0F, 55.0F, iconAppearProgress);
             }
-            if (iconScaleProgress != 1 && iconScaleProgress > 0) {
-                float scale = MathEasing.easeOutLerp(3f, 1f, iconScaleProgress);
-
+            if (iconScaleProgress > 0 && iconScaleProgress != 1) {
+                float scale = MathEasing.easeOutLerp(3.0f, 1.0f, iconScaleProgress);
                 GUIs.scaleAround(stack, scale, 68 + 13, 17);
             }
-            GUIs.translate(stack, 0, (float) (Math.sin(time / 400.0) * -1.2) + posY);
+            GUIs.translate(stack, 0, sinY + posY);
             this.drawIcon(guiGraphics);
             GUIs.pop(stack);
         }
 
         if (textAppearProgress > 0) {
-            int a = Mth.floor(textAppearProgress * 255.0F);
-            int titleColor = Colors.alpha(a, this.setup.titleColor());
-            int toastColor = Colors.alpha(a, this.setup.toastColor());
-
-            var font = minecraft.font;
-            var display = this.setup.display();
-
-            int toastCenterX = this.toast.getWidth() / 2;
-
-            // Title
-            guiGraphics.drawCenteredString(font, display.getType().getDisplayName(), toastCenterX, 0, titleColor);
-
-            // Description
-            if (!DESCRIPTION.isEmpty()) {
-                guiGraphics.drawCenteredString(font, DESCRIPTION.get(0), toastCenterX, 12, toastColor);
-                if (DESCRIPTION.size() > 1) {
-                    var descriptionSecondLine = DESCRIPTION.get(1);
-
-                    if (DESCRIPTION.size() > 2) {
-                        guiGraphics.drawCenteredString(font, descriptionSecondLine, toastCenterX - font.width("...") / 2, 21, toastColor);
-                        guiGraphics.drawCenteredString(font, "...", toastCenterX + font.width(descriptionSecondLine) / 2, 21, toastColor);
-                    } else {
-                        guiGraphics.drawCenteredString(font, descriptionSecondLine, toastCenterX, 21, toastColor);
-                    }
-                }
-            }
+            this.drawTitle(guiGraphics, textAppearProgress);
+            this.drawDescription(guiGraphics, textAppearProgress);
         }
 
         if (fadeOutProgress > 0) {
@@ -144,12 +115,34 @@ public class QuirkyAnimation extends FancyAdvancementToastAnimation {
     }
 
     @Override
+    protected void drawDescription(GuiGraphics guiGraphics, float alpha) {
+        var descriptionLines = getDescriptionLines();
+        if (descriptionLines.isEmpty()) {
+            return;
+        }
+
+        int centerToastX = toastWidth / 2;
+        int descriptionColor = Colors.alpha(alpha, displayInfo.getAdvancementType().getSecondaryColor());
+
+        guiGraphics.drawCenteredString(minecraft.font, descriptionLines.get(0), centerToastX, 38, descriptionColor);
+        if (descriptionLines.size() > 1) {
+            var descriptionSecondLine = descriptionLines.get(1);
+            if (descriptionLines.size() == 2) {
+                guiGraphics.drawCenteredString(minecraft.font, descriptionSecondLine, centerToastX, 47, descriptionColor);
+            } else {
+                guiGraphics.drawCenteredString(minecraft.font, descriptionSecondLine, centerToastX - minecraft.font.width("...") / 2, 47, descriptionColor);
+                guiGraphics.drawCenteredString(minecraft.font, "...", centerToastX + minecraft.font.width(descriptionSecondLine) / 2, 47, descriptionColor);
+            }
+        }
+    }
+
+    @Override
     public int getDuration() {
         return DURATION;
     }
 
     @Override
     public int getToastSoundTiming() {
-        return 1000;
+        return TEXT_APPEARANCE.startPoint() + 200;
     }
 }

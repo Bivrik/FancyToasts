@@ -3,9 +3,10 @@ package net.bivrik.fancytoasts.client.toast;
 import net.bivrik.fancytoasts.Common;
 import net.bivrik.fancytoasts.Debug;
 import net.bivrik.fancytoasts.client.registries.AnimationRegistry;
+import net.bivrik.fancytoasts.client.toast.animation.AnimationSetup;
 import net.bivrik.fancytoasts.client.toast.animation.FancyAdvancementToastAnimation;
-import net.bivrik.fancytoasts.client.toast.animation.FancyAdvancementSetup;
-import net.bivrik.fancytoasts.platform.utility.Colors;
+import net.bivrik.fancytoasts.platform.utility.AdvancementToastDisplayInfo;
+import net.bivrik.fancytoasts.utility.DefaultUVs;
 import net.minecraft.advancements.Advancement;
 import net.minecraft.advancements.AdvancementType;
 import net.minecraft.advancements.DisplayInfo;
@@ -17,52 +18,63 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 
-import java.util.Objects;
 import java.util.Optional;
+import java.util.Random;
 
 public class FancyAdvancementToast {
     private static final int WIDTH = 162;
     private static final int HEIGHT = 70;
+    private static final Random random = new Random();
 
-    private final FancyAdvancementToastAnimation animation;
-    private final ResourceLocation toastSoundId;
-    private final float volume;
-
+    private FancyAdvancementToastAnimation animation;
+    private ResourceLocation toastSoundId;
+    private float volume;
     private SoundManager soundManager;
 
-    private boolean isEnded = false;
     private long time;
+    private boolean isEnded = false;
     private int playedSoundsCount = 0;
 
-    public FancyAdvancementToast(Advancement advancement, ResourceLocation texture, ResourceLocation animationId) {
-        DisplayInfo display = advancement.display().orElse(null);
+    public FancyAdvancementToast(Minecraft minecraft, Advancement advancement, ResourceLocation texture, ResourceLocation animationId) {
+        DisplayInfo oldDisplayInfo = advancement.display().orElse(null);
+        if (oldDisplayInfo == null) {
+            return;
+        }
+        var generalConfig = Common.getConfigManager().getGeneralConfig();
 
-        animation = AnimationRegistry.getAnimation(animationId).get();
+        if (generalConfig.areSoundsEnabled()) {
+            soundManager = minecraft.getSoundManager();
+            playSound(SoundEvents.UI_TOAST_IN, 1.5f);
+        }
 
-        switch (Objects.requireNonNull(display).getType()) {
+        AdvancementToastDisplayInfo displayInfo = new AdvancementToastDisplayInfo(oldDisplayInfo);
+        AnimationSetup setup = new AnimationSetup(texture, displayInfo, null, DefaultUVs.BACKGROUND, DefaultUVs.PLAQUE);
+
+        switch (displayInfo.getAdvancementType()) {
             case TASK -> {
-                animation.setup(new FancyAdvancementSetup(texture, TextureUV.TASK_FRAME_UV, display, Colors.YELLOW, Colors.WHITE), this);
-                toastSoundId = Common.getConfigManager().getToastConfig().getSoundId(AdvancementType.TASK);
-                volume = Common.getConfigManager().getGeneralConfig().getTaskVolume();
+                setup.setTypeBasedUVs(DefaultUVs.TASK);
+                volume = generalConfig.getTaskVolume();
             }
             case GOAL -> {
-                animation.setup(new FancyAdvancementSetup(texture, TextureUV.GOAL_FRAME_UV, display, Colors.CYAN, Colors.WHITE), this);
-                toastSoundId = Common.getConfigManager().getToastConfig().getSoundId(AdvancementType.GOAL);
-                volume = Common.getConfigManager().getGeneralConfig().getGoalVolume();
+                setup.setTypeBasedUVs(DefaultUVs.GOAL);
+                volume = generalConfig.getGoalVolume();
             }
             case CHALLENGE -> {
-            animation.setup(new FancyAdvancementSetup(texture, TextureUV.CHALLENGE_FRAME_UV, display, Colors.PURPLE, Colors.CYAN), this);
-                toastSoundId = Common.getConfigManager().getToastConfig().getSoundId(AdvancementType.CHALLENGE);
-                volume = Common.getConfigManager().getGeneralConfig().getChallengeVolume();
+                setup.setTypeBasedUVs(DefaultUVs.CHALLENGE);
+                volume = generalConfig.getChallengeVolume();
             }
             default -> throw new RuntimeException("Could match correct advancement type");
         }
 
-        Debug.info("Created new Fancy Advancement Toast: {}", display.getTitle().getString());
+        animation = AnimationRegistry.getAnimation(animationId).get();
+        animation.setup(setup, minecraft, getWidth(), getHeight());
+        toastSoundId = Common.getConfigManager().getToastConfig().getSoundId(displayInfo.getAdvancementType());
+
+        Debug.info("Created new Fancy Advancement Toast: {}", displayInfo.getTitle().getString());
     }
 
-    public void draw(GuiGraphics graphics, Minecraft minecraft) {
-        animation.draw(graphics, minecraft, time);
+    public void draw(GuiGraphics graphics) {
+        animation.draw(graphics, time);
     }
 
     public void update(long time) {
@@ -74,29 +86,28 @@ public class FancyAdvancementToast {
 
         if (soundManager != null) {
             int timeInSeconds = (int) (this.time / 50);
+
             if (playedSoundsCount == 0 && timeInSeconds == animation.getToastSoundTiming() / 50) {
-                SoundEvent tse = new SoundEvent(toastSoundId, Optional.empty());
-                soundManager.play(SimpleSoundInstance.forUI(tse, 1f, volume));
+                playSound(toastSoundId, volume);
                 playedSoundsCount++;
             }
             if (playedSoundsCount == 1 && timeInSeconds == animation.getDuration() / 50 - 10) {
-                soundManager.play(SimpleSoundInstance.forUI(SoundEvents.UI_TOAST_IN, 1f, 1.5f));
+                playSound(SoundEvents.UI_TOAST_IN, 1.5f);
                 playedSoundsCount++;
             }
         }
     }
 
-    public void trySetSoundManager(SoundManager soundManager) {
-        if (!Common.getConfigManager().getGeneralConfig().areSoundsEnabled()) {
+    private void playSound(SoundEvent sound, float volume) {
+        if (soundManager == null) {
             return;
         }
 
-        this.soundManager = soundManager;
-        this.soundManager.play(SimpleSoundInstance.forUI(SoundEvents.UI_TOAST_IN, 1f, 1.5f));
+        soundManager.play(SimpleSoundInstance.forUI(sound, random.nextFloat(0.95F, 1.05F), volume));
     }
 
-    public Minecraft getMinecraft() {
-        return Minecraft.getInstance();
+    private void playSound(ResourceLocation soundLocation, float volume) {
+        playSound(new SoundEvent(soundLocation, Optional.empty()), volume);
     }
 
     public boolean isEnded() {

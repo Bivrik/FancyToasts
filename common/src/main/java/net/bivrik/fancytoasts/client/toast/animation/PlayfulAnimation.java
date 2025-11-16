@@ -1,43 +1,33 @@
 package net.bivrik.fancytoasts.client.toast.animation;
 
-import net.bivrik.fancytoasts.client.toast.FancyAdvancementToast;
 import net.bivrik.fancytoasts.platform.utility.GUIs;
-import net.bivrik.fancytoasts.platform.utility.Colors;
 import net.bivrik.fancytoasts.utility.MathEasing;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
-import net.minecraft.util.FormattedCharSequence;
 import net.minecraft.util.Mth;
-
-import java.util.ArrayList;
-import java.util.List;
 
 import static net.bivrik.fancytoasts.client.toast.animation.Appearance.getProgress;
 
 public class PlayfulAnimation extends FancyAdvancementToastAnimation {
-    private static final Appearance ICON_APPEARANCE = new Appearance(1000, 0);
-    private static final Appearance ICON_MOVEMENT = new Appearance(1500, 1000);
-    private static final Appearance BANNER_APPEARANCE = new Appearance(1000, 1500);
-    private static final Appearance BACKGROUND_APPEARANCE = new Appearance(800, 1600);
-    private static final Appearance TEXT_APPEARANCE = new Appearance(1000, 2000);
+    private final Appearance ICON_APPEARANCE = new Appearance(1000, 0);
+    private final Appearance ICON_MOVEMENT = new Appearance(1500, 1000);
+    private final Appearance BANNER_APPEARANCE = new Appearance(1000, 1500);
+    private final Appearance BACKGROUND_APPEARANCE = new Appearance(800, 1600);
+    private final Appearance TEXT_APPEARANCE = new Appearance(1000, 2000);
 
-    private static final int FADE_OUT_DURATION = 1500;
-    private static final int DURATION = 6000 + FADE_OUT_DURATION;
-
-    private List<FormattedCharSequence> TITLE = new ArrayList<>();
-    private List<FormattedCharSequence> DESCRIPTION = new ArrayList<>();
+    private final int FADE_OUT_DURATION = 1500;
+    private final int DURATION = 6000 + FADE_OUT_DURATION;
 
     @Override
-    public void setup(FancyAdvancementSetup setup, FancyAdvancementToast toast) {
-        super.setup(setup, toast);
+    public void setup(AnimationSetup setup, Minecraft minecraft, int toastWidth, int toastHeight) {
+        super.setup(setup, minecraft, toastWidth, toastHeight);
 
-        TITLE = toast.getMinecraft().font.split(setup.display().getTitle(), this.toast.getWidth() - 16);
-        DESCRIPTION = toast.getMinecraft().font.split(setup.display().getDescription(), this.toast.getWidth() - 16);
+        this.setLines(displayInfo.getTitle(), displayInfo.getDescription());
     }
 
     @Override
-    public void draw(GuiGraphics guiGraphics, Minecraft minecraft, long time) {
-        super.draw(guiGraphics, minecraft, time);
+    public void draw(GuiGraphics guiGraphics, long time) {
+        super.draw(guiGraphics, time);
 
         float iconAppearProgress = ICON_APPEARANCE.getProgress(time);
         float iconMovementProgress = ICON_MOVEMENT.getProgress(time);
@@ -52,8 +42,8 @@ public class PlayfulAnimation extends FancyAdvancementToastAnimation {
 
         if (fadeOutProgress > 0) {
             float fadeOutScale = MathEasing.easeInLerp(1f, 0f, fadeOutProgress);
-            float toastCenterX = (float) this.toast.getWidth() / 2;
-            float toastCenterY = (float) this.toast.getHeight() / 2;
+            int toastCenterX = toastWidth / 2;
+            int toastCenterY = toastHeight / 2;
 
             GUIs.push(stack);
             GUIs.scaleAround(stack, fadeOutScale, toastCenterX, toastCenterY);
@@ -106,35 +96,8 @@ public class PlayfulAnimation extends FancyAdvancementToastAnimation {
         }
 
         if (textAppearProgress > 0) {
-            int a = Mth.floor(textAppearProgress * 255.0F);
-            int titleColor = Colors.alpha(a, this.setup.titleColor());
-            int toastColor = Colors.alpha(a, this.setup.toastColor());
-
-            var font = minecraft.font;
-
-            // Title
-            if (!TITLE.isEmpty()) {
-                FormattedCharSequence titleLine = TITLE.get(0);
-                if (TITLE.size() == 1) {
-                    guiGraphics.drawCenteredString(font, titleLine, this.toast.getWidth() / 2, 25, titleColor);
-                } else {
-                    guiGraphics.drawCenteredString(font, titleLine, this.toast.getWidth() / 2 - font.width("...") / 2, 25, titleColor);
-                    guiGraphics.drawCenteredString(font, "...", 1 + this.toast.getWidth() / 2 + font.width(titleLine) / 2, 25, titleColor);
-                }
-            }
-
-            // Description
-            if (!DESCRIPTION.isEmpty()) {
-                guiGraphics.drawString(font, DESCRIPTION.get(0), 8, 38, toastColor);
-                if (DESCRIPTION.size() > 1) {
-                    var descriptionSecondLine = DESCRIPTION.get(1);
-
-                    guiGraphics.drawString(font, descriptionSecondLine, 8, 47, toastColor);
-                    if (DESCRIPTION.size() > 2) {
-                        guiGraphics.drawString(font, "...", 8 + font.width(descriptionSecondLine), 47, toastColor);
-                    }
-                }
-            }
+            this.drawTitle(guiGraphics, textAppearProgress);
+            this.drawDescription(guiGraphics, textAppearProgress);
         }
 
         if (fadeOutProgress > 0) {

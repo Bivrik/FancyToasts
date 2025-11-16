@@ -1,45 +1,40 @@
 package net.bivrik.fancytoasts.client.toast.animation;
 
-import net.bivrik.fancytoasts.client.toast.FancyAdvancementToast;
 import net.bivrik.fancytoasts.platform.utility.Colors;
 import net.bivrik.fancytoasts.platform.utility.GUIs;
 import net.bivrik.fancytoasts.utility.MathEasing;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
-import net.minecraft.util.FormattedCharSequence;
 import net.minecraft.util.Mth;
-
-import java.util.ArrayList;
-import java.util.List;
 
 import static net.bivrik.fancytoasts.client.toast.animation.Appearance.getProgress;
 
 public class OldlikeAnimation extends FancyAdvancementToastAnimation {
-    private static final Appearance ICON_APPEARANCE = new Appearance(2000, 0);
-    private static final Appearance BANNER_APPEARANCE = new Appearance(2000, 100);
-    private static final Appearance BACKGROUND_APPEARANCE = new Appearance(2000, 200);
-    private static final Appearance TEXT_APPEARANCE = new Appearance(2000, 1200);
+    private final Appearance ICON_APPEARANCE = new Appearance(2000, 0);
+    private final Appearance BANNER_APPEARANCE = new Appearance(2000, 100);
+    private final Appearance BACKGROUND_APPEARANCE = new Appearance(2000, 200);
+    private final Appearance TITLE_TEXT_APPEARANCE = new Appearance(2000, 1200);
+    private final Appearance DESCRIPTION_TEXT_APPEARANCE = new Appearance(2000, 1400);
 
-    private static final int FADE_OUT_DURATION = 3000;
-    private static final int DURATION = 3500 + FADE_OUT_DURATION;
-
-    private List<FormattedCharSequence> DESCRIPTION = new ArrayList<>();
+    private final int FADE_OUT_DURATION = 3000;
+    private final int DURATION = 3500 + FADE_OUT_DURATION;
 
     @Override
-    public void setup(FancyAdvancementSetup setup, FancyAdvancementToast toast) {
-        super.setup(setup, toast);
+    public void setup(AnimationSetup setup, Minecraft minecraft, int toastWidth, int toastHeight) {
+        super.setup(setup, minecraft, toastWidth, toastHeight);
 
-        DESCRIPTION = toast.getMinecraft().font.split(setup.display().getDescription(), this.toast.getWidth() - 16);
+        this.setLines(displayInfo.getAdvancementsAnnouncement(), displayInfo.getDescription());
     }
 
     @Override
-    public void draw(GuiGraphics guiGraphics, Minecraft minecraft, long time) {
-        super.draw(guiGraphics, minecraft, time);
+    public void draw(GuiGraphics guiGraphics, long time) {
+        super.draw(guiGraphics, time);
 
         float iconAppearProgress = ICON_APPEARANCE.getProgress(time);
         float bannerAppearProgress = BANNER_APPEARANCE.getProgress(time);
         float backgroundAppearProgress = BACKGROUND_APPEARANCE.getProgress(time);
-        float textAppearProgress = TEXT_APPEARANCE.getProgress(time);
+        float titleAppearProgress = TITLE_TEXT_APPEARANCE.getProgress(time);
+        float descriptionAppearProgress = DESCRIPTION_TEXT_APPEARANCE.getProgress(time);
         float fadeOutProgress = getProgress(time, FADE_OUT_DURATION, DURATION - FADE_OUT_DURATION);
 
         var stack = GUIs.getStack(guiGraphics);
@@ -97,40 +92,25 @@ public class OldlikeAnimation extends FancyAdvancementToastAnimation {
             GUIs.pop(stack);
         }
 
-        if (textAppearProgress > 0) {
-            float secondTextAppearProgress = Math.max(0.0F, -0.1F + (textAppearProgress * 1.1F));
-            int a;
-            int a2;
-            if (fadeOutProgress <= 0) {
-                a = Mth.floor(textAppearProgress * 255.0F);
-                a2 = Mth.floor(secondTextAppearProgress * 255.0F);
-            } else {
-                float fadeOutText = MathEasing.easeInLerp(1.0F, 0, fadeOutProgress) * 255.0F;
-                a = Mth.floor(fadeOutText);
-                a2 = Mth.floor(fadeOutText);
-            }
-            int titleColor = Colors.alpha(a, this.setup.titleColor());
-            int toastColor = Colors.alpha(a2, this.setup.toastColor());
-            int x = MathEasing.elasticEaseOutLerp(50, 0, textAppearProgress);
-            int x2 = MathEasing.elasticEaseOutLerp(50, 0, secondTextAppearProgress);
+        float fadeOutTextAlpha = 0;
+        if (fadeOutProgress > 0) {
+            fadeOutTextAlpha = MathEasing.easeInLerp(0, 1.0F, fadeOutProgress);
+        }
 
-            var font = minecraft.font;
+        if (titleAppearProgress > 0) {
+            int x = MathEasing.elasticEaseOutLerp(50, 0, titleAppearProgress);
+            GUIs.push(stack);
+            GUIs.translate(stack, x, 0);
+            this.drawTitle(guiGraphics, titleAppearProgress - fadeOutTextAlpha);
+            GUIs.pop(stack);
+        }
 
-            // Title
-            guiGraphics.drawCenteredString(font, setup.display().getType().getDisplayName(), this.toast.getWidth() / 2 + x, 25, titleColor);
-
-            // Description
-            if (!DESCRIPTION.isEmpty()) {
-                guiGraphics.drawString(font, DESCRIPTION.get(0), 8 + x2, 38, toastColor);
-                if (DESCRIPTION.size() > 1) {
-                    var descriptionSecondLine = DESCRIPTION.get(1);
-
-                    guiGraphics.drawString(font, descriptionSecondLine, 8 + x2, 47, toastColor);
-                    if (DESCRIPTION.size() > 2) {
-                        guiGraphics.drawString(font, "...", 8 + font.width(descriptionSecondLine) + x2, 47, toastColor);
-                    }
-                }
-            }
+        if (descriptionAppearProgress > 0) {
+            int x = MathEasing.elasticEaseOutLerp(50, 0, descriptionAppearProgress);
+            GUIs.push(stack);
+            GUIs.translate(stack, x, 0);
+            this.drawDescription(guiGraphics, descriptionAppearProgress - fadeOutTextAlpha);
+            GUIs.pop(stack);
         }
     }
 
@@ -141,6 +121,6 @@ public class OldlikeAnimation extends FancyAdvancementToastAnimation {
 
     @Override
     public int getToastSoundTiming() {
-        return TEXT_APPEARANCE.startPoint() + TEXT_APPEARANCE.duration() / 5;
+        return TITLE_TEXT_APPEARANCE.startPoint() + TITLE_TEXT_APPEARANCE.duration() / 4;
     }
 }

@@ -32,7 +32,7 @@ public class AdvancementToastManager {
     public void addAdvancement(Advancement advancement) {
         var toastConfig = Common.getConfigManager().getToastConfig();
 
-        FancyAdvancementToast fancyAdvancementToast = new FancyAdvancementToast(advancement, toastConfig.getTextureId(), toastConfig.getAnimationId());
+        FancyAdvancementToast fancyAdvancementToast = new FancyAdvancementToast(minecraft, advancement, toastConfig.getTextureId(), toastConfig.getAnimationId());
         ADVANCEMENT_TOASTS.add(fancyAdvancementToast);
 
         if (getGeneralConfig().isJadeCompatEnabled()) {
@@ -70,7 +70,7 @@ public class AdvancementToastManager {
         var stack = GUIs.getStack(guiGraphics);
         GUIs.push(stack);
         GUIs.translate(stack, xPos, 20);
-        currentToast.draw(guiGraphics, minecraft);
+        currentToast.draw(guiGraphics);
         GUIs.pop(stack);
     }
 
@@ -96,8 +96,6 @@ public class AdvancementToastManager {
         FancyAdvancementToast nextToast = ADVANCEMENT_TOASTS.pollFirst();
         if (nextToast != null) {
             currentToast = nextToast;
-            currentToast.trySetSoundManager(minecraft.getSoundManager()); // change?
-
             startingTimeOfToast = Util.getMillis();
         }
     }

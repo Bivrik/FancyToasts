@@ -1,40 +1,33 @@
 package net.bivrik.fancytoasts.client.toast.animation;
 
-import net.bivrik.fancytoasts.platform.utility.GUIs;
-import net.bivrik.fancytoasts.client.toast.FancyAdvancementToast;
 import net.bivrik.fancytoasts.platform.utility.Colors;
+import net.bivrik.fancytoasts.platform.utility.GUIs;
 import net.bivrik.fancytoasts.utility.MathEasing;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.util.FormattedCharSequence;
-import net.minecraft.util.Mth;
-
-import java.util.ArrayList;
-import java.util.List;
 
 import static net.bivrik.fancytoasts.client.toast.animation.Appearance.getProgress;
 
 public class StandardAnimation extends FancyAdvancementToastAnimation {
-    private static final Appearance ICON_APPEARANCE = new Appearance(2000, 0);
-    private static final Appearance BANNER_APPEARANCE = new Appearance(500, 1500);
-    private static final Appearance BACKGROUND_APPEARANCE = new Appearance(800, 1600);
-    private static final Appearance TEXT_APPEARANCE = new Appearance(1000, 2000);
+    private final Appearance ICON_APPEARANCE = new Appearance(2000, 0);
+    private final Appearance BANNER_APPEARANCE = new Appearance(500, 1500);
+    private final Appearance BACKGROUND_APPEARANCE = new Appearance(800, 1600);
+    private final Appearance TEXT_APPEARANCE = new Appearance(1000, 2000);
 
-    private static final int FADE_OUT_DURATION = 2000;
-    private static final int DURATION = 6000 + FADE_OUT_DURATION;
-
-    private List<FormattedCharSequence> DESCRIPTION = new ArrayList<>();
+    private final int FADE_OUT_DURATION = 2000;
+    private final int DURATION = 6000 + FADE_OUT_DURATION;
 
     @Override
-    public void setup(FancyAdvancementSetup setup, FancyAdvancementToast toast) {
-        super.setup(setup, toast);
+    public void setup(AnimationSetup setup, Minecraft minecraft, int toastWidth, int toastHeight) {
+        super.setup(setup, minecraft, toastWidth, toastHeight);
 
-        DESCRIPTION = toast.getMinecraft().font.split(setup.display().getTitle(), this.toast.getWidth() - 20);
+        this.setLines(displayInfo.getAdvancementsAnnouncement(), displayInfo.getTitle());
     }
 
     @Override
-    public void draw(GuiGraphics guiGraphics, Minecraft minecraft, long time) {
-        super.draw(guiGraphics, minecraft, time);
+    public void draw(GuiGraphics guiGraphics, long time) {
+        super.draw(guiGraphics, time);
 
         float iconAppearProgress = ICON_APPEARANCE.getProgress(time);
         float bannerAppearProgress = BANNER_APPEARANCE.getProgress(time);
@@ -88,32 +81,33 @@ public class StandardAnimation extends FancyAdvancementToastAnimation {
         }
 
         if (textAppearProgress > 0) {
-            int a = Mth.floor(textAppearProgress * 255.0F);
-            int titleColor = Colors.alpha(a, this.setup.titleColor());
-            int toastColor = Colors.alpha(a, this.setup.toastColor());
-
-            var font = minecraft.font;
-            var display = this.setup.display();
-
-            // Title
-            guiGraphics.drawCenteredString(font, display.getType().getDisplayName(), this.toast.getWidth() / 2, 25, titleColor);
-
-            // Description
-            if (!DESCRIPTION.isEmpty()) {
-                if (DESCRIPTION.size() == 1) {
-                    guiGraphics.drawCenteredString(font, DESCRIPTION.get(0), this.toast.getWidth() / 2, 43, toastColor);
-                } else {
-                    int lineHeight = 42 - (9 * (DESCRIPTION.size() - 1)) / 2;
-                    for (FormattedCharSequence text : DESCRIPTION) {
-                        guiGraphics.drawCenteredString(font, text, this.toast.getWidth() / 2, lineHeight, toastColor);
-                        lineHeight += 9;
-                    }
-                }
-            }
+            this.drawTitle(guiGraphics, textAppearProgress);
+            this.drawDescription(guiGraphics, textAppearProgress);
         }
 
         if (fadeOutProgress > 0) {
             GUIs.pop(stack);
+        }
+    }
+
+    @Override
+    protected void drawDescription(GuiGraphics guiGraphics, float alpha) {
+        var descriptionLines = getDescriptionLines();
+        if (descriptionLines.isEmpty()) {
+            return;
+        }
+
+        int centerToastX = this.toastWidth / 2;
+        int descriptionColor = Colors.alpha(alpha, this.displayInfo.getAdvancementType().getSecondaryColor());
+
+        if (descriptionLines.size() == 1) {
+            guiGraphics.drawCenteredString(this.minecraft.font, descriptionLines.getFirst(), centerToastX, 43, descriptionColor);
+        } else {
+            int lineHeight = 42 - (9 * (descriptionLines.size() - 1)) / 2;
+            for (FormattedCharSequence line : descriptionLines) {
+                guiGraphics.drawCenteredString(this.minecraft.font, line, centerToastX, lineHeight, descriptionColor);
+                lineHeight += 9;
+            }
         }
     }
 

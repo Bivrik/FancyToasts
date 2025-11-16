@@ -4,9 +4,9 @@ import net.bivrik.fancytoasts.Common;
 import net.bivrik.fancytoasts.Debug;
 import net.bivrik.fancytoasts.client.registries.AnimationRegistry;
 import net.bivrik.fancytoasts.client.registries.TextureRegistry;
+import net.bivrik.fancytoasts.platform.utility.FancyAdvancementType;
 import net.bivrik.fancytoasts.utility.DefaultLocations;
 import net.bivrik.fancytoasts.utility.file.Paths;
-import net.minecraft.advancements.AdvancementType;
 import net.minecraft.client.Minecraft;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvents;
@@ -18,9 +18,9 @@ import java.util.Map;
 public class ToastConfigData extends ConfigData {
     private ResourceLocation animationId;
     private ResourceLocation textureId;
-    private final Map<AdvancementType, ResourceLocation> soundIds = new EnumMap<>(AdvancementType.class);
+    private final Map<FancyAdvancementType, ResourceLocation> soundIds = new EnumMap<>(FancyAdvancementType.class);
 
-    public ToastConfigData(ResourceLocation animationId, ResourceLocation textureId, Map<AdvancementType, ResourceLocation> soundIds) {
+    public ToastConfigData(ResourceLocation animationId, ResourceLocation textureId, Map<FancyAdvancementType, ResourceLocation> soundIds) {
         super(Paths.TOAST_CONFIG_FILE);
 
         this.animationId = animationId;
@@ -34,9 +34,9 @@ public class ToastConfigData extends ConfigData {
         this.animationId = DefaultLocations.Animations.STANDARD;
         this.textureId = DefaultLocations.Textures.VANILLA;
         this.soundIds.putAll(Map.of(
-                AdvancementType.TASK, SoundEvents.ALLAY_AMBIENT_WITH_ITEM.location(),
-                AdvancementType.GOAL, SoundEvents.FIREWORK_ROCKET_TWINKLE_FAR.location(),
-                AdvancementType.CHALLENGE, SoundEvents.UI_TOAST_CHALLENGE_COMPLETE.location())
+                FancyAdvancementType.TASK, SoundEvents.ALLAY_AMBIENT_WITH_ITEM.location(),
+                FancyAdvancementType.GOAL, SoundEvents.FIREWORK_ROCKET_TWINKLE_FAR.location(),
+                FancyAdvancementType.CHALLENGE, SoundEvents.UI_TOAST_CHALLENGE_COMPLETE.location())
         );
     }
 
@@ -54,7 +54,7 @@ public class ToastConfigData extends ConfigData {
         textureId = id;
     }
 
-    public ResourceLocation getSoundId(AdvancementType type) {
+    public ResourceLocation getSoundId(FancyAdvancementType type) {
         var soundManager = Minecraft.getInstance().getSoundManager();
 
         if (!soundManager.getAvailableSounds().contains(soundIds.get(type))) {
@@ -74,7 +74,7 @@ public class ToastConfigData extends ConfigData {
 
         return soundIds.get(type);
     }
-    public void putSound(AdvancementType type, ResourceLocation location) {
+    public void putSound(FancyAdvancementType type, ResourceLocation location) {
         soundIds.put(type, location);
     }
 
