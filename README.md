@@ -85,6 +85,9 @@ Big goals/plans/ideas for future updates. Some of them are abstract ideas, and s
 
 # Changelog 📝
 
+## v1.4.5
+> working... not much tho
+
 ## v1.4.4
 * New features:
   * Community "Credits" screen! For everyone who supported or contributed!
