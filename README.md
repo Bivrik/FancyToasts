@@ -1,4 +1,4 @@
-> This is 1.21.10 Fabric/Forge/NeoForge version 1.4.4
+> This is 1.21.10 Fabric/Forge/NeoForge version 1.4.5
 
 # Fancy Toasts 🎉
 There is a reason why you are here. It might be curiosity. But I think you are here because of there old-fashion advancement toasts! This is a Minecraft Mod that changes plain, boring, and annoying advancement toasts to something new and interesting!
@@ -59,11 +59,11 @@ Big goals/plans/ideas for future updates. Some of them are abstract ideas, and s
 * Wide version support
   * **Currently maintaining**
 
-    | Minecraft version | Mod version       |
-    |-------------------|-------------------|
-    | Latest (1.21.10)  | 1.4.3             |
-    | 1.21.1            | 1.4.3             |
-    | 1.20.1            | 1.4.3             |
+    | Minecraft version | Mod version |
+    |-------------------|-------------|
+    | Latest (1.21.10)  | 1.4.4       |
+    | 1.21.1            | 1.4.4       |
+    | 1.20.1            | 1.4.4       |
   * **Planned with priorities**
 
     | Minecraft version | Port priority |

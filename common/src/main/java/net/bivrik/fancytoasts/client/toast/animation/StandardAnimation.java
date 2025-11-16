@@ -7,8 +7,6 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.util.FormattedCharSequence;
 
-import static net.bivrik.fancytoasts.client.toast.animation.Appearance.getProgress;
-
 public class StandardAnimation extends FancyAdvancementToastAnimation {
     private final Appearance ICON_APPEARANCE = new Appearance(2000, 0);
     private final Appearance BANNER_APPEARANCE = new Appearance(500, 1500);
@@ -33,7 +31,7 @@ public class StandardAnimation extends FancyAdvancementToastAnimation {
         float bannerAppearProgress = BANNER_APPEARANCE.getProgress(time);
         float backgroundAppearProgress = BACKGROUND_APPEARANCE.getProgress(time);
         float textAppearProgress = TEXT_APPEARANCE.getProgress(time);
-        float fadeOutProgress = getProgress(time, FADE_OUT_DURATION, DURATION - FADE_OUT_DURATION);
+        float fadeOutProgress = Appearance.getProgress(time, FADE_OUT_DURATION, DURATION - FADE_OUT_DURATION);
 
         var stack = GUIs.getStack(guiGraphics);
 
