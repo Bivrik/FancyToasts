@@ -1,9 +1,9 @@
 package net.bivrik.fancytoasts.client.config;
 
-import net.bivrik.fancytoasts.Common;
 import net.bivrik.fancytoasts.Debug;
 import net.bivrik.fancytoasts.client.registries.AnimationRegistry;
 import net.bivrik.fancytoasts.client.registries.TextureRegistry;
+import net.bivrik.fancytoasts.platform.Managers;
 import net.bivrik.fancytoasts.platform.utility.FancyAdvancementType;
 import net.bivrik.fancytoasts.utility.DefaultLocations;
 import net.bivrik.fancytoasts.utility.file.Paths;
@@ -90,7 +90,7 @@ public class ToastConfigData extends ConfigData {
     public boolean isValid() {
         if (TextureRegistry.isRegistered(textureId)) {
             if (textureId.toLanguageKey().contains("config")) {
-                Common.getCustomTextureManager().registerInMinecraft(textureId);
+                Managers.customTextureManager().registerInMinecraft(textureId);
             }
         }
         else {

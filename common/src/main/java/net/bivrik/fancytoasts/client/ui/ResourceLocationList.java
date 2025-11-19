@@ -100,7 +100,7 @@ public class ResourceLocationList extends ObjectSelectionList<ResourceLocationLi
 
         for (var location : locations) {
             boolean isBuiltIn = location.getNamespace().equals("fancytoasts") || location.getNamespace().equals("minecraft");
-            boolean isConfig = location.toLanguageKey().contains(Constants.MOD_CONFIG);
+            boolean isConfig = location.toLanguageKey().contains(Constants.CONFIG);
             boolean isCustom = !isBuiltIn || isConfig;
 
             if (isBuiltInSortType != isCustom) {
@@ -158,7 +158,7 @@ public class ResourceLocationList extends ObjectSelectionList<ResourceLocationLi
             this.location = location;
             this.minecraft = this.list.minecraft;
             this.font = this.minecraft.font;
-            this.isConfig = location.toLanguageKey().contains(Constants.MOD_CONFIG);
+            this.isConfig = location.toLanguageKey().contains(Constants.CONFIG);
 
             if (name != null) {
                 this.nameList = this.font.split(name, this.list.getRowWidth() - 8 - 2);

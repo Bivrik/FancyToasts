@@ -4,32 +4,42 @@ import net.bivrik.fancytoasts.client.config.ConfigData;
 import net.bivrik.fancytoasts.client.config.ConfigHandler;
 import net.bivrik.fancytoasts.client.config.GeneralConfigData;
 import net.bivrik.fancytoasts.client.config.ToastConfigData;
+import net.bivrik.fancytoasts.platform.IManager;
 
 import java.util.HashMap;
 
-public class ConfigManager {
-    private final HashMap<Class<? extends ConfigData>, ConfigData> CONFIGS = new HashMap<>();
+public class ConfigManager implements IManager {
+    private final HashMap<Class<? extends ConfigData>, ConfigData> configs = new HashMap<>();
 
-    public void loadConfigs() {
+    @Override
+    public void onModInit() {
         loadConfig(ToastConfigData.class);
         loadConfig(GeneralConfigData.class);
     }
 
-    public <T extends ConfigData> void loadConfig(Class<T> configDataClass) {
-        CONFIGS.remove(configDataClass);
-        CONFIGS.put(configDataClass, ConfigHandler.load(configDataClass));
+    private <T extends ConfigData> void loadConfig(Class<T> configDataClass) {
+        configs.remove(configDataClass);
+        configs.put(configDataClass, ConfigHandler.load(configDataClass));
     }
 
     public <T extends ConfigData> void updateConfig(T configData) {
-        CONFIGS.remove(configData.getClass());
-        CONFIGS.put(configData.getClass(), configData);
+        configs.replace(configData.getClass(), configData);
     }
 
-    public GeneralConfigData getGeneralConfig() {
-        return (GeneralConfigData) CONFIGS.get(GeneralConfigData.class).get();
+    private <T extends ConfigData> T getConfig(Class<T> configDataClass) {
+        @SuppressWarnings("unchecked")
+        T result = (T) configs.get(configDataClass).get();
+        if (result == null) {
+            throw new IllegalStateException("Trying to access unregistered config: " + configDataClass.getSimpleName());
+        }
+        return result;
     }
 
-    public ToastConfigData getToastConfig() {
-        return (ToastConfigData) CONFIGS.get(ToastConfigData.class).get();
+    public GeneralConfigData generalConfig() {
+        return getConfig(GeneralConfigData.class);
+    }
+
+    public ToastConfigData toastConfig() {
+        return getConfig(ToastConfigData.class);
     }
 }

@@ -1,7 +1,7 @@
 package net.bivrik.fancytoasts.client.config;
 
-import net.bivrik.fancytoasts.Common;
 import net.bivrik.fancytoasts.Debug;
+import net.bivrik.fancytoasts.platform.Managers;
 import net.bivrik.fancytoasts.utility.file.FileHelper;
 import net.bivrik.fancytoasts.utility.file.Paths;
 
@@ -61,7 +61,7 @@ public class ConfigHandler {
             Debug.info("Config file saved with following content:");
             Debug.info(configData.toString());
 
-            Common.getConfigManager().updateConfig(configData);
+            Managers.configManager().updateConfig(configData);
         } else {
             Debug.error("Config file {} could not be saved", configData.getClass().getSimpleName());
         }

@@ -1,7 +1,7 @@
 package net.bivrik.fancytoasts.client.gui;
 
-import net.bivrik.fancytoasts.Common;
 import net.bivrik.fancytoasts.client.ui.CreditsList;
+import net.bivrik.fancytoasts.platform.Managers;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.client.renderer.RenderPipelines;
@@ -29,7 +29,7 @@ public class CreditsScreen extends UniversalScreen {
 
     @Override
     protected void init() {
-        var creditsData = Common.getCreditsManager().getCredits();
+        var creditsData = Managers.creditsManager().getCredits();
         creditsList = this.addRenderableWidget(new CreditsList(this.minecraft, this.width , this.height, PADDING, 0, creditsData));
 
         this.setFocused(creditsList);

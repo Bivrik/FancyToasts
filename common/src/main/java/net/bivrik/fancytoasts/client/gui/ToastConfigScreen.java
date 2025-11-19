@@ -2,6 +2,7 @@ package net.bivrik.fancytoasts.client.gui;
 
 import net.bivrik.fancytoasts.Common;
 import net.bivrik.fancytoasts.Constants;
+import net.bivrik.fancytoasts.client.CustomTextureManager;
 import net.bivrik.fancytoasts.client.config.ToastConfigData;
 import net.bivrik.fancytoasts.client.config.ConfigHandler;
 import net.bivrik.fancytoasts.client.toast.DisplayData;
@@ -9,6 +10,7 @@ import net.bivrik.fancytoasts.client.ui.InformationList;
 import net.bivrik.fancytoasts.client.ui.ResourceLocationFilter;
 import net.bivrik.fancytoasts.client.ui.ResourceLocationList;
 import net.bivrik.fancytoasts.client.ui.SettingType;
+import net.bivrik.fancytoasts.platform.Managers;
 import net.bivrik.fancytoasts.platform.utility.Components;
 import net.bivrik.fancytoasts.platform.utility.FancyAdvancementType;
 import net.minecraft.client.gui.components.Button;
@@ -27,7 +29,7 @@ public class ToastConfigScreen extends UniversalScreen {
 
     private SettingType settingType = SettingType.TEXTURES;
     private FancyAdvancementType advancementType = FancyAdvancementType.TASK;
-    private DisplayData displayData = settingType.getDisplayData(Common.getConfigManager().getToastConfig().getTextureId());
+    private DisplayData displayData;
 
     private Button doneButton;
     private Button backButton;
@@ -38,11 +40,17 @@ public class ToastConfigScreen extends UniversalScreen {
     private ResourceLocationList locationsList;
     private InformationList infoList;
 
+    private CustomTextureManager customTextureManager;
+
     public ToastConfigScreen(Screen parent) {
         super(Components.of("gui.config.customization_title"), parent);
-        this.toastConfigData = Common.getConfigManager().getToastConfig();
 
-        Common.getCustomTextureManager().reload();
+        this.toastConfigData = Managers.configManager().toastConfig();
+        this.customTextureManager = Managers.customTextureManager();
+
+        displayData = settingType.getDisplayData(toastConfigData.getTextureId());
+
+        customTextureManager.reload();
     }
 
     public FancyAdvancementType getAdvancementType() {
@@ -81,7 +89,7 @@ public class ToastConfigScreen extends UniversalScreen {
         infoList = this.addRenderableWidget(new InformationList(this.minecraft,
                 this.width / 2 - 60 - PADDING * 2, this.height - 20 - PADDING - MARGIN * 2 - 2,
                 PADDING, 20 + PADDING + MARGIN,
-                displayData, settingType.getCurrentId(this).toLanguageKey().contains(Constants.MOD_CONFIG)));
+                displayData, settingType.getCurrentId(this).toLanguageKey().contains(Constants.CONFIG)));
 
         editBox = this.addRenderableWidget(new EditBox(this.font, this.width / 2 - 60, MARGIN, this.width / 2 - 40 - 30 - PADDING * 4, BUTTON_HEIGHT, this.editBox, Component.literal("...")));
         editBox.setResponder(locationsList::onSearchUpdate);
@@ -105,10 +113,10 @@ public class ToastConfigScreen extends UniversalScreen {
 
     @Override
     protected void toParentScreen() {
-        ResourceLocation textureId = Common.getConfigManager().getToastConfig().getTextureId();
-        Common.getCustomTextureManager().releaseTexturesFromMinecraft();
-        if (textureId.toLanguageKey().contains(Constants.MOD_CONFIG)) {
-            Common.getCustomTextureManager().registerInMinecraft(textureId);
+        ResourceLocation textureId = toastConfigData.getTextureId();
+        customTextureManager.releaseTexturesFromMinecraft();
+        if (textureId.toLanguageKey().contains(Constants.CONFIG)) {
+            customTextureManager.registerInMinecraft(textureId);
         }
 
         super.toParentScreen();
@@ -140,22 +148,22 @@ public class ToastConfigScreen extends UniversalScreen {
             this.removeWidget(this.advancementTypeCycButton);
         }
 
-        infoList.update(settingType.getDisplayData(settingType.getCurrentId(this)), settingType.getCurrentId(this).toLanguageKey().contains(Constants.MOD_CONFIG), true);
+        infoList.update(settingType.getDisplayData(settingType.getCurrentId(this)), settingType.getCurrentId(this).toLanguageKey().contains(Constants.CONFIG), true);
     }
 
     private void setAdvancementType(FancyAdvancementType type) {
         advancementType = type;
-        infoList.update(settingType.getDisplayData(settingType.getCurrentId(this)), settingType.getCurrentId(this).toLanguageKey().contains(Constants.MOD_CONFIG), true);
+        infoList.update(settingType.getDisplayData(settingType.getCurrentId(this)), settingType.getCurrentId(this).toLanguageKey().contains(Constants.CONFIG), true);
     }
 
     private void onAcceptedEntry(ResourceLocation location) {
         settingType.apply(this, location);
-        infoList.update(displayData, settingType.getCurrentId(this).toLanguageKey().contains(Constants.MOD_CONFIG), true);
+        infoList.update(displayData, settingType.getCurrentId(this).toLanguageKey().contains(Constants.CONFIG), true);
     }
 
     private void onSelectedEntry(ResourceLocation location) {
         displayData = settingType.getDisplayData(location);
         boolean isCurrent = settingType.getCurrentId(this).equals(location);
-        infoList.update(displayData, location.toLanguageKey().contains(Constants.MOD_CONFIG), isCurrent);
+        infoList.update(displayData, location.toLanguageKey().contains(Constants.CONFIG), isCurrent);
     }
 }

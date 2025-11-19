@@ -2,9 +2,9 @@ package net.bivrik.fancytoasts.client.ui;
 
 import net.bivrik.fancytoasts.Debug;
 import net.bivrik.fancytoasts.client.config.JsonHelper;
-import net.bivrik.fancytoasts.utility.file.Paths;
+import net.bivrik.fancytoasts.platform.IManager;
 
-import java.io.File;
+import java.io.IOException;
 import java.net.URI;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
@@ -14,23 +14,33 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.CompletableFuture;
 
-public class CreditsManager {
+public class CreditsManager implements IManager {
     private static final String DROPBOX_CREDITS_URL = "https://dl.dropboxusercontent.com/scl/fi/0tupbdajo54oh29617kde/credits.json?rlkey=iro2kolfqyqg6h93gpws45h9s&st=is4wjcmi";
 
-    private CreditsData credits;
+    private CreditsData cachedCredits;
 
-    public CreditsData getCredits() {
-        return credits;
-    }
-
-    public void loadCredits() {
-        credits = readCredits();
-
-        if (credits == null) {
-            credits = getFallback();
+    @Override
+    public void onModInit() {
+        CompletableFuture<CreditsData> creditsData = CompletableFuture.supplyAsync(this::readCredits);
+        try {
+            cachedCredits = creditsData.get();
+        } catch (Exception e) {
+            throw new RuntimeException("Failed to load credits data through wifi connection, using DropBox link", e);
         }
 
+        if (cachedCredits == null) {
+            cachedCredits = getFallback();
+        }
+    }
+
+    public CreditsData getCredits() {
+        if (cachedCredits == null) {
+            onModInit();
+        }
+
+        return cachedCredits;
     }
 
     private CreditsData readCredits() {
@@ -45,7 +55,7 @@ public class CreditsManager {
                     .build();
 
             httpResponse = httpClient.send(httpRequest, HttpResponse.BodyHandlers.ofString());
-        } catch (Exception e) {
+        } catch (IOException | InterruptedException e) {
             Debug.error("Failed to access DropBox file: {}", e.getMessage());
             return null;
         }
@@ -67,7 +77,7 @@ public class CreditsManager {
             Debug.error("Failed to get a response from DropBox: {}", e.getMessage());
         }
 
-        Debug.warn("Failed to get credits");
+        Debug.error("Failed to get credits");
         return null;
     }
 
@@ -75,10 +85,10 @@ public class CreditsManager {
         Debug.warn("Returning fallback for credits");
         CreditsData data = new CreditsData(new HashMap<>());
 
-        data.addCategory("fallback", users(
-                user("Credits couldn't be reached", ":("),
-                user("Try restarting mod or just... don't look here yet"),
-                user(":/")
+        data.addCategory("fallback", data.users(
+                data.user("Credits couldn't be reached", ":("),
+                data.user("Try restarting mod or just... don't look here yet"),
+                data.user(":/")
         ));
 
         return data;
@@ -90,60 +100,17 @@ public class CreditsManager {
         public void addCategory(String category, List<User> users) {
             categories.put(category, users);
         }
-    }
 
-    /**
-     * Creates Json file for credits to be then send to DropBox server. Only for development.
-     */
-    public void createCredits() {
-        CreditsData data = new CreditsData(new HashMap<>());
+        public CreditsData.User user(String name, String annotation) {
+            return new CreditsData.User(name, annotation);
+        }
 
-        data.addCategory("boosters", users(
-                user("Halil Han", "First booster!")
-        ));
+        public CreditsData.User user(String name) {
+            return new CreditsData.User(name, null);
+        }
 
-        data.addCategory("translators", users(
-                user("Gao Xinyang", "Chinese (zh_cn)"),
-                user("ChaTian", "Chinese (zh_tw"),
-                user("PExPE3", "Japanese (ja_jp)")
-        ));
-
-        data.addCategory("github_activists", users(
-                user("VaporeonScripts", "<3"),
-                user("Mysticpasta1"),
-                user("PoIyframeX"),
-                user("aisukuma"),
-                user("ZakoFish"),
-                user("pupcakie"),
-                user("guguz"),
-                user("TCK-MODDER"),
-                user("Redls07"),
-                user("HalilMan", "Important bug finder"),
-                user("LiterallyLink"),
-                user("teenecks"),
-                user("F0rsakenPhant0M"),
-                user("YnwLNE", "A truck with ideas"),
-                user("Memory_Yzf")
-        ));
-
-        data.addCategory("special_thanks", users(
-                user("Dexpit"),
-                user("Starfirexx"),
-                user("{user.name}", "<3")
-        ));
-
-        JsonHelper.tryToWrite(new File(Paths.CONFIG + "dev_credits.json"), data);
-    }
-
-    private CreditsData.User user(String name, String annotation) {
-        return new CreditsData.User(name, annotation);
-    }
-
-    private CreditsData.User user(String name) {
-        return new CreditsData.User(name, null);
-    }
-
-    private List<CreditsData.User> users(CreditsData.User... users) {
-        return Arrays.asList(users);
+        public List<CreditsData.User> users(CreditsData.User... users) {
+            return Arrays.asList(users);
+        }
     }
 }

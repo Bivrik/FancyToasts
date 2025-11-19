@@ -6,16 +6,16 @@ import net.bivrik.fancytoasts.platform.services.IJadeHelper;
 public class FabricJadeHelper implements IJadeHelper {
     @Override
     public void tryDisable() {
-        JadeCompat.tryDisableJade();
+        JadeCompat.tryDisable();
     }
 
     @Override
     public void tryEnable() {
-        JadeCompat.tryEnableJade();
+        JadeCompat.tryEnable();
     }
 
     @Override
     public boolean isEnabled() {
-        return JadeCompat.isJadeEnabled();
+        return JadeCompat.isEnabled();
     }
 }

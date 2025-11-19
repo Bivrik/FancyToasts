@@ -1,15 +1,12 @@
 package net.bivrik.fancytoasts.client.toast;
 
-import net.bivrik.fancytoasts.Common;
 import net.bivrik.fancytoasts.Debug;
 import net.bivrik.fancytoasts.client.registries.AnimationRegistry;
 import net.bivrik.fancytoasts.client.toast.animation.AnimationSetup;
 import net.bivrik.fancytoasts.client.toast.animation.FancyAdvancementToastAnimation;
+import net.bivrik.fancytoasts.platform.Managers;
 import net.bivrik.fancytoasts.platform.utility.AdvancementToastDisplayInfo;
 import net.bivrik.fancytoasts.utility.DefaultUVs;
-import net.minecraft.advancements.Advancement;
-import net.minecraft.advancements.AdvancementType;
-import net.minecraft.advancements.DisplayInfo;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.resources.sounds.SimpleSoundInstance;
@@ -35,18 +32,13 @@ public class FancyAdvancementToast {
     private boolean isEnded = false;
     private int playedSoundsCount = 0;
 
-    public FancyAdvancementToast(Minecraft minecraft, Advancement advancement, ResourceLocation texture, ResourceLocation animationId) {
-        DisplayInfo oldDisplayInfo = advancement.display().orElse(null);
-        if (oldDisplayInfo == null) {
-            return;
-        }
-        var generalConfig = Common.getConfigManager().getGeneralConfig();
+    public FancyAdvancementToast(Minecraft minecraft, AdvancementToastDisplayInfo displayInfo, ResourceLocation texture, ResourceLocation animationId) {
+        var generalConfig = Managers.configManager().generalConfig();
 
         if (generalConfig.areSoundsEnabled()) {
             soundManager = minecraft.getSoundManager();
         }
 
-        AdvancementToastDisplayInfo displayInfo = new AdvancementToastDisplayInfo(oldDisplayInfo);
         AnimationSetup setup = new AnimationSetup(texture, displayInfo, null, DefaultUVs.BACKGROUND, DefaultUVs.PLAQUE);
 
         switch (displayInfo.getAdvancementType()) {
@@ -67,7 +59,7 @@ public class FancyAdvancementToast {
 
         animation = AnimationRegistry.getAnimation(animationId).get();
         animation.setup(setup, minecraft, getWidth(), getHeight());
-        toastSoundId = Common.getConfigManager().getToastConfig().getSoundId(displayInfo.getAdvancementType());
+        toastSoundId = Managers.configManager().toastConfig().getSoundId(displayInfo.getAdvancementType());
 
         Debug.info("Created new advancement toast: {}", displayInfo.getTitle().getString());
     }

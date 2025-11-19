@@ -1,6 +1,6 @@
 package net.bivrik.fancytoasts;
 
-import net.bivrik.fancytoasts.gui.NeoforgeConfigScreen;
+import net.bivrik.fancytoasts.gui.NeoForgeConfigScreen;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.fml.common.Mod;
 
@@ -10,6 +10,6 @@ public class FancyToasts {
     public FancyToasts(IEventBus eventBus) {
         Common.onModInit();
 
-        eventBus.addListener(NeoforgeConfigScreen::registerConfigScreen);
+        eventBus.addListener(NeoForgeConfigScreen::registerConfigScreen);
     }
 }

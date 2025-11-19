@@ -17,7 +17,11 @@ public class Components {
     }
 
     public static Component of(String path) {
-        return Component.translatable(DEFAULT_ID + "." + path);
+        return Component.translatable(stringOf(path));
+    }
+
+    public static String stringOf(String path) {
+        return DEFAULT_ID + "." + path;
     }
 
     /**

@@ -4,17 +4,31 @@ plugins {
     id 'net.minecraftforge.gradle' version '[6.0,6.2)'
     id 'org.spongepowered.mixin' version '0.7-SNAPSHOT'
 }
+
 base {
     archivesName = "${mod_id}-forge-${minecraft_version}"
 }
+
 mixin {
     config("${mod_id}.mixins.json")
     config("${mod_id}.forge.mixins.json")
 }
+
 jar {
     manifest {
         attributes["MixinConfigs"] = "${mod_id}.mixins.json,${mod_id}.forge.mixins.json"
     }
+}
+
+apply from: rootProject.file('gradle/scripts/conditional-dependencies.gradle')
+
+dependencies {
+    minecraft "net.minecraftforge:forge:${minecraft_version}-${forge_version}"
+    annotationProcessor("org.spongepowered:mixin:0.8.5:processor")
+    implementation('net.sf.jopt-simple:jopt-simple:5.0.4') { version { strictly '5.0.4' } }
+
+    conditionalModImplementation "forge_jade_version", "maven.modrinth:jade:${project.forge_jade_version}"
+    conditionalModImplementation "forge_ftb_quests_version", "curse.maven:ftb-quests-forge-289412:${project.forge_ftb_quests_version}"
 }
 
 minecraft {
@@ -66,12 +80,6 @@ minecraft {
 }
 
 sourceSets.main.resources.srcDir 'src/generated/resources'
-
-dependencies {
-    minecraft "net.minecraftforge:forge:${minecraft_version}-${forge_version}"
-    annotationProcessor("org.spongepowered:mixin:0.8.5:processor")
-    implementation('net.sf.jopt-simple:jopt-simple:5.0.4') { version { strictly '5.0.4' } }
-}
 
 publishing {
     publications {

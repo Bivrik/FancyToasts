@@ -1,5 +1,6 @@
 package net.bivrik.fancytoasts.compat;
 
+import net.bivrik.fancytoasts.Constants;
 import net.bivrik.fancytoasts.platform.Services;
 import snownee.jade.Jade;
 import snownee.jade.impl.config.WailaConfig;
@@ -8,10 +9,10 @@ public class JadeCompat {
     private static boolean isEnabled = false;
 
     private static boolean isLoaded() {
-        return Services.PLATFORM.isModLoaded("jade");
+        return Services.PLATFORM.isModLoaded(Constants.Compatibilities.JADE_ID);
     }
 
-    public static void tryDisableJade() {
+    public static void tryDisable() {
         if (!isLoaded()) {
             return;
         }
@@ -19,7 +20,7 @@ public class JadeCompat {
         toggleJade(false);
     }
 
-    public static void tryEnableJade() {
+    public static void tryEnable() {
         if (!isLoaded()) {
             return;
         }
@@ -27,7 +28,7 @@ public class JadeCompat {
         toggleJade(true);
     }
 
-    public static boolean isJadeEnabled() {
+    public static boolean isEnabled() {
         return isEnabled;
     }
 

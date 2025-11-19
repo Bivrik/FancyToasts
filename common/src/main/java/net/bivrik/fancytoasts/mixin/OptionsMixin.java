@@ -1,6 +1,6 @@
 package net.bivrik.fancytoasts.mixin;
 
-import net.bivrik.fancytoasts.Common;
+import net.bivrik.fancytoasts.platform.Managers;
 import net.minecraft.client.KeyMapping;
 import net.minecraft.client.Options;
 import org.spongepowered.asm.mixin.Final;
@@ -20,6 +20,6 @@ public class OptionsMixin {
 
     @Inject(at = @At("HEAD"), method = "load()V")
     private void onLoad(CallbackInfo info) {
-        keyMappings = Common.getKeyBindingManager().getUpdatedKeys(keyMappings);
+        keyMappings = Managers.keyBindingManager().getModdedKeys(keyMappings);
     }
 }

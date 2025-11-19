@@ -38,7 +38,7 @@ public class TextureRegistry {
     }
     
     public static void clearCustom() {
-        TEXTURES.keySet().removeIf(id -> id.toLanguageKey().contains(Constants.MOD_CONFIG));
+        TEXTURES.keySet().removeIf(id -> id.toLanguageKey().contains(Constants.CONFIG));
     }
 
     public static DisplayData getData(ResourceLocation id) {

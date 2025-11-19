@@ -2,42 +2,48 @@ package net.bivrik.fancytoasts.client;
 
 import net.bivrik.fancytoasts.Constants;
 import net.bivrik.fancytoasts.Debug;
+import net.bivrik.fancytoasts.platform.ITickableManager;
 import net.minecraft.client.KeyMapping;
 import org.slf4j.Logger;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
-public class KeyBindingManager {
+public class KeyBindingManager implements ITickableManager {
     private final static Logger LOGGER = Debug.getLogger(KeyBindingManager.class);
 
-    public final List<KeyBinding> KEY_BINDINGS = new ArrayList<>();
+    private final List<KeyBinding> moddedKeyBindings = new ArrayList<>();
+    private final Map<String, KeyBinding> moddedKeyBindingsMap = new HashMap<>();
 
     public void registerKey(String name, int keyCode, KeyBinding.keyExecutor executor) {
-        name = "key." + Constants.MOD_ID + "." + name;
+        String translatableName = "key." + Constants.MOD_ID + "." + name;
 
-        KeyMapping key = new KeyMapping(name, keyCode, KeyMapping.Category.MISC);
-        KeyBinding bind = new KeyBinding(key, executor);
-
-        if (KEY_BINDINGS.contains(bind)) {
-            LOGGER.warn("{} already exists, could not add", name);
+        if (moddedKeyBindingsMap.containsKey(translatableName)) {
+            LOGGER.warn("{} already exists, could not add", translatableName);
             return;
         }
 
-        KEY_BINDINGS.add(bind);
-        LOGGER.info("Registered {}", name);
+        KeyMapping key = new KeyMapping(translatableName, keyCode, KeyMapping.Category.MISC);
+        KeyBinding bind = new KeyBinding(key, executor);
+
+        moddedKeyBindings.add(bind);
+        moddedKeyBindingsMap.put(translatableName, bind);
+
+        LOGGER.info("Registered: {}", translatableName);
     }
 
-    public KeyMapping[] getUpdatedKeys(KeyMapping[] builtinKeys) {
-        List<KeyMapping> keys = new ArrayList<>(List.of(builtinKeys));
-        for (var keyBinding : KEY_BINDINGS) {
-            keys.add(keyBinding.key());
+    public KeyMapping[] getModdedKeys(KeyMapping[] builtinKeys) {
+        int oldLength = builtinKeys.length;
+        KeyMapping[] moddedKeys = Arrays.copyOf(builtinKeys, oldLength + moddedKeyBindings.size());
+        for (int i = 0; i < moddedKeyBindings.size(); i++) {
+            moddedKeys[oldLength + i] = moddedKeyBindings.get(i).key();
         }
-        return keys.toArray(new KeyMapping[0]);
+        LOGGER.info("Returned modded keys");
+        return moddedKeys;
     }
 
-    public void tick() {
-        for (var keyBinding : KEY_BINDINGS) {
+    @Override
+    public void onTick() {
+        for (KeyBinding keyBinding : moddedKeyBindings) {
             if (keyBinding.key().consumeClick()) {
                 keyBinding.keyExecutor().execute();
             }

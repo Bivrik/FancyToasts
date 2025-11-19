@@ -1,7 +1,6 @@
 package net.bivrik.fancytoasts.client.gui;
 
-import net.bivrik.fancytoasts.Common;
-import net.bivrik.fancytoasts.Constants;
+import net.bivrik.fancytoasts.platform.Managers;
 import net.bivrik.fancytoasts.platform.utility.Components;
 import net.bivrik.fancytoasts.platform.utility.GUIs;
 import net.bivrik.fancytoasts.platform.utility.Colors;
@@ -29,7 +28,7 @@ public class FancyToastConfigScreen extends UniversalScreen {
 
     public FancyToastConfigScreen(Screen parent) {
         super(Components.of("gui.config.title"), parent);
-        this.splash = Common.getSplashManager().getSplash();
+        this.splash = Managers.splashManager().getSplash();
     }
 
     @Override

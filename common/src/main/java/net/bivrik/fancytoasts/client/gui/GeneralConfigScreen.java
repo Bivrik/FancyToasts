@@ -1,11 +1,11 @@
 package net.bivrik.fancytoasts.client.gui;
 
-import net.bivrik.fancytoasts.Common;
 import net.bivrik.fancytoasts.Constants;
 import net.bivrik.fancytoasts.client.config.AdvancementToastPosition;
 import net.bivrik.fancytoasts.client.config.AdvancementToastScreenBehavior;
 import net.bivrik.fancytoasts.client.config.ConfigHandler;
 import net.bivrik.fancytoasts.client.config.GeneralConfigData;
+import net.bivrik.fancytoasts.platform.Managers;
 import net.bivrik.fancytoasts.platform.Services;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.*;
@@ -42,7 +42,7 @@ public class GeneralConfigScreen extends UniversalScreen {
 
     public GeneralConfigScreen(Screen parent) {
         super(TITLE, parent);
-        this.generalConfigData = Common.getConfigManager().getGeneralConfig();
+        this.generalConfigData = Managers.configManager().generalConfig();
     }
 
     private void addWidget(AbstractWidget aw) {

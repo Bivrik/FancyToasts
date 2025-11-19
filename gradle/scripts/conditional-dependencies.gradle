@@ -1,0 +1,26 @@
+repositories {
+    maven {
+        name = "CurseMaven"
+        url = uri("https://cursemaven.com")
+    }
+}
+
+ext {
+    conditionalModImplementation = { propertyName, dependency ->
+        if (project.hasProperty(propertyName)) {
+            def version = project.property(propertyName)
+            if (version != null && !version.toString().trim().isEmpty()) {
+                project.dependencies.modImplementation(dependency)
+            }
+        }
+    }
+
+    conditionalImplementation = { propertyName, dependency ->
+        if (project.hasProperty(propertyName)) {
+            def version = project.property(propertyName)
+            if (version != null && !version.toString().trim().isEmpty()) {
+                project.dependencies.implementation(dependency)
+            }
+        }
+    }
+}

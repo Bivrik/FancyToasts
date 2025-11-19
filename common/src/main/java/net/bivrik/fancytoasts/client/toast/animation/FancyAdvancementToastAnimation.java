@@ -1,8 +1,8 @@
 package net.bivrik.fancytoasts.client.toast.animation;
 
-import net.bivrik.fancytoasts.Common;
 import net.bivrik.fancytoasts.client.config.AdvancementToastScreenBehavior;
 import net.bivrik.fancytoasts.client.toast.TypeBasedUVs;
+import net.bivrik.fancytoasts.platform.Managers;
 import net.bivrik.fancytoasts.platform.utility.AdvancementToastDisplayInfo;
 import net.bivrik.fancytoasts.platform.utility.GUIs;
 import net.bivrik.fancytoasts.client.toast.TextureUV;
@@ -17,8 +17,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public abstract class FancyAdvancementToastAnimation {
-    private List<FormattedCharSequence> TITLE_LINES;
-    private List<FormattedCharSequence> DESCRIPTION_LINES;
+    private List<FormattedCharSequence> titleLines;
+    private List<FormattedCharSequence> descriptionLines;
 
     protected AdvancementToastDisplayInfo displayInfo;
     protected Minecraft minecraft;
@@ -44,21 +44,21 @@ public abstract class FancyAdvancementToastAnimation {
     }
 
     protected void setLines(Component title, Component description) {
-        TITLE_LINES = minecraft.font.split(title, 142);
-        DESCRIPTION_LINES = minecraft.font.split(description, 142);
+        titleLines = minecraft.font.split(title, 142);
+        descriptionLines = minecraft.font.split(description, 142);
     }
 
     protected List<FormattedCharSequence> getTitleLines() {
-        return new ArrayList<>(TITLE_LINES);
+        return titleLines;
     }
 
     protected List<FormattedCharSequence> getDescriptionLines() {
-        return new ArrayList<>(DESCRIPTION_LINES);
+        return descriptionLines;
     }
 
     public void draw(GuiGraphics guiGraphics, long time) {
-        if (Common.getAdvancementToastManager().isScreenOpened()
-                && Common.getConfigManager().getGeneralConfig().getScreenBehavior() == AdvancementToastScreenBehavior.TRANSPARENT) {
+        if (Managers.advancementToastManager().isScreenOpened()
+                && Managers.configManager().generalConfig().getScreenBehavior() == AdvancementToastScreenBehavior.TRANSPARENT) {
             guiAlpha = 0.5F;
         }
         else {
@@ -97,15 +97,15 @@ public abstract class FancyAdvancementToastAnimation {
     }
 
     protected void drawTitle(GuiGraphics guiGraphics, float alpha) {
-        if (TITLE_LINES.isEmpty()) {
+        if (titleLines.isEmpty()) {
             return;
         }
 
         int toastCenterX = toastWidth / 2;
         int titleColor = Colors.alpha(alpha, displayInfo.getAdvancementType().getMainColor());
-        FormattedCharSequence titleLine = TITLE_LINES.getFirst();
+        FormattedCharSequence titleLine = titleLines.getFirst();
 
-        if (TITLE_LINES.size() == 1) {
+        if (titleLines.size() == 1) {
             guiGraphics.drawCenteredString(minecraft.font, titleLine, toastCenterX, 25, titleColor);
         } else {
             guiGraphics.drawCenteredString(minecraft.font, titleLine, toastCenterX - minecraft.font.width("...") / 2, 25, titleColor);
@@ -117,24 +117,24 @@ public abstract class FancyAdvancementToastAnimation {
     }
 
     protected void drawDescription(GuiGraphics guiGraphics, float alpha) {
-        if (DESCRIPTION_LINES.isEmpty()) {
+        if (descriptionLines.isEmpty()) {
             return;
         }
 
         int descriptionColor = Colors.alpha(alpha, displayInfo.getAdvancementType().getSecondaryColor());
 
-        guiGraphics.drawString(minecraft.font, DESCRIPTION_LINES.get(0), 8, 38, descriptionColor);
-        if (DESCRIPTION_LINES.size() > 1) {
-            var descriptionSecondLine = DESCRIPTION_LINES.get(1);
+        guiGraphics.drawString(minecraft.font, descriptionLines.get(0), 8, 38, descriptionColor);
+        if (descriptionLines.size() > 1) {
+            var descriptionSecondLine = descriptionLines.get(1);
             guiGraphics.drawString(minecraft.font, descriptionSecondLine, 8, 47, descriptionColor);
 
-            if (DESCRIPTION_LINES.size() > 2) {
+            if (descriptionLines.size() > 2) {
                 guiGraphics.drawString(minecraft.font, "...", 8 + minecraft.font.width(descriptionSecondLine), 47, descriptionColor);
             }
         }
     }
     protected void drawDescription(GuiGraphics guiGraphics) {
-        drawTitle(guiGraphics, 1);
+        drawDescription(guiGraphics, 1);
     }
 
     protected int getColor(float alpha) {

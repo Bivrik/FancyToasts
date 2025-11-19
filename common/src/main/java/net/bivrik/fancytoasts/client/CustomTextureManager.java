@@ -4,6 +4,7 @@ import com.mojang.blaze3d.platform.NativeImage;
 import net.bivrik.fancytoasts.Debug;
 import net.bivrik.fancytoasts.client.config.JsonHelper;
 import net.bivrik.fancytoasts.client.toast.DisplayData;
+import net.bivrik.fancytoasts.platform.IManager;
 import net.bivrik.fancytoasts.utility.file.FileHelper;
 import net.bivrik.fancytoasts.utility.file.FileType;
 import net.bivrik.fancytoasts.utility.file.Paths;
@@ -11,6 +12,7 @@ import net.bivrik.fancytoasts.client.registries.TextureRegistry;
 import net.bivrik.fancytoasts.platform.utility.ResourceLocations;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.texture.DynamicTexture;
+import net.minecraft.client.renderer.texture.TextureManager;
 import net.minecraft.resources.ResourceLocation;
 import org.slf4j.Logger;
 
@@ -21,7 +23,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.*;
 
-public class CustomTextureManager {
+public class CustomTextureManager implements IManager {
     private static final Logger LOGGER = Debug.getLogger(CustomTextureManager.class);
     private static final Map<ResourceLocation, Path> CUSTOM_TEXTURES = new HashMap<>();
 
@@ -31,10 +33,13 @@ public class CustomTextureManager {
         return name.endsWith(FileType.PNG.get()) || name.endsWith(FileType.JSON.get());
     };
 
-    private final Minecraft minecraft;
+    private TextureManager textureManager;
 
-    public CustomTextureManager(Minecraft minecraft) {
-        this.minecraft = minecraft;
+    @Override
+    public void onMinecraftInit(Minecraft minecraft) {
+        textureManager = minecraft.getTextureManager();
+
+        load();
     }
 
     public void registerInMinecraft(ResourceLocation id) {
@@ -47,7 +52,7 @@ public class CustomTextureManager {
             NativeImage image = NativeImage.read(Files.readAllBytes(CUSTOM_TEXTURES.get(id)));
             DynamicTexture dynamicTexture = new DynamicTexture(() -> "custom_fancytoasts_texture", image);
 
-            minecraft.getTextureManager().register(id, dynamicTexture);
+            textureManager.register(id, dynamicTexture);
 
             image.close();
             LOGGER.info("Registered {} in Minecraft", id);
@@ -57,7 +62,7 @@ public class CustomTextureManager {
     }
 
     public void unregisterFromMinecraft(ResourceLocation id) {
-        minecraft.getTextureManager().release(id);
+        textureManager.release(id);
         LOGGER.info("Unregistered {} from Minecraft", id);
     }
 

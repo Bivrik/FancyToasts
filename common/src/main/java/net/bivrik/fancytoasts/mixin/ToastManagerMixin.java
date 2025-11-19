@@ -1,8 +1,8 @@
 package net.bivrik.fancytoasts.mixin;
 
-import net.bivrik.fancytoasts.Common;
 import net.bivrik.fancytoasts.client.toast.AdvancementToastManager;
 import net.bivrik.fancytoasts.client.toast.IAdvancementAccessor;
+import net.bivrik.fancytoasts.platform.Managers;
 import net.minecraft.advancements.Advancement;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.toasts.AdvancementToast;
@@ -21,16 +21,16 @@ public class ToastManagerMixin {
             info.cancel();
 
             Advancement advancement = ((IAdvancementAccessor) toast).getAdvancementHolder().value();
-            Common.getAdvancementToastManager().addAdvancement(advancement);
+            Managers.advancementToastManager().addAdvancement(advancement);
         }
     }
 
     @Inject(at = @At("TAIL"), method = "render")
     private void onRender(GuiGraphics guiGraphics, CallbackInfo info) {
-        AdvancementToastManager toastManager = Common.getAdvancementToastManager();
-        if (toastManager == null) {
+        AdvancementToastManager toastManager = Managers.advancementToastManager();
+        /*if (toastManager == null) {
             return;
-        }
+        }*/
 
         if (!toastManager.isScreenOpened() || !toastManager.isScreenBehaviourUnder()) {
             toastManager.render(guiGraphics);
@@ -39,16 +39,16 @@ public class ToastManagerMixin {
 
     @Inject(at = @At("TAIL"), method = "update")
     private void onUpdate(CallbackInfo info) {
-        AdvancementToastManager toastManager = Common.getAdvancementToastManager();
-        if (toastManager == null) {
+        AdvancementToastManager toastManager = Managers.advancementToastManager();
+        /*if (toastManager == null) {
             return;
-        }
+        }*/
 
         toastManager.update();
     }
 
     @Inject(at = @At("HEAD"), method = "clear")
     private void onClear(CallbackInfo info) {
-        Common.getAdvancementToastManager().clear();
+        Managers.advancementToastManager().clear();
     }
 }

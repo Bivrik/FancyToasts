@@ -1,8 +1,6 @@
 package net.bivrik.fancytoasts.gui;
 
-import net.bivrik.fancytoasts.Constants;
 import net.bivrik.fancytoasts.client.gui.FancyToastConfigScreen;
-import net.minecraft.network.chat.Component;
 import net.minecraftforge.client.ConfigScreenHandler;
 import net.minecraftforge.fml.ModLoadingContext;
 

@@ -29,7 +29,7 @@ public class AnimationRegistry {
 
         addAnimation(id, new AnimationHandler(animation, data));
 
-        LOGGER.info("Registered {}", id);
+        LOGGER.info("Registered: {}", id);
         return true;
     }
 
