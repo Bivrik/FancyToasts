@@ -2,6 +2,7 @@ package net.bivrik.fancytoasts.client.ui;
 
 import net.bivrik.fancytoasts.Constants;
 import net.bivrik.fancytoasts.Debug;
+import net.bivrik.fancytoasts.client.toast.animation.GuiContext;
 import net.bivrik.fancytoasts.platform.utility.Colors;
 import net.minecraft.Util;
 import net.minecraft.client.Minecraft;
@@ -230,8 +231,9 @@ public class ResourceLocationList extends ObjectSelectionList<ResourceLocationLi
             }
             else {
                 if (isHovering) {
-                    guiGraphics.fill(x, y, x + getWidth(), y + getHeight(), Colors.alpha(32, Colors.WHITE));
-                    guiGraphics.fill(x + 1, y + 1, x + getWidth() - 1, y + getHeight() - 1, Colors.alpha(128, Colors.BLACK));
+                    var context = new GuiContext(guiGraphics);
+                    context.fill(x, y, getWidth(), getHeight(), Colors.alpha(32, Colors.WHITE));
+                    context.fill(x + 1, y + 1, getWidth() - 2, getHeight() - 2, Colors.alpha(128, Colors.BLACK));
                 }
 
                 mainColor = Colors.WHITE;

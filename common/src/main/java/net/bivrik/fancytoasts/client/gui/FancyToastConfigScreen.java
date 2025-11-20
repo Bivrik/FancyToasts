@@ -1,8 +1,8 @@
 package net.bivrik.fancytoasts.client.gui;
 
+import net.bivrik.fancytoasts.client.toast.animation.GuiContext;
 import net.bivrik.fancytoasts.platform.Managers;
 import net.bivrik.fancytoasts.platform.utility.Components;
-import net.bivrik.fancytoasts.platform.utility.GUIs;
 import net.bivrik.fancytoasts.platform.utility.Colors;
 import net.minecraft.Util;
 import net.minecraft.client.gui.GuiGraphics;
@@ -75,10 +75,11 @@ public class FancyToastConfigScreen extends UniversalScreen {
 
     private void drawSplash(@NotNull GuiGraphics guiGraphics) {
         float size = (float) (Math.abs(Math.cos((double) Util.getMillis() / 250) * 0.1f) + 0.9f);
-        var stack = GUIs.getStack(guiGraphics);
-        GUIs.push(stack);
-        GUIs.scaleAround(stack, size, (float) this.width / 2, 12 + 9 + 4.5f);
+
+        GuiContext context = new GuiContext(guiGraphics);
+        context.push();
+        context.scaleAround(size, (float) (this.width / 2), 12 + 9 + 4.5F);
         guiGraphics.drawCenteredString(this.font, splash, this.width / 2, 12 + 9, Colors.YELLOW);
-        GUIs.pop(stack);
+        context.pop();
     }
 }

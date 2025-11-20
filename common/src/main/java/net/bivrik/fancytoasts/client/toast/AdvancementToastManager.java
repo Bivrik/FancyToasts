@@ -2,10 +2,10 @@ package net.bivrik.fancytoasts.client.toast;
 
 import net.bivrik.fancytoasts.client.ConfigManager;
 import net.bivrik.fancytoasts.client.config.AdvancementToastScreenBehavior;
+import net.bivrik.fancytoasts.client.toast.animation.GuiContext;
 import net.bivrik.fancytoasts.platform.IManager;
 import net.bivrik.fancytoasts.platform.Managers;
 import net.bivrik.fancytoasts.platform.utility.AdvancementToastDisplayInfo;
-import net.bivrik.fancytoasts.platform.utility.GUIs;
 import net.bivrik.fancytoasts.platform.Services;
 import net.minecraft.Util;
 import net.minecraft.advancements.Advancement;
@@ -77,11 +77,11 @@ public class AdvancementToastManager implements IManager {
 
         int xPos = configManager.generalConfig().getPosition().getX(currentToast.getWidth(), guiGraphics.guiWidth());
 
-        var stack = GUIs.getStack(guiGraphics);
-        GUIs.push(stack);
-        GUIs.translate(stack, xPos, 20);
+        GuiContext context = new GuiContext(guiGraphics);
+        context.push();
+        context.translate(xPos, 20);
         currentToast.draw(guiGraphics);
-        GUIs.pop(stack);
+        context.pop();
     }
 
     public void clear() {

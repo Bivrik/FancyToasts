@@ -2,8 +2,8 @@ package net.bivrik.fancytoasts.client.ui;
 
 import net.bivrik.fancytoasts.Debug;
 import net.bivrik.fancytoasts.client.toast.DisplayData;
+import net.bivrik.fancytoasts.client.toast.animation.GuiContext;
 import net.bivrik.fancytoasts.platform.utility.Colors;
-import net.bivrik.fancytoasts.platform.utility.GUIs;
 import net.bivrik.fancytoasts.platform.utility.ResourceLocations;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
@@ -82,7 +82,8 @@ public class InformationList extends AbstractSelectionList<InformationList.Entry
     public void renderWidget(@NotNull GuiGraphics guiGraphics, int mouseX, int mouseY, float partialTick) {
         super.renderWidget(guiGraphics, mouseX, mouseY, partialTick);
 
-        GUIs.drawTexture(guiGraphics, location, this.getRight() - 8 - 3, this.getY() + 3, 0, 0, 8, 8);
+        GuiContext context = new GuiContext(guiGraphics);
+        context.drawSprite(location, this.getRight() - 8 - 3, this.getY(), 8, 8);
     }
 
     @Override

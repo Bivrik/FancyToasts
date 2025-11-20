@@ -5,6 +5,8 @@ import net.bivrik.fancytoasts.client.config.AdvancementToastPosition;
 import net.bivrik.fancytoasts.client.config.AdvancementToastScreenBehavior;
 import net.bivrik.fancytoasts.client.config.ConfigHandler;
 import net.bivrik.fancytoasts.client.config.GeneralConfigData;
+import net.bivrik.fancytoasts.client.toast.TextureUV;
+import net.bivrik.fancytoasts.client.toast.animation.GuiContext;
 import net.bivrik.fancytoasts.platform.Managers;
 import net.bivrik.fancytoasts.platform.Services;
 import net.minecraft.client.gui.GuiGraphics;
@@ -134,13 +136,15 @@ public class GeneralConfigScreen extends UniversalScreen {
     }
 
     @Override
-    public void render(@NotNull GuiGraphics graphics, int mouseX, int mouseY, float partialTick) {
-        var resourcelocation = ResourceLocation.withDefaultNamespace("textures/gui/menu_list_background.png");
-        graphics.blit(RenderPipelines.GUI_TEXTURED, resourcelocation, 0, MARGIN, 0, 0, this.width, this.height - MARGIN * 2 - 2, 32, 32);
-        graphics.blit(RenderPipelines.GUI_TEXTURED, Screen.HEADER_SEPARATOR, 0, MARGIN, 0, 0, this.width, 2, 32, 2);
-        graphics.blit(RenderPipelines.GUI_TEXTURED, Screen.FOOTER_SEPARATOR, 0, this.height - MARGIN - 2, 0, 0, width, 2, 32, 2);
+    public void render(@NotNull GuiGraphics guiGraphics, int mouseX, int mouseY, float partialTick) {
+        var textureLocation = ResourceLocation.withDefaultNamespace("textures/gui/menu_list_background.png");
 
-        super.render(graphics, mouseX, mouseY, partialTick);
+        GuiContext context = new GuiContext(guiGraphics);
+        context.drawTexture(textureLocation, 0, MARGIN, this.width, this.height - MARGIN * 2 - 2, TextureUV.ZERO, 32, 32);
+        context.drawTexture(Screen.HEADER_SEPARATOR, 0, MARGIN, this.width, 2, TextureUV.ZERO, 32, 2);
+        context.drawTexture(Screen.FOOTER_SEPARATOR, 0, this.height - MARGIN - 2, this.width, 2, TextureUV.ZERO, 32, 2);
+
+        super.render(guiGraphics, mouseX, mouseY, partialTick);
     }
 
     private static class VolumeSlider extends AbstractSliderButton {

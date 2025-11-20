@@ -1,6 +1,5 @@
 package net.bivrik.fancytoasts.client.toast.animation;
 
-import net.bivrik.fancytoasts.platform.utility.GUIs;
 import net.bivrik.fancytoasts.utility.MathEasing;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
@@ -33,7 +32,7 @@ public class PlayfulAnimation extends FancyAdvancementToastAnimation {
         float textAppearProgress = TEXT_APPEARANCE.getProgress(time);
         float fadeOutProgress = Appearance.getProgress(time, FADE_OUT_DURATION, DURATION - FADE_OUT_DURATION);
 
-        var stack = GUIs.getStack(guiGraphics);
+        GuiContext context = new GuiContext(guiGraphics);
         float globalSinY = (float) (Math.sin(time / 400.0)) - 3;
 
         if (fadeOutProgress > 0) {
@@ -41,53 +40,53 @@ public class PlayfulAnimation extends FancyAdvancementToastAnimation {
             int toastCenterX = toastWidth / 2;
             int toastCenterY = toastHeight / 2;
 
-            GUIs.push(stack);
-            GUIs.scaleAround(stack, fadeOutScale, toastCenterX, toastCenterY);
+            context.push();
+            context.scaleAround(fadeOutScale, toastCenterX, toastCenterY);
         }
 
         if (backgroundAppearProgress > 0) {
-            GUIs.push(stack);
+            context.push();
             if (backgroundAppearProgress != 1) {
                 float scale = MathEasing.elasticEaseOutLerp(0, 1.0f, backgroundAppearProgress);
-                GUIs.scaleAround(stack, scale, 76, 0);
+                context.scaleAround(scale, 76, 0);
 
                 float rotation = MathEasing.elasticEaseOutLerp(-1.0f, 0, backgroundAppearProgress);
-                GUIs.rotateAround(stack, rotation, 76, 0);
+                context.rotateAround(rotation, 76, 0);
 
                 float y = MathEasing.easeOutLerp(-20.0F, 0, backgroundAppearProgress);
-                GUIs.translate(stack, 0, y);
+                context.translate(0, y);
             }
-            this.drawBackground(guiGraphics);
-            GUIs.pop(stack);
+            this.drawBackground(context);
+            context.pop();
         }
 
         if (bannerAppearProgress > 0) {
-            GUIs.push(stack);
+            context.push();
             if (bannerAppearProgress != 1) {
                 float scaleX = MathEasing.easeOutLerp(0f, 1f, bannerAppearProgress);
-                GUIs.scaleAround(stack, scaleX, 1, 15, -12);
+                context.scaleAround(scaleX, 1, 15, -12);
             }
-            GUIs.translate(stack, 0, globalSinY);
-            this.drawBanner(guiGraphics);
-            GUIs.pop(stack);
+            context.translate(0, globalSinY);
+            this.drawBanner(context);
+            context.pop();
         }
 
         if (iconAppearProgress > 0) {
-            GUIs.push(stack);
+            context.push();
             if (iconAppearProgress != 1) {
                 float scale = MathEasing.elasticEaseOutLerp(0f, 1f, iconAppearProgress);
-                GUIs.scaleAround(stack, scale, 68 + 13, 13);
+                context.scaleAround(scale, 68 + 13, 13);
 
                 float rotation = MathEasing.elasticEaseOutLerp(-1f, 0f, iconAppearProgress);
-                GUIs.rotateAround(stack, rotation, 68 + 13, 13);
+                context.rotateAround(rotation, 68 + 13, 13);
             }
             else if (iconMovementProgress > 0) {
                 float x = MathEasing.easeOutLerp(0f, -60f, iconMovementProgress);
-                GUIs.translate(stack, x, 0);
+                context.translate(x, 0);
             }
-            GUIs.translate(stack, 0, globalSinY - 5);
-            this.drawIcon(guiGraphics);
-            GUIs.pop(stack);
+            context.translate(0, globalSinY - 5);
+            this.drawIcon(context);
+            context.pop();
         }
 
         if (textAppearProgress > 0) {
@@ -96,7 +95,7 @@ public class PlayfulAnimation extends FancyAdvancementToastAnimation {
         }
 
         if (fadeOutProgress > 0) {
-            GUIs.pop(stack);
+            context.pop();
         }
     }
 
