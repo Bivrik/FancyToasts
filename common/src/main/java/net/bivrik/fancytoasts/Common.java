@@ -58,6 +58,8 @@ public class Common {
     }
 
     static {
+        registerKeyBindings();
+
         registerTexture(DefaultLocations.Textures.VANILLA, "vanilla");
         registerTexture(DefaultLocations.Textures.NATURE, "nature");
         registerTexture(DefaultLocations.Textures.OG, "og");

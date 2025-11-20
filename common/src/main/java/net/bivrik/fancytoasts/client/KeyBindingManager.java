@@ -5,7 +5,16 @@ import net.bivrik.fancytoasts.platform.ITickableManager;
 import java.util.*;
 
 public class KeyBindingManager implements ITickableManager {
-    private final KeyBinding[] keyBindings = KeyBindingRegistry.keyBindings();
+    private KeyBinding[] keyBindings;
+
+    public void updateKeyBindings() {
+        keyBindings = KeyBindingRegistry.keyBindings();
+    }
+
+    @Override
+    public void onModInit() {
+        updateKeyBindings();
+    }
 
     @Override
     public void onTick() {
