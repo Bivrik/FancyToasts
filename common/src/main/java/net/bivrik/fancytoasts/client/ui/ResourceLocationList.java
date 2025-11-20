@@ -2,7 +2,7 @@ package net.bivrik.fancytoasts.client.ui;
 
 import net.bivrik.fancytoasts.Constants;
 import net.bivrik.fancytoasts.Debug;
-import net.bivrik.fancytoasts.client.toast.animation.GuiContext;
+import net.bivrik.fancytoasts.platform.utility.GuiContext;
 import net.bivrik.fancytoasts.platform.utility.Colors;
 import net.minecraft.Util;
 import net.minecraft.client.Minecraft;

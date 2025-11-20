@@ -1,9 +1,10 @@
 package net.bivrik.fancytoasts.client.gui;
 
 import net.bivrik.fancytoasts.client.toast.TextureUV;
-import net.bivrik.fancytoasts.client.toast.animation.GuiContext;
+import net.bivrik.fancytoasts.platform.utility.GuiContext;
 import net.bivrik.fancytoasts.client.ui.CreditsList;
 import net.bivrik.fancytoasts.platform.Managers;
+import net.bivrik.fancytoasts.platform.utility.ResourceLocations;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.network.chat.Component;
@@ -13,7 +14,7 @@ import org.jetbrains.annotations.NotNull;
 import static net.bivrik.fancytoasts.client.ui.LayoutValues.*;
 
 public class CreditsScreen extends UniversalScreen {
-    private static final ResourceLocation VIGNETTE_LOCATION = ResourceLocation.withDefaultNamespace("textures/misc/credits_vignette.png");
+    private static final ResourceLocation VIGNETTE_LOCATION = ResourceLocations.fromMinecraft("textures/misc/credits_vignette.png");
     private CreditsList creditsList;
 
     protected CreditsScreen(Screen parent) {

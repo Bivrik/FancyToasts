@@ -6,16 +6,15 @@ import net.bivrik.fancytoasts.client.config.AdvancementToastScreenBehavior;
 import net.bivrik.fancytoasts.client.config.ConfigHandler;
 import net.bivrik.fancytoasts.client.config.GeneralConfigData;
 import net.bivrik.fancytoasts.client.toast.TextureUV;
-import net.bivrik.fancytoasts.client.toast.animation.GuiContext;
+import net.bivrik.fancytoasts.platform.utility.GuiContext;
 import net.bivrik.fancytoasts.platform.Managers;
 import net.bivrik.fancytoasts.platform.Services;
+import net.bivrik.fancytoasts.platform.utility.ResourceLocations;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.*;
 import net.minecraft.client.gui.screens.Screen;
-import net.minecraft.client.renderer.RenderPipelines;
 import net.minecraft.network.chat.CommonComponents;
 import net.minecraft.network.chat.Component;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
 import org.jetbrains.annotations.NotNull;
 
@@ -137,7 +136,7 @@ public class GeneralConfigScreen extends UniversalScreen {
 
     @Override
     public void render(@NotNull GuiGraphics guiGraphics, int mouseX, int mouseY, float partialTick) {
-        var textureLocation = ResourceLocation.withDefaultNamespace("textures/gui/menu_list_background.png");
+        var textureLocation = ResourceLocations.fromMinecraft("textures/gui/menu_list_background.png");
 
         GuiContext context = new GuiContext(guiGraphics);
         context.drawTexture(textureLocation, 0, MARGIN, this.width, this.height - MARGIN * 2 - 2, TextureUV.ZERO, 32, 32);

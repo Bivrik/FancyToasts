@@ -2,7 +2,7 @@ package net.bivrik.fancytoasts.client.toast;
 
 import net.bivrik.fancytoasts.client.ConfigManager;
 import net.bivrik.fancytoasts.client.config.AdvancementToastScreenBehavior;
-import net.bivrik.fancytoasts.client.toast.animation.GuiContext;
+import net.bivrik.fancytoasts.platform.utility.GuiContext;
 import net.bivrik.fancytoasts.platform.IManager;
 import net.bivrik.fancytoasts.platform.Managers;
 import net.bivrik.fancytoasts.platform.utility.AdvancementToastDisplayInfo;
