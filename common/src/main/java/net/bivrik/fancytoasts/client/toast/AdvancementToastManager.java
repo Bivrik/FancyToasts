@@ -33,6 +33,10 @@ public class AdvancementToastManager implements IManager {
     }
 
     public void addAdvancement(AdvancementToastDisplayInfo displayInfo) {
+        if (displayInfo == null) {
+             return;
+        }
+
         FancyAdvancementToast fancyAdvancementToast = new FancyAdvancementToast(minecraft, displayInfo, configManager.toastConfig().getTextureId(), configManager.toastConfig().getAnimationId());
         ADVANCEMENT_TOASTS.add(fancyAdvancementToast);
 
@@ -43,9 +47,7 @@ public class AdvancementToastManager implements IManager {
 
     public void addAdvancement(Advancement advancement) {
         DisplayInfo oldDisplayInfo = advancement.display().orElse(null);
-        if (oldDisplayInfo == null) {
-            return;
-        }
+        assert oldDisplayInfo != null;
 
         addAdvancement(new AdvancementToastDisplayInfo(oldDisplayInfo));
     }

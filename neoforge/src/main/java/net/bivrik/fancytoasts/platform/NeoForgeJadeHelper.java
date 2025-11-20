@@ -6,16 +6,24 @@ import net.bivrik.fancytoasts.platform.services.IJadeHelper;
 public class NeoForgeJadeHelper implements IJadeHelper {
     @Override
     public void tryDisable() {
-        JadeCompat.tryDisableJade();
+        if (isLoaded()) {
+            JadeCompat.tryDisable();
+        }
     }
 
     @Override
     public void tryEnable() {
-        JadeCompat.tryEnableJade();
+        if (isLoaded()) {
+            JadeCompat.tryEnable();
+        }
     }
 
     @Override
     public boolean isEnabled() {
-        return JadeCompat.isJadeEnabled();
+        if (!isLoaded()) {
+            return IJadeHelper.super.isEnabled();
+        }
+
+        return JadeCompat.isEnabled();
     }
 }

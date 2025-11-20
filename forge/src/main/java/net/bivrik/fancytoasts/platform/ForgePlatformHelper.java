@@ -1,14 +1,14 @@
 package net.bivrik.fancytoasts.platform;
 
+import net.bivrik.fancytoasts.Constants;
 import net.bivrik.fancytoasts.platform.services.IPlatformHelper;
 import net.minecraftforge.fml.ModList;
 import net.minecraftforge.fml.loading.FMLLoader;
 
 public class ForgePlatformHelper implements IPlatformHelper {
-
     @Override
     public String getName() {
-        return "Forge";
+        return Constants.FORGE;
     }
 
     @Override

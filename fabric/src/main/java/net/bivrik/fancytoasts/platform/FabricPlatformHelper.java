@@ -1,12 +1,13 @@
 package net.bivrik.fancytoasts.platform;
 
+import net.bivrik.fancytoasts.Constants;
 import net.bivrik.fancytoasts.platform.services.IPlatformHelper;
 import net.fabricmc.loader.api.FabricLoader;
 
 public class FabricPlatformHelper implements IPlatformHelper {
     @Override
     public String getName() {
-        return "Fabric";
+        return Constants.FABRIC;
     }
 
     @Override

@@ -25,6 +25,9 @@ dependencies {
     conditionalModImplementation "fabric_jade_version", "maven.modrinth:jade:${project.fabric_jade_version}"
     conditionalModImplementation "fabric_ftb_quests_version", "curse.maven:ftb-quests-fabric-438496:${project.fabric_ftb_quests_version}"
     conditionalModImplementation "fabric_ftb_library_version", "curse.maven:ftb-library-fabric-438495:${project.fabric_ftb_library_version}"
+    conditionalModImplementation "fabric_ftb_teams_version", "curse.maven:ftb-teams-fabric-438497:${project.fabric_ftb_teams_version}"
+    conditionalModImplementation "fabric_team_reborn_energy_version", "teamreborn:energy:${project.fabric_team_reborn_energy_version}"
+    conditionalModImplementation "fabric_architectury_version", "curse.maven:architectury-api-419699:${project.fabric_architectury_version}"
 }
 
 loom {

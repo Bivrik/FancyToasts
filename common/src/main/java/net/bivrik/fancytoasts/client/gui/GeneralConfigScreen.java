@@ -58,7 +58,7 @@ public class GeneralConfigScreen extends UniversalScreen {
         backButton = this.addRenderableWidget(Button.builder(CommonComponents.GUI_BACK, (button) -> this.toParentScreen())
                 .bounds(this.width / 2 - 125 - PADDING / 2, this.height - 20 - 6, 100, BUTTON_HEIGHT).build());
 
-        if (Services.PLATFORM.isModLoaded("jade")) {
+        if (Services.PLATFORM.isModLoaded(Constants.Compatibilities.JADE_ID)) {
             jadeCompatCycleButton = CycleButton.onOffBuilder()
                     .withInitialValue(generalConfigData.isJadeCompatEnabled())
                     .withTooltip((value) -> Tooltip.create(Component.translatable("fancytoasts.gui.tooltip.jade_compatibility")))
@@ -89,7 +89,7 @@ public class GeneralConfigScreen extends UniversalScreen {
         challengeVolumeSlider = new VolumeSlider(0, 0, BUTTON_WIDTH, BUTTON_HEIGHT, Component.translatable("fancytoasts.gui.label.challenge_volume"), generalConfigData.getChallengeVolume());
         challengeVolumeSlider.setResponder(generalConfigData::setChallengeVolume);
 
-        if (Services.PLATFORM.isModLoaded("jade")) {
+        if (Services.PLATFORM.isModLoaded(Constants.Compatibilities.JADE_ID)) {
             addWidget(jadeCompatCycleButton);
         }
         addWidget(soundsEnabledCycleButton);

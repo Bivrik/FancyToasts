@@ -37,10 +37,6 @@ repositories {
         filter { includeGroup('org.parchmentmc.data') }
     }
     maven {
-        name = 'Jade'
-        url = 'https://api.modrinth.com/maven'
-    }
-    maven {
         name = 'BlameJared'
         url = 'https://maven.blamejared.com'
     }
@@ -83,27 +79,32 @@ jar {
 }
 
 processResources {
-    var expandProps = ['version'                      : version,
-                       'group'                        : project.group, //Else we target the task's group.
-                       'minecraft_version'            : minecraft_version,
-                       'minecraft_version_range'      : minecraft_version_range,
-                       'fabric_version'               : fabric_version,
-                       'fabric_loader_version'        : fabric_loader_version,
-                       'fabric_modmenu_version'       : fabric_modmenu_version,
-                       'mod_name'                     : mod_name,
-                       'mod_author'                   : mod_author,
-                       'mod_id'                       : mod_id,
-                       'license'                      : license,
-                       'description'                  : project.description,
-                       'issue_tracker_url'            : issue_tracker_url,
-                       'homepage_url'                 : homepage_url,
-                       'sources_url'                  : sources_url,
-                       'neoforge_version'             : neoforge_version,
-                       'neoforge_loader_version_range': neoforge_loader_version_range,
-                       "forge_version"                : forge_version,
-                       "forge_loader_version_range"   : forge_loader_version_range,
-                       'credits'                      : credits,
-                       'java_version'                 : java_version]
+    var expandProps = [
+            'version'                      : version,
+            'group'                        : project.group,
+            'java_version'                 : java_version,
+
+            'mod_name'                     : mod_name,
+            'mod_author'                   : mod_author,
+            'mod_id'                       : mod_id,
+            'license'                      : license,
+            'credits'                      : credits,
+            'description'                  : project.description,
+            'issue_tracker_url'            : issue_tracker_url,
+            'homepage_url'                 : homepage_url,
+            'sources_url'                  : sources_url,
+
+            'minecraft_version'            : minecraft_version,
+            'minecraft_version_range'      : minecraft_version_range,
+
+            'fabric_version'               : fabric_version,
+            'fabric_loader_version'        : fabric_loader_version,
+
+            'forge_version'                : forge_version,
+            'forge_loader_version_range'   : forge_loader_version_range,
+
+            'neoforge_version'             : neoforge_version,
+            'neoforge_loader_version_range': neoforge_loader_version_range]
 
     filesMatching(['pack.mcmeta', 'fabric.mod.json', 'META-INF/mods.toml', 'META-INF/neoforge.mods.toml', '*.mixins.json']) {
         expand expandProps

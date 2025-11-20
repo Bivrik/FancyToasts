@@ -11,12 +11,11 @@ base {
 
 mixin {
     config("${mod_id}.mixins.json")
-    config("${mod_id}.forge.mixins.json")
 }
 
 jar {
     manifest {
-        attributes["MixinConfigs"] = "${mod_id}.mixins.json,${mod_id}.forge.mixins.json"
+        attributes["MixinConfigs"] = "${mod_id}.mixins.json"
     }
 }
 
@@ -29,6 +28,9 @@ dependencies {
 
     conditionalModImplementation "forge_jade_version", "maven.modrinth:jade:${project.forge_jade_version}"
     conditionalModImplementation "forge_ftb_quests_version", "curse.maven:ftb-quests-forge-289412:${project.forge_ftb_quests_version}"
+    conditionalModImplementation "forge_ftb_library_version", "curse.maven:ftb-library-forge-404465:${project.forge_ftb_library_version}"
+    conditionalModImplementation "forge_ftb_teams_version", "curse.maven:ftb-teams-forge-404468:${project.forge_ftb_teams_version}"
+    conditionalModImplementation "forge_architectury_version", "curse.maven:architectury-api-419699:${project.forge_architectury_version}"
 }
 
 minecraft {

@@ -1,20 +1,48 @@
 package net.bivrik.fancytoasts.platform;
 
 import net.bivrik.fancytoasts.Debug;
+import net.bivrik.fancytoasts.platform.services.IFTBQuestsHelper;
 import net.bivrik.fancytoasts.platform.services.IJadeHelper;
 import net.bivrik.fancytoasts.platform.services.IPlatformHelper;
+import org.slf4j.Logger;
 
+import java.util.Map;
 import java.util.ServiceLoader;
+import java.util.function.Supplier;
 
-// This code is used to load a service for the current environment. Implementation of the service must be defined
-// manually by including a text file in META-INF/services named with the fully qualified class displayName of the service.
 public class Services {
+    private static final Logger LOGGER = Debug.getLogger(Services.class);
+
+    // Must-have service. Platform has to be loaded
     public static final IPlatformHelper PLATFORM = load(IPlatformHelper.class);
-    public static final IJadeHelper JADE = load(IJadeHelper.class);
+
+    // Optional ones
+    private static final Map<Class<?>, Supplier<?>> FALLBACKS = Map.of(
+            IJadeHelper.class, () -> new IJadeHelper() {},
+            IFTBQuestsHelper.class, () -> new IFTBQuestsHelper() {}
+    );
+
+    public static final IJadeHelper JADE = loadOptional(IJadeHelper.class);
+    public static final IFTBQuestsHelper FTB_QUESTS = loadOptional(IFTBQuestsHelper.class);
 
     public static <T> T load(Class<T> clazz) {
         final T loadedService = ServiceLoader.load(clazz).findFirst().orElseThrow(() -> new NullPointerException("Failed to load service for " + clazz.getName()));
-        Debug.info("Loaded {} for service {}", loadedService, clazz);
+        LOGGER.info("Loaded {} for service {}", loadedService, clazz);
         return loadedService;
+    }
+
+    public static <T> T loadOptional(Class<T> clazz) {
+        try {
+            return load(clazz);
+        } catch (NullPointerException e) {
+            Supplier<?> fallback = FALLBACKS.get(clazz);
+            if (fallback == null) {
+                throw new RuntimeException("No service implementation of fallback found for optional " + clazz);
+            }
+            @SuppressWarnings("unchecked")
+            T result = (T) fallback.get();
+            LOGGER.info("Loaded fallback {} for service {}", result, clazz);
+            return result;
+        }
     }
 }

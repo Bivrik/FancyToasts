@@ -15,9 +15,7 @@ public class GuiMixin {
     @Inject(at = @At("HEAD"), method = "render")
     private void onRender(GuiGraphics guiGraphics, DeltaTracker deltaTracker, CallbackInfo info) {
         AdvancementToastManager toastManager = Managers.advancementToastManager();
-        /*if (toastManager == null) {
-            return;
-        }*/
+        if (toastManager == null) return;
 
         if (toastManager.isScreenOpened() && toastManager.isScreenBehaviourUnder()) {
             toastManager.render(guiGraphics);

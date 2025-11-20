@@ -5,6 +5,7 @@ license = "${license}"
 
 # Optional
 issueTrackerURL="${issue_tracker_url}"
+clientSideOnly=true
 
 [[mods]]
 # Mandatory
@@ -21,9 +22,6 @@ description = '''${description}''' # supports multiline text
 
 [[mixins]]
 config = "${mod_id}.mixins.json"
-
-[[mixins]]
-config = "${mod_id}.neoforge.mixins.json"
 
 [[dependencies."${mod_id}"]]
 modId = "neoforge"

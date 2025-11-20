@@ -1,14 +1,14 @@
 package net.bivrik.fancytoasts.platform;
 
+import net.bivrik.fancytoasts.Constants;
 import net.bivrik.fancytoasts.platform.services.IPlatformHelper;
 import net.neoforged.fml.ModList;
 import net.neoforged.fml.loading.FMLLoader;
 
 public class NeoForgePlatformHelper implements IPlatformHelper {
-
     @Override
     public String getName() {
-        return "NeoForge";
+        return Constants.NEOFORGE;
     }
 
     @Override

@@ -7,6 +7,7 @@ import net.bivrik.fancytoasts.client.toast.AdvancementToastManager;
 import net.bivrik.fancytoasts.client.ui.CreditsManager;
 import net.bivrik.fancytoasts.client.ui.SplashManager;
 import net.minecraft.client.Minecraft;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -82,7 +83,15 @@ public class Managers {
         return get(CustomTextureManager.class);
     }
 
-    public static AdvancementToastManager advancementToastManager() {
-        return get(AdvancementToastManager.class);
+    /**
+     * Some mods trigger Minecraft's ToastManager {@code update()} or {@code render()} on Minecraft initialization. Therefore, it can return null during this phase to avoid immediate crash
+     * @return {@link AdvancementToastManager}
+     */
+    public static @Nullable AdvancementToastManager advancementToastManager() {
+        try {
+            return get(AdvancementToastManager.class);
+        } catch (IllegalStateException e) {
+            return null;
+        }
     }
 }
