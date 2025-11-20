@@ -1,7 +1,7 @@
 package net.bivrik.fancytoasts.mixin;
 
-import net.bivrik.fancytoasts.Common;
-import net.bivrik.fancytoasts.client.KeyBindingRegistry;
+import net.bivrik.fancytoasts.core.Common;
+import net.bivrik.fancytoasts.client.registry.KeyBindingRegistry;
 import net.minecraft.client.KeyMapping;
 import net.minecraft.client.Options;
 import org.spongepowered.asm.mixin.*;

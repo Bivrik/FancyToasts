@@ -7,7 +7,7 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
 import java.util.Random;
 
-public class QuirkyAnimation extends FancyAdvancementToastAnimation {
+public class QuirkyAnimation extends FancyToastAnimation {
     private final Appearance ICON_APPEARANCE = new Appearance(2000, 0);
     private final Appearance ICON_SCALE = new Appearance(3500, 0);
     private final Appearance BANNER_APPEARANCE = new Appearance(900, 1200);

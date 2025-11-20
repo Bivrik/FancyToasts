@@ -1,6 +1,6 @@
 package net.bivrik.fancytoasts.platform.utility;
 
-import net.bivrik.fancytoasts.Constants;
+import net.bivrik.fancytoasts.core.Constants;
 import net.minecraft.network.chat.Component;
 
 public class Components {

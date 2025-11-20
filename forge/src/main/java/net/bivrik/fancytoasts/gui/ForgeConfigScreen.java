@@ -1,6 +1,6 @@
 package net.bivrik.fancytoasts.gui;
 
-import net.bivrik.fancytoasts.client.gui.FancyToastConfigScreen;
+import net.bivrik.fancytoasts.client.gui.screen.FancyToastConfigScreen;
 import net.minecraftforge.client.ConfigScreenHandler;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 

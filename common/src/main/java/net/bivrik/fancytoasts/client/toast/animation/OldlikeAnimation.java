@@ -5,7 +5,7 @@ import net.bivrik.fancytoasts.utility.MathEasing;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
 
-public class OldlikeAnimation extends FancyAdvancementToastAnimation {
+public class OldlikeAnimation extends FancyToastAnimation {
     private final Appearance ICON_APPEARANCE = new Appearance(2000, 0);
     private final Appearance BANNER_APPEARANCE = new Appearance(2000, 100);
     private final Appearance BACKGROUND_APPEARANCE = new Appearance(2000, 200);

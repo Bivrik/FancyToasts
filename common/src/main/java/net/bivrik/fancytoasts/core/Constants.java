@@ -1,0 +1,17 @@
+package net.bivrik.fancytoasts.core;
+
+public class Constants {
+    public static final String MOD_ID = "fancytoasts";
+    public static final String MOD_NAME = "Fancy Toasts";
+
+    public static final String FABRIC = "Fabric";
+    public static final String FORGE = "Forge";
+    public static final String NEOFORGE = "NeoForge";
+
+    public static final String CONFIG = "config"; // ???
+
+    public static class Compatibilities {
+        public static final String JADE_ID = "jade";
+        public static final String FTB_QUESTS_ID = "ftbquests";
+    }
+}

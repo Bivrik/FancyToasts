@@ -1,6 +1,6 @@
 package net.bivrik.fancytoasts.utility.file;
 
-import net.bivrik.fancytoasts.Debug;
+import net.bivrik.fancytoasts.core.Debug;
 
 import java.io.File;
 

@@ -1,6 +1,6 @@
 package net.bivrik.fancytoasts.platform.utility;
 
-import net.bivrik.fancytoasts.Constants;
+import net.bivrik.fancytoasts.core.Constants;
 import net.minecraft.resources.ResourceLocation;
 
 public class ResourceLocations {

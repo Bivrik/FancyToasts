@@ -1,6 +1,6 @@
 package net.bivrik.fancytoasts.platform;
 
-import net.bivrik.fancytoasts.Constants;
+import net.bivrik.fancytoasts.core.Constants;
 import net.bivrik.fancytoasts.platform.services.IPlatformHelper;
 import net.minecraftforge.fml.ModList;
 import net.minecraftforge.fml.loading.FMLLoader;

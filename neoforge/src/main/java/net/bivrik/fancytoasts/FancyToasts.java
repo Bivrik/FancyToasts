@@ -1,5 +1,7 @@
 package net.bivrik.fancytoasts;
 
+import net.bivrik.fancytoasts.core.Common;
+import net.bivrik.fancytoasts.core.Constants;
 import net.bivrik.fancytoasts.gui.NeoForgeConfigScreen;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.fml.common.Mod;

@@ -1,6 +1,6 @@
 package net.bivrik.fancytoasts.platform;
 
-import net.bivrik.fancytoasts.Debug;
+import net.bivrik.fancytoasts.core.Debug;
 import net.bivrik.fancytoasts.platform.services.IFTBQuestsHelper;
 import net.bivrik.fancytoasts.platform.services.IJadeHelper;
 import net.bivrik.fancytoasts.platform.services.IPlatformHelper;

@@ -1,8 +1,5 @@
 package net.bivrik.fancytoasts.utility;
 
-import net.bivrik.fancytoasts.client.toast.TextureUV;
-import net.bivrik.fancytoasts.client.toast.TypeBasedUVs;
-
 public class DefaultUVs {
     public static final TextureUV BACKGROUND = new TextureUV(0, 0);
     public static final TextureUV PLAQUE = new TextureUV(0, 108);

@@ -1,7 +1,8 @@
 package net.bivrik.fancytoasts.client.config;
 
-import net.bivrik.fancytoasts.Debug;
-import net.bivrik.fancytoasts.platform.Managers;
+import net.bivrik.fancytoasts.client.config.data.ConfigData;
+import net.bivrik.fancytoasts.core.Debug;
+import net.bivrik.fancytoasts.core.Managers;
 import net.bivrik.fancytoasts.utility.file.FileHelper;
 import net.bivrik.fancytoasts.utility.file.Paths;
 

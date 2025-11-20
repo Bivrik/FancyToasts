@@ -1,18 +1,18 @@
 package net.bivrik.fancytoasts.client.toast.animation;
 
-import net.bivrik.fancytoasts.client.toast.TextureUV;
-import net.bivrik.fancytoasts.client.toast.TypeBasedUVs;
-import net.bivrik.fancytoasts.platform.utility.AdvancementToastDisplayInfo;
+import net.bivrik.fancytoasts.utility.TextureUV;
+import net.bivrik.fancytoasts.utility.TypeBasedUVs;
+import net.bivrik.fancytoasts.platform.utility.ToastDisplayInfo;
 import net.minecraft.resources.ResourceLocation;
 
 public class AnimationSetup {
     private final ResourceLocation textureLocation;
-    private final AdvancementToastDisplayInfo displayInfo;
+    private final ToastDisplayInfo displayInfo;
     private final TextureUV backgroundUV;
     private final TextureUV plaqueUV;
     private TypeBasedUVs typeBasedUVs;
 
-    public AnimationSetup(ResourceLocation textureLocation, AdvancementToastDisplayInfo displayInfo, TypeBasedUVs typeBasedUVs, TextureUV backgroundUV, TextureUV plaqueUV) {
+    public AnimationSetup(ResourceLocation textureLocation, ToastDisplayInfo displayInfo, TypeBasedUVs typeBasedUVs, TextureUV backgroundUV, TextureUV plaqueUV) {
         this.textureLocation = textureLocation;
         this.displayInfo = displayInfo;
         this.backgroundUV = backgroundUV;
@@ -32,7 +32,7 @@ public class AnimationSetup {
         return textureLocation;
     }
 
-    public AdvancementToastDisplayInfo displayInfo() {
+    public ToastDisplayInfo displayInfo() {
         return displayInfo;
     }
 

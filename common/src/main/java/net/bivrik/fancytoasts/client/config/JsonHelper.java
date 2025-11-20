@@ -1,7 +1,7 @@
 package net.bivrik.fancytoasts.client.config;
 
 import com.google.gson.*;
-import net.bivrik.fancytoasts.Debug;
+import net.bivrik.fancytoasts.core.Debug;
 import net.bivrik.fancytoasts.platform.utility.ResourceLocations;
 import net.minecraft.resources.ResourceLocation;
 

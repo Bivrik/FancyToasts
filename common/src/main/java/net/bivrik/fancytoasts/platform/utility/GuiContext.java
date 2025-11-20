@@ -1,7 +1,7 @@
 package net.bivrik.fancytoasts.platform.utility;
 
 import com.mojang.blaze3d.pipeline.RenderPipeline;
-import net.bivrik.fancytoasts.client.toast.TextureUV;
+import net.bivrik.fancytoasts.utility.TextureUV;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.renderer.RenderPipelines;
 import net.minecraft.resources.ResourceLocation;

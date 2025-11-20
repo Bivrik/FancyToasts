@@ -7,7 +7,7 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.util.FormattedCharSequence;
 
-public class StandardAnimation extends FancyAdvancementToastAnimation {
+public class StandardAnimation extends FancyToastAnimation {
     private final Appearance ICON_APPEARANCE = new Appearance(2000, 0);
     private final Appearance BANNER_APPEARANCE = new Appearance(500, 1500);
     private final Appearance BACKGROUND_APPEARANCE = new Appearance(800, 1600);

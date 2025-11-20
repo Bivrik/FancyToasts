@@ -1,6 +1,6 @@
 package net.bivrik.fancytoasts.platform.services;
 
-import net.bivrik.fancytoasts.Constants;
+import net.bivrik.fancytoasts.core.Constants;
 import net.bivrik.fancytoasts.platform.Services;
 
 public interface IJadeHelper {
