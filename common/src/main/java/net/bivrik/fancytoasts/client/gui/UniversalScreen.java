@@ -17,7 +17,7 @@ import static net.bivrik.fancytoasts.client.ui.LayoutValues.BUTTON_WIDTH;
 public abstract class UniversalScreen extends Screen {
     protected final Screen parent;
 
-    protected UniversalScreen(Component title, Screen parent) {
+    public UniversalScreen(Component title, Screen parent) {
         super(title);
         this.parent = parent;
     }

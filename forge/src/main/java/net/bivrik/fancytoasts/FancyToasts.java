@@ -7,9 +7,9 @@ import net.minecraftforge.fml.common.Mod;
 @Mod(Constants.MOD_ID)
 public class FancyToasts {
 
-    public FancyToasts() {
+    public FancyToasts(ModLoadingContext context) {
         Common.onModInit();
 
-        ForgeConfigScreen.registerConfigScreen(ModLoadingContext.get());
+        ForgeConfigScreen.registerConfigScreen(context);
     }
 }

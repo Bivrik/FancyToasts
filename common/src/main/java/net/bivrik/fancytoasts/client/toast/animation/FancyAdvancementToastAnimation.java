@@ -70,7 +70,7 @@ public abstract class FancyAdvancementToastAnimation {
     public abstract int getToastSoundTiming();
 
     protected void drawIcon(GuiContext guiContext, float alpha) {
-        guiContext.drawTexture(textureLocation, 68, 0, 26, 26, typeBasedUVs.frame(), getColor(alpha));
+        guiContext.drawGUITexture(textureLocation, 68, 0, 26, 26, typeBasedUVs.frame(), getColor(alpha));
         guiContext.guiGraphics().renderFakeItem(displayInfo.getIcon(), 73, 5);
     }
     protected void drawIcon(GuiContext guiContext) {
@@ -78,7 +78,7 @@ public abstract class FancyAdvancementToastAnimation {
     }
 
     protected void drawBanner(GuiContext guiContext, float alpha) {
-        guiContext.drawTexture(textureLocation, 0, 5, 162, 14, typeBasedUVs.banner(), getColor(alpha));
+        guiContext.drawGUITexture(textureLocation, 0, 5, 162, 14, typeBasedUVs.banner(), getColor(alpha));
     }
     protected void drawBanner(GuiContext guiContext) {
         drawBanner(guiContext, 1);
@@ -86,8 +86,8 @@ public abstract class FancyAdvancementToastAnimation {
 
     protected void drawBackground(GuiContext guiContext, float alpha) {
         int color = getColor(alpha);
-        guiContext.drawTexture(textureLocation, 0, 20, 162, 40, backgroundUV, color);
-        guiContext.drawTexture(textureLocation, 144, 56, 9, 14, plaqueUV, color);
+        guiContext.drawGUITexture(textureLocation, 0, 20, 162, 40, backgroundUV, color);
+        guiContext.drawGUITexture(textureLocation, 144, 56, 9, 14, plaqueUV, color);
     }
     protected void drawBackground(GuiContext guiContext) {
         drawBackground(guiContext, 1);

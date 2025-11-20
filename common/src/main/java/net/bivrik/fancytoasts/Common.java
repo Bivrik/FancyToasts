@@ -1,6 +1,7 @@
 package net.bivrik.fancytoasts;
 
 import net.bivrik.fancytoasts.client.KeyBindingRegistry;
+import net.bivrik.fancytoasts.client.gui.CreditsScreen;
 import net.bivrik.fancytoasts.client.gui.FancyToastConfigScreen;
 import net.bivrik.fancytoasts.client.toast.animation.*;
 import net.bivrik.fancytoasts.client.toast.DisplayData;
@@ -39,20 +40,7 @@ public class Common {
     // Registrations
     public static void registerKeyBindings() {
         KeyBindingRegistry.register("config_menu", GLFW.GLFW_KEY_K, () -> Minecraft.getInstance().setScreen(new FancyToastConfigScreen(null)));
-    }
-
-    static {
-        registerTexture(DefaultLocations.Textures.VANILLA, "vanilla");
-        registerTexture(DefaultLocations.Textures.NATURE, "nature");
-        registerTexture(DefaultLocations.Textures.OG, "og");
-        registerTexture(DefaultLocations.Textures.MODERN, "modern");
-        registerTexture(DefaultLocations.Textures.STEAMY, "steamy");
-        registerTexture(DefaultLocations.Textures.TERRACRAFT, "terracraft");
-
-        registerAnimation(DefaultLocations.Animations.STANDARD, "standard", StandardAnimation::new);
-        registerAnimation(DefaultLocations.Animations.PLAYFUL, "playful", PlayfulAnimation::new);
-        registerAnimation(DefaultLocations.Animations.QUIRKY, "quirky", QuirkyAnimation::new);
-        registerAnimation(DefaultLocations.Animations.OLDLIKE, "oldlike", OldlikeAnimation::new);
+        KeyBindingRegistry.register("credits_screen", GLFW.GLFW_KEY_UNKNOWN, () -> Minecraft.getInstance().setScreen(new CreditsScreen(null)));
     }
 
     private static void registerTexture(ResourceLocation id, String name) {
@@ -67,5 +55,19 @@ public class Common {
         AnimationRegistry.register(id, animation, new DisplayData(
                 translationKeyName, Constants.MOD_NAME, translationKeyName + ".description", true)
         );
+    }
+
+    static {
+        registerTexture(DefaultLocations.Textures.VANILLA, "vanilla");
+        registerTexture(DefaultLocations.Textures.NATURE, "nature");
+        registerTexture(DefaultLocations.Textures.OG, "og");
+        registerTexture(DefaultLocations.Textures.MODERN, "modern");
+        registerTexture(DefaultLocations.Textures.STEAMY, "steamy");
+        registerTexture(DefaultLocations.Textures.TERRACRAFT, "terracraft");
+
+        registerAnimation(DefaultLocations.Animations.STANDARD, "standard", StandardAnimation::new);
+        registerAnimation(DefaultLocations.Animations.PLAYFUL, "playful", PlayfulAnimation::new);
+        registerAnimation(DefaultLocations.Animations.QUIRKY, "quirky", QuirkyAnimation::new);
+        registerAnimation(DefaultLocations.Animations.OLDLIKE, "oldlike", OldlikeAnimation::new);
     }
 }

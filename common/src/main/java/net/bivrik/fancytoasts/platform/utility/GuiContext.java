@@ -1,5 +1,6 @@
 package net.bivrik.fancytoasts.platform.utility;
 
+import com.mojang.blaze3d.pipeline.RenderPipeline;
 import net.bivrik.fancytoasts.client.toast.TextureUV;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.renderer.RenderPipelines;
@@ -47,20 +48,32 @@ public class GuiContext {
         scaleAround(scale, scale, ox, oy);
     }
 
-    public void drawTexture(ResourceLocation textureLocation, int x, int y, int width, int height, TextureUV uv, int textureWidth, int textureHeight, int color) {
+    public void drawTexture(RenderPipeline pipeline, ResourceLocation textureLocation, int x, int y, int width, int height, TextureUV uv, int textureWidth, int textureHeight, int color) {
+        guiGraphics.blit(pipeline, textureLocation, x, y, uv.u(), uv.v(), width, height, textureWidth, textureHeight, color);
+    }
+
+    public void drawTexture(RenderPipeline pipeline, ResourceLocation textureLocation, int x, int y, int width, int height, TextureUV uv, int textureWidth, int textureHeight) {
+        drawTexture(pipeline, textureLocation, x, y, width, height, uv, textureWidth, textureHeight, Colors.WHITE);
+    }
+
+    public void drawTexture(RenderPipeline pipeline, ResourceLocation textureLocation, int x, int y, int width, int height, TextureUV uv) {
+        drawTexture(pipeline, textureLocation, x, y, width, height, uv, width, height, Colors.WHITE);
+    }
+
+    public void drawGUITexture(ResourceLocation textureLocation, int x, int y, int width, int height, TextureUV uv, int textureWidth, int textureHeight, int color) {
         guiGraphics.blit(RenderPipelines.GUI_TEXTURED, textureLocation, x, y, uv.u(), uv.v(), width, height, textureWidth, textureHeight, color);
     }
 
-    public void drawTexture(ResourceLocation textureLocation, int x, int y, int width, int height, TextureUV uv, int textureWidth, int textureHeight) {
-        drawTexture(textureLocation, x, y, width, height, uv, textureWidth, textureHeight, Colors.WHITE);
+    public void drawGUITexture(ResourceLocation textureLocation, int x, int y, int width, int height, TextureUV uv, int textureWidth, int textureHeight) {
+        drawGUITexture(textureLocation, x, y, width, height, uv, textureWidth, textureHeight, Colors.WHITE);
     }
 
-    public void drawTexture(ResourceLocation textureLocation, int x, int y, int width, int height, TextureUV uv, int color) {
-        drawTexture(textureLocation, x, y, width, height, uv, 256, 256, color);
+    public void drawGUITexture(ResourceLocation textureLocation, int x, int y, int width, int height, TextureUV uv, int color) {
+        drawGUITexture(textureLocation, x, y, width, height, uv, 256, 256, color);
     }
 
-    public void drawTexture(ResourceLocation textureLocation, int x, int y, int width, int height, TextureUV uv) {
-        drawTexture(textureLocation, x, y, width, height, uv, 256, 256, Colors.WHITE);
+    public void drawGUITexture(ResourceLocation textureLocation, int x, int y, int width, int height, TextureUV uv) {
+        drawGUITexture(textureLocation, x, y, width, height, uv, 256, 256, Colors.WHITE);
     }
 
     public void drawSprite(ResourceLocation spriteLocation, int x, int y, int width, int height, int color) {

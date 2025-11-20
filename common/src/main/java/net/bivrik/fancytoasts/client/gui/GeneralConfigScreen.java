@@ -139,9 +139,9 @@ public class GeneralConfigScreen extends UniversalScreen {
         var textureLocation = ResourceLocations.fromMinecraft("textures/gui/menu_list_background.png");
 
         GuiContext context = new GuiContext(guiGraphics);
-        context.drawTexture(textureLocation, 0, MARGIN, this.width, this.height - MARGIN * 2 - 2, TextureUV.ZERO, 32, 32);
-        context.drawTexture(Screen.HEADER_SEPARATOR, 0, MARGIN, this.width, 2, TextureUV.ZERO, 32, 2);
-        context.drawTexture(Screen.FOOTER_SEPARATOR, 0, this.height - MARGIN - 2, this.width, 2, TextureUV.ZERO, 32, 2);
+        context.drawGUITexture(textureLocation, 0, MARGIN, this.width, this.height - MARGIN * 2 - 2, TextureUV.ZERO, 32, 32);
+        context.drawGUITexture(Screen.HEADER_SEPARATOR, 0, MARGIN, this.width, 2, TextureUV.ZERO, 32, 2);
+        context.drawGUITexture(Screen.FOOTER_SEPARATOR, 0, this.height - MARGIN - 2, this.width, 2, TextureUV.ZERO, 32, 2);
 
         super.render(guiGraphics, mouseX, mouseY, partialTick);
     }

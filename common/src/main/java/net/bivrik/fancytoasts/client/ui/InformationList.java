@@ -1,5 +1,6 @@
 package net.bivrik.fancytoasts.client.ui;
 
+import com.mojang.blaze3d.pipeline.RenderPipeline;
 import net.bivrik.fancytoasts.Debug;
 import net.bivrik.fancytoasts.client.toast.DisplayData;
 import net.bivrik.fancytoasts.platform.utility.GuiContext;
@@ -10,6 +11,7 @@ import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.AbstractSelectionList;
 import net.minecraft.client.gui.narration.NarrationElementOutput;
+import net.minecraft.client.renderer.RenderPipelines;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.FormattedCharSequence;
@@ -35,7 +37,7 @@ public class InformationList extends AbstractSelectionList<InformationList.Entry
             return;
         }
 
-        location = isAccepted ? ResourceLocations.of("textures/icons/success.png") : ResourceLocations.of("textures/icons/looking.png");
+        location = isAccepted ? ResourceLocations.of("icons/success") : ResourceLocations.of("icons/looking");
 
         this.clear();
 
@@ -83,7 +85,7 @@ public class InformationList extends AbstractSelectionList<InformationList.Entry
         super.renderWidget(guiGraphics, mouseX, mouseY, partialTick);
 
         GuiContext context = new GuiContext(guiGraphics);
-        context.drawSprite(location, this.getRight() - 8 - 3, this.getY(), 8, 8);
+        context.drawSprite(location, this.getRight() - 8 - 3, this.getY() + 1, 8, 8);
     }
 
     @Override
