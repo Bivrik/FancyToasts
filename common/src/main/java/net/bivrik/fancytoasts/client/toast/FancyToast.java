@@ -2,7 +2,6 @@ package net.bivrik.fancytoasts.client.toast;
 
 import net.bivrik.fancytoasts.core.Debug;
 import net.bivrik.fancytoasts.client.registry.AnimationRegistry;
-import net.bivrik.fancytoasts.client.toast.animation.AnimationSetup;
 import net.bivrik.fancytoasts.client.toast.animation.FancyToastAnimation;
 import net.bivrik.fancytoasts.core.Managers;
 import net.bivrik.fancytoasts.platform.utility.ToastDisplayInfo;

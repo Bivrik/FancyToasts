@@ -1,5 +1,7 @@
 package net.bivrik.fancytoasts.client.toast.animation;
 
+import net.bivrik.fancytoasts.client.toast.AnimationSetup;
+import net.bivrik.fancytoasts.client.toast.Appearance;
 import net.bivrik.fancytoasts.platform.utility.Colors;
 import net.bivrik.fancytoasts.platform.utility.GuiContext;
 import net.bivrik.fancytoasts.utility.MathEasing;
@@ -71,7 +73,7 @@ public class StandardAnimation extends FancyToastAnimation {
                 float y = MathEasing.easeOutLerp(-100.0F, 0, iconAppearProgress);
                 context.translate(0, y);
             }
-            float sinY = (float) (Math.sin(time / 500.0)) * 1.5f;
+            float sinY = this.sinusoidLoop(time, 1.6f, 1.5f);
             context.translate(0, sinY - 5);
             this.drawIcon(context);
             context.pop();

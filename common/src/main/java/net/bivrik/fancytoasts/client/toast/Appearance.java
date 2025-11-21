@@ -1,4 +1,4 @@
-package net.bivrik.fancytoasts.client.toast.animation;
+package net.bivrik.fancytoasts.client.toast;
 
 public record Appearance(int duration, int startPoint) {
 

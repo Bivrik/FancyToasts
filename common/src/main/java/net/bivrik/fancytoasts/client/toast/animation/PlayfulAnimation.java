@@ -1,5 +1,7 @@
 package net.bivrik.fancytoasts.client.toast.animation;
 
+import net.bivrik.fancytoasts.client.toast.AnimationSetup;
+import net.bivrik.fancytoasts.client.toast.Appearance;
 import net.bivrik.fancytoasts.platform.utility.GuiContext;
 import net.bivrik.fancytoasts.utility.MathEasing;
 import net.minecraft.client.Minecraft;
@@ -34,7 +36,7 @@ public class PlayfulAnimation extends FancyToastAnimation {
         float fadeOutProgress = Appearance.getProgress(time, FADE_OUT_DURATION, DURATION - FADE_OUT_DURATION);
 
         GuiContext context = new GuiContext(guiGraphics);
-        float globalSinY = (float) (Math.sin(time / 400.0)) - 3;
+        float globalSinY = this.sinusoidLoop(time, 2.0f, 1.0f) - 3;
 
         if (fadeOutProgress > 0) {
             float fadeOutScale = MathEasing.easeInLerp(1f, 0f, fadeOutProgress);

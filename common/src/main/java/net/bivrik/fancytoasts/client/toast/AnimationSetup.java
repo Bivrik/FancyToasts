@@ -1,4 +1,4 @@
-package net.bivrik.fancytoasts.client.toast.animation;
+package net.bivrik.fancytoasts.client.toast;
 
 import net.bivrik.fancytoasts.utility.TextureUV;
 import net.bivrik.fancytoasts.utility.TypeBasedUVs;

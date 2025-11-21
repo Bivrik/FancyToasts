@@ -1,5 +1,7 @@
 package net.bivrik.fancytoasts.client.toast.animation;
 
+import net.bivrik.fancytoasts.client.toast.AnimationSetup;
+import net.bivrik.fancytoasts.client.toast.Appearance;
 import net.bivrik.fancytoasts.platform.utility.GuiContext;
 import net.bivrik.fancytoasts.utility.MathEasing;
 import net.minecraft.client.Minecraft;
@@ -47,8 +49,8 @@ public class OldlikeAnimation extends FancyToastAnimation {
             else if (fadeOutProgress != 1 && fadeOutProgress > 0) {
                 alpha = MathEasing.easeInLerp(1.0F, 0, fadeOutProgress);
             }
-            float sinY = (float) (Math.sin(time / 700.0F)) * 2.0F;
-            context.translate(0, sinY + 6);
+            float sinY = this.sinusoidLoop(time, 1.14f, 2.0f);
+            context.translate(0, sinY + 5);
             this.drawBanner(context, alpha);
             context.pop();
         }
@@ -84,7 +86,7 @@ public class OldlikeAnimation extends FancyToastAnimation {
             }
             context.translate(x, 11);
             context.scaleAround(scale, 68 + 13, 14);
-            float cosRotation = (float) (Math.cos(time / 500.0)) * 0.2F;
+            float cosRotation = this.cosineLoop(time, 1.6f, 0.2f);
             context.rotateAround(cosRotation, 68 + 13, 14);
             this.drawIcon(context, alpha);
             context.pop();

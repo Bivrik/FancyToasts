@@ -1,5 +1,8 @@
 package net.bivrik.fancytoasts.client.toast.animation;
 
+import net.bivrik.fancytoasts.client.toast.AnimationSetup;
+import net.bivrik.fancytoasts.client.toast.Appearance;
+import net.bivrik.fancytoasts.core.Debug;
 import net.bivrik.fancytoasts.platform.utility.Colors;
 import net.bivrik.fancytoasts.platform.utility.GuiContext;
 import net.bivrik.fancytoasts.utility.MathEasing;
@@ -39,8 +42,8 @@ public class QuirkyAnimation extends FancyToastAnimation {
         float fadeOutProgress = Appearance.getProgress(time, FADE_OUT_DURATION, DURATION - FADE_OUT_DURATION);
 
         GuiContext context = new GuiContext(guiGraphics);
-        float globalSinX = (float) (Math.sin(time / 800.0)) * 7.0F;
-        float globalSinY = (float) (Math.sin(time / 400.0)) * 5.0F;
+        float globalSinX = this.sinusoidLoop(time, 1.0F, 7.0F);
+        float globalSinY = this.sinusoidLoop(time, 2.0F, 5.0F);
 
         context.push();
         context.translate(globalSinX, globalSinY - 20);
@@ -87,7 +90,7 @@ public class QuirkyAnimation extends FancyToastAnimation {
                 float scale = MathEasing.easeOutLerp(3.0f, 1.0f, iconScaleProgress);
                 context.scaleAround(scale, 68 + 13, 17);
             }
-            float sinY = (float) (Math.sin(time / 400.0)) * -1.2F;
+            float sinY = this.sinusoidLoop(time, 2.0F, -1.2F);
             context.translate(0, sinY + posY);
             this.drawIcon(context);
             context.pop();

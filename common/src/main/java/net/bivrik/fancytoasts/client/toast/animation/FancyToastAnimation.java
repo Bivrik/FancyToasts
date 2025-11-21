@@ -1,6 +1,7 @@
 package net.bivrik.fancytoasts.client.toast.animation;
 
 import net.bivrik.fancytoasts.client.config.ToastScreenBehavior;
+import net.bivrik.fancytoasts.client.toast.AnimationSetup;
 import net.bivrik.fancytoasts.utility.TypeBasedUVs;
 import net.bivrik.fancytoasts.core.Managers;
 import net.bivrik.fancytoasts.platform.utility.ToastDisplayInfo;
@@ -132,6 +133,18 @@ public abstract class FancyToastAnimation {
     }
     protected void drawDescription(GuiGraphics guiGraphics) {
         drawDescription(guiGraphics, 1);
+    }
+
+    private final static float TIME_SCALE = 0.00125f;
+
+    protected float sinusoidLoop(long time, float speed, float strength) {
+        float scaledTime = time * TIME_SCALE * speed;
+        return (float) Math.sin(scaledTime) * strength;
+    }
+
+    protected float cosineLoop(long time, float speed, float strength) {
+        float scaledTime = time * TIME_SCALE * speed;
+        return (float) Math.cos(scaledTime) * strength;
     }
 
     protected int getColor(float alpha) {
