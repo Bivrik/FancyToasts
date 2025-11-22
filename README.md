@@ -72,10 +72,11 @@ Big goals/plans/ideas for future updates. Some of them are abstract ideas, and s
     | 1.16.5            | Medium        |
     | 1.18.2            | Low           |
     | 1.17.1            | Low           |
-* Rework of animations to make them easier to make?
-* Personalized textures for specific mods/datapacks?
-* Custom sounds? (v1.5.x?)
-* FTBQuests compatibility? (v1.4.x?)
+* Animations rework to make them easier to make
+* Personalized settings for specific advancements' origins
+* Custom sounds (v1.5.x?)
+* FTBQuests compatibility (v1.4.5)
+* Bundles
 #### Completed
 * Config GUI rework
 * Wider support for sounds (mods, resourcepacks)
