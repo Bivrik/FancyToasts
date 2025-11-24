@@ -32,7 +32,7 @@ public class CreditsScreen extends UniversalScreen {
 
     @Override
     protected void init() {
-        var creditsData = Managers.creditsManager().getCredits();
+        var creditsData = Managers.getCreditsManager().getCredits();
         creditsList = this.addRenderableWidget(new CreditsList(this.minecraft, this.width , this.height, PADDING, 0, creditsData));
 
         this.setFocused(creditsList);

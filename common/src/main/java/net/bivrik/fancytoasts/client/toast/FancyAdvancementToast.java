@@ -4,6 +4,7 @@ import net.bivrik.fancytoasts.core.Debug;
 import net.bivrik.fancytoasts.client.registry.AnimationRegistry;
 import net.bivrik.fancytoasts.client.toast.animation.FancyToastAnimation;
 import net.bivrik.fancytoasts.core.Managers;
+import net.bivrik.fancytoasts.core.manager.CustomTextureManager;
 import net.bivrik.fancytoasts.platform.utility.ToastDisplayInfo;
 import net.bivrik.fancytoasts.utility.DefaultUVs;
 import net.minecraft.client.Minecraft;
@@ -17,7 +18,7 @@ import net.minecraft.sounds.SoundEvents;
 import java.util.Optional;
 import java.util.Random;
 
-public class FancyToast {
+public class FancyAdvancementToast {
     private static final int WIDTH = 162;
     private static final int HEIGHT = 70;
     private static final Random random = new Random();
@@ -31,14 +32,14 @@ public class FancyToast {
     private boolean isEnded = false;
     private int playedSoundsCount = 0;
 
-    public FancyToast(Minecraft minecraft, ToastDisplayInfo displayInfo, ResourceLocation texture, ResourceLocation animationId) {
-        var generalConfig = Managers.configManager().generalConfig();
+    public FancyAdvancementToast(Minecraft minecraft, ToastDisplayInfo displayInfo, ResourceLocation textureId, ResourceLocation animationId) {
+        var generalConfig = Managers.getConfigManager().getGeneralConfigData();
 
         if (generalConfig.areSoundsEnabled()) {
             soundManager = minecraft.getSoundManager();
         }
 
-        AnimationSetup setup = new AnimationSetup(texture, displayInfo, null, DefaultUVs.BACKGROUND, DefaultUVs.PLAQUE);
+        AnimationSetup setup = new AnimationSetup(textureId, displayInfo, null, DefaultUVs.BACKGROUND, DefaultUVs.PLAQUE);
 
         switch (displayInfo.getAdvancementType()) {
             case TASK -> {
@@ -58,9 +59,9 @@ public class FancyToast {
 
         animation = AnimationRegistry.getAnimation(animationId).get();
         animation.setup(setup, minecraft, getWidth(), getHeight());
-        toastSoundId = Managers.configManager().toastConfig().getSoundId(displayInfo.getAdvancementType());
+        toastSoundId = Managers.getConfigManager().getToastConfigData().getSoundIdByType(displayInfo.getAdvancementType());
 
-        Debug.info("Created new advancement toast: {}", displayInfo.getTitle().getString());
+        Debug.info("Created new fancy advancement toast: {}; texture: {}; animation: {}", displayInfo.getTitle().getString(), textureId, animationId);
     }
 
     public void draw(GuiGraphics graphics) {

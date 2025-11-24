@@ -1,6 +1,7 @@
 package net.bivrik.fancytoasts.client.gui.screen;
 
 import net.bivrik.fancytoasts.core.Constants;
+import net.bivrik.fancytoasts.core.event.ToastConfigDataEvent;
 import net.bivrik.fancytoasts.core.manager.CustomTextureManager;
 import net.bivrik.fancytoasts.client.config.data.ToastConfigData;
 import net.bivrik.fancytoasts.client.config.ConfigHandler;
@@ -25,6 +26,7 @@ import static net.bivrik.fancytoasts.client.gui.LayoutValues.*;
 
 public class ToastConfigScreen extends UniversalScreen {
     private final ToastConfigData toastConfigData;
+    private final CustomTextureManager customTextureManager;
 
     private SettingType settingType = SettingType.TEXTURES;
     private FancyToastType advancementType = FancyToastType.TASK;
@@ -39,17 +41,15 @@ public class ToastConfigScreen extends UniversalScreen {
     private ResourceLocationList locationsList;
     private InformationList infoList;
 
-    private CustomTextureManager customTextureManager;
-
     public ToastConfigScreen(Screen parent) {
         super(Components.of("gui.config.customization_title"), parent);
 
-        this.toastConfigData = Managers.configManager().toastConfig();
-        this.customTextureManager = Managers.customTextureManager();
+        this.toastConfigData = Managers.getConfigManager().getToastConfigData();
+
+        this.customTextureManager = Managers.getCustomTextureManager();
+        customTextureManager.reload();
 
         displayData = settingType.getDisplayData(toastConfigData.getTextureId());
-
-        customTextureManager.reload();
     }
 
     public FancyToastType getAdvancementType() {
@@ -106,19 +106,17 @@ public class ToastConfigScreen extends UniversalScreen {
     }
 
     private void done() {
-        ConfigHandler.save(toastConfigData);
-        this.toParentScreen();
-    }
-
-    @Override
-    protected void toParentScreen() {
         ResourceLocation textureId = toastConfigData.getTextureId();
-        customTextureManager.releaseTexturesFromMinecraft();
+
+        customTextureManager.releaseUnusedTexturesFromMinecraft();
         if (textureId.toLanguageKey().contains(Constants.CONFIG)) {
             customTextureManager.registerInMinecraft(textureId);
         }
 
-        super.toParentScreen();
+        ConfigHandler.save(toastConfigData);
+        Managers.getEventManager().changed(new ToastConfigDataEvent(toastConfigData));
+
+        this.toParentScreen();
     }
 
     private ResourceLocationFilter filter = ResourceLocationFilter.A_Z;

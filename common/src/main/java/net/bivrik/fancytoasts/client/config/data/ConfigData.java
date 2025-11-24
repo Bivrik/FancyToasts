@@ -12,10 +12,10 @@ public abstract class ConfigData {
     }
 
     public abstract boolean isValid();
-    public abstract ConfigData get();
+    public abstract ConfigData copy();
 
     @Override
     public String toString() {
-        return getClass().getSimpleName() + String.format(" {path='%s'}", path);
+        return getClass().getSimpleName() + String.format("{path='%s'}", path);
     }
 }

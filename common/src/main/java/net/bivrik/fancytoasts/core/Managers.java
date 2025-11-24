@@ -14,8 +14,9 @@ public class Managers {
     private static final List<ITickableManager> TICKABLE_MANAGERS = new ArrayList<>();
 
     public static void init() {
-        // Config Manager has to be registered first
+        // Main managers (first!)
         registerManager(ConfigManager.class, new ConfigManager());
+        registerManager(EventManager.class, new EventManager());
 
         // Other managers
         registerManager(KeyBindingManager.class, new KeyBindingManager());
@@ -58,23 +59,27 @@ public class Managers {
         return result;
     }
 
-    public static ConfigManager configManager() {
+    public static ConfigManager getConfigManager() {
         return get(ConfigManager.class);
     }
 
-    public static KeyBindingManager keyBindingManager() {
+    public static EventManager getEventManager() {
+        return get(EventManager.class);
+    }
+
+    public static KeyBindingManager getKeyBindingManager() {
         return get(KeyBindingManager.class);
     }
 
-    public static SplashManager splashManager() {
+    public static SplashManager getSplashManager() {
         return get(SplashManager.class);
     }
 
-    public static CreditsManager creditsManager() {
+    public static CreditsManager getCreditsManager() {
         return get(CreditsManager.class);
     }
 
-    public static CustomTextureManager customTextureManager() {
+    public static CustomTextureManager getCustomTextureManager() {
         return get(CustomTextureManager.class);
     }
 
@@ -82,7 +87,7 @@ public class Managers {
      * Some mods trigger Minecraft's ToastManager {@code update()} or {@code render()} on Minecraft initialization. Therefore, it can return null during this phase to avoid immediate crash
      * @return {@link ToastManager}
      */
-    public static @Nullable ToastManager advancementToastManager() {
+    public static @Nullable ToastManager getAdvancementToastManager() {
         try {
             return get(ToastManager.class);
         } catch (IllegalStateException e) {

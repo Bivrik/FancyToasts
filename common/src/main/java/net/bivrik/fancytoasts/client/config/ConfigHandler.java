@@ -23,10 +23,11 @@ public class ConfigHandler {
     public static <T extends ConfigData> T load(Class<T> configDataClass) {
         FileHelper.tryCreateDir(CONFIG_DIR);
 
-        String className = configDataClass.getSimpleName();
         T standardConfigData = tryGetInstance(configDataClass);
+        String className = configDataClass.getSimpleName();
+        String configPath = standardConfigData.getPath();
 
-        File configFile = new File(standardConfigData.getPath());
+        File configFile = new File(configPath);
 
         if (JsonHelper.isValid(configFile)) {
             Optional<T> optionalData = JsonHelper.tryToRead(configFile, configDataClass);
@@ -44,7 +45,7 @@ public class ConfigHandler {
 
             Debug.error("Config file {} is not valid or outdated", className);
         } else {
-            Debug.error("Config file {} is not found in {}", className, standardConfigData.getPath());
+            Debug.error("Config file {} is not found in {}", className, configPath);
         }
 
         Debug.warn("Loaded standard data for config: {}", className);
@@ -62,7 +63,7 @@ public class ConfigHandler {
             Debug.info("Config file saved with following content:");
             Debug.info(configData.toString());
 
-            Managers.configManager().updateConfig(configData);
+            Managers.getConfigManager().updateConfig(configData);
         } else {
             Debug.error("Config file {} could not be saved", configData.getClass().getSimpleName());
         }

@@ -1,9 +1,13 @@
 package net.bivrik.fancytoasts.core.manager;
 
-import net.bivrik.fancytoasts.client.toast.FancyToast;
+import net.bivrik.fancytoasts.client.config.data.GeneralConfigData;
+import net.bivrik.fancytoasts.client.config.data.ToastConfigData;
+import net.bivrik.fancytoasts.core.event.GeneralConfigDataEvent;
+import net.bivrik.fancytoasts.client.toast.FancyAdvancementToast;
 import net.bivrik.fancytoasts.client.config.ToastScreenBehavior;
 import net.bivrik.fancytoasts.core.IManager;
 import net.bivrik.fancytoasts.core.Managers;
+import net.bivrik.fancytoasts.core.event.ToastConfigDataEvent;
 import net.bivrik.fancytoasts.platform.utility.GuiContext;
 import net.bivrik.fancytoasts.platform.utility.ToastDisplayInfo;
 import net.bivrik.fancytoasts.platform.Services;
@@ -18,38 +22,58 @@ import java.util.Deque;
 import java.util.concurrent.ConcurrentLinkedDeque;
 
 public class ToastManager implements IManager {
-    private final Deque<FancyToast> ADVANCEMENT_TOASTS = new ConcurrentLinkedDeque<>();
+    private final Deque<FancyAdvancementToast> toasts = new ConcurrentLinkedDeque<>();
 
     private Minecraft minecraft;
-    private ConfigManager configManager;
 
-    private volatile FancyToast currentToast;
+    private volatile FancyAdvancementToast currentToast;
     private long startingTimeOfToast;
+
+    private CustomTextureManager customTextureManager;
+    private GeneralConfigData generalConfigData;
+    private ToastConfigData toastConfigData;
 
     @Override
     public void onMinecraftInit(Minecraft minecraft) {
         this.minecraft = minecraft;
-        this.configManager = Managers.configManager();
+
+        customTextureManager = Managers.getCustomTextureManager();
+        ConfigManager configManager = Managers.getConfigManager();
+        generalConfigData = configManager.getGeneralConfigData();
+        toastConfigData = configManager.getToastConfigData();
+
+        EventManager eventManager = Managers.getEventManager();
+        eventManager.subscribe(GeneralConfigDataEvent.class, this::OnGeneralConfigDataChanged);
+        eventManager.subscribe(ToastConfigDataEvent.class, this::OnToastConfigDataChanged);
     }
 
-    public void addAdvancement(ToastDisplayInfo displayInfo) {
+    private void OnGeneralConfigDataChanged(GeneralConfigDataEvent event) {
+        generalConfigData = event.generalConfigData();
+    }
+
+    private void OnToastConfigDataChanged(ToastConfigDataEvent event) {
+        toastConfigData = event.toastConfigData();
+    }
+
+    public void addToast(ToastDisplayInfo displayInfo) {
         if (displayInfo == null) {
              return;
         }
 
-        FancyToast fancyAdvancementToast = new FancyToast(minecraft, displayInfo, configManager.toastConfig().getTextureId(), configManager.toastConfig().getAnimationId());
-        ADVANCEMENT_TOASTS.add(fancyAdvancementToast);
+        FancyAdvancementToast fancyToast = new FancyAdvancementToast(minecraft, displayInfo, toastConfigData.getTextureId(), toastConfigData.getAnimationId());
+        toasts.add(fancyToast);
+        customTextureManager.addBeingUsed(toastConfigData.getTextureId(), fancyToast);
 
-        if (configManager.generalConfig().isJadeCompatEnabled()) {
+        if (generalConfigData.isJadeHiding()) {
             Services.JADE.tryDisable();
         }
     }
 
-    public void addAdvancement(Advancement advancement) {
+    public void addToast(Advancement advancement) {
         DisplayInfo oldDisplayInfo = advancement.display().orElse(null);
         assert oldDisplayInfo != null;
 
-        addAdvancement(new ToastDisplayInfo(oldDisplayInfo));
+        addToast(new ToastDisplayInfo(oldDisplayInfo));
     }
 
     public void update() {
@@ -59,7 +83,7 @@ public class ToastManager implements IManager {
             if (currentToast.isEnded()) {
                 removeCurrentToast();
 
-                if (configManager.generalConfig().isJadeCompatEnabled() && ADVANCEMENT_TOASTS.isEmpty()) {
+                if (generalConfigData.isJadeHiding() && toasts.isEmpty()) {
                     Services.JADE.tryEnable();
                 }
             }
@@ -67,7 +91,7 @@ public class ToastManager implements IManager {
             return;
         }
 
-        if (!ADVANCEMENT_TOASTS.isEmpty()) {
+        if (!toasts.isEmpty()) {
             setNewCurrentToast();
         }
     }
@@ -77,25 +101,28 @@ public class ToastManager implements IManager {
             return;
         }
 
-        int xPos = configManager.generalConfig().getPosition().getX(currentToast.getWidth(), guiGraphics.guiWidth());
+        int xPos = (int) (guiGraphics.guiWidth() * generalConfigData.getPositionXPercentage() - (float) currentToast.getWidth() / 2);
+        int yPos = (int) (guiGraphics.guiHeight() * generalConfigData.getPositionYPercentage() - (float) currentToast.getHeight() / 2);
 
         GuiContext context = new GuiContext(guiGraphics);
         context.push();
-        context.translate(xPos, 20);
+        context.translate(xPos, yPos);
         currentToast.draw(guiGraphics);
         context.pop();
     }
 
     public void clear() {
-        ADVANCEMENT_TOASTS.clear();
+        toasts.clear();
         removeCurrentToast();
+        customTextureManager.clear();
 
-        if (configManager.generalConfig().isJadeCompatEnabled()) {
+        if (generalConfigData.isJadeHiding()) {
             Services.JADE.tryEnable();
         }
     }
 
     private void removeCurrentToast() {
+        customTextureManager.removeBeingUsed(currentToast);
         currentToast = null;
     }
 
@@ -105,7 +132,7 @@ public class ToastManager implements IManager {
     }
 
     private void setNewCurrentToast() {
-        FancyToast nextToast = ADVANCEMENT_TOASTS.pollFirst();
+        FancyAdvancementToast nextToast = toasts.pollFirst();
         if (nextToast != null) {
             currentToast = nextToast;
             startingTimeOfToast = Util.getMillis();
@@ -120,7 +147,7 @@ public class ToastManager implements IManager {
         return minecraft.screen != null && !(minecraft.screen instanceof ChatScreen);
     }
 
-    public boolean isScreenBehaviourUnder() {
-        return configManager.generalConfig().getScreenBehavior() == ToastScreenBehavior.BEHIND;
+    public boolean isScreenBehaviourBehind() {
+        return generalConfigData.getToastScreenBehavior() == ToastScreenBehavior.BEHIND;
     }
 }

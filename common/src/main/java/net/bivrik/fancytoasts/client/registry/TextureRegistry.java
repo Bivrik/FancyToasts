@@ -7,6 +7,7 @@ import net.minecraft.resources.ResourceLocation;
 import org.slf4j.Logger;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 public class TextureRegistry {
     private static final Logger LOGGER = Debug.getLogger(TextureRegistry.class);
@@ -18,7 +19,7 @@ public class TextureRegistry {
     }
 
     public static boolean register(ResourceLocation id, DisplayData data) {
-        if (TEXTURES.containsKey(id)) {
+        if (isRegistered(id)) {
             LOGGER.warn("{} already exists! It has to be unique", id);
             return false;
         }
@@ -33,12 +34,13 @@ public class TextureRegistry {
         return register(id, new DisplayData(name, author, description, true));
     }
 
+    public static void unregister(ResourceLocation id) {
+        TEXTURES.remove(id);
+        LOGGER.info("Unregistered: {}", id);
+    }
+
     public static boolean isRegistered(ResourceLocation id) {
         return TEXTURES.getOrDefault(id, null) != null;
-    }
-    
-    public static void clearCustom() {
-        TEXTURES.keySet().removeIf(id -> id.toLanguageKey().contains(Constants.CONFIG));
     }
 
     public static DisplayData getData(ResourceLocation id) {
@@ -57,5 +59,9 @@ public class TextureRegistry {
 
     public static Collection<ResourceLocation> getIds() {
         return TEXTURES.keySet();
+    }
+
+    public static List<ResourceLocation> getCustomIds() {
+        return TEXTURES.keySet().stream().filter(id -> id.getPath().contains(Constants.CONFIG)).collect(Collectors.toList());
     }
 }

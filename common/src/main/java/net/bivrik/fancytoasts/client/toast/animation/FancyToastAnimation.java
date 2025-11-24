@@ -2,6 +2,7 @@ package net.bivrik.fancytoasts.client.toast.animation;
 
 import net.bivrik.fancytoasts.client.config.ToastScreenBehavior;
 import net.bivrik.fancytoasts.client.toast.AnimationSetup;
+import net.bivrik.fancytoasts.core.event.GeneralConfigDataEvent;
 import net.bivrik.fancytoasts.utility.TypeBasedUVs;
 import net.bivrik.fancytoasts.core.Managers;
 import net.bivrik.fancytoasts.platform.utility.ToastDisplayInfo;
@@ -15,6 +16,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.FormattedCharSequence;
 
 import java.util.List;
+import java.util.Objects;
 
 public abstract class FancyToastAnimation {
     private List<FormattedCharSequence> titleLines;
@@ -30,9 +32,13 @@ public abstract class FancyToastAnimation {
     private TextureUV backgroundUV;
     private TextureUV plaqueUV;
 
-    private float guiAlpha;
+    private float guiAlpha = 1.0f;
+    private boolean shouldTransparentToast;
 
     public void setup(AnimationSetup setup, Minecraft minecraft, int toastWidth, int toastHeight) {
+        Managers.getEventManager().subscribe(GeneralConfigDataEvent.class, this::onGeneralConfigDataChanged);
+        this.shouldTransparentToast = Managers.getConfigManager().getGeneralConfigData().getToastScreenBehavior().equals(ToastScreenBehavior.TRANSPARENT);
+
         this.minecraft = minecraft;
         this.toastWidth = toastWidth;
         this.toastHeight = toastHeight;
@@ -41,6 +47,10 @@ public abstract class FancyToastAnimation {
         this.typeBasedUVs = setup.typeBasedUVs();
         this.backgroundUV = setup.backgroundUV();
         this.plaqueUV = setup.plaqueUV();
+    }
+
+    private void onGeneralConfigDataChanged(GeneralConfigDataEvent event) {
+        shouldTransparentToast = event.generalConfigData().getToastScreenBehavior().equals(ToastScreenBehavior.TRANSPARENT);
     }
 
     protected void setLines(Component title, Component description) {
@@ -57,12 +67,11 @@ public abstract class FancyToastAnimation {
     }
 
     public void draw(GuiGraphics guiGraphics, long time) {
-        if (Managers.advancementToastManager().isScreenOpened()
-                && Managers.configManager().generalConfig().getScreenBehavior() == ToastScreenBehavior.TRANSPARENT) {
-            guiAlpha = 0.5F;
+        if (shouldTransparentToast && Objects.requireNonNull(Managers.getAdvancementToastManager()).isScreenOpened()) {
+            guiAlpha = 0.5f;
         }
-        else {
-            guiAlpha = 1.0F;
+        else if (guiAlpha != 1.0f) {
+            guiAlpha = 1.0f;
         }
     }
 

@@ -1,8 +1,9 @@
 package net.bivrik.fancytoasts.client.config.data;
 
-import net.bivrik.fancytoasts.core.Debug;
+import net.bivrik.fancytoasts.client.config.ConfigHandler;
 import net.bivrik.fancytoasts.client.registry.AnimationRegistry;
 import net.bivrik.fancytoasts.client.registry.TextureRegistry;
+import net.bivrik.fancytoasts.core.Constants;
 import net.bivrik.fancytoasts.core.Managers;
 import net.bivrik.fancytoasts.platform.utility.FancyToastType;
 import net.bivrik.fancytoasts.utility.DefaultLocations;
@@ -15,28 +16,40 @@ import java.util.EnumMap;
 import java.util.Map;
 
 public class ToastConfigData extends ConfigData {
-    private ResourceLocation animationId;
     private ResourceLocation textureId;
+    private ResourceLocation animationId;
     private final Map<FancyToastType, ResourceLocation> soundIds = new EnumMap<>(FancyToastType.class);
 
-    public ToastConfigData(ResourceLocation animationId, ResourceLocation textureId, Map<FancyToastType, ResourceLocation> soundIds) {
+    public ToastConfigData(ResourceLocation textureId, ResourceLocation animationId, Map<FancyToastType, ResourceLocation> soundIds) {
         super(Paths.TOAST_CONFIG_FILE);
 
-        this.animationId = animationId;
         this.textureId = textureId;
+        this.animationId = animationId;
         this.soundIds.putAll(soundIds);
     }
 
     public ToastConfigData() {
-        super(Paths.TOAST_CONFIG_FILE);
-
-        this.animationId = DefaultLocations.Animations.STANDARD;
-        this.textureId = DefaultLocations.Textures.VANILLA;
-        this.soundIds.putAll(Map.of(
+        this(DefaultLocations.Textures.VANILLA, DefaultLocations.Animations.STANDARD, Map.of(
                 FancyToastType.TASK, SoundEvents.ALLAY_AMBIENT_WITH_ITEM.location(),
                 FancyToastType.GOAL, SoundEvents.FIREWORK_ROCKET_TWINKLE_FAR.location(),
                 FancyToastType.CHALLENGE, SoundEvents.UI_TOAST_CHALLENGE_COMPLETE.location())
         );
+    }
+
+    public ResourceLocation getTextureId() {
+        if (isConfig(textureId)) {
+            if (!TextureRegistry.isRegistered(textureId)) {
+                ResourceLocation standardTextureId = new ToastConfigData().textureId;
+                setTextureId(standardTextureId);
+                ConfigHandler.save(copy());
+                return standardTextureId;
+            }
+        }
+
+        return textureId;
+    }
+    public void setTextureId(ResourceLocation id) {
+        textureId = id;
     }
 
     public ResourceLocation getAnimationId() {
@@ -46,63 +59,52 @@ public class ToastConfigData extends ConfigData {
         animationId = id;
     }
 
-    public ResourceLocation getTextureId() {
-        return textureId;
-    }
-    public void setTextureId(ResourceLocation id) {
-        textureId = id;
-    }
+    public ResourceLocation getSoundIdByType(FancyToastType type) {
+        var availableSounds = Minecraft.getInstance().getSoundManager().getAvailableSounds();
+        ResourceLocation soundId = soundIds.get(type);
 
-    public ResourceLocation getSoundId(FancyToastType type) {
-        var soundManager = Minecraft.getInstance().getSoundManager();
-
-        if (!soundManager.getAvailableSounds().contains(soundIds.get(type))) {
-            Debug.warn("Saved sounds are invalid. Used standard ones");
-            switch (type) {
-                case TASK -> {
-                    return SoundEvents.ALLAY_AMBIENT_WITH_ITEM.location();
-                }
-                case GOAL -> {
-                    return SoundEvents.FIREWORK_ROCKET_TWINKLE_FAR.location();
-                }
-                case null, default -> {
-                    return SoundEvents.UI_TOAST_CHALLENGE_COMPLETE.location();
-                }
-            }
+        if (!availableSounds.contains(soundId)) {
+            ResourceLocation standardSoundId = new ToastConfigData().soundIds.get(type);
+            putSoundIdForType(standardSoundId, type);
+            ConfigHandler.save(copy());
+            return standardSoundId;
         }
 
         return soundIds.get(type);
     }
-    public void putSound(FancyToastType type, ResourceLocation location) {
+    public void putSoundIdForType(ResourceLocation location, FancyToastType type) {
         soundIds.put(type, location);
     }
 
     @Override
-    public String getPath() {
-        return super.getPath();
-    }
-
-    @Override
     public boolean isValid() {
-        if (TextureRegistry.isRegistered(textureId)) {
-            if (textureId.toLanguageKey().contains("config")) {
-                Managers.customTextureManager().registerInMinecraft(textureId);
-            }
-        }
-        else {
-            return false;
+        boolean isValid = true;
+
+        if (!isConfig(animationId)) {
+            isValid = AnimationRegistry.isRegistered(animationId);
         }
 
-        return AnimationRegistry.isRegistered(animationId);
+        if (!isConfig(textureId)) {
+            isValid = isValid && TextureRegistry.isRegistered(textureId);
+        }
+
+        return isValid;
+    }
+
+    private boolean isConfig(ResourceLocation id) {
+        return id.toLanguageKey().contains(Constants.CONFIG);
     }
 
     @Override
-    public ToastConfigData get() {
-        return new ToastConfigData(animationId, textureId, soundIds);
+    public ToastConfigData copy() {
+        return new ToastConfigData(textureId, animationId, soundIds);
     }
 
     @Override
     public String toString() {
-        return super.toString().replace("}", ", ") + String.format("animationId='%s', textureId='%s', soundIds='%s'}", animationId, textureId, soundIds);
+        return super.toString().replace("}", ", ") + String.format(
+                "textureId='%s', animationId='%s', soundIds='%s'}",
+                textureId, animationId, soundIds
+        );
     }
 }

@@ -1,50 +1,47 @@
 package net.bivrik.fancytoasts.client.config.data;
 
-import net.bivrik.fancytoasts.client.config.HorizontalToastPosition;
 import net.bivrik.fancytoasts.client.config.ToastScreenBehavior;
 import net.bivrik.fancytoasts.utility.file.Paths;
 import net.bivrik.fancytoasts.platform.Services;
 
 public class GeneralConfigData extends ConfigData {
-    private boolean isJadeCompatEnabled;
+    private boolean isJadeHiding;
     private boolean areSoundsEnabled;
     private float taskVolume;
     private float goalVolume;
     private float challengeVolume;
-    private HorizontalToastPosition position;
-    private ToastScreenBehavior screenBehavior;
+    private float loopsStrength;
+    private float loopsSpeed;
+    private float positionXPercentage;
+    private float positionYPercentage;
+    private ToastScreenBehavior toastScreenBehavior;
 
-    public GeneralConfigData(boolean isJadeCompatEnabled, boolean areSoundsEnabled, float taskVolume, float goalVolume, float challengeVolume, HorizontalToastPosition position, ToastScreenBehavior screenBehavior) {
+    public GeneralConfigData(boolean isJadeHiding, boolean areSoundsEnabled, float taskVolume, float goalVolume, float challengeVolume, float loopsStrength, float loopsSpeed, float positionXPercentage, float positionYPercentage, ToastScreenBehavior toastScreenBehavior) {
         super(Paths.GENERAL_CONFIG_FILE);
 
-        this.isJadeCompatEnabled = isJadeCompatEnabled;
+        this.isJadeHiding = isJadeHiding;
         this.areSoundsEnabled = areSoundsEnabled;
         this.taskVolume = taskVolume;
         this.goalVolume = goalVolume;
         this.challengeVolume = challengeVolume;
-        this.position = position;
-        this.screenBehavior = screenBehavior;
+        this.loopsStrength = loopsStrength;
+        this.loopsSpeed = loopsSpeed;
+        this.positionXPercentage = positionXPercentage;
+        this.positionYPercentage = positionYPercentage;
+        this.toastScreenBehavior = toastScreenBehavior;
     }
 
     public GeneralConfigData() {
-        super(Paths.GENERAL_CONFIG_FILE);
-
-        this.isJadeCompatEnabled = true;
-        this.areSoundsEnabled = true;
-        this.taskVolume = 1.0f;
-        this.goalVolume = 1.0f;
-        this.challengeVolume = 1.0f;
-        this.position = HorizontalToastPosition.CENTER;
-        this.screenBehavior = ToastScreenBehavior.TRANSPARENT;
+        this(true, true, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 0.5f, 0.2f, ToastScreenBehavior.TRANSPARENT);
     }
 
-    public boolean isJadeCompatEnabled() {
-        return isJadeCompatEnabled;
+    public boolean isJadeHiding() {
+        return isJadeHiding;
     }
-    public void setJadeCompatEnabled(boolean isJadeCompatibility) {
-        this.isJadeCompatEnabled = isJadeCompatibility;
+    public void setJadeHiding(boolean isJadeHiding) {
+        this.isJadeHiding = isJadeHiding;
 
-        if (!this.isJadeCompatEnabled) {
+        if (isJadeHiding) {
             Services.JADE.tryEnable();
         }
         else {
@@ -80,18 +77,39 @@ public class GeneralConfigData extends ConfigData {
         this.challengeVolume = challengeVolume;
     }
 
-    public HorizontalToastPosition getPosition() {
-        return position;
+    public float getLoopsStrength() {
+        return loopsStrength;
     }
-    public void setPosition(HorizontalToastPosition position) {
-        this.position = position;
+    public void setLoopsStrength(float loopsStrength) {
+        this.loopsStrength = loopsStrength;
     }
 
-    public ToastScreenBehavior getScreenBehavior() {
-        return screenBehavior;
+    public float getLoopsSpeed() {
+        return loopsSpeed;
     }
-    public void setScreenBehavior(ToastScreenBehavior screenBehavior) {
-        this.screenBehavior = screenBehavior;
+    public void setLoopsSpeed(float loopsSpeed) {
+        this.loopsSpeed = loopsSpeed;
+    }
+
+    public float getPositionXPercentage() {
+        return positionXPercentage;
+    }
+    public void setPositionXPercentage(float positionXPercentage) {
+        this.positionXPercentage = positionXPercentage;
+    }
+
+    public float getPositionYPercentage() {
+        return positionYPercentage;
+    }
+    public void setPositionYPercentage(float positionYPercentage) {
+        this.positionYPercentage = positionYPercentage;
+    }
+
+    public ToastScreenBehavior getToastScreenBehavior() {
+        return toastScreenBehavior;
+    }
+    public void setToastScreenBehavior(ToastScreenBehavior toastScreenBehavior) {
+        this.toastScreenBehavior = toastScreenBehavior;
     }
 
     @Override
@@ -100,12 +118,15 @@ public class GeneralConfigData extends ConfigData {
     }
 
     @Override
-    public GeneralConfigData get() {
-        return new GeneralConfigData(isJadeCompatEnabled, areSoundsEnabled, taskVolume, goalVolume, challengeVolume, position, screenBehavior);
+    public GeneralConfigData copy() {
+        return new GeneralConfigData(isJadeHiding, areSoundsEnabled, taskVolume, goalVolume, challengeVolume, loopsStrength, loopsSpeed, positionXPercentage, positionYPercentage, toastScreenBehavior);
     }
 
     @Override
     public String toString() {
-        return super.toString().replace("}", ", ") + String.format("isJadeCompatibility='%s', areSoundsEnabled='%s', taskVolume='%s', goalVolume='%s', challengeVolume='%s', advancementToastPosition='%s', advancementToastScreenBehavior='%s'}", isJadeCompatEnabled, areSoundsEnabled, taskVolume, goalVolume, challengeVolume, position, screenBehavior);
+        return super.toString().replace("}", ", ") + String.format(
+                "isJadeHiding='%s', areSoundsEnabled='%s', taskVolume='%s', goalVolume='%s', challengeVolume='%s', loopsStrength='%s', loopsSpeed='%s', positionXPercentage='%s', positionYPercentage='%s', toastScreenBehavior='%s'}",
+                isJadeHiding, areSoundsEnabled, taskVolume, goalVolume, challengeVolume, loopsStrength, loopsSpeed, positionXPercentage, positionYPercentage, toastScreenBehavior
+        );
     }
 }

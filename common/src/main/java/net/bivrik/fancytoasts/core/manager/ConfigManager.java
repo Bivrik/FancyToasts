@@ -28,18 +28,18 @@ public class ConfigManager implements IManager {
 
     private <T extends ConfigData> T getConfig(Class<T> configDataClass) {
         @SuppressWarnings("unchecked")
-        T result = (T) configs.get(configDataClass).get();
+        T result = (T) configs.get(configDataClass).copy();
         if (result == null) {
             throw new IllegalStateException("Trying to access unregistered config: " + configDataClass.getSimpleName());
         }
         return result;
     }
 
-    public GeneralConfigData generalConfig() {
+    public GeneralConfigData getGeneralConfigData() {
         return getConfig(GeneralConfigData.class);
     }
 
-    public ToastConfigData toastConfig() {
+    public ToastConfigData getToastConfigData() {
         return getConfig(ToastConfigData.class);
     }
 }

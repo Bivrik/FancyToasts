@@ -1,10 +1,11 @@
 package net.bivrik.fancytoasts.client.gui.screen;
 
 import net.bivrik.fancytoasts.core.Constants;
-import net.bivrik.fancytoasts.client.config.HorizontalToastPosition;
+//import net.bivrik.fancytoasts.client.config.HorizontalToastPosition;
 import net.bivrik.fancytoasts.client.config.ToastScreenBehavior;
 import net.bivrik.fancytoasts.client.config.ConfigHandler;
 import net.bivrik.fancytoasts.client.config.data.GeneralConfigData;
+import net.bivrik.fancytoasts.core.event.GeneralConfigDataEvent;
 import net.bivrik.fancytoasts.utility.TextureUV;
 import net.bivrik.fancytoasts.platform.utility.GuiContext;
 import net.bivrik.fancytoasts.core.Managers;
@@ -36,14 +37,14 @@ public class GeneralConfigScreen extends UniversalScreen {
     private VolumeSlider taskVolumeSlider;
     private VolumeSlider goalVolumeSlider;
     private VolumeSlider challengeVolumeSlider;
-    private CycleButton<HorizontalToastPosition> positionCycButton;
+    //private CycleButton<HorizontalToastPosition> positionCycButton;
     private CycleButton<ToastScreenBehavior> screenBehaviorCycButton;
 
     private final List<AbstractWidget> widgets = new ArrayList<>();
 
     public GeneralConfigScreen(Screen parent) {
         super(TITLE, parent);
-        this.generalConfigData = Managers.configManager().generalConfig();
+        this.generalConfigData = Managers.getConfigManager().getGeneralConfigData();
     }
 
     private void addWidget(AbstractWidget aw) {
@@ -60,9 +61,9 @@ public class GeneralConfigScreen extends UniversalScreen {
 
         if (Services.PLATFORM.isModLoaded(Constants.Compatibilities.JADE_ID)) {
             jadeCompatCycleButton = CycleButton.onOffBuilder()
-                    .withInitialValue(generalConfigData.isJadeCompatEnabled())
+                    .withInitialValue(generalConfigData.isJadeHiding())
                     .withTooltip((value) -> Tooltip.create(Component.translatable("fancytoasts.gui.tooltip.jade_compatibility")))
-                    .create(0, 0, BUTTON_WIDTH, BUTTON_HEIGHT, Component.translatable("fancytoasts.gui.label.jade_compatibility"), (button, value) -> generalConfigData.setJadeCompatEnabled(value));
+                    .create(0, 0, BUTTON_WIDTH, BUTTON_HEIGHT, Component.translatable("fancytoasts.gui.label.jade_compatibility"), (button, value) -> generalConfigData.setJadeHiding(value));
         }
 
         soundsEnabledCycleButton = CycleButton.onOffBuilder()
@@ -70,15 +71,15 @@ public class GeneralConfigScreen extends UniversalScreen {
                 .withTooltip((value) -> Tooltip.create(Component.translatable("fancytoasts.gui.tooltip.sounds_enabled")))
                 .create(0, 0, BUTTON_WIDTH, BUTTON_HEIGHT, Component.translatable("fancytoasts.gui.label.sounds_enabled"), (button, value) -> generalConfigData.setSoundsEnabled(value));
 
-        positionCycButton = CycleButton.builder(HorizontalToastPosition::getDisplayName)
-                .withValues(HorizontalToastPosition.values()).withInitialValue(generalConfigData.getPosition())
+        /*positionCycButton = CycleButton.builder(HorizontalToastPosition::getDisplayName)
+                .withValues(HorizontalToastPosition.values()).withInitialValue(generalConfigData.horizontalPosition())
                 .withTooltip((position) -> Tooltip.create(Component.translatable("fancytoasts.gui.tooltip.position")))
-                .create(0, 0, BUTTON_WIDTH, BUTTON_HEIGHT, Component.translatable("fancytoasts.gui.label.position"), (button, value) -> generalConfigData.setPosition(value));
+                .create(0, 0, BUTTON_WIDTH, BUTTON_HEIGHT, Component.translatable("fancytoasts.gui.label.position"), (button, value) -> generalConfigData.setHorizontalPosition(value));*/
 
         screenBehaviorCycButton = CycleButton.builder(ToastScreenBehavior::getDisplayName)
-                .withValues(ToastScreenBehavior.values()).withInitialValue(generalConfigData.getScreenBehavior())
+                .withValues(ToastScreenBehavior.values()).withInitialValue(generalConfigData.getToastScreenBehavior())
                 .withTooltip((position) -> Tooltip.create(Component.translatable("fancytoasts.gui.tooltip.screen_behavior")))
-                .create(0, 0, BUTTON_WIDTH, BUTTON_HEIGHT, Component.translatable("fancytoasts.gui.label.screen_behavior"), (button, value) -> generalConfigData.setScreenBehavior(value));
+                .create(0, 0, BUTTON_WIDTH, BUTTON_HEIGHT, Component.translatable("fancytoasts.gui.label.screen_behavior"), (button, value) -> generalConfigData.setToastScreenBehavior(value));
 
         taskVolumeSlider = new VolumeSlider(0, 0, BUTTON_WIDTH, BUTTON_HEIGHT, Component.translatable("fancytoasts.gui.label.task_volume"), generalConfigData.getTaskVolume());
         taskVolumeSlider.setResponder(generalConfigData::setTaskVolume);
@@ -93,7 +94,7 @@ public class GeneralConfigScreen extends UniversalScreen {
             addWidget(jadeCompatCycleButton);
         }
         addWidget(soundsEnabledCycleButton);
-        addWidget(positionCycButton);
+        //addWidget(positionCycButton);
         addWidget(screenBehaviorCycButton);
         addWidget(taskVolumeSlider);
         addWidget(goalVolumeSlider);
@@ -131,6 +132,7 @@ public class GeneralConfigScreen extends UniversalScreen {
 
     private void done() {
         ConfigHandler.save(generalConfigData);
+        Managers.getEventManager().changed(new GeneralConfigDataEvent(generalConfigData));
         this.toParentScreen();
     }
 

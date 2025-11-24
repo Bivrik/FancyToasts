@@ -28,7 +28,7 @@ public class FancyToastConfigScreen extends UniversalScreen {
 
     public FancyToastConfigScreen(Screen parent) {
         super(Components.of("gui.config.title"), parent);
-        this.splash = Managers.splashManager().getSplash();
+        this.splash = Managers.getSplashManager().getSplash();
     }
 
     @Override

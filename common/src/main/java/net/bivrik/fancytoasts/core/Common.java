@@ -23,8 +23,8 @@ public class Common {
             return;
         }
         Debug.info("Initialization on {} in a {} environment", Services.PLATFORM.getName(), Services.PLATFORM.getEnvironmentName());
-        Managers.init();
 
+        Managers.init();
         Managers.onModInit();
     }
 

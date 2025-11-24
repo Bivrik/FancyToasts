@@ -24,29 +24,29 @@ public class ToastManagerMixin {
             info.cancel();
 
             Advancement advancement = ((IAdvancementAccessor) toast).getAdvancementHolder().value();
-            Objects.requireNonNull(Managers.advancementToastManager()).addAdvancement(advancement);
+            Objects.requireNonNull(Managers.getAdvancementToastManager()).addToast(advancement);
         }
         else if (Services.FTB_QUESTS.isQuest(toast)) {
             info.cancel();
 
             ToastDisplayInfo displayInfo = Services.FTB_QUESTS.getDisplayInfo(toast);
-            Objects.requireNonNull(Managers.advancementToastManager()).addAdvancement(displayInfo);
+            Objects.requireNonNull(Managers.getAdvancementToastManager()).addToast(displayInfo);
         }
     }
 
     @Inject(at = @At("TAIL"), method = "render")
     private void onRender(GuiGraphics guiGraphics, CallbackInfo info) {
-        ToastManager toastManager = Managers.advancementToastManager();
+        ToastManager toastManager = Managers.getAdvancementToastManager();
         if (toastManager == null) return;
 
-        if (!toastManager.isScreenOpened() || !toastManager.isScreenBehaviourUnder()) {
+        if (!toastManager.isScreenOpened() || !toastManager.isScreenBehaviourBehind()) {
             toastManager.render(guiGraphics);
         }
     }
 
     @Inject(at = @At("TAIL"), method = "update")
     private void onUpdate(CallbackInfo info) {
-        ToastManager toastManager = Managers.advancementToastManager();
+        ToastManager toastManager = Managers.getAdvancementToastManager();
         if (toastManager == null) return;
 
         toastManager.update();
@@ -54,6 +54,6 @@ public class ToastManagerMixin {
 
     @Inject(at = @At("HEAD"), method = "clear")
     private void onClear(CallbackInfo info) {
-        Objects.requireNonNull(Managers.advancementToastManager()).clear();
+        Objects.requireNonNull(Managers.getAdvancementToastManager()).clear();
     }
 }

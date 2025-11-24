@@ -56,7 +56,7 @@ public enum SettingType {
     SOUNDS("sounds") {
         @Override
         public void apply(ToastConfigScreen instance, ResourceLocation id) {
-            instance.getConfigData().putSound(instance.getAdvancementType(), id);
+            instance.getConfigData().putSoundIdForType(id, instance.getAdvancementType());
         }
 
         @Override
@@ -78,7 +78,7 @@ public enum SettingType {
 
         @Override
         public ResourceLocation getCurrentId(ToastConfigScreen instance) {
-            return instance.getConfigData().getSoundId(instance.getAdvancementType());
+            return instance.getConfigData().getSoundIdByType(instance.getAdvancementType());
         }
 
         @Override
