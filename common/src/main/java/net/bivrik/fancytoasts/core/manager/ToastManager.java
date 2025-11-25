@@ -1,5 +1,6 @@
 package net.bivrik.fancytoasts.core.manager;
 
+import net.bivrik.fancytoasts.client.config.ToastAnchor;
 import net.bivrik.fancytoasts.client.config.data.GeneralConfigData;
 import net.bivrik.fancytoasts.client.config.data.ToastConfigData;
 import net.bivrik.fancytoasts.core.event.GeneralConfigDataEvent;
@@ -17,6 +18,7 @@ import net.minecraft.advancements.DisplayInfo;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.screens.ChatScreen;
+import org.joml.Vector2d;
 
 import java.util.Deque;
 import java.util.concurrent.ConcurrentLinkedDeque;
@@ -101,8 +103,12 @@ public class ToastManager implements IManager {
             return;
         }
 
-        int xPos = (int) (guiGraphics.guiWidth() * generalConfigData.getPositionXPercentage() - (float) currentToast.getWidth() / 2);
-        int yPos = (int) (guiGraphics.guiHeight() * generalConfigData.getPositionYPercentage() - (float) currentToast.getHeight() / 2);
+        int screenWidth = guiGraphics.guiWidth();
+        int screenHeight = guiGraphics.guiHeight();
+
+        Vector2d toastPosition = generalConfigData.getToastAnchor().getPosition(screenWidth, screenHeight, generalConfigData.getOffsetX(), generalConfigData.getOffsetY());
+        int xPos = (int) toastPosition.x() - currentToast.getWidth() / 2;
+        int yPos = (int) toastPosition.y() - currentToast.getHeight() / 2;
 
         GuiContext context = new GuiContext(guiGraphics);
         context.push();

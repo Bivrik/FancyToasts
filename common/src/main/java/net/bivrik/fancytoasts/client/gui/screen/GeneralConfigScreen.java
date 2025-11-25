@@ -1,8 +1,10 @@
 package net.bivrik.fancytoasts.client.gui.screen;
 
+import net.bivrik.fancytoasts.client.config.ToastAnchor;
 import net.bivrik.fancytoasts.client.config.ToastScreenBehavior;
 import net.bivrik.fancytoasts.client.config.ConfigHandler;
 import net.bivrik.fancytoasts.client.config.data.GeneralConfigData;
+import net.bivrik.fancytoasts.client.gui.IntegerEditBox;
 import net.bivrik.fancytoasts.client.gui.Slider;
 import net.bivrik.fancytoasts.client.toast.Appearance;
 import net.bivrik.fancytoasts.core.Constants;
@@ -40,8 +42,6 @@ public class GeneralConfigScreen extends UniversalScreen {
     private static final Component TASK_VOLUME_LABEL = Components.of("gui.label.task_volume");
     private static final Component GOAL_VOLUME_LABEL = Components.of("gui.label.goal_volume");
     private static final Component CHALLENGE_VOLUME_LABEL = Components.of("gui.label.challenge_volume");
-    private static final Component POSITION_X_LABEL = Component.literal("Position X");
-    private static final Component POSITION_Y_LABEL = Component.literal("Position Y");
     private static final Component LOOPS_STRENGTH_LABEL = Component.literal("Loops Strength");
     private static final Component LOOPS_SPEED_LABEL = Component.literal("Loops Speed");
     private static final Component RESET_LABEL = Components.of("gui.label.reset");
@@ -61,13 +61,14 @@ public class GeneralConfigScreen extends UniversalScreen {
     private CycleButton<Boolean> jadeHidingButton;
     private CycleButton<Boolean> soundsEnabledButton;
     private CycleButton<ToastScreenBehavior> toastScreenBehaviorButton;
-    private Slider positionXPercentageSlider;
-    private Slider positionYPercentageSlider;
+    private CycleButton<ToastAnchor> toastAnchorButton;
     private Slider loopsStrengthSlider;
     private Slider loopsSpeedSlider;
     private Slider taskVolumeSlider;
     private Slider goalVolumeSlider;
     private Slider challengeVolumeSlider;
+    private IntegerEditBox offsetXEditBox;
+    private IntegerEditBox offsetYEditBox;
 
     public GeneralConfigScreen(Screen parent) {
         super(TITLE, parent);
@@ -103,11 +104,15 @@ public class GeneralConfigScreen extends UniversalScreen {
                 .create(0, 0, BUTTON_WIDTH, BUTTON_HEIGHT, SCREEN_BEHAVIOR_LABEL, (button, value) -> generalConfigData.setToastScreenBehavior(value))
         );
 
-        positionXPercentageSlider = listHelper.addWidget(createSlider(POSITION_X_LABEL, generalConfigData.getPositionXPercentage(),
-                this::percentDisplayer, generalConfigData::setPositionXPercentage, 0, 0));
+        toastAnchorButton = listHelper.addWidget(CycleButton.builder(ToastAnchor::getName)
+                .withValues(ToastAnchor.values()).withInitialValue(generalConfigData.getToastAnchor())
+                .create(0, 0, BUTTON_WIDTH, BUTTON_HEIGHT, Component.literal("Anchor"), (button, value) -> generalConfigData.setToastAnchor(value)));
 
-        positionYPercentageSlider = listHelper.addWidget(createSlider(POSITION_Y_LABEL, generalConfigData.getPositionYPercentage(),
-                this::percentDisplayer, generalConfigData::setPositionYPercentage, 0, 0));
+        offsetXEditBox = listHelper.addWidget(new IntegerEditBox(this.font, 0, 0, HALF_BUTTON_WIDTH - HALF_PADDING, BUTTON_HEIGHT, this.offsetXEditBox, Component.empty(), generalConfigData.getOffsetX()));
+        offsetXEditBox.setResponder(value -> offsetXEditBox.setIntegerValue(generalConfigData::setOffsetX));
+
+        offsetYEditBox = listHelper.addWidget(new IntegerEditBox(this.font, 0, 0, HALF_BUTTON_WIDTH - HALF_PADDING, BUTTON_HEIGHT, this.offsetYEditBox, Component.empty(), generalConfigData.getOffsetY()));
+        offsetYEditBox.setResponder(value -> offsetYEditBox.setIntegerValue(generalConfigData::setOffsetY));
 
         loopsStrengthSlider = listHelper.addWidget(createSlider(LOOPS_STRENGTH_LABEL, generalConfigData.getLoopsStrength(), 10.0f, 0.02f,
                 this::multiplierDisplayer, generalConfigData::setLoopsStrength, 0, 0));
@@ -140,20 +145,24 @@ public class GeneralConfigScreen extends UniversalScreen {
         }
 
         generalConfigData = new GeneralConfigData();
-        done();
+        save(generalConfigData.copy());
         this.rebuildWidgets();
     }
 
     private void done() {
         GeneralConfigData data = generalConfigData.copy();
         if (!data.equals(Managers.getConfigManager().getGeneralConfigData())) {
-            ConfigHandler.save(data);
-            Managers.getEventManager().changed(new GeneralConfigDataEvent(data));
-            isSaved = true;
-            savedFeedbackStartTime = Util.getMillis();
+            save(data);
         } else {
             this.toParentScreen();
         }
+    }
+
+    private void save(GeneralConfigData data) {
+        ConfigHandler.save(data);
+        Managers.getEventManager().changed(new GeneralConfigDataEvent(data));
+        isSaved = true;
+        savedFeedbackStartTime = Util.getMillis();
     }
 
     @Override
@@ -161,6 +170,18 @@ public class GeneralConfigScreen extends UniversalScreen {
         drawListBackground(guiGraphics);
         super.render(guiGraphics, mouseX, mouseY, partialTick);
         drawSavedFeedback(guiGraphics, this.width / 2 + PADDING - 25 + BUTTON_WIDTH, this.height - BUTTON_HEIGHT);
+        drawPositionHints(guiGraphics);
+    }
+
+    private void drawPositionHints(GuiGraphics guiGraphics) {
+        if (offsetXEditBox == null || offsetYEditBox == null) {
+            return;
+        }
+
+        int offsetX = 7;
+        int offsetY = 5;
+        guiGraphics.drawString(this.font, "x:", offsetXEditBox.getX() - offsetX, offsetXEditBox.getY() + offsetY, Colors.LIGHT_GRAY);
+        guiGraphics.drawString(this.font, "y:", offsetYEditBox.getX() - offsetX, offsetYEditBox.getY() + offsetY, Colors.LIGHT_GRAY);
     }
 
     private void drawSavedFeedback(GuiGraphics guiGraphics, int x, int y) {
@@ -212,11 +233,24 @@ public class GeneralConfigScreen extends UniversalScreen {
         public void arrangeWidgets() {
             int y = MARGIN + PADDING;
             int xCenter = parentScreen.width / 2;
+            int neighbours = 0; // Works only if two "neighbours" go together one after another
+            int numMinus = 0;
             for (int i = 0; i < widgets.size(); i++) {
+                var widget = widgets.get(i);
                 int x = xCenter;
 
+                if (widget.getWidth() != BUTTON_WIDTH) {
+                    neighbours++;
+                }
+
+                if (neighbours == 2) {
+                    x += HALF_BUTTON_WIDTH + HALF_PADDING;
+                    i--;
+                }
+
+                i -= numMinus;
                 if ((i & 1) == 0) { // Even number - first column + higher than previous row
-                    if (i != 0) {
+                    if (i != 0 && neighbours != 2) {
                         y += 20 + PADDING;
                     }
 
@@ -224,8 +258,15 @@ public class GeneralConfigScreen extends UniversalScreen {
                 } else { // Odd number - second column
                     x += HALF_PADDING;
                 }
+                i += numMinus;
 
-                widgets.get(i).setPosition(x, y);
+                if (neighbours == 2) {
+                    i++;
+                    numMinus++;
+                    neighbours = 0;
+                }
+
+                widget.setPosition(x, y);
             }
         }
 

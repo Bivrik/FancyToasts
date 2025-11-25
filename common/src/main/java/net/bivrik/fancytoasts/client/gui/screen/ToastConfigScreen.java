@@ -102,7 +102,7 @@ public class ToastConfigScreen extends UniversalScreen {
         locationsList.setSelectResponder(this::onSelectedEntry).setFocusResponder(this::onFocusedEntry);
 
         // Location list's filtering buttons
-        editBox = this.addFWidget(new EditBox(this.font, xCenter - 60, MARGIN, xCenter - 40 - 30 - PADDING * 4, BUTTON_HEIGHT, this.editBox, Component.literal("...")));
+        editBox = this.addFWidget(new EditBox(this.font, xCenter - 60, MARGIN, xCenter - 40 - 30 - PADDING * 4, BUTTON_HEIGHT, this.editBox, Component.empty()));
         editBox.setResponder(locationsList::setSearch);
 
         locationsFilterButton = this.addFWidget(CycleButton.builder(ResourceLocationFilter::getDisplayName).displayOnlyValue()
@@ -151,20 +151,24 @@ public class ToastConfigScreen extends UniversalScreen {
     private void done() {
         ToastConfigData data = toastConfigData.copy();
         if (!data.equals(Managers.getConfigManager().getToastConfigData())) {
-            ResourceLocation textureId = data.getTextureId();
-
-            customTextureManager.releaseUnusedTexturesFromMinecraft();
-            if (textureId.toLanguageKey().contains(Constants.CONFIG)) {
-                customTextureManager.registerInMinecraft(textureId);
-            }
-
-            ConfigHandler.save(data);
-            Managers.getEventManager().changed(new ToastConfigDataEvent(data));
-            isSaved = true;
-            savedFeedbackStartTime = Util.getMillis();
+            save(data);
         } else {
             this.toParentScreen();
         }
+    }
+
+    private void save(ToastConfigData data) {
+        ResourceLocation textureId = data.getTextureId();
+
+        customTextureManager.releaseUnusedTexturesFromMinecraft();
+        if (textureId.toLanguageKey().contains(Constants.CONFIG)) {
+            customTextureManager.registerInMinecraft(textureId);
+        }
+
+        ConfigHandler.save(data);
+        Managers.getEventManager().changed(new ToastConfigDataEvent(data));
+        isSaved = true;
+        savedFeedbackStartTime = Util.getMillis();
     }
 
     @Override
