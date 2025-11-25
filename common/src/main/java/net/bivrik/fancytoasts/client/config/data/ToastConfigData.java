@@ -14,6 +14,7 @@ import net.minecraft.sounds.SoundEvents;
 
 import java.util.EnumMap;
 import java.util.Map;
+import java.util.Objects;
 
 public class ToastConfigData extends ConfigData {
     private ResourceLocation textureId;
@@ -93,6 +94,17 @@ public class ToastConfigData extends ConfigData {
 
     private boolean isConfig(ResourceLocation id) {
         return id.toLanguageKey().contains(Constants.CONFIG);
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (!(o instanceof ToastConfigData that)) return false;
+        return Objects.equals(textureId, that.textureId) && Objects.equals(animationId, that.animationId) && Objects.equals(soundIds, that.soundIds);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(textureId, animationId, soundIds);
     }
 
     @Override

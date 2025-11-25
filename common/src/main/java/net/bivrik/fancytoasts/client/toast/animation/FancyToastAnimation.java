@@ -34,10 +34,15 @@ public abstract class FancyToastAnimation {
 
     private float guiAlpha = 1.0f;
     private boolean shouldTransparentToast;
+    private float loopsStrength;
+    private float loopsSpeed;
 
     public void setup(AnimationSetup setup, Minecraft minecraft, int toastWidth, int toastHeight) {
         Managers.getEventManager().subscribe(GeneralConfigDataEvent.class, this::onGeneralConfigDataChanged);
-        this.shouldTransparentToast = Managers.getConfigManager().getGeneralConfigData().getToastScreenBehavior().equals(ToastScreenBehavior.TRANSPARENT);
+        var data = Managers.getConfigManager().getGeneralConfigData();
+        this.shouldTransparentToast = data.getToastScreenBehavior().equals(ToastScreenBehavior.TRANSPARENT);
+        this.loopsStrength = data.getLoopsStrength();
+        this.loopsSpeed = data.getLoopsSpeed();
 
         this.minecraft = minecraft;
         this.toastWidth = toastWidth;
@@ -50,7 +55,10 @@ public abstract class FancyToastAnimation {
     }
 
     private void onGeneralConfigDataChanged(GeneralConfigDataEvent event) {
-        shouldTransparentToast = event.generalConfigData().getToastScreenBehavior().equals(ToastScreenBehavior.TRANSPARENT);
+        var data = event.generalConfigData();
+        shouldTransparentToast = data.getToastScreenBehavior().equals(ToastScreenBehavior.TRANSPARENT);
+        loopsStrength = data.getLoopsStrength();
+        loopsSpeed = data.getLoopsSpeed();
     }
 
     protected void setLines(Component title, Component description) {
@@ -147,13 +155,13 @@ public abstract class FancyToastAnimation {
     private final static float TIME_SCALE = 0.00125f;
 
     protected float sinusoidLoop(long time, float speed, float strength) {
-        float scaledTime = time * TIME_SCALE * speed;
-        return (float) Math.sin(scaledTime) * strength;
+        float scaledTime = time * TIME_SCALE * speed * loopsSpeed;
+        return (float) Math.sin(scaledTime) * strength * loopsStrength;
     }
 
     protected float cosineLoop(long time, float speed, float strength) {
-        float scaledTime = time * TIME_SCALE * speed;
-        return (float) Math.cos(scaledTime) * strength;
+        float scaledTime = time * TIME_SCALE * speed * loopsSpeed;
+        return (float) Math.cos(scaledTime) * strength * loopsStrength;
     }
 
     protected int getColor(float alpha) {

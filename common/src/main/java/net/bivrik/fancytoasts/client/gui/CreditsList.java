@@ -9,6 +9,7 @@ import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.AbstractSelectionList;
 import net.minecraft.client.gui.narration.NarrationElementOutput;
 import net.minecraft.client.input.KeyEvent;
+import net.minecraft.network.chat.Component;
 import org.jetbrains.annotations.NotNull;
 import org.lwjgl.glfw.GLFW;
 
@@ -16,7 +17,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class CreditsList extends AbstractSelectionList<CreditsList.Entry> {
-    private final List<CreditsListEntry> lines = new ArrayList<>(10);
+    private final List<Entry> lines = new ArrayList<>(10);
     private float scrollSpeed = 0.4f;
 
     public CreditsList(Minecraft minecraft, int width, int height, int x, int y, CreditsManager.CreditsData data) {
@@ -46,25 +47,23 @@ public class CreditsList extends AbstractSelectionList<CreditsList.Entry> {
         acceptLines();
     }
 
-    @Override
-    public void refreshScrollAmount() {}
-
     private void acceptLines() {
-        for (var line : this.lines) {
+        for (var line : lines) {
             this.addEntry(line);
         }
     }
 
     private void addSpace() {
-        lines.add(new CreditsListEntry(this, "", null, false));
+        lines.add(new SpaceEntry(this, ""));
     }
 
     private void addCategory(String category) {
-        lines.add(new CreditsListEntry(this, category, null, true));
+        lines.add(new CategoryEntry(this, category));
     }
 
     private void addLine(CreditsManager.CreditsData.User user) {
-        lines.add(new CreditsListEntry(this, user.name(), user.annotation(), false));
+        String content = user.name().compareTo("{user.name}") != 0 ? user.name() : this.minecraft.getUser().getName();
+        lines.add(new UserEntry(this, content, user.annotation()));
     }
 
     public void scroll() {
@@ -93,6 +92,10 @@ public class CreditsList extends AbstractSelectionList<CreditsList.Entry> {
         return super.keyReleased(event);
     }
 
+    // Don't move bro, stop it
+    @Override
+    public void refreshScrollAmount() {}
+
     @Override
     protected void renderListBackground(@NotNull GuiGraphics guiGraphics) {}
 
@@ -108,45 +111,65 @@ public class CreditsList extends AbstractSelectionList<CreditsList.Entry> {
     protected double scrollRate() {
         return 0;
     }
+    //
 
     @Override
     protected void updateWidgetNarration(@NotNull NarrationElementOutput narrationElementOutput) {}
 
-    protected abstract static class Entry extends AbstractSelectionList.Entry<Entry> {}
+    protected abstract static class Entry extends AbstractSelectionList.Entry<Entry> {
+        protected final CreditsList parentList;
+        protected final String content;
+        protected final Font font;
 
-    private static class CreditsListEntry extends Entry {
-        private final CreditsList list;
-        private final String content;
-        private final String annotation;
-        private final Font font;
-        private final int color;
-        private final boolean isCategory;
-        private final boolean isSpace;
+        public Entry(CreditsList parentList, String content) {
+            this.parentList = parentList;
+            this.content = content;
+            this.font = this.parentList.minecraft.font;
+        }
 
-        public CreditsListEntry(CreditsList list, String content, String annotation, boolean isCategory) {
-            this.list = list;
-            this.content = content.compareTo("{user.name}") == 0 ? this.list.minecraft.getUser().getName() : content;
-            this.annotation = annotation;
-            this.font = this.list.minecraft.font;
-            this.color = !isCategory ? Colors.WHITE : Colors.YELLOW;
-            this.isCategory = isCategory;
-            this.isSpace = content.isEmpty();
+        @Override
+        public void renderContent(@NotNull GuiGraphics guiGraphics, int mouseX, int mouseY, boolean isHovering, float partialTick) {}
+    }
+
+    private static class CategoryEntry extends Entry {
+        private final Component displayName;
+        private final int xCenter;
+
+        public CategoryEntry(CreditsList parentList, String content) {
+            super(parentList, content);
+
+            this.displayName = Components.of("gui.label." + this.content);
+            this.xCenter = parentList.getWidth() / 2;
         }
 
         @Override
         public void renderContent(@NotNull GuiGraphics guiGraphics, int mouseX, int mouseY, boolean isHovering, float partialTick) {
-            if (isSpace) {
-                return;
-            }
+            guiGraphics.drawCenteredString(font, displayName, xCenter, getY(), Colors.YELLOW);
+        }
+    }
 
-            if (isCategory) {
-                guiGraphics.drawCenteredString(font, Components.of("gui.label." + content), list.getWidth() / 2, this.getY(), color);
-            }
-            else {
-                guiGraphics.drawString(font, content, this.getX(), this.getY(), color);
-                if (annotation != null && !annotation.isEmpty()) {
-                    guiGraphics.drawString(font, annotation, this.getX() + font.width(content) + 8, this.getY(), Colors.LIGHT_GRAY);
-                }
+    private static class SpaceEntry extends Entry {
+        public SpaceEntry(CreditsList parentList, String content) {
+            super(parentList, content);
+        }
+    }
+
+    private static class UserEntry extends Entry {
+        private final String annotation;
+        private final boolean isValidAnnotation;
+
+        public UserEntry(CreditsList parentList, String content, String annotation) {
+            super(parentList, content);
+            this.annotation = annotation;
+            this.isValidAnnotation = this.annotation != null && !this.annotation.isEmpty();
+        }
+
+        @Override
+        public void renderContent(@NotNull GuiGraphics guiGraphics, int mouseX, int mouseY, boolean isHovering, float partialTick) {
+            guiGraphics.drawString(this.font, this.content, this.getX(), this.getY(), Colors.WHITE);
+
+            if (isValidAnnotation) {
+                guiGraphics.drawString(this.font, annotation, this.getX() + font.width(this.content) + 8, this.getY(), Colors.LIGHT_GRAY);
             }
         }
     }

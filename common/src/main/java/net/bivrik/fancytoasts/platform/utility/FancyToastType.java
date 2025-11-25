@@ -18,7 +18,7 @@ public enum FancyToastType {
         this.name = name;
         this.mainColor = mainColor;
         this.secondaryColor = secondaryColor;
-        this.displayName = Components.of("gui.label." + "name");
+        this.displayName = Components.of("gui.label." + name);
         this.displayAnnouncement = Component.translatable("advancements.toast." + name);
     }
 

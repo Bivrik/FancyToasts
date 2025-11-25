@@ -1,6 +1,8 @@
 package net.bivrik.fancytoasts.client.gui.screen;
 
+import net.bivrik.fancytoasts.client.toast.Appearance;
 import net.bivrik.fancytoasts.core.Constants;
+import net.bivrik.fancytoasts.core.Debug;
 import net.bivrik.fancytoasts.core.event.ToastConfigDataEvent;
 import net.bivrik.fancytoasts.core.manager.CustomTextureManager;
 import net.bivrik.fancytoasts.client.config.data.ToastConfigData;
@@ -11,45 +13,64 @@ import net.bivrik.fancytoasts.client.gui.ResourceLocationFilter;
 import net.bivrik.fancytoasts.client.gui.ResourceLocationList;
 import net.bivrik.fancytoasts.client.gui.SettingType;
 import net.bivrik.fancytoasts.core.Managers;
+import net.bivrik.fancytoasts.platform.utility.Colors;
 import net.bivrik.fancytoasts.platform.utility.Components;
 import net.bivrik.fancytoasts.platform.utility.FancyToastType;
+import net.bivrik.fancytoasts.utility.MathEasing;
+import net.bivrik.fancytoasts.utility.file.Paths;
+import net.minecraft.Util;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.gui.components.CycleButton;
 import net.minecraft.client.gui.components.EditBox;
 import net.minecraft.client.gui.components.Tooltip;
+import net.minecraft.client.gui.components.events.GuiEventListener;
 import net.minecraft.client.gui.screens.Screen;
+import net.minecraft.client.resources.sounds.SimpleSoundInstance;
 import net.minecraft.network.chat.CommonComponents;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.sounds.SoundEvents;
+import org.jetbrains.annotations.NotNull;
 
 import static net.bivrik.fancytoasts.client.gui.LayoutValues.*;
 
 public class ToastConfigScreen extends UniversalScreen {
+    private static final Component TITLE = Components.of("gui.config.customization_title");
+    private static final Component CONFIG_FOLDER_LABEL = Components.of("gui.label.config_folder");
+    private static final Component RELOAD_CUSTOMS_LABEL = Components.of("gui.label.reload_customs");
+    private static final Component RELOAD_CUSTOMS_TOOLTIP = Components.of("gui.tooltip.reload_customs");
+
     private final ToastConfigData toastConfigData;
     private final CustomTextureManager customTextureManager;
 
+    private ResourceLocationFilter filter = ResourceLocationFilter.A_Z;
     private SettingType settingType = SettingType.TEXTURES;
     private FancyToastType advancementType = FancyToastType.TASK;
-    private DisplayData displayData;
+    private DisplayData selectedDisplayData;
+    private boolean isSaved;
+    private long savedFeedbackStartTime;
 
     private Button doneButton;
     private Button backButton;
-    private CycleButton<SettingType> settingTypeCycButton;
-    private CycleButton<ResourceLocationFilter> resourceLocationFilterCycButton;
-    private CycleButton<FancyToastType> advancementTypeCycButton;
+    private Button configsFolderButton;
+    private Button reloadConfigsButton;
+    private CycleButton<SettingType> settingTypeButton;
+    private CycleButton<ResourceLocationFilter> locationsFilterButton;
+    private CycleButton<FancyToastType> advancementTypeButton;
     private EditBox editBox;
     private ResourceLocationList locationsList;
-    private InformationList infoList;
+    private InformationList informationList;
 
     public ToastConfigScreen(Screen parent) {
-        super(Components.of("gui.config.customization_title"), parent);
+        super(TITLE, parent);
 
         this.toastConfigData = Managers.getConfigManager().getToastConfigData();
-
         this.customTextureManager = Managers.getCustomTextureManager();
-        customTextureManager.reload();
+        this.customTextureManager.reload();
 
-        displayData = settingType.getDisplayData(toastConfigData.getTextureId());
+        this.selectedDisplayData = this.settingType.getDisplayData(this.toastConfigData.getTextureId());
     }
 
     public FancyToastType getAdvancementType() {
@@ -62,105 +83,176 @@ public class ToastConfigScreen extends UniversalScreen {
 
     @Override
     protected void init() {
-        doneButton = this.addRenderableWidget(Button.builder(CommonComponents.GUI_DONE, (button) -> done())
-                .bounds(this.width / 2 + 100 - 125 + PADDING / 2, this.height - 26, BUTTON_WIDTH, BUTTON_HEIGHT).build());
+        int xCenter = this.width / 2;
+        int yFirstRowBottom = this.height - 26;
+        int ySecondRowBottom = yFirstRowBottom - BUTTON_HEIGHT - PADDING;
 
-        backButton = this.addRenderableWidget(Button.builder(CommonComponents.GUI_BACK, (button) -> this.toParentScreen())
-                .bounds(this.width / 2 - 125 - PADDING / 2, this.height - 20 - 6, 100, BUTTON_HEIGHT).build());
+        // Bottom buttons first row
+        doneButton = this.addFWidget(createButton(CommonComponents.GUI_DONE, button -> done(),
+                xCenter - 25 + HALF_PADDING, yFirstRowBottom));
 
-        settingTypeCycButton = this.addRenderableWidget(CycleButton.builder(SettingType::getDisplayName).displayOnlyValue()
-                .withValues(SettingType.values()).withInitialValue(settingType)
-                .withTooltip((settingType) -> Tooltip.create(Component.translatable("fancytoasts.gui.tooltip." + settingType.getName())))
+        backButton = this.addFWidget(createButton(CommonComponents.GUI_BACK, button -> this.toParentScreen(),
+                xCenter - 100 - 25 - HALF_PADDING, yFirstRowBottom, 100, BUTTON_HEIGHT));
+
+        // Locations list for entries from setting type (textures, animations, sounds)
+        locationsList = this.addFWidget(new ResourceLocationList(this.minecraft,
+                xCenter + 60 - PADDING, this.height - 20 - PADDING - MARGIN * 2 - 2 - BUTTON_HEIGHT - PADDING,
+                xCenter - 60, 20 + PADDING + MARGIN,
+                18, settingType));
+        locationsList.setSelectResponder(this::onSelectedEntry).setFocusResponder(this::onFocusedEntry);
+
+        // Location list's filtering buttons
+        editBox = this.addFWidget(new EditBox(this.font, xCenter - 60, MARGIN, xCenter - 40 - 30 - PADDING * 4, BUTTON_HEIGHT, this.editBox, Component.literal("...")));
+        editBox.setResponder(locationsList::setSearch);
+
+        locationsFilterButton = this.addFWidget(CycleButton.builder(ResourceLocationFilter::getDisplayName).displayOnlyValue()
+                .withValues(ResourceLocationFilter.values())
+                .create(this.width - 80 - PADDING * 2 - 60, MARGIN, 60, BUTTON_HEIGHT, Component.empty(), (button, value) -> setFilter(value, button)));
+
+        // Information list for description about entry
+        informationList = this.addFWidget(new InformationList(this.minecraft,
+                xCenter - 60 - PADDING * 2, this.height - MARGIN * 2 - 2 - BUTTON_HEIGHT - PADDING,
+                PADDING, MARGIN,
+                selectedDisplayData, settingType.getCurrentId(this).getPath().contains(Constants.CONFIG)));
+
+        // Button to change resource location's content and setting to change
+        settingTypeButton = this.addFWidget(CycleButton.builder(SettingType::getDisplayName).displayOnlyValue()
+                .withValues(SettingType.values())
+                .withTooltip(settingType -> getTooltip(settingType.getName()))
                 .create(this.width - 88, MARGIN, 80, BUTTON_HEIGHT, Component.empty(), (button, value) -> setSettingType(value)));
 
-        advancementTypeCycButton = CycleButton.builder(this::getAdvancementTypeDisplayName).displayOnlyValue()
-                .withValues(FancyToastType.values()).withInitialValue(advancementType)
-                .withTooltip((advancementType) -> Tooltip.create(Component.translatable("fancytoasts.gui.tooltip." + advancementType.getName())))
-                .create(PADDING, MARGIN, 80, BUTTON_HEIGHT, Component.empty(), (button, value) -> setAdvancementType(value));
+        // Bottom buttons second row
+        configsFolderButton = this.addFWidget(createButton(CONFIG_FOLDER_LABEL, button -> openConfigsFolder(),
+                xCenter - 86 / 2 - PADDING, ySecondRowBottom, 86, BUTTON_HEIGHT));
 
-        locationsList = this.addRenderableWidget(new ResourceLocationList(this.minecraft,
-                this.width / 2 + 60 - PADDING, this.height - 20 - PADDING - MARGIN * 2 - 2,
-                this.width / 2 - 60, 20 + PADDING + MARGIN,
-                18, settingType));
-        locationsList.setAcceptResponder(this::onAcceptedEntry);
-        locationsList.setSelectResponder(this::onSelectedEntry);
+        reloadConfigsButton = this.addFWidget(createButton(RELOAD_CUSTOMS_LABEL, button -> reloadCustomTextures(),
+                xCenter + 129 - 86, ySecondRowBottom, 86, BUTTON_HEIGHT, Tooltip.create(RELOAD_CUSTOMS_TOOLTIP)));
 
-        infoList = this.addRenderableWidget(new InformationList(this.minecraft,
-                this.width / 2 - 60 - PADDING * 2, this.height - 20 - PADDING - MARGIN * 2 - 2,
-                PADDING, 20 + PADDING + MARGIN,
-                displayData, settingType.getCurrentId(this).toLanguageKey().contains(Constants.CONFIG)));
-
-        editBox = this.addRenderableWidget(new EditBox(this.font, this.width / 2 - 60, MARGIN, this.width / 2 - 40 - 30 - PADDING * 4, BUTTON_HEIGHT, this.editBox, Component.literal("...")));
-        editBox.setResponder(locationsList::onSearchUpdate);
-
-        resourceLocationFilterCycButton = this.addRenderableWidget(CycleButton.builder(ResourceLocationFilter::getDisplayName).displayOnlyValue()
-                .withValues(ResourceLocationFilter.values()).withInitialValue(filter)
-                .create(this.width - 80 - PADDING * 2 - 60, MARGIN, 60, BUTTON_HEIGHT, Component.empty(), (button, value) -> setFilter(value)));
-
-        setFilter(filter);
-        tryAddAdvancementTypeCycButton();
+        advancementTypeButton = this.addFWidget(CycleButton.builder(FancyToastType::getDisplayName).displayOnlyValue()
+                .withValues(FancyToastType.values())
+                .withTooltip(advancementType -> getTooltip(advancementType.getName()))
+                .create(xCenter - 129, ySecondRowBottom, 70, BUTTON_HEIGHT, Component.empty(), (button, value) -> setAdvancementType(value)));
+        tryToggleAdvancementTypeButton();
     }
 
-    private Component getAdvancementTypeDisplayName(FancyToastType type) {
-        return Component.translatable("fancytoasts.gui.label." + type.getName());
+    private Tooltip getTooltip(String valueName) {
+        return Tooltip.create(Components.of("gui.tooltip." + valueName));
+    }
+
+    private void openConfigsFolder() {
+        Util.getPlatform().openPath(Paths.actualPath(Paths.CONFIG));
+    }
+
+    private void reloadCustomTextures() {
+        customTextureManager.reload();
+        locationsList.setResourceLocations(settingType);
     }
 
     private void done() {
-        ResourceLocation textureId = toastConfigData.getTextureId();
+        ToastConfigData data = toastConfigData.copy();
+        if (!data.equals(Managers.getConfigManager().getToastConfigData())) {
+            ResourceLocation textureId = data.getTextureId();
 
-        customTextureManager.releaseUnusedTexturesFromMinecraft();
-        if (textureId.toLanguageKey().contains(Constants.CONFIG)) {
-            customTextureManager.registerInMinecraft(textureId);
+            customTextureManager.releaseUnusedTexturesFromMinecraft();
+            if (textureId.toLanguageKey().contains(Constants.CONFIG)) {
+                customTextureManager.registerInMinecraft(textureId);
+            }
+
+            ConfigHandler.save(data);
+            Managers.getEventManager().changed(new ToastConfigDataEvent(data));
+            isSaved = true;
+            savedFeedbackStartTime = Util.getMillis();
+        } else {
+            this.toParentScreen();
         }
-
-        ConfigHandler.save(toastConfigData);
-        Managers.getEventManager().changed(new ToastConfigDataEvent(toastConfigData));
-
-        this.toParentScreen();
     }
 
-    private ResourceLocationFilter filter = ResourceLocationFilter.A_Z;
+    @Override
+    public void render(@NotNull GuiGraphics guiGraphics, int mouseX, int mouseY, float partialTick) {
+        super.render(guiGraphics, mouseX, mouseY, partialTick);
+        drawSavedFeedback(guiGraphics, this.width / 2 + PADDING - 25 + BUTTON_WIDTH, this.height - BUTTON_HEIGHT);
+    }
 
-    private void setFilter(ResourceLocationFilter filter) {
-        editBox.setValue("");
-        locationsList.onFilterUpdate(filter);
+    private void drawSavedFeedback(GuiGraphics guiGraphics, int x, int y) {
+        if (!isSaved) {
+            return;
+        }
+        long time = Util.getMillis() - savedFeedbackStartTime;
+
+        float appearanceLerp = MathEasing.easeOutLerp(0.0f, 1.0f, Appearance.getProgress(time, 500, 0));
+        float disappearanceLerp = Appearance.getProgress(time, 500, 400);
+
+        int color = Colors.alpha(appearanceLerp - disappearanceLerp, Colors.YELLOW);
+
+        guiGraphics.drawString(this.font, "Saved!", x, y, color);
+
+        if (time >= 1000) {
+            isSaved = false;
+        }
+    }
+
+    private <T extends GuiEventListener> void setFilter(ResourceLocationFilter filter, T button) {
         this.filter = filter;
+
+        if (button == null) {
+            locationsFilterButton.setValue(this.filter);
+        }
+        locationsList.setFilter(this.filter);
     }
 
-    private void setSettingType(SettingType type) {
-        settingType = type;
+    private void setSettingType(SettingType settingType) {
+        this.settingType = settingType;
+        locationsList.setResourceLocations(this.settingType);
+
+        resetFiltering();
+    }
+
+    @Override
+    public void resize(@NotNull Minecraft minecraft, int width, int height) {
+        super.resize(minecraft, width, height);
+        resetFiltering();
+    }
+
+    private void resetFiltering() {
         editBox.setValue("");
-        locationsList.setResourceLocations(settingType);
-        locationsList.onFilterUpdate(filter);
-        tryAddAdvancementTypeCycButton();
+        setFilter(ResourceLocationFilter.A_Z, null);
+        tryToggleAdvancementTypeButton();
     }
 
-    private void tryAddAdvancementTypeCycButton() {
-        if (settingType == SettingType.SOUNDS) {
-            advancementType = FancyToastType.TASK;
-            advancementTypeCycButton.setValue(advancementType);
-            this.addRenderableWidget(this.advancementTypeCycButton);
-        }
-        else {
-            this.removeWidget(this.advancementTypeCycButton);
-        }
+    private void tryToggleAdvancementTypeButton() {
+        advancementTypeButton.active = settingType == SettingType.SOUNDS;
 
-        infoList.update(settingType.getDisplayData(settingType.getCurrentId(this)), settingType.getCurrentId(this).toLanguageKey().contains(Constants.CONFIG), true);
+        informationList$updateOnReload();
     }
 
     private void setAdvancementType(FancyToastType type) {
         advancementType = type;
-        infoList.update(settingType.getDisplayData(settingType.getCurrentId(this)), settingType.getCurrentId(this).toLanguageKey().contains(Constants.CONFIG), true);
+
+        informationList$updateOnReload();
     }
 
-    private void onAcceptedEntry(ResourceLocation location) {
-        settingType.apply(this, location);
-        infoList.update(displayData, settingType.getCurrentId(this).toLanguageKey().contains(Constants.CONFIG), true);
+    private void informationList$updateOnReload() {
+        informationList.update(settingType.getDisplayData(getCurrentId()), getCurrentId().getPath().contains(Constants.CONFIG), true);
     }
 
     private void onSelectedEntry(ResourceLocation location) {
-        displayData = settingType.getDisplayData(location);
-        boolean isCurrent = settingType.getCurrentId(this).equals(location);
-        infoList.update(displayData, location.toLanguageKey().contains(Constants.CONFIG), isCurrent);
+        settingType.apply(this, location);
+
+        informationList$updateSelected(location, true);
+    }
+
+    private void onFocusedEntry(ResourceLocation location) {
+        selectedDisplayData = settingType.getDisplayData(location);
+
+        boolean isSelected = getCurrentId().equals(location);
+        informationList$updateSelected(location, isSelected);
+    }
+
+    private void informationList$updateSelected(ResourceLocation location, boolean isSelected) {
+        informationList.update(selectedDisplayData, location.getPath().contains(Constants.CONFIG), isSelected);
+    }
+
+    private ResourceLocation getCurrentId() {
+        return settingType.getCurrentId(this);
     }
 }

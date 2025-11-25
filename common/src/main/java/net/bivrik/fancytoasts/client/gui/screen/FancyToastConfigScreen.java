@@ -19,15 +19,25 @@ import java.net.URI;
 import static net.bivrik.fancytoasts.client.gui.LayoutValues.*;
 
 public class FancyToastConfigScreen extends UniversalScreen {
+    private static final Component TITLE = Components.of("gui.config.title");
+    private static final Component TOAST_CONFIG_BUTTON_LABEL = Components.of("gui.label.toast_settings");
+    private static final Component GENERAL_CONFIG_BUTTON_LABEL = Components.of("gui.label.general_settings");
+    private static final Component CREDITS_BUTTON_LABEL = Components.of("gui.label.credits");
+    private static final Component SUPPORT_BUTTON_LABEL = Components.of("gui.support");
+
+    private static final URI BOOSTY_URI = URI.create("https://boosty.to/bivrik");
+
     private final String splash;
 
+    private Button backButton;
     private Button toastConfigButton;
     private Button generalConfigButton;
-    private Button creditsScreenButton;
-    private Button backButton;
+    private Button creditsButton;
+    private PlainTextButton supportButton;
 
     public FancyToastConfigScreen(Screen parent) {
-        super(Components.of("gui.config.title"), parent);
+        super(TITLE, parent);
+
         this.splash = Managers.getSplashManager().getSplash();
     }
 
@@ -35,23 +45,22 @@ public class FancyToastConfigScreen extends UniversalScreen {
     protected void init() {
         int xCenter = this.width / 2;
         int yCenter = this.height / 2;
-        int halfButtonWidth = BUTTON_WIDTH / 2;
+        int supportButtonWidth = this.font.width(SUPPORT_BUTTON_LABEL);
 
-        backButton = this.addRenderableWidget(Button.builder(CommonComponents.GUI_BACK, (button) -> this.toParentScreen())
-                .bounds(xCenter - halfButtonWidth, this.height - BUTTON_HEIGHT - 16, BUTTON_WIDTH, BUTTON_HEIGHT).build());
+        backButton = this.addFWidget(this.createButton(CommonComponents.GUI_BACK, button -> this.toParentScreen(),
+                xCenter - HALF_BUTTON_WIDTH, this.height - BUTTON_HEIGHT - 16));
 
-        toastConfigButton = this.addRenderableWidget(Button.builder(Component.translatable("fancytoasts.gui.label.toast_settings"), (button) -> openToastConfigScreen())
-                .bounds(xCenter - halfButtonWidth, yCenter - PADDING / 2 - BUTTON_HEIGHT / 2, BUTTON_WIDTH, BUTTON_HEIGHT).build());
+        toastConfigButton = this.addFWidget(this.createButton(TOAST_CONFIG_BUTTON_LABEL, button -> openToastConfigScreen(),
+                xCenter - HALF_BUTTON_WIDTH, yCenter - HALF_PADDING - HALF_BUTTON_HEIGHT));
 
-        generalConfigButton = this.addRenderableWidget(Button.builder(Component.translatable("fancytoasts.gui.label.general_settings"), (button) -> openGeneralConfigScreen())
-                .bounds(xCenter - halfButtonWidth, yCenter + PADDING / 2 + BUTTON_HEIGHT / 2, halfButtonWidth - PADDING / 2, BUTTON_HEIGHT).build());
+        generalConfigButton = this.addFWidget(this.createButton(GENERAL_CONFIG_BUTTON_LABEL, button -> openGeneralConfigScreen(),
+                xCenter - HALF_BUTTON_WIDTH, yCenter + HALF_PADDING + HALF_BUTTON_HEIGHT, HALF_BUTTON_WIDTH - HALF_PADDING, BUTTON_HEIGHT));
 
-        creditsScreenButton = this.addRenderableWidget(Button.builder(Component.translatable("fancytoasts.gui.label.credits"), (button) -> openCreditsScreen())
-                .bounds(xCenter + PADDING / 2, yCenter + PADDING / 2 + BUTTON_HEIGHT / 2, halfButtonWidth - PADDING / 2, BUTTON_HEIGHT).build());
+        creditsButton = this.addFWidget(this.createButton(CREDITS_BUTTON_LABEL, button -> openCreditsScreen(),
+                xCenter + HALF_PADDING, yCenter + HALF_PADDING + HALF_BUTTON_HEIGHT, HALF_BUTTON_WIDTH - HALF_PADDING, BUTTON_HEIGHT));
 
-        Component supportText = Component.translatable("fancytoasts.gui.support");
-        int textWidth = this.font.width(supportText) + 1;
-        this.addRenderableWidget(new PlainTextButton(this.width - textWidth, this.height - 10, textWidth, 10, supportText, ConfirmLinkScreen.confirmLink(this, URI.create("https://boosty.to/bivrik")), this.font));
+        Button.OnPress supportButtonAction = ConfirmLinkScreen.confirmLink(this, BOOSTY_URI);
+        supportButton = this.addFWidget(new PlainTextButton(this.width - supportButtonWidth - 1, this.height - 10, supportButtonWidth, 9, SUPPORT_BUTTON_LABEL, supportButtonAction, this.font));
     }
 
     private void openToastConfigScreen() {

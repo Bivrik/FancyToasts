@@ -5,6 +5,7 @@ import net.bivrik.fancytoasts.client.gui.screen.ToastConfigScreen;
 import net.bivrik.fancytoasts.client.registry.AnimationRegistry;
 import net.bivrik.fancytoasts.client.registry.TextureRegistry;
 import net.bivrik.fancytoasts.client.toast.DisplayData;
+import net.bivrik.fancytoasts.platform.utility.Components;
 import net.minecraft.client.Minecraft;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.network.chat.Component;
@@ -63,14 +64,13 @@ public enum SettingType {
         public DisplayData getDisplayData(ResourceLocation id) {
             DisplayData data;
 
-            if (id.toLanguageKey().contains("minecraft")) {
-                data = new DisplayData(id.toLanguageKey(), "Minecraft", Constants.MOD_ID + ".sound.minecraft.description", false);
-            }
-            else if (BuiltInRegistries.SOUND_EVENT.containsKey(id)) {
-                data = new DisplayData(id.toLanguageKey(), id.getNamespace(), Constants.MOD_ID + ".sound.mod.description", false);
-            }
-            else {
-                data = new DisplayData(id.toLanguageKey(), id.getNamespace(), Constants.MOD_ID + ".sound.resource_pack.description", false);
+            String name = id.toLanguageKey();
+            if (id.getNamespace().equals(Constants.Compatibilities.MINECRAFT_ID)) {
+                data = new DisplayData(name, "Minecraft", Components.stringOf("sound.minecraft.description"), false);
+            } else if (BuiltInRegistries.SOUND_EVENT.containsKey(id)) {
+                data = new DisplayData(name, id.getNamespace(), Components.stringOf("sound.mod.description"), false);
+            } else {
+                data = new DisplayData(name, id.getNamespace(), Components.stringOf("sound.resource_pack.description"), false);
             }
 
             return data;
@@ -99,7 +99,7 @@ public enum SettingType {
     }
 
     public Component getDisplayName() {
-        return Component.translatable("fancytoasts.gui.label." + name);
+        return Components.of("gui.label." + name);
     }
 
     public String getName() {

@@ -4,6 +4,9 @@ import net.bivrik.fancytoasts.client.config.ToastScreenBehavior;
 import net.bivrik.fancytoasts.utility.file.Paths;
 import net.bivrik.fancytoasts.platform.Services;
 
+import java.util.Objects;
+
+
 public class GeneralConfigData extends ConfigData {
     private boolean isJadeHiding;
     private boolean areSoundsEnabled;
@@ -110,6 +113,17 @@ public class GeneralConfigData extends ConfigData {
     }
     public void setToastScreenBehavior(ToastScreenBehavior toastScreenBehavior) {
         this.toastScreenBehavior = toastScreenBehavior;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (!(o instanceof GeneralConfigData that)) return false;
+        return isJadeHiding == that.isJadeHiding && areSoundsEnabled == that.areSoundsEnabled && Float.compare(taskVolume, that.taskVolume) == 0 && Float.compare(goalVolume, that.goalVolume) == 0 && Float.compare(challengeVolume, that.challengeVolume) == 0 && Float.compare(loopsStrength, that.loopsStrength) == 0 && Float.compare(loopsSpeed, that.loopsSpeed) == 0 && Float.compare(positionXPercentage, that.positionXPercentage) == 0 && Float.compare(positionYPercentage, that.positionYPercentage) == 0 && toastScreenBehavior == that.toastScreenBehavior;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(isJadeHiding, areSoundsEnabled, taskVolume, goalVolume, challengeVolume, loopsStrength, loopsSpeed, positionXPercentage, positionYPercentage, toastScreenBehavior);
     }
 
     @Override

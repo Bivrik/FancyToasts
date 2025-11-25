@@ -29,28 +29,28 @@ public class InformationList extends AbstractSelectionList<InformationList.Entry
         this.update(displayData, isConfig, true);
     }
 
-    public void update(DisplayData displayData, boolean isConfig, boolean isAccepted) {
+    public void update(DisplayData displayData, boolean isConfig, boolean isSelected) {
         if (displayData == null) {
             Debug.error("No Display Data to show in Information List");
             return;
         }
 
-        location = isAccepted ? ResourceLocations.of("icons/success") : ResourceLocations.of("icons/looking");
+        location = isSelected ? ResourceLocations.of("icons/success") : ResourceLocations.of("icons/looking");
 
-        this.clear();
+        clear();
 
         this.addLine(displayData.getDisplayName(), Colors.YELLOW);
         if (isConfig) {
-            this.addLine(Component.translatable("fancytoasts.gui.custom"), Colors.RED);
+            addLine(Component.translatable("fancytoasts.gui.custom"), Colors.RED);
         }
-        this.addSpace();
-        this.addLine(Component.translatable("fancytoasts.gui.label.author"), Colors.WHITE);
-        this.addLine(displayData.getAuthor(), Colors.LIGHT_GRAY);
-        this.addSpace();
-        this.addLine(Component.translatable("fancytoasts.gui.label.description"), Colors.WHITE);
-        this.addLine(displayData.getDisplayDescription(), Colors.LIGHT_GRAY);
+        addSpace();
+        addLine(Component.translatable("fancytoasts.gui.label.author"), Colors.WHITE);
+        addLine(displayData.getAuthor(), Colors.LIGHT_GRAY);
+        addSpace();
+        addLine(Component.translatable("fancytoasts.gui.label.description"), Colors.WHITE);
+        addLine(displayData.getDisplayDescription(), Colors.LIGHT_GRAY);
 
-        this.acceptLines();
+        acceptLines();
     }
 
     private void clear() {
@@ -64,16 +64,16 @@ public class InformationList extends AbstractSelectionList<InformationList.Entry
 
         List<FormattedCharSequence> textLines = font.split(content, this.getRowWidth());
         for (var textLine : textLines) {
-            this.lines.add(new InformationListEntry(font, textLine, color));
+            lines.add(new InformationListEntry(font, textLine, color));
         }
     }
 
     private void addSpace() {
-        this.lines.add(new InformationListEntry(this.minecraft.font, FormattedCharSequence.EMPTY, 0));
+        lines.add(new InformationListEntry(this.minecraft.font, FormattedCharSequence.EMPTY, 0));
     }
 
     private void acceptLines() {
-        for (var line : this.lines) {
+        for (var line : lines) {
             this.addEntry(line);
         }
     }
@@ -119,7 +119,7 @@ public class InformationList extends AbstractSelectionList<InformationList.Entry
 
         @Override
         public void renderContent(@NotNull GuiGraphics guiGraphics, int mouseX, int mouseY, boolean hovering, float partialTick) {
-            guiGraphics.drawString(this.font, this.content, this.getX(), this.getY() + 3, this.color);
+            guiGraphics.drawString(font, content, this.getX(), this.getY() + 3, color);
         }
     }
 }

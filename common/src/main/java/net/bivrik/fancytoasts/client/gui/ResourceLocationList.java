@@ -12,6 +12,7 @@ import net.minecraft.client.gui.components.ObjectSelectionList;
 import net.minecraft.client.input.KeyEvent;
 import net.minecraft.client.input.MouseButtonEvent;
 import net.minecraft.client.resources.sounds.SimpleSoundInstance;
+import net.minecraft.client.sounds.SoundManager;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvents;
@@ -22,24 +23,21 @@ import java.util.*;
 import java.util.function.Consumer;
 
 public class ResourceLocationList extends ObjectSelectionList<ResourceLocationList.Entry> {
+    private final Map<ResourceLocation, String> displayNames = new HashMap<>();
     private ResourceLocation[] resourceLocations;
     private SettingType settingType;
-    private Consumer<ResourceLocation> acceptResponder;
+
     private Consumer<ResourceLocation> selectResponder;
+    private Consumer<ResourceLocation> focusResponder;
+
+    private ResourceLocationFilter filter = ResourceLocationFilter.A_Z;
+    private String search = "";
 
     public ResourceLocationList(Minecraft minecraft, int width, int height, int x, int y, int itemHeight, SettingType settingType) {
         super(minecraft, width, height, y, itemHeight);
         this.setX(x);
 
         setResourceLocations(settingType);
-    }
-
-    public void setAcceptResponder(Consumer<ResourceLocation> acceptResponder) {
-        this.acceptResponder = acceptResponder;
-    }
-
-    public void setSelectResponder(Consumer<ResourceLocation> selectResponder) {
-        this.selectResponder = selectResponder;
     }
 
     @Override
@@ -57,84 +55,110 @@ public class ResourceLocationList extends ObjectSelectionList<ResourceLocationLi
         return this.getX() + this.width - 8;
     }
 
-    public void onSearchUpdate(String search) {
-        clear();
-        search = search.toLowerCase(Locale.ROOT);
-
-        for (ResourceLocation location : resourceLocations) {
-            if (!settingType.getDisplayData(location).getDisplayName().getString().toLowerCase(Locale.ROOT).contains(search)) {
-                continue;
-            }
-
-            this.addEntry(new ResourceLocationListEntry(this, location, settingType.getDisplayData(location).getDisplayName()));
-        }
-    }
-
-    public void onFilterUpdate(ResourceLocationFilter filter) {
-        switch (filter) {
-            case A_Z -> sortAZ();
-            case Z_A -> Arrays.sort(resourceLocations, (loc1, loc2) -> {
-                String name1 = settingType.getDisplayData(loc1).getDisplayName().getString();
-                String name2 = settingType.getDisplayData(loc2).getDisplayName().getString();
-                return name2.compareTo(name1);
-            });
-            case BUILT_IN -> resourceLocations = typeSort(resourceLocations, true);
-            case CUSTOM -> resourceLocations = typeSort(resourceLocations, false);
-        }
-
-        refillList();
-    }
-
-    private void sortAZ() {
-        Arrays.sort(resourceLocations, (loc1, loc2) -> {
-            String name1 = settingType.getDisplayData(loc1).getDisplayName().getString();
-            String name2 = settingType.getDisplayData(loc2).getDisplayName().getString();
-            return name1.compareTo(name2);
-        });
-    }
-
-    private ResourceLocation[] typeSort(ResourceLocation[] locations, boolean isBuiltInSortType) {
-        sortAZ();
-
-        List<ResourceLocation> sorted = new ArrayList<>(locations.length / 2);
-        List<ResourceLocation> leftovers = new ArrayList<>(); // count can be 0
-
-        for (var location : locations) {
-            boolean isBuiltIn = location.getNamespace().equals("fancytoasts") || location.getNamespace().equals("minecraft");
-            boolean isConfig = location.toLanguageKey().contains(Constants.CONFIG);
-            boolean isCustom = !isBuiltIn || isConfig;
-
-            if (isBuiltInSortType != isCustom) {
-                sorted.add(location);
-            }
-            else {
-                leftovers.add(location);
-            }
-        }
-        sorted.addAll(leftovers);
-
-        return sorted.toArray(new ResourceLocation[0]);
-    }
-
     public void setResourceLocations(SettingType settingType) {
         this.settingType = settingType;
         this.resourceLocations = this.settingType.getKeySet();
-        Arrays.sort(this.resourceLocations);
+        this.displayNames.clear();
+        for (ResourceLocation location : this.resourceLocations) {
+            this.displayNames.computeIfAbsent(location, location1 -> this.settingType.getDisplayData(location1).getDisplayName().getString().toLowerCase(Locale.ROOT));
+        }
+        sortAZ();
 
         refillList();
     }
 
     private void refillList() {
-        clear();
+        clearList();
 
-        for (ResourceLocation location : resourceLocations) {
-            this.addEntry(new ResourceLocationListEntry(this, location, settingType.getDisplayData(location).getDisplayName()));
+        if (search.isEmpty()) {
+            for (ResourceLocation location : resourceLocations) {
+                this.addEntry(new ResourceLocationListEntry(this, location, settingType.getDisplayData(location).getDisplayName()));
+            }
+        } else {
+            for (ResourceLocation location : resourceLocations) {
+                if (displayNames.get(location).contains(search)) {
+                    this.addEntry(new ResourceLocationListEntry(this, location, settingType.getDisplayData(location).getDisplayName()));
+                }
+            }
         }
     }
 
-    private void clear() {
+    private void clearList() {
         this.clearEntries();
         this.refreshScrollAmount();
+    }
+
+    public void setSearch(String search) {
+        if (search == null) search = "";
+
+        String lowercaseSearch = search.toLowerCase(Locale.ROOT);
+        if (this.search.equals(lowercaseSearch)) {
+            return;
+        }
+
+        this.search = lowercaseSearch;
+        refillList();
+    }
+
+    public void setFilter(ResourceLocationFilter filter) {
+        if (this.filter == filter || filter == null) {
+            return;
+        }
+
+        this.filter = filter;
+        onFilterUpdate();
+    }
+
+    private void onFilterUpdate() {
+        switch (filter) {
+            case A_Z -> sortAZ();
+            case Z_A -> sortAZ(Comparator.reverseOrder());
+            case BUILT_IN -> typeSort(true);
+            case CUSTOM -> typeSort(false);
+        }
+
+        refillList();
+    }
+
+    private void sortAZ(Comparator<String> comparator) {
+        Arrays.sort(resourceLocations, (loc1, loc2) -> comparator.compare(displayNames.get(loc1), displayNames.get(loc2)));
+    }
+    private void sortAZ() {
+        sortAZ(Comparator.naturalOrder());
+    }
+
+    private void typeSort(boolean isBuiltInFilterType) {
+        sortAZ(); // Sort A-Z first, so the names inside categories
+        // would be sorted by alphabetical order too! Example:
+        // built-ins: A D F, configs: B C E, and it will be: A D F B C E
+
+        List<ResourceLocation> builtInLocations = new ArrayList<>(resourceLocations.length * 2 / 3);
+        List<ResourceLocation> configLocations = new ArrayList<>(); // can be 0
+
+        for (var location : resourceLocations) {
+            String namespace = location.getNamespace();
+            boolean isBuiltIn = namespace.equals(Constants.MOD_ID) || namespace.equals(Constants.Compatibilities.MINECRAFT_ID);
+            boolean isConfig = location.getPath().contains(Constants.CONFIG) || !isBuiltIn;
+
+            if (isBuiltInFilterType == !isConfig) {
+                builtInLocations.add(location);
+            } else {
+                configLocations.add(location);
+            }
+        }
+        builtInLocations.addAll(configLocations);
+
+        resourceLocations = builtInLocations.toArray(new ResourceLocation[0]);
+    }
+
+    public ResourceLocationList setSelectResponder(Consumer<ResourceLocation> selectResponder) {
+        this.selectResponder = selectResponder;
+        return this;
+    }
+
+    public ResourceLocationList setFocusResponder(Consumer<ResourceLocation> focusResponder) {
+        this.focusResponder = focusResponder;
+        return this;
     }
 
     protected abstract static class Entry extends ObjectSelectionList.Entry<Entry> {
@@ -145,35 +169,33 @@ public class ResourceLocationList extends ObjectSelectionList<ResourceLocationLi
     }
 
     private static final class ResourceLocationListEntry extends Entry {
-        private final ResourceLocation location;
-        private final Minecraft minecraft;
-        private final Font font;
-        private final ResourceLocationList list;
-        private List<FormattedCharSequence> nameList;
+        private final ResourceLocationList parentList;
+        private final ResourceLocation id;
         private final boolean isConfig;
+        private final Font font;
+        private final SoundManager soundManager;
 
+        private List<FormattedCharSequence> nameLines = new ArrayList<>();
         private long lastClickTime;
 
-        public ResourceLocationListEntry(ResourceLocationList list, ResourceLocation location, Component name) {
-            this.list = list;
-            this.location = location;
-            this.minecraft = this.list.minecraft;
-            this.font = this.minecraft.font;
-            this.isConfig = location.toLanguageKey().contains(Constants.CONFIG);
-
-            if (name != null) {
-                this.nameList = this.font.split(name, this.list.getRowWidth() - 8 - 2);
-            }
+        public ResourceLocationListEntry(ResourceLocationList parentList, ResourceLocation id, Component name) {
+            this.parentList = parentList;
+            Minecraft minecraft = this.parentList.minecraft;
+            this.soundManager = minecraft.getSoundManager();
+            this.font = minecraft.font;
+            this.id = id;
+            this.isConfig = this.id.getPath().contains(Constants.CONFIG);
+            if (name != null) this.nameLines = this.font.split(name, this.parentList.getRowWidth() - 8 - 2);
         }
 
         @Override
-        public boolean mouseClicked(MouseButtonEvent e, boolean isDoubleClick) {
+        public boolean mouseClicked(@NotNull MouseButtonEvent e, boolean isDoubleClick) {
             if (Util.getMillis() - lastClickTime >= 250L) {
                 lastClickTime = Util.getMillis();
-                select();
+                focus();
             }
             else {
-                accept();
+                select();
             }
 
             return super.mouseClicked(e, isDoubleClick);
@@ -182,30 +204,48 @@ public class ResourceLocationList extends ObjectSelectionList<ResourceLocationLi
         @Override
         public boolean keyPressed(KeyEvent e) {
             if (e.isSelection()) {
-                accept();
+                select();
             }
 
             return super.keyPressed(e);
         }
 
-        private void select() {
-            if (this.list.selectResponder != null) {
-                this.list.selectResponder.accept(this.location);
+        private void focus() {
+            if (parentList.focusResponder != null) {
+                parentList.focusResponder.accept(this.id);
             }
             else {
-                Debug.error("There is no select responder for Resource Location List. Could not select location: " + this.location);
+                Debug.error("There is no select responder for Resource Location List. Could not select location: " + id);
             }
         }
 
-        private void accept() {
-            if (this.list.acceptResponder != null) {
-                this.list.acceptResponder.accept(this.location);
-                minecraft.getSoundManager().play(SimpleSoundInstance.forUI(SoundEvents.UI_BUTTON_CLICK, 1.0F));
+        private void select() {
+            if (parentList.selectResponder != null) {
+                parentList.selectResponder.accept(this.id);
+                soundManager.play(SimpleSoundInstance.forUI(SoundEvents.UI_BUTTON_CLICK, 1.0F));
             }
             else {
-                Debug.error("There is no accept responder for Resource Location List. Could not accept location: " + this.location);
+                Debug.error("There is no accept responder for Resource Location List. Could not accept location: " + this.id);
             }
         }
+
+        // For easier backport I hope
+        private int x() {
+            return this.getX();
+        }
+
+        private int y() {
+            return this.getY();
+        }
+
+        private int width() {
+            return this.getWidth();
+        }
+
+        private int height() {
+            return this.getHeight();
+        }
+        //
 
         @Override
         public int getX() {
@@ -219,37 +259,33 @@ public class ResourceLocationList extends ObjectSelectionList<ResourceLocationLi
 
         @Override
         public void renderContent(@NotNull GuiGraphics guiGraphics, int mouseX, int mouseY, boolean isHovering, float partialTick) {
-            int x = this.getX();
-            int y = this.getY();
-
-            int mainColor;
-            int secondColor;
+            int mainColor = Colors.WHITE;
+            int secondColor = Colors.LIGHT_GRAY;
 
             if (isFocused()) {
                 mainColor = Colors.YELLOW;
                 secondColor = Colors.PURPLE;
             }
+            else if (isHovering) {
+                var context = new GuiContext(guiGraphics);
+                context.fill(x(), y(), width(), height(), Colors.alpha(16, Colors.WHITE));
+                context.fill(x() + 1, y() + 1, width() - 2, height() - 2, Colors.alpha(64, Colors.BLACK));
+            }
+
+            int nameX = x() + 3;
+            int nameY = y() + 5;
+            FormattedCharSequence nameFirstLine = nameLines.getFirst();
+
+            if (nameLines.size() == 1) {
+                guiGraphics.drawString(font, nameFirstLine, nameX, nameY, mainColor);
+            }
             else {
-                if (isHovering) {
-                    var context = new GuiContext(guiGraphics);
-                    context.fill(x, y, getWidth(), getHeight(), Colors.alpha(32, Colors.WHITE));
-                    context.fill(x + 1, y + 1, getWidth() - 2, getHeight() - 2, Colors.alpha(128, Colors.BLACK));
-                }
-
-                mainColor = Colors.WHITE;
-                secondColor = Colors.LIGHT_GRAY;
+                guiGraphics.drawString(font, nameLines.get(1), nameX, nameY + 3, secondColor);
+                guiGraphics.drawString(font, nameFirstLine, nameX, nameY - 3, mainColor);
             }
 
-            if (this.nameList.size() == 1) {
-                guiGraphics.drawString(this.font, this.nameList.getFirst(), x + 3, y + 5, mainColor);
-            }
-            else {
-                guiGraphics.drawString(this.font, this.nameList.get(1), x + 3, y + 8, secondColor);
-                guiGraphics.drawString(this.font, this.nameList.get(0), x + 3, y + 2, mainColor);
-            }
-
-            if (this.isConfig) {
-                guiGraphics.drawString(this.font, Component.literal("c"), this.getX() + this.getWidth() - 10, y + 5, Colors.LIGHT_GRAY);
+            if (isConfig) {
+                guiGraphics.drawString(font, Component.literal("c"), x() + width() - 10, nameY, Colors.LIGHT_GRAY);
             }
         }
     }

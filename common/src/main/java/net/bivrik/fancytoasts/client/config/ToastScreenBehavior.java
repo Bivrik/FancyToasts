@@ -1,18 +1,19 @@
 package net.bivrik.fancytoasts.client.config;
 
+import net.bivrik.fancytoasts.platform.utility.Components;
 import net.minecraft.network.chat.Component;
 
 public enum ToastScreenBehavior {
-    TOP("top"),
+    TRANSPARENT("transparent"),
     BEHIND("behind"),
-    TRANSPARENT("transparent");
+    TOP("top");
 
     private final String name;
     private final Component displayName;
 
     ToastScreenBehavior(String name) {
         this.name = name;
-        this.displayName = Component.translatable("fancytoasts.gui.label.screen_behavior_" + this.name);
+        this.displayName = Components.of("gui.label.screen_behavior_" + this.name);
     }
 
     public String getName() {
