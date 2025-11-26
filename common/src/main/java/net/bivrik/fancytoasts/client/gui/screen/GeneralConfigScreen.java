@@ -45,6 +45,8 @@ public class GeneralConfigScreen extends UniversalScreen {
     private static final Component LOOPS_STRENGTH_LABEL = Component.literal("Loops Strength");
     private static final Component LOOPS_SPEED_LABEL = Component.literal("Loops Speed");
     private static final Component RESET_LABEL = Components.of("gui.label.reset");
+    private static final Component RESET_CONFIRMATION_LABEL = Components.of("gui.title.reset_confirmation");
+    private static final Component RESET_DESCRIPTION_LABEL = Components.of("gui.title.reset_description");
     private static final Component JADE_HIDING_TOOLTIP = Components.of("gui.tooltip.jade_compatibility");
     private static final Component SOUNDS_TOOLTIP = Components.of("gui.tooltip.sounds_enabled");
     private static final Component SCREEN_BEHAVIOR_TOOLTIP = Components.of("gui.tooltip.screen_behavior");
@@ -134,7 +136,7 @@ public class GeneralConfigScreen extends UniversalScreen {
     }
 
     private void confirmResetting() {
-        this.openScreen(new ConfirmScreen(this::reset, Components.of("gui.title.reset_confirmation"), Components.of("gui.title.reset_description")));
+        this.openScreen(new ConfirmScreen(this::reset, RESET_CONFIRMATION_LABEL, RESET_DESCRIPTION_LABEL));
     }
 
     private void reset(boolean isConfirmed) {

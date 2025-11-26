@@ -7,7 +7,6 @@ import net.bivrik.fancytoasts.platform.Services;
 
 import java.util.Objects;
 
-
 public class GeneralConfigData extends ConfigData {
     private boolean isJadeHiding;
     private boolean areSoundsEnabled;
@@ -49,9 +48,6 @@ public class GeneralConfigData extends ConfigData {
 
         if (!isJadeHiding) {
             Services.JADE.tryEnable();
-        }
-        else {
-            Services.JADE.tryDisable();
         }
     }
 

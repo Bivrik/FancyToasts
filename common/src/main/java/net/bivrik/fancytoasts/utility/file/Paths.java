@@ -9,6 +9,7 @@ public class Paths {
     public static final String CONFIG_TEXTURES = CONFIG + "textures/";
     public static final String TOAST_CONFIG_FILE = CONFIG + "toast.json";
     public static final String GENERAL_CONFIG_FILE = CONFIG + "general.json";
+    public static final String TOASTS_FILTERING_FILE = CONFIG + "toast_filtering.json";
 
     public static Path actualPath(String string) {
         return Path.of(string);

@@ -3,7 +3,7 @@ package net.bivrik.fancytoasts.client.config.data;
 public abstract class ConfigData {
     private transient final String path;
 
-    protected ConfigData(String path) {
+    public ConfigData(String path) {
         this.path = path;
     }
 

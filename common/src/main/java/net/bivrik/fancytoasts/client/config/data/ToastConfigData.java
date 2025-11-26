@@ -4,7 +4,6 @@ import net.bivrik.fancytoasts.client.config.ConfigHandler;
 import net.bivrik.fancytoasts.client.registry.AnimationRegistry;
 import net.bivrik.fancytoasts.client.registry.TextureRegistry;
 import net.bivrik.fancytoasts.core.Constants;
-import net.bivrik.fancytoasts.core.Managers;
 import net.bivrik.fancytoasts.platform.utility.FancyToastType;
 import net.bivrik.fancytoasts.utility.DefaultLocations;
 import net.bivrik.fancytoasts.utility.file.Paths;

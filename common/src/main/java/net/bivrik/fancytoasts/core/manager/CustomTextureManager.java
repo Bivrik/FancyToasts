@@ -54,7 +54,7 @@ public class CustomTextureManager implements IManager {
         registerInMainRegistry();
 
         ResourceLocation textureId = toastConfigData.getTextureId();
-        if (textureId.toLanguageKey().contains(Constants.CONFIG)) {
+        if (textureId.getPath().contains(Constants.CONFIG)) {
             registerInMinecraft(textureId);
         }
     }
@@ -64,7 +64,7 @@ public class CustomTextureManager implements IManager {
     }
 
     public void addBeingUsed(ResourceLocation id, FancyAdvancementToast toast) {
-        if (!id.toLanguageKey().contains(Constants.CONFIG)) {
+        if (!id.getPath().contains(Constants.CONFIG)) {
             return;
         }
 
@@ -143,7 +143,7 @@ public class CustomTextureManager implements IManager {
 
     public void clear() {
         ResourceLocation currentId = toastConfigData.getTextureId();
-        if (currentId.toLanguageKey().contains(Constants.CONFIG)) {
+        if (currentId.getPath().contains(Constants.CONFIG)) {
             registeredInMinecraft.forEach(id -> {
                 if (currentId != id) textureManager.release(id);
             });

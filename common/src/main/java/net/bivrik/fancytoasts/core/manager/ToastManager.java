@@ -1,6 +1,5 @@
 package net.bivrik.fancytoasts.core.manager;
 
-import net.bivrik.fancytoasts.client.config.ToastAnchor;
 import net.bivrik.fancytoasts.client.config.data.GeneralConfigData;
 import net.bivrik.fancytoasts.client.config.data.ToastConfigData;
 import net.bivrik.fancytoasts.core.event.GeneralConfigDataEvent;
@@ -13,8 +12,6 @@ import net.bivrik.fancytoasts.platform.utility.GuiContext;
 import net.bivrik.fancytoasts.platform.utility.ToastDisplayInfo;
 import net.bivrik.fancytoasts.platform.Services;
 import net.minecraft.Util;
-import net.minecraft.advancements.Advancement;
-import net.minecraft.advancements.DisplayInfo;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.screens.ChatScreen;
@@ -45,22 +42,20 @@ public class ToastManager implements IManager {
         toastConfigData = configManager.getToastConfigData();
 
         EventManager eventManager = Managers.getEventManager();
-        eventManager.subscribe(GeneralConfigDataEvent.class, this::OnGeneralConfigDataChanged);
-        eventManager.subscribe(ToastConfigDataEvent.class, this::OnToastConfigDataChanged);
+        eventManager.subscribe(GeneralConfigDataEvent.class, this::onGeneralConfigDataChanged);
+        eventManager.subscribe(ToastConfigDataEvent.class, this::onToastConfigDataChanged);
     }
 
-    private void OnGeneralConfigDataChanged(GeneralConfigDataEvent event) {
+    private void onGeneralConfigDataChanged(GeneralConfigDataEvent event) {
         generalConfigData = event.generalConfigData();
     }
 
-    private void OnToastConfigDataChanged(ToastConfigDataEvent event) {
+    private void onToastConfigDataChanged(ToastConfigDataEvent event) {
         toastConfigData = event.toastConfigData();
     }
 
     public void addToast(ToastDisplayInfo displayInfo) {
-        if (displayInfo == null) {
-             return;
-        }
+        if (displayInfo == null) return;
 
         FancyAdvancementToast fancyToast = new FancyAdvancementToast(minecraft, displayInfo, toastConfigData.getTextureId(), toastConfigData.getAnimationId());
         toasts.add(fancyToast);
@@ -71,15 +66,12 @@ public class ToastManager implements IManager {
         }
     }
 
-    public void addToast(Advancement advancement) {
-        DisplayInfo oldDisplayInfo = advancement.display().orElse(null);
-        assert oldDisplayInfo != null;
-
-        addToast(new ToastDisplayInfo(oldDisplayInfo));
-    }
-
     public void update() {
         if (currentToast != null) {
+            if (generalConfigData.isJadeHiding() && Services.JADE.isEnabled()) {
+                Services.JADE.tryEnable();
+            }
+
             updateCurrentToast();
 
             if (currentToast.isEnded()) {

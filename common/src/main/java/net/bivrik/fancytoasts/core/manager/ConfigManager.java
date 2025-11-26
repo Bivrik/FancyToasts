@@ -4,6 +4,7 @@ import net.bivrik.fancytoasts.client.config.data.ConfigData;
 import net.bivrik.fancytoasts.client.config.ConfigHandler;
 import net.bivrik.fancytoasts.client.config.data.GeneralConfigData;
 import net.bivrik.fancytoasts.client.config.data.ToastConfigData;
+import net.bivrik.fancytoasts.client.config.data.ToastsFilteringData;
 import net.bivrik.fancytoasts.core.IManager;
 
 import java.util.HashMap;
@@ -15,6 +16,7 @@ public class ConfigManager implements IManager {
     public void onModInit() {
         loadConfig(ToastConfigData.class);
         loadConfig(GeneralConfigData.class);
+        loadConfig(ToastsFilteringData.class);
     }
 
     private <T extends ConfigData> void loadConfig(Class<T> configDataClass) {
@@ -41,5 +43,9 @@ public class ConfigManager implements IManager {
 
     public ToastConfigData getToastConfigData() {
         return getConfig(ToastConfigData.class);
+    }
+
+    public ToastsFilteringData getToastsFilteringData() {
+        return getConfig(ToastsFilteringData.class);
     }
 }
