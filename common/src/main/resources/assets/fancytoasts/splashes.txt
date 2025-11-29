@@ -26,7 +26,7 @@ Turn around...
 This text is blue
 This text is, indeed, yellow
 4 new animations!
-6 new textures!
+7 new textures!
 The happiness is a key
 The love is a lock
 Now this looks like a job for me
