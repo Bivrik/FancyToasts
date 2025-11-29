@@ -76,9 +76,6 @@ public class FancyToastsScreen extends UniversalScreen {
         return super.createButton(label, action, x, y, TITLE_BUTTON_WIDTH, BUTTON_HEIGHT);
     }
 
-    @Override
-    protected void renderBlurredBackground(@NotNull GuiGraphics guiGraphics) {}
-
     private void openToastConfigScreen() {
         this.openScreen(new ToastConfigScreen(this));
     }

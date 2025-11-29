@@ -27,8 +27,8 @@
   "fancytoasts.gui.config_folder": "Config Folder",
   "fancytoasts.gui.reload_customs": "Reload Customs",
   "fancytoasts.gui.reset": "Reset",
-  "fancytoasts.gui.general_settings": "General Settings",
-  "fancytoasts.gui.toast_settings": "Visual Settings",
+  "fancytoasts.gui.general_settings": "General Settings...",
+  "fancytoasts.gui.toast_settings": "Visual Settings...",
   "fancytoasts.gui.toasts_filtering": "Toasts Filtering",
   "fancytoasts.gui.jade_hiding": "Hide Jade During Toast",
   "fancytoasts.gui.sounds_enabled": "Toasts' Sounds",
@@ -70,9 +70,9 @@
   "fancytoasts.filter.built_in": "Built-in",
   "fancytoasts.filter.custom": "Custom",
 
-  "fancytoasts.tooltip.task": "Sound for Task Advancement Type.",
-  "fancytoasts.tooltip.goal": "Sound for Goal Advancement Type.",
-  "fancytoasts.tooltip.challenge": "Sound for Challenge Advancement Type.",
+  "fancytoasts.tooltip.task": "Appearing sound for Task Advancement Type.",
+  "fancytoasts.tooltip.goal": "Appearing sound for Goal Advancement Type.",
+  "fancytoasts.tooltip.challenge": "Appearing sound for Challenge Advancement Type.",
   "fancytoasts.tooltip.textures": "Textures that are used for Advancement Toasts. Custom textures can be loaded from \"./config/textures/\" folder.",
   "fancytoasts.tooltip.animations": "Animations that are used when Advancement Toast is showing.",
   "fancytoasts.tooltip.sounds": "Sounds played at the moment of Advancement Toast appearing, based on its Advancement Type.",
@@ -97,7 +97,7 @@
   "fancytoasts.toast.texture.vanilla": "Vanilla Style",
   "fancytoasts.toast.texture.vanilla.description": "Inspired by Vanilla Minecraft style",
   "fancytoasts.toast.texture.nature": "Nature",
-  "fancytoasts.toast.texture.nature.description": "Somewhere lost in the woods. Might have been made with sticks and... other material. Inspired by our Mother Nature",
+  "fancytoasts.toast.texture.nature.description": "Somewhere lost in the woods. Texture might have been made with sticks and... other material. Inspired by our Mother Nature",
   "fancytoasts.toast.texture.og": "OG",
   "fancytoasts.toast.texture.og.description": "If you're a true OG player and you love old raw style, it's just for you. No fanciness here!",
   "fancytoasts.toast.texture.modern": "Modern",
@@ -106,12 +106,12 @@
   "fancytoasts.toast.texture.terracraft.description": "What is it? I think I saw a big red eye in the skies! Oh, wait, it dashes... Inspired by Terraria",
   "fancytoasts.toast.texture.steamy": "Steamy",
   "fancytoasts.toast.texture.steamy.description": "I spent 1500 hours to get 100%! Are you proud of me, mom? Mom?! Inspired by Steam",
-  "fancytoasts.toast.texture.paper": "Landspaper",
-  "fancytoasts.toast.texture.paper.description": "I think you got a new letter! Might just pin it somewhere for a better look. Hope it won't get wet and dissolve",
+  "fancytoasts.toast.texture.landspaper": "Landspaper",
+  "fancytoasts.toast.texture.landspaper.description": "I think you got a new letter! Might just pin it somewhere for a better look. Hope it won't get wet and dissolve",
 
   "fancytoasts.toast.sound.minecraft.description": "Built-in sound from Minecraft",
   "fancytoasts.toast.sound.mod.description": "Sound from a modification",
-  "fancytoasts.toast.sound.resourcepack.description": "Sound from a resourcepack",
+  "fancytoasts.toast.sound.resourcepack.description": "Sound from a resource pack",
 
-  "key.fancytoasts.config_menu": "Fancy Toasts' menu"
+  "key.fancytoasts.config_menu": "Fancy Toasts menu"
 }

@@ -34,8 +34,6 @@ public class MinecraftMixin {
         ToastManager toastManager = Managers.getToastManager();
         if (toastManager == null) return;
 
-        if (!toastManager.shouldRenderBehind()) {
-            toastManager.update();
-        }
+        toastManager.update();
     }
 }
