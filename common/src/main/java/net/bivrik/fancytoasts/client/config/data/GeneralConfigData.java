@@ -37,7 +37,7 @@ public class GeneralConfigData extends ConfigData {
     }
 
     public GeneralConfigData() {
-        this(true, true, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 0, 40, ToastAnchor.TOP, ToastScreenBehavior.TRANSPARENT);
+        this(true, true, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 0, 50, ToastAnchor.TOP, ToastScreenBehavior.TRANSPARENT);
     }
 
     public boolean isJadeHiding() {

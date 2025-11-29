@@ -35,21 +35,27 @@ import static net.bivrik.fancytoasts.client.gui.LayoutValues.*;
 import static net.bivrik.fancytoasts.client.gui.LayoutValues.PADDING;
 
 public class GeneralConfigScreen extends UniversalScreen {
-    private static final Component TITLE = Components.of("gui.config.general_title");
-    private static final Component JADE_HIDING_LABEL = Components.of("gui.label.jade_compatibility");
-    private static final Component SOUNDS_LABEL = Components.of("gui.label.sounds_enabled");
-    private static final Component SCREEN_BEHAVIOR_LABEL = Components.of("gui.label.screen_behavior");
-    private static final Component TASK_VOLUME_LABEL = Components.of("gui.label.task_volume");
-    private static final Component GOAL_VOLUME_LABEL = Components.of("gui.label.goal_volume");
-    private static final Component CHALLENGE_VOLUME_LABEL = Components.of("gui.label.challenge_volume");
-    private static final Component LOOPS_STRENGTH_LABEL = Component.literal("Loops Strength");
-    private static final Component LOOPS_SPEED_LABEL = Component.literal("Loops Speed");
-    private static final Component RESET_LABEL = Components.of("gui.label.reset");
-    private static final Component RESET_CONFIRMATION_LABEL = Components.of("gui.title.reset_confirmation");
-    private static final Component RESET_DESCRIPTION_LABEL = Components.of("gui.title.reset_description");
-    private static final Component JADE_HIDING_TOOLTIP = Components.of("gui.tooltip.jade_compatibility");
-    private static final Component SOUNDS_TOOLTIP = Components.of("gui.tooltip.sounds_enabled");
-    private static final Component SCREEN_BEHAVIOR_TOOLTIP = Components.of("gui.tooltip.screen_behavior");
+    private static final Component TITLE = Components.of("title.general_settings");
+    private static final Component RESET_GENERAL_SETTINGS_TITLE = Components.of("title.reset_general_settings");
+    private static final Component RESET_GENERAL_SETTINGS_LABEL = Components.of("label.reset_general_settings");
+    private static final Component SAVED_LABEL = Components.of("label.saved");
+    private static final Component JADE_HIDING = Components.of("gui.jade_hiding");
+    private static final Component SOUNDS = Components.of("gui.sounds_enabled");
+    private static final Component SCREEN_BEHAVIOR = Components.of("gui.screen_behavior");
+    private static final Component TASK_VOLUME = Components.of("gui.task_volume");
+    private static final Component GOAL_VOLUME = Components.of("gui.goal_volume");
+    private static final Component CHALLENGE_VOLUME = Components.of("gui.challenge_volume");
+    private static final Component LOOPS_STRENGTH = Components.of("gui.loops_strength");
+    private static final Component LOOPS_SPEED = Components.of("gui.loops_speed");
+    private static final Component RESET = Components.of("gui.reset");
+    private static final Component ANCHOR = Components.of("gui.anchor");
+    private static final Component JADE_HIDING_TOOLTIP = Components.of("tooltip.jade_hiding");
+    private static final Component SOUNDS_TOOLTIP = Components.of("tooltip.sounds_enabled");
+    private static final Component SCREEN_BEHAVIOR_TOOLTIP = Components.of("tooltip.screen_behavior");
+    private static final Component ANCHOR_TOOLTIP = Components.of("tooltip.anchor");
+    private static final Component LOOPS_STRENGTH_TOOLTIP = Components.of("tooltip.loops_strength");
+    private static final Component LOOPS_SPEED_TOOLTIP = Components.of("tooltip.loops_speed");
+
     private static final ResourceLocation LIST_BACKGROUND = ResourceLocations.fromMinecraft("textures/gui/menu_list_background.png");
 
     private GeneralConfigData generalConfigData;
@@ -81,34 +87,35 @@ public class GeneralConfigScreen extends UniversalScreen {
     protected void init() {
         int xCenter = this.width / 2;
 
-        doneButton = this.addFWidget(createButton(CommonComponents.GUI_DONE, button -> done(),
-                xCenter + HALF_PADDING, this.height - BUTTON_HEIGHT - 6, 125, BUTTON_HEIGHT));
-
         backButton = this.addFWidget(createButton(CommonComponents.GUI_BACK, button -> this.toParentScreen(),
                 xCenter - 125 - HALF_PADDING, this.height - BUTTON_HEIGHT - 6, 75, BUTTON_HEIGHT));
 
-        resetButton = this.addFWidget(createButton(RESET_LABEL, button -> confirmResetting(),
+        resetButton = this.addFWidget(createButton(RESET, button -> confirmResetting(),
                 xCenter - 50, this.height - BUTTON_HEIGHT - 6, 50, BUTTON_HEIGHT));
+
+        doneButton = this.addFWidget(createButton(CommonComponents.GUI_DONE, button -> done(),
+                xCenter + HALF_PADDING, this.height - BUTTON_HEIGHT - 6, 125, BUTTON_HEIGHT));
 
         ListHelper listHelper = new ListHelper(this);
 
         if (Services.PLATFORM.isModLoaded(Constants.Compatibilities.JADE_ID)) {
-            jadeHidingButton = listHelper.addWidget(createBooleanButton(JADE_HIDING_LABEL, generalConfigData.isJadeHiding(),
+            jadeHidingButton = listHelper.addWidget(createBooleanButton(JADE_HIDING, generalConfigData.isJadeHiding(),
                     (button, value) -> generalConfigData.setJadeHiding(value), 0, 0, Tooltip.create(JADE_HIDING_TOOLTIP)));
         }
 
-        soundsEnabledButton = listHelper.addWidget(createBooleanButton(SOUNDS_LABEL, generalConfigData.areSoundsEnabled(),
+        soundsEnabledButton = listHelper.addWidget(createBooleanButton(SOUNDS, generalConfigData.areSoundsEnabled(),
                 (button, value) -> generalConfigData.setSoundsEnabled(value), 0, 0, Tooltip.create(SOUNDS_TOOLTIP)));
 
         toastScreenBehaviorButton = listHelper.addWidget(CycleButton.builder(ToastScreenBehavior::getDisplayName)
                 .withValues(ToastScreenBehavior.values()).withInitialValue(generalConfigData.getToastScreenBehavior())
                 .withTooltip(toastScreenBehavior -> Tooltip.create(SCREEN_BEHAVIOR_TOOLTIP))
-                .create(0, 0, BUTTON_WIDTH, BUTTON_HEIGHT, SCREEN_BEHAVIOR_LABEL, (button, value) -> generalConfigData.setToastScreenBehavior(value))
+                .create(0, 0, BUTTON_WIDTH, BUTTON_HEIGHT, SCREEN_BEHAVIOR, (button, value) -> generalConfigData.setToastScreenBehavior(value))
         );
 
-        toastAnchorButton = listHelper.addWidget(CycleButton.builder(ToastAnchor::getName)
+        toastAnchorButton = listHelper.addWidget(CycleButton.builder(ToastAnchor::getDisplayName)
                 .withValues(ToastAnchor.values()).withInitialValue(generalConfigData.getToastAnchor())
-                .create(0, 0, BUTTON_WIDTH, BUTTON_HEIGHT, Component.literal("Anchor"), (button, value) -> generalConfigData.setToastAnchor(value)));
+                .withTooltip(toastAnchor -> Tooltip.create(ANCHOR_TOOLTIP))
+                .create(0, 0, BUTTON_WIDTH, BUTTON_HEIGHT, ANCHOR, (button, value) -> generalConfigData.setToastAnchor(value)));
 
         offsetXEditBox = listHelper.addWidget(new IntegerEditBox(this.font, 0, 0, HALF_BUTTON_WIDTH - HALF_PADDING, BUTTON_HEIGHT, this.offsetXEditBox, Component.empty(), generalConfigData.getOffsetX()));
         offsetXEditBox.setResponder(value -> offsetXEditBox.setIntegerValue(generalConfigData::setOffsetX));
@@ -116,19 +123,19 @@ public class GeneralConfigScreen extends UniversalScreen {
         offsetYEditBox = listHelper.addWidget(new IntegerEditBox(this.font, 0, 0, HALF_BUTTON_WIDTH - HALF_PADDING, BUTTON_HEIGHT, this.offsetYEditBox, Component.empty(), generalConfigData.getOffsetY()));
         offsetYEditBox.setResponder(value -> offsetYEditBox.setIntegerValue(generalConfigData::setOffsetY));
 
-        loopsStrengthSlider = listHelper.addWidget(createSlider(LOOPS_STRENGTH_LABEL, generalConfigData.getLoopsStrength(), 10.0f, 0.02f,
-                this::multiplierDisplayer, generalConfigData::setLoopsStrength, 0, 0));
+        loopsStrengthSlider = listHelper.addWidget(createSlider(LOOPS_STRENGTH, generalConfigData.getLoopsStrength(), 10.0f, 0.02f,
+                this::multiplierDisplayer, generalConfigData::setLoopsStrength, 0, 0, Tooltip.create(LOOPS_STRENGTH_TOOLTIP)));
 
-        loopsSpeedSlider = listHelper.addWidget(createSlider(LOOPS_SPEED_LABEL, generalConfigData.getLoopsSpeed(), 10.0f, 0.02f,
-                this::multiplierDisplayer, generalConfigData::setLoopsSpeed, 0, 0));
+        loopsSpeedSlider = listHelper.addWidget(createSlider(LOOPS_SPEED, generalConfigData.getLoopsSpeed(), 10.0f, 0.02f,
+                this::multiplierDisplayer, generalConfigData::setLoopsSpeed, 0, 0, Tooltip.create(LOOPS_SPEED_TOOLTIP)));
 
-        taskVolumeSlider = listHelper.addWidget(createSlider(TASK_VOLUME_LABEL, generalConfigData.getTaskVolume(), 2.0f,
+        taskVolumeSlider = listHelper.addWidget(createSlider(TASK_VOLUME, generalConfigData.getTaskVolume(), 2.0f,
                 this::percentDisplayer, generalConfigData::setTaskVolume, 0, 0));
 
-        goalVolumeSlider = listHelper.addWidget(createSlider(GOAL_VOLUME_LABEL, generalConfigData.getGoalVolume(), 2.0f,
+        goalVolumeSlider = listHelper.addWidget(createSlider(GOAL_VOLUME, generalConfigData.getGoalVolume(), 2.0f,
                 this::percentDisplayer, generalConfigData::setGoalVolume, 0, 0));
 
-        challengeVolumeSlider = listHelper.addWidget(createSlider(CHALLENGE_VOLUME_LABEL, generalConfigData.getChallengeVolume(), 2.0f,
+        challengeVolumeSlider = listHelper.addWidget(createSlider(CHALLENGE_VOLUME, generalConfigData.getChallengeVolume(), 2.0f,
                 this::percentDisplayer, generalConfigData::setChallengeVolume, 0, 0));
 
         listHelper.arrangeWidgets();
@@ -136,7 +143,7 @@ public class GeneralConfigScreen extends UniversalScreen {
     }
 
     private void confirmResetting() {
-        this.openScreen(new ConfirmScreen(this::reset, RESET_CONFIRMATION_LABEL, RESET_DESCRIPTION_LABEL));
+        this.openScreen(new ConfirmScreen(this::reset, RESET_GENERAL_SETTINGS_TITLE, RESET_GENERAL_SETTINGS_LABEL));
     }
 
     private void reset(boolean isConfirmed) {
@@ -197,7 +204,7 @@ public class GeneralConfigScreen extends UniversalScreen {
 
         int color = Colors.alpha(appearanceLerp - disappearanceLerp, Colors.YELLOW);
 
-        guiGraphics.drawString(this.font, "Saved!", x, y, color);
+        guiGraphics.drawString(this.font, SAVED_LABEL, x, y, color);
 
         if (time >= 1000) {
             isSaved = false;

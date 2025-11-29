@@ -66,11 +66,11 @@ public enum SettingType {
 
             String name = id.toLanguageKey();
             if (id.getNamespace().equals(Constants.Compatibilities.MINECRAFT_ID)) {
-                data = new DisplayData(name, "Minecraft", Components.stringOf("sound.minecraft.description"), false);
+                data = new DisplayData(name, "Minecraft", Components.stringOf("toast.sound.minecraft.description"), false);
             } else if (BuiltInRegistries.SOUND_EVENT.containsKey(id)) {
-                data = new DisplayData(name, id.getNamespace(), Components.stringOf("sound.mod.description"), false);
+                data = new DisplayData(name, id.getNamespace(), Components.stringOf("toast.sound.mod.description"), false);
             } else {
-                data = new DisplayData(name, id.getNamespace(), Components.stringOf("sound.resource_pack.description"), false);
+                data = new DisplayData(name, id.getNamespace(), Components.stringOf("toast.sound.resourcepack.description"), false);
             }
 
             return data;
@@ -99,7 +99,7 @@ public enum SettingType {
     }
 
     public Component getDisplayName() {
-        return Components.of("gui.label." + name);
+        return Components.of("gui." + name);
     }
 
     public String getName() {

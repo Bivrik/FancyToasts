@@ -138,7 +138,7 @@ public class CreditsList extends AbstractSelectionList<CreditsList.Entry> {
         public CategoryEntry(CreditsList parentList, String content) {
             super(parentList, content);
 
-            this.displayName = Components.of("gui.label." + this.content);
+            this.displayName = Components.of("label." + this.content);
             this.xCenter = parentList.getWidth() / 2;
         }
 

@@ -19,12 +19,15 @@ import java.net.URI;
 import static net.bivrik.fancytoasts.client.gui.LayoutValues.*;
 
 public class FancyToastsConfigScreen extends UniversalScreen {
-    private static final Component TITLE = Components.of("gui.config.title");
-    private static final Component TOAST_CONFIG_LABEL = Components.of("gui.label.toast_settings");
-    private static final Component GENERAL_CONFIG_LABEL = Components.of("gui.label.general_settings");
-    private static final Component TOASTS_FILTERING_LABEL = Components.of("gui.label.toasts_filtering");
-    private static final Component CREDITS_LABEL = Components.of("gui.label.credits");
-    private static final Component SUPPORT_LABEL = Components.of("gui.support");
+    private static final int TITLE_BUTTON_WIDTH = 180;
+    private static final int HALF_TITLE_BUTTON_WIDTH = TITLE_BUTTON_WIDTH / 2;
+
+    private static final Component TITLE = Component.literal("Fancy Toasts");
+    private static final Component SUPPORT_LABEL = Components.of("label.support");
+    private static final Component TOAST_SETTINGS = Components.of("gui.toast_settings");
+    private static final Component GENERAL_SETTINGS = Components.of("gui.general_settings");
+    private static final Component TOASTS_FILTERING = Components.of("gui.toasts_filtering");
+    private static final Component CREDITS = Components.of("gui.credits");
 
     private static final URI BOOSTY_URI = URI.create("https://boosty.to/bivrik");
 
@@ -45,28 +48,36 @@ public class FancyToastsConfigScreen extends UniversalScreen {
 
     @Override
     protected void init() {
-        int xCenter = this.width / 2 - HALF_BUTTON_WIDTH;
+        int xCenter = this.width / 2 - HALF_TITLE_BUTTON_WIDTH;
         int yCenter = this.height / 2;
         int supportButtonWidth = this.font.width(SUPPORT_LABEL);
+
+        toastConfigButton = this.addFWidget(this.createButton(TOAST_SETTINGS, button -> openToastConfigScreen(),
+                xCenter, yCenter - BUTTON_HEIGHT - PADDING));
+
+        generalConfigButton = this.addFWidget(this.createButton(GENERAL_SETTINGS, button -> openGeneralConfigScreen(),
+                xCenter, yCenter));
+
+        toastsFilteringButton = this.addFWidget(this.createButton(TOASTS_FILTERING, button -> openToastsFilteringScreen(),
+                xCenter, yCenter + BUTTON_HEIGHT + PADDING, HALF_TITLE_BUTTON_WIDTH - HALF_PADDING, BUTTON_HEIGHT));
+
+        creditsButton = this.addFWidget(this.createButton(CREDITS, button -> openCreditsScreen(),
+                xCenter + HALF_PADDING + HALF_TITLE_BUTTON_WIDTH, yCenter + BUTTON_HEIGHT + PADDING, HALF_TITLE_BUTTON_WIDTH - HALF_PADDING, BUTTON_HEIGHT));
 
         backButton = this.addFWidget(this.createButton(CommonComponents.GUI_BACK, button -> this.toParentScreen(),
                 xCenter, this.height - BUTTON_HEIGHT - 16));
 
-        toastConfigButton = this.addFWidget(this.createButton(TOAST_CONFIG_LABEL, button -> openToastConfigScreen(),
-                xCenter, yCenter - BUTTON_HEIGHT - PADDING));
-
-        generalConfigButton = this.addFWidget(this.createButton(GENERAL_CONFIG_LABEL, button -> openGeneralConfigScreen(),
-                xCenter, yCenter));
-
-        toastsFilteringButton = this.addFWidget(this.createButton(TOASTS_FILTERING_LABEL, button -> openToastsFilteringScreen(),
-                xCenter, yCenter + BUTTON_HEIGHT + PADDING, HALF_BUTTON_WIDTH - HALF_PADDING, BUTTON_HEIGHT));
-
-        creditsButton = this.addFWidget(this.createButton(CREDITS_LABEL, button -> openCreditsScreen(),
-                xCenter + HALF_PADDING + HALF_BUTTON_WIDTH, yCenter + BUTTON_HEIGHT + PADDING, HALF_BUTTON_WIDTH - HALF_PADDING, BUTTON_HEIGHT));
-
         Button.OnPress supportButtonAction = ConfirmLinkScreen.confirmLink(this, BOOSTY_URI);
         supportButton = this.addFWidget(new PlainTextButton(this.width - supportButtonWidth - 1, this.height - 10, supportButtonWidth, 9, SUPPORT_LABEL, supportButtonAction, this.font));
     }
+
+    @Override
+    protected Button createButton(Component label, Button.OnPress action, int x, int y) {
+        return super.createButton(label, action, x, y, TITLE_BUTTON_WIDTH, BUTTON_HEIGHT);
+    }
+
+    @Override
+    protected void renderBlurredBackground(@NotNull GuiGraphics guiGraphics) {}
 
     private void openToastConfigScreen() {
         this.openScreen(new ToastConfigScreen(this));

@@ -34,10 +34,20 @@ import java.util.function.Consumer;
 import static net.bivrik.fancytoasts.client.gui.LayoutValues.*;
 
 public class ToastsFilteringScreen extends UniversalScreen {
-    private static final Component TITLE = Components.of("gui.config.toasts_filtering_title");
-    private static final Component RESET_LABEL = Components.of("gui.label.reset");
-    private static final Component RESET_CONFIRMATION_LABEL = Components.of("gui.title.reset_confirmation");
-    private static final Component RESET_DESCRIPTION_LABEL = Components.of("gui.title.reset_description");
+    private static final Component TITLE = Components.of("title.toasts_filtering");
+    private static final Component RESET_TOASTS_FILTERING_TITLE = Components.of("title.reset_toasts_filtering");
+    private static final Component RESET_TOASTS_FILTERING_LABEL = Components.of("label.reset_toasts_filtering");
+    private static final Component SAVED_LABEL = Components.of("label.saved");
+    private static final Component RESET = Components.of("gui.reset");
+    private static final Component FANCY_ADVANCEMENT_TOASTS = Components.of("gui.fancy_advancement_toasts");
+    private static final Component ADVANCEMENT_TOASTS = Components.of("gui.advancement_toasts");
+    private static final Component FANCY_QUEST_TOASTS = Components.of("gui.fancy_quest_toasts");
+    private static final Component RECIPE_TOASTS = Components.of("gui.recipe_toasts");
+    private static final Component SYSTEM_TOASTS = Components.of("gui.system_toasts");
+    private static final Component TUTORIAL_TOASTS = Components.of("gui.tutorial_toasts");
+    private static final Component IGNORED_TOASTS = Components.of("gui.ignored_toasts");
+    private static final Component TOASTS_FILTERING_TOOLTIP = Components.of("tooltip.toasts_filtering");
+
     private static final ResourceLocation LIST_BACKGROUND = ResourceLocations.fromMinecraft("textures/gui/menu_list_background.png");
 
     private ToastsFilteringData toastsFilteringData;
@@ -65,39 +75,39 @@ public class ToastsFilteringScreen extends UniversalScreen {
     protected void init() {
         int xCenter = this.width / 2;
 
-        doneButton = this.addFWidget(createButton(CommonComponents.GUI_DONE, button -> done(),
-                xCenter + HALF_PADDING, this.height - BUTTON_HEIGHT - 6, 125, BUTTON_HEIGHT));
-
         backButton = this.addFWidget(createButton(CommonComponents.GUI_BACK, button -> this.toParentScreen(),
                 xCenter - 125 - HALF_PADDING, this.height - BUTTON_HEIGHT - 6, 75, BUTTON_HEIGHT));
 
-        resetButton = this.addFWidget(createButton(RESET_LABEL, button -> confirmResetting(),
+        resetButton = this.addFWidget(createButton(RESET, button -> confirmResetting(),
                 xCenter - 50, this.height - BUTTON_HEIGHT - 6, 50, BUTTON_HEIGHT));
+
+        doneButton = this.addFWidget(createButton(CommonComponents.GUI_DONE, button -> done(),
+                xCenter + HALF_PADDING, this.height - BUTTON_HEIGHT - 6, 125, BUTTON_HEIGHT));
 
         ListHelper listHelper = new ListHelper(this);
 
-        fancyAdvancementToastsButton = listHelper.addWidget(createBooleanButton(Component.literal("Fancy Advancement Toasts"), toastsFilteringData.isFancyAdvancementToastsEnabled(),
+        fancyAdvancementToastsButton = listHelper.addWidget(createBooleanButton(FANCY_ADVANCEMENT_TOASTS, toastsFilteringData.isFancyAdvancementToastsEnabled(),
                 (button, value) -> toastsFilteringData.setFancyAdvancementToastsEnabled(value), 0, 0));
 
         if (Services.PLATFORM.isModLoaded(Constants.Compatibilities.FTB_QUESTS_ID)) {
-            fancyQuestToastsButton = listHelper.addWidget(createBooleanButton(Component.literal("Fancy Quest Toasts"), toastsFilteringData.isFancyQuestToastsEnabled(),
+            fancyQuestToastsButton = listHelper.addWidget(createBooleanButton(FANCY_QUEST_TOASTS, toastsFilteringData.isFancyQuestToastsEnabled(),
                     (button, value) -> toastsFilteringData.setFancyQuestToastsEnabled(value), 0, 0));
         }
 
-        advancementToastsButton = listHelper.addWidget(createBooleanButton(Component.literal("Advancement Toasts"), toastsFilteringData.isAdvancementToastsEnabled(),
+        advancementToastsButton = listHelper.addWidget(createBooleanButton(ADVANCEMENT_TOASTS, toastsFilteringData.isAdvancementToastsEnabled(),
                 (button, value) -> toastsFilteringData.setAdvancementToastsEnabled(value), 0, 0));
 
-        recipeToastsButton = listHelper.addWidget(createBooleanButton(Component.literal("Recipe Toasts"), toastsFilteringData.isRecipeToastsEnabled(),
+        recipeToastsButton = listHelper.addWidget(createBooleanButton(RECIPE_TOASTS, toastsFilteringData.isRecipeToastsEnabled(),
                 (button, value) -> toastsFilteringData.setRecipeToastsEnabled(value), 0, 0));
 
-        systemToastsButton = listHelper.addWidget(createBooleanButton(Component.literal("System Toasts"), toastsFilteringData.isSystemToastsEnabled(),
+        systemToastsButton = listHelper.addWidget(createBooleanButton(SYSTEM_TOASTS, toastsFilteringData.isSystemToastsEnabled(),
                 (button, value) -> toastsFilteringData.setSystemToastsEnabled(value), 0, 0));
 
-        tutorialToastsButton = listHelper.addWidget(createBooleanButton(Component.literal("Tutorial Toasts"), toastsFilteringData.isTutorialToastsEnabled(),
+        tutorialToastsButton = listHelper.addWidget(createBooleanButton(TUTORIAL_TOASTS, toastsFilteringData.isTutorialToastsEnabled(),
                 (button, value) -> toastsFilteringData.setTutorialToastsEnabled(value), 0, 0));
 
-        toastsFilteringFileButton = listHelper.addWidget(createButton(Component.literal("Blacklisted Toasts"), button -> openToastsFilteringFile(),
-                0, 0, Tooltip.create(Component.literal("Requires Minecraft restart. To blacklist a single advancement, you can put \"namespace:category/advancement_to_blacklist\". If you want to blacklist a whole category, then put \"namespace:category/...\""))));
+        toastsFilteringFileButton = listHelper.addWidget(createButton(IGNORED_TOASTS, button -> openToastsFilteringFile(),
+                0, 0, Tooltip.create(TOASTS_FILTERING_TOOLTIP)));
 
         listHelper.arrangeWidgets();
         listHelper.visitWidgets(this::addFWidget);
@@ -108,7 +118,7 @@ public class ToastsFilteringScreen extends UniversalScreen {
     }
 
     private void confirmResetting() {
-        this.openScreen(new ConfirmScreen(this::reset, RESET_CONFIRMATION_LABEL, RESET_DESCRIPTION_LABEL));
+        this.openScreen(new ConfirmScreen(this::reset, RESET_TOASTS_FILTERING_TITLE, RESET_TOASTS_FILTERING_LABEL));
     }
 
     private void reset(boolean isConfirmed) {
@@ -157,7 +167,7 @@ public class ToastsFilteringScreen extends UniversalScreen {
 
         int color = Colors.alpha(appearanceLerp - disappearanceLerp, Colors.YELLOW);
 
-        guiGraphics.drawString(this.font, "Saved!", x, y, color);
+        guiGraphics.drawString(this.font, SAVED_LABEL, x, y, color);
 
         if (time >= 1000) {
             isSaved = false;

@@ -11,6 +11,7 @@ public class DefaultLocations {
         public static final ResourceLocation MODERN = ResourceLocations.of("textures/toast/modern.png");
         public static final ResourceLocation STEAMY = ResourceLocations.of("textures/toast/steamy.png");
         public static final ResourceLocation TERRACRAFT = ResourceLocations.of("textures/toast/terracraft.png");
+        public static final ResourceLocation LANDSPAPER = ResourceLocations.of("textures/toast/landspaper.png");
     }
 
     public static class Animations {

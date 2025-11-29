@@ -2,6 +2,7 @@ package net.bivrik.fancytoasts.client.gui;
 
 import net.bivrik.fancytoasts.core.Debug;
 import net.bivrik.fancytoasts.client.toast.DisplayData;
+import net.bivrik.fancytoasts.platform.utility.Components;
 import net.bivrik.fancytoasts.platform.utility.GuiContext;
 import net.bivrik.fancytoasts.platform.utility.Colors;
 import net.bivrik.fancytoasts.platform.utility.ResourceLocations;
@@ -19,6 +20,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class InformationList extends AbstractSelectionList<InformationList.Entry> {
+    private static final Component CUSTOM_LABEL = Components.of("label.custom");
+    private static final Component AUTHOR_LABEL = Components.of("label.author");
+    private static final Component DESCRIPTION_LABEL = Components.of("label.description");
+
     private final List<InformationListEntry> lines = new ArrayList<>(7);
     private ResourceLocation location;
 
@@ -41,13 +46,13 @@ public class InformationList extends AbstractSelectionList<InformationList.Entry
 
         this.addLine(displayData.getDisplayName(), Colors.YELLOW);
         if (isConfig) {
-            addLine(Component.translatable("fancytoasts.gui.custom"), Colors.RED);
+            addLine(CUSTOM_LABEL, Colors.RED);
         }
         addSpace();
-        addLine(Component.translatable("fancytoasts.gui.label.author"), Colors.WHITE);
+        addLine(AUTHOR_LABEL, Colors.WHITE);
         addLine(displayData.getAuthor(), Colors.LIGHT_GRAY);
         addSpace();
-        addLine(Component.translatable("fancytoasts.gui.label.description"), Colors.WHITE);
+        addLine(DESCRIPTION_LABEL, Colors.WHITE);
         addLine(displayData.getDisplayDescription(), Colors.LIGHT_GRAY);
 
         acceptLines();

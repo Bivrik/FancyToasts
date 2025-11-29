@@ -85,10 +85,9 @@ public class CreditsManager implements IManager {
         Debug.warn("Returning fallback for credits");
         CreditsData data = new CreditsData(new HashMap<>());
 
-        data.addCategory("fallback", data.users(
+        data.addCategory("credits_fallback", data.users(
                 data.user("Credits couldn't be reached", ":("),
-                data.user("Try restarting mod or just... don't look here yet"),
-                data.user(":/")
+                data.user("Try restarting mod or just... don't look here yet", ":/")
         ));
 
         return data;

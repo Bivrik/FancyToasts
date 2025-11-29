@@ -4,6 +4,8 @@ import net.bivrik.fancytoasts.platform.utility.Components;
 import net.minecraft.network.chat.Component;
 
 public class DisplayData {
+    private static final Component UNKNOWN_LABEL = Components.of("label.unknown");
+
     private final Component displayName;
     private final Component displayAuthor;
     private final Component displayDescription;
@@ -14,22 +16,18 @@ public class DisplayData {
         if (name != null) {
             this.displayName = isTranslatableName ? Component.translatable(name) : Component.literal(getVisualAppealingString(name));
         } else {
-            this.displayName = getUnknownFallback();
+            this.displayName = UNKNOWN_LABEL;
         }
 
         // Usually just string so don't matter, it doesn't have translation at all
-        this.displayAuthor = author != null ? Component.literal(getVisualAppealingString(author)) : getUnknownFallback();
+        this.displayAuthor = author != null ? Component.literal(getVisualAppealingString(author)) : UNKNOWN_LABEL;
 
         // Translatable for Fancy Toasts' in general, Minecraft's sounds, Mods' sounds and Resource Packs' sounds, but not the custom textures
-        this.displayDescription = description != null ? Component.translatable(description) : getUnknownFallback();
+        this.displayDescription = description != null ? Component.translatable(description) : UNKNOWN_LABEL;
     }
 
     public DisplayData(DTO dto) {
         this(dto.name, dto.author, dto.description, false);
-    }
-
-    private Component getUnknownFallback() {
-        return Components.of("gui.unknown");
     }
 
     public Component getDisplayName() {

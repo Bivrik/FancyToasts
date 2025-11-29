@@ -106,20 +106,30 @@ public abstract class UniversalScreen extends Screen {
         return createButton(label, action, x, y, LayoutValues.BUTTON_WIDTH, LayoutValues.BUTTON_HEIGHT, null);
     }
 
-    protected Slider createSlider(Component label, float initialValue, float maxValue, float threshold, Function<Float, Component> displayer, Consumer<Float> responder, int x, int y, int width, int height) {
-        return new Slider(x, y, width, height, label, initialValue, maxValue, threshold).setDisplayer(displayer).setResponder(responder);
+    protected Slider createSlider(Component label, float initialValue, float maxValue, float threshold, Function<Float, Component> displayer, Consumer<Float> responder, int x, int y, int width, int height, Tooltip tooltip) {
+        var slider = new Slider(x, y, width, height, label, initialValue, maxValue, threshold).setDisplayer(displayer).setResponder(responder);
+
+        if (tooltip != null) {
+            slider.setTooltip(tooltip);
+        }
+
+        return slider;
+    }
+
+    protected Slider createSlider(Component label, float initialValue, float maxValue, float threshold, Function<Float, Component> displayer, Consumer<Float> responder, int x, int y, Tooltip tooltip) {
+        return createSlider(label, initialValue, maxValue, threshold, displayer, responder, x, y, LayoutValues.BUTTON_WIDTH, LayoutValues.BUTTON_HEIGHT, tooltip);
+    }
+
+    protected Slider createSlider(Component label, float initialValue, float maxValue, Function<Float, Component> displayer, Consumer<Float> responder, int x, int y, Tooltip tooltip) {
+        return createSlider(label, initialValue, maxValue, 0.0f, displayer, responder, x, y, LayoutValues.BUTTON_WIDTH, LayoutValues.BUTTON_HEIGHT, tooltip);
     }
 
     protected Slider createSlider(Component label, float initialValue, float maxValue, float threshold, Function<Float, Component> displayer, Consumer<Float> responder, int x, int y) {
-        return createSlider(label, initialValue, maxValue, threshold, displayer, responder, x, y, LayoutValues.BUTTON_WIDTH, LayoutValues.BUTTON_HEIGHT);
+        return createSlider(label, initialValue, maxValue, threshold, displayer, responder, x, y, LayoutValues.BUTTON_WIDTH, LayoutValues.BUTTON_HEIGHT, null);
     }
 
     protected Slider createSlider(Component label, float initialValue, float maxValue, Function<Float, Component> displayer, Consumer<Float> responder, int x, int y) {
-        return createSlider(label, initialValue, maxValue, 0.0f, displayer, responder, x, y, LayoutValues.BUTTON_WIDTH, LayoutValues.BUTTON_HEIGHT);
-    }
-
-    protected Slider createSlider(Component label, float initialValue, Function<Float, Component> displayer, Consumer<Float> responder, int x, int y) {
-        return createSlider(label, initialValue, 1.0f, 0.0f, displayer, responder, x, y, LayoutValues.BUTTON_WIDTH, LayoutValues.BUTTON_HEIGHT);
+        return createSlider(label, initialValue, maxValue, 0.0f, displayer, responder, x, y, LayoutValues.BUTTON_WIDTH, LayoutValues.BUTTON_HEIGHT, null);
     }
 
     protected CycleButton<Boolean> createBooleanButton(Component label, boolean initialValue, CycleButton.OnValueChange<Boolean> action, int x, int y, int width, int height, Tooltip tooltip) {

@@ -13,7 +13,7 @@ public enum ToastScreenBehavior {
 
     ToastScreenBehavior(String name) {
         this.name = name;
-        this.displayName = Components.of("gui.label.screen_behavior_" + this.name);
+        this.displayName = Components.of("screen_behavior." + this.name);
     }
 
     public String getName() {

@@ -39,18 +39,17 @@ public class Common {
     // Registrations
     public static void registerKeyBindings() {
         KeyBindingRegistry.register("config_menu", GLFW.GLFW_KEY_K, () -> Minecraft.getInstance().setScreen(new FancyToastsConfigScreen(null)));
-        KeyBindingRegistry.register("credits_screen", GLFW.GLFW_KEY_UNKNOWN, () -> Minecraft.getInstance().setScreen(new CreditsScreen(null)));
     }
 
     private static void registerTexture(ResourceLocation id, String name) {
-        String translationKeyName = Components.stringOf("textures.toast." + name);
+        String translationKeyName = Components.stringOf("toast.texture." + name);
         TextureRegistry.register(id, new DisplayData(
                 translationKeyName, Constants.MOD_NAME, translationKeyName + ".description", true)
         );
     }
 
     private static void registerAnimation(ResourceLocation id, String name, Supplier<FancyToastAnimation> animation) {
-        String translationKeyName = Components.stringOf("animations.toast." + name);
+        String translationKeyName = Components.stringOf("toast.animation." + name);
         AnimationRegistry.register(id, animation, new DisplayData(
                 translationKeyName, Constants.MOD_NAME, translationKeyName + ".description", true)
         );
@@ -65,6 +64,7 @@ public class Common {
         registerTexture(DefaultLocations.Textures.MODERN, "modern");
         registerTexture(DefaultLocations.Textures.STEAMY, "steamy");
         registerTexture(DefaultLocations.Textures.TERRACRAFT, "terracraft");
+        registerTexture(DefaultLocations.Textures.LANDSPAPER, "paper");
 
         registerAnimation(DefaultLocations.Animations.STANDARD, "standard", StandardAnimation::new);
         registerAnimation(DefaultLocations.Animations.PLAYFUL, "playful", PlayfulAnimation::new);

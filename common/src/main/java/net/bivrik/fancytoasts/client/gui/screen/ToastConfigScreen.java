@@ -2,7 +2,6 @@ package net.bivrik.fancytoasts.client.gui.screen;
 
 import net.bivrik.fancytoasts.client.toast.Appearance;
 import net.bivrik.fancytoasts.core.Constants;
-import net.bivrik.fancytoasts.core.Debug;
 import net.bivrik.fancytoasts.core.event.ToastConfigDataEvent;
 import net.bivrik.fancytoasts.core.manager.CustomTextureManager;
 import net.bivrik.fancytoasts.client.config.data.ToastConfigData;
@@ -27,20 +26,19 @@ import net.minecraft.client.gui.components.EditBox;
 import net.minecraft.client.gui.components.Tooltip;
 import net.minecraft.client.gui.components.events.GuiEventListener;
 import net.minecraft.client.gui.screens.Screen;
-import net.minecraft.client.resources.sounds.SimpleSoundInstance;
 import net.minecraft.network.chat.CommonComponents;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.sounds.SoundEvents;
 import org.jetbrains.annotations.NotNull;
 
 import static net.bivrik.fancytoasts.client.gui.LayoutValues.*;
 
 public class ToastConfigScreen extends UniversalScreen {
-    private static final Component TITLE = Components.of("gui.config.customization_title");
-    private static final Component CONFIG_FOLDER_LABEL = Components.of("gui.label.config_folder");
-    private static final Component RELOAD_CUSTOMS_LABEL = Components.of("gui.label.reload_customs");
-    private static final Component RELOAD_CUSTOMS_TOOLTIP = Components.of("gui.tooltip.reload_customs");
+    private static final Component TITLE = Components.of("title.visual_settings");
+    private static final Component SAVED_LABEL = Components.of("label.saved");
+    private static final Component CONFIG_FOLDER = Components.of("gui.config_folder");
+    private static final Component RELOAD_CUSTOMS = Components.of("gui.reload_customs");
+    private static final Component RELOAD_CUSTOMS_TOOLTIP = Components.of("tooltip.reload_customs");
 
     private final ToastConfigData toastConfigData;
     private final CustomTextureManager customTextureManager;
@@ -88,11 +86,11 @@ public class ToastConfigScreen extends UniversalScreen {
         int ySecondRowBottom = yFirstRowBottom - BUTTON_HEIGHT - PADDING;
 
         // Bottom buttons first row
-        doneButton = this.addFWidget(createButton(CommonComponents.GUI_DONE, button -> done(),
-                xCenter - 25 + HALF_PADDING, yFirstRowBottom));
-
         backButton = this.addFWidget(createButton(CommonComponents.GUI_BACK, button -> this.toParentScreen(),
                 xCenter - 100 - 25 - HALF_PADDING, yFirstRowBottom, 100, BUTTON_HEIGHT));
+
+        doneButton = this.addFWidget(createButton(CommonComponents.GUI_DONE, button -> done(),
+                xCenter - 25 + HALF_PADDING, yFirstRowBottom));
 
         // Locations list for entries from setting type (textures, animations, sounds)
         locationsList = this.addFWidget(new ResourceLocationList(this.minecraft,
@@ -122,10 +120,10 @@ public class ToastConfigScreen extends UniversalScreen {
                 .create(this.width - 88, MARGIN, 80, BUTTON_HEIGHT, Component.empty(), (button, value) -> setSettingType(value)));
 
         // Bottom buttons second row
-        configsFolderButton = this.addFWidget(createButton(CONFIG_FOLDER_LABEL, button -> openConfigsFolder(),
+        configsFolderButton = this.addFWidget(createButton(CONFIG_FOLDER, button -> openConfigsFolder(),
                 xCenter - 86 / 2 - PADDING, ySecondRowBottom, 86, BUTTON_HEIGHT));
 
-        reloadConfigsButton = this.addFWidget(createButton(RELOAD_CUSTOMS_LABEL, button -> reloadCustomTextures(),
+        reloadConfigsButton = this.addFWidget(createButton(RELOAD_CUSTOMS, button -> reloadCustomTextures(),
                 xCenter + 129 - 86, ySecondRowBottom, 86, BUTTON_HEIGHT, Tooltip.create(RELOAD_CUSTOMS_TOOLTIP)));
 
         advancementTypeButton = this.addFWidget(CycleButton.builder(FancyToastType::getDisplayName).displayOnlyValue()
@@ -136,7 +134,7 @@ public class ToastConfigScreen extends UniversalScreen {
     }
 
     private Tooltip getTooltip(String valueName) {
-        return Tooltip.create(Components.of("gui.tooltip." + valueName));
+        return Tooltip.create(Components.of("tooltip." + valueName));
     }
 
     private void openConfigsFolder() {
@@ -188,7 +186,7 @@ public class ToastConfigScreen extends UniversalScreen {
 
         int color = Colors.alpha(appearanceLerp - disappearanceLerp, Colors.YELLOW);
 
-        guiGraphics.drawString(this.font, "Saved!", x, y, color);
+        guiGraphics.drawString(this.font, SAVED_LABEL, x, y, color);
 
         if (time >= 1000) {
             isSaved = false;

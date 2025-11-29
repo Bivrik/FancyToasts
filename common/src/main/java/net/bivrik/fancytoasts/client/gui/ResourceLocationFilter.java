@@ -16,6 +16,6 @@ public enum ResourceLocationFilter {
     }
 
     public Component getDisplayName() {
-        return Components.of("gui.filter." + name);
+        return Components.of("filter." + name);
     }
 }
