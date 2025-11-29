@@ -87,7 +87,7 @@ public class Managers {
      * Some mods trigger Minecraft's ToastManager {@code update()} or {@code render()} on Minecraft initialization. Therefore, it can return null during this phase to avoid immediate crash
      * @return {@link ToastManager}
      */
-    public static @Nullable ToastManager getAdvancementToastManager() {
+    public static @Nullable ToastManager getToastManager() {
         try {
             return get(ToastManager.class);
         } catch (IllegalStateException e) {

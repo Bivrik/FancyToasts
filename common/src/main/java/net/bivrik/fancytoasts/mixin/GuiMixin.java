@@ -14,10 +14,10 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 public class GuiMixin {
     @Inject(at = @At("HEAD"), method = "render")
     private void onRender(GuiGraphics guiGraphics, DeltaTracker deltaTracker, CallbackInfo info) {
-        ToastManager toastManager = Managers.getAdvancementToastManager();
+        ToastManager toastManager = Managers.getToastManager();
         if (toastManager == null) return;
 
-        if (toastManager.isScreenOpened() && toastManager.isScreenBehaviourBehind()) {
+        if (toastManager.shouldRenderBehind()) {
             toastManager.render(guiGraphics);
         }
     }

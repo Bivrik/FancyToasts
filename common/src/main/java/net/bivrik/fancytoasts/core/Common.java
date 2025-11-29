@@ -1,8 +1,7 @@
 package net.bivrik.fancytoasts.core;
 
-import net.bivrik.fancytoasts.client.gui.screen.FancyToastsConfigScreen;
+import net.bivrik.fancytoasts.client.gui.screen.FancyToastsScreen;
 import net.bivrik.fancytoasts.client.registry.KeyBindingRegistry;
-import net.bivrik.fancytoasts.client.gui.screen.CreditsScreen;
 import net.bivrik.fancytoasts.client.toast.animation.*;
 import net.bivrik.fancytoasts.client.toast.DisplayData;
 import net.bivrik.fancytoasts.client.registry.AnimationRegistry;
@@ -38,7 +37,7 @@ public class Common {
 
     // Registrations
     public static void registerKeyBindings() {
-        KeyBindingRegistry.register("config_menu", GLFW.GLFW_KEY_K, () -> Minecraft.getInstance().setScreen(new FancyToastsConfigScreen(null)));
+        KeyBindingRegistry.register("config_menu", GLFW.GLFW_KEY_K, () -> Minecraft.getInstance().setScreen(new FancyToastsScreen(null)));
     }
 
     private static void registerTexture(ResourceLocation id, String name) {

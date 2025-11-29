@@ -1,6 +1,6 @@
 package net.bivrik.fancytoasts.gui;
 
-import net.bivrik.fancytoasts.client.gui.screen.FancyToastsConfigScreen;
+import net.bivrik.fancytoasts.client.gui.screen.FancyToastsScreen;
 import net.minecraftforge.client.ConfigScreenHandler;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 
@@ -10,7 +10,7 @@ public class ForgeConfigScreen {
         context.registerExtensionPoint(
                 ConfigScreenHandler.ConfigScreenFactory.class,
                 () -> new ConfigScreenHandler.ConfigScreenFactory(
-                        FancyToastsConfigScreen::new
+                        FancyToastsScreen::new
                 )
         );
     }

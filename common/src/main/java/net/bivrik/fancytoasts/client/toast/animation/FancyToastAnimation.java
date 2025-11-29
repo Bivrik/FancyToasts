@@ -75,7 +75,7 @@ public abstract class FancyToastAnimation {
     }
 
     public void draw(GuiGraphics guiGraphics, long time) {
-        if (shouldTransparentToast && Objects.requireNonNull(Managers.getAdvancementToastManager()).isScreenOpened()) {
+        if (shouldTransparentToast && Objects.requireNonNull(Managers.getToastManager()).isScreenOpened()) {
             guiAlpha = 0.5f;
         }
         else if (guiAlpha != 1.0f) {

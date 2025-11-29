@@ -2,10 +2,12 @@ package net.bivrik.fancytoasts.core.manager;
 
 import net.bivrik.fancytoasts.client.config.data.GeneralConfigData;
 import net.bivrik.fancytoasts.client.config.data.ToastConfigData;
+import net.bivrik.fancytoasts.core.Debug;
+import net.bivrik.fancytoasts.core.IManager;
+import net.bivrik.fancytoasts.core.ITickableManager;
 import net.bivrik.fancytoasts.core.event.GeneralConfigDataEvent;
 import net.bivrik.fancytoasts.client.toast.FancyAdvancementToast;
 import net.bivrik.fancytoasts.client.config.ToastScreenBehavior;
-import net.bivrik.fancytoasts.core.IManager;
 import net.bivrik.fancytoasts.core.Managers;
 import net.bivrik.fancytoasts.core.event.ToastConfigDataEvent;
 import net.bivrik.fancytoasts.platform.utility.GuiContext;
@@ -145,7 +147,7 @@ public class ToastManager implements IManager {
         return minecraft.screen != null && !(minecraft.screen instanceof ChatScreen);
     }
 
-    public boolean isScreenBehaviourBehind() {
-        return generalConfigData.getToastScreenBehavior() == ToastScreenBehavior.BEHIND;
+    public boolean shouldRenderBehind() {
+        return generalConfigData.getToastScreenBehavior() == ToastScreenBehavior.BEHIND && isScreenOpened();
     }
 }

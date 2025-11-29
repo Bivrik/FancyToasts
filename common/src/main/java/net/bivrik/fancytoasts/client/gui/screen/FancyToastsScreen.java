@@ -18,7 +18,7 @@ import java.net.URI;
 
 import static net.bivrik.fancytoasts.client.gui.LayoutValues.*;
 
-public class FancyToastsConfigScreen extends UniversalScreen {
+public class FancyToastsScreen extends UniversalScreen {
     private static final int TITLE_BUTTON_WIDTH = 180;
     private static final int HALF_TITLE_BUTTON_WIDTH = TITLE_BUTTON_WIDTH / 2;
 
@@ -40,7 +40,7 @@ public class FancyToastsConfigScreen extends UniversalScreen {
     private Button creditsButton;
     private PlainTextButton supportButton;
 
-    public FancyToastsConfigScreen(Screen parent) {
+    public FancyToastsScreen(Screen parent) {
         super(TITLE, parent);
 
         this.splash = Managers.getSplashManager().getSplash();

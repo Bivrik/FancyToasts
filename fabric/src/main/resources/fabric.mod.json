@@ -30,10 +30,5 @@
     "fabric-api": "*",
     "minecraft": "~${minecraft_version}",
     "java": ">=${java_version}"
-  },
-  "custom": {
-    "badoptimizations:incompatibilities": [
-      "enable_toast_optimizations"
-    ]
   }
 }
