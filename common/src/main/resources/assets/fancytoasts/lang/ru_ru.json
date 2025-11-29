@@ -83,7 +83,7 @@
   "fancytoasts.tooltip.reload_customs": "Перезагружает все файлы, загруженные через config, такие как текстуры, и добавляет/удаляет их из списка выше.",
   "fancytoasts.tooltip.loops_strength": "Представляет силу волн sin/cos, слабые/сильные волны.",
   "fancytoasts.tooltip.loops_speed": "Представляет скорость волн sin/cos, медленные/быстрые волны.",
-  "fancytoasts.tooltip.toasts_filtering": "Требует перезапуск Minecraft. Чтобы добавить в чёрный список достижение, добавьте \"namespace:category/advancement\" в \"toastsToIgnore\". Чтобы добавить в чёрный список целую категорию, добавьте \"namespace:category/...\".",
+  "fancytoasts.tooltip.toasts_filtering": "Требует перезапуск Minecraft. Чтобы добавить в чёрный список достижение, добавьте \"namespace:category/advancement\" в 'toastsToIgnore'. Чтобы добавить в чёрный список целую категорию, добавьте \"namespace:category/...\".",
 
   "fancytoasts.toast.animation.standard": "Стандарт",
   "fancytoasts.toast.animation.standard.description": "Стандартная анимация. Спокойная и аккуратная. Въезжает сверху вниз. В каком-то смысле в стиле Minecraft",

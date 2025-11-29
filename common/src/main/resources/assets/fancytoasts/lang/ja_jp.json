@@ -1,78 +1,117 @@
 {
-  // By PExPE3
-  "fancytoasts.gui.unknown": "不明",
-  "fancytoasts.gui.custom": "カスタム",
-  "fancytoasts.gui.config.title": "Fancy Toasts",
-  "fancytoasts.gui.config.customization_title": "カスタマイズ設定",
-  "fancytoasts.gui.config.general_title": "一般設定",
-  "fancytoasts.gui.label.textures": "テクスチャ",
-  "fancytoasts.gui.label.animations": "アニメーション",
-  "fancytoasts.gui.label.sounds": "サウンド",
-  "fancytoasts.gui.label.task": "タスク",
-  "fancytoasts.gui.label.goal": "目標",
-  "fancytoasts.gui.label.challenge": "チャレンジ",
-  "fancytoasts.gui.label.author": "作者:",
-  "fancytoasts.gui.label.description": "説明:",
-  "fancytoasts.gui.label.general_settings": "設定",
-  "fancytoasts.gui.label.toast_settings": "トースト設定",
-  "fancytoasts.gui.label.jade_compatibility": "Jade互換性",
-  "fancytoasts.gui.label.sounds_enabled": "トーストの音",
-  "fancytoasts.gui.label.task_volume": "タスクタイプの音量",
-  "fancytoasts.gui.label.goal_volume": "目標タイプの音量",
-  "fancytoasts.gui.label.challenge_volume": "チャレンジタイプの音量",
-  "fancytoasts.gui.label.position": "位置",
-  "fancytoasts.gui.label.position_left": "左",
-  "fancytoasts.gui.label.position_right": "右",
-  "fancytoasts.gui.label.position_center": "中央",
-  "fancytoasts.gui.label.screen_behavior": "表示方法",
-  "fancytoasts.gui.label.screen_behavior_top": "最前面",
-  "fancytoasts.gui.label.screen_behavior_behind": "背面",
-  "fancytoasts.gui.label.screen_behavior_transparent": "透過",
+  // By PExPE3, (< 1.4.4)
+  "fancytoasts.title.visual_settings": "カスタマイズ設定",
+  "fancytoasts.title.general_settings": "一般設定",
+  "fancytoasts.title.toasts_filtering": "トーストフィルタリング", // Machine translation
+  "fancytoasts.title.reset_general_settings": "一般設定をリセット", // Machine translation
+  "fancytoasts.title.reset_toasts_filtering": "トーストフィルタリングをリセット", // Machine translation
 
-  "fancytoasts.gui.tooltip.task": "タスクタイプの進捗に使用される音",
-  "fancytoasts.gui.tooltip.goal": "目標タイプの進捗に使用される音",
-  "fancytoasts.gui.tooltip.challenge": "チャレンジタイプの進捗に使用される音",
-  "fancytoasts.gui.tooltip.textures": "トーストに使用されるテクスチャ。カスタムテクスチャは \"./config/textures\" フォルダから読み込めます",
-  "fancytoasts.gui.tooltip.animations": "トーストが表示される際に使われるアニメーション",
-  "fancytoasts.gui.tooltip.sounds": "トーストが表示されたときに再生される音",
-  "fancytoasts.gui.tooltip.jade_compatibility": "Jadeとの互換性を切り替えます。有効化すると、進捗トーストが表示された際にJadeのプレートが非表示になります",
-  "fancytoasts.gui.tooltip.sounds_enabled": "サウンドを切り替えます。オフにすると、全てのトースト音がミュートされます",
-  "fancytoasts.gui.tooltip.position": "画面上部に表示される進捗トーストの位置",
-  "fancytoasts.gui.tooltip.screen_behavior": "画面（インベントリ、チェストなど）を開いたときの進捗トーストの表示方法",
+  "fancytoasts.label.support": "私のBoostyブログを見てみてね!", // Machine translation
+  "fancytoasts.label.unknown": "不明",
+  "fancytoasts.label.custom": "カスタム",
+  "fancytoasts.label.reset_general_settings": "一般設定をリセットすると、既存の設定が標準設定に戻ります。実行してもよろしいですか？", // Machine translation
+  "fancytoasts.label.reset_toasts_filtering": "トーストフィルタリングをリセットすると、既存のフィルターが標準設定に戻ります。実行してもよろしいですか？", // Machine translation
+  "fancytoasts.label.author": "作者:",
+  "fancytoasts.label.description": "説明:",
+  "fancytoasts.label.translators": "翻訳者", // Machine translation
+  "fancytoasts.label.github_activists": "GitHubコントリビューター", // Machine translation
+  "fancytoasts.label.boosters": "サポーター", // Machine translation
+  "fancytoasts.label.special_thanks": "スペシャルサンクス", // Machine translation
+  "fancytoasts.label.credits_fallback": "クレジットを読み込む接続がありません", // Machine translation
+  "fancytoasts.label.saved": "保存しました!", // Machine translation
 
-  "fancytoasts.animations.toast.standard": "標準",
-  "fancytoasts.animations.toast.standard.description": "標準的なアニメーション。落ち着いていて安定感があり、バニラのマインクラフトの様にゆるやかにスライドします",
-  "fancytoasts.animations.toast.playful": "遊び心",
-  "fancytoasts.animations.toast.playful.description": "エナジー！遊び心！ゲーム感！活発でより実験的なアニメーション",
-  "fancytoasts.animations.toast.quirky": "風変わり",
-  "fancytoasts.animations.toast.quirky.description": "グラグラ揺れていて野性的。止まることなく常に動き続けます",
+  "fancytoasts.gui.textures": "テクスチャ",
+  "fancytoasts.gui.animations": "アニメーション",
+  "fancytoasts.gui.sounds": "サウンド",
+  "fancytoasts.gui.credits": "クレジット", // Machine translation
+  "fancytoasts.gui.config_folder": "設定フォルダ", // Machine translation
+  "fancytoasts.gui.reload_customs": "カスタムを再読み込み", // Machine translation
+  "fancytoasts.gui.reset": "リセット",
+  "fancytoasts.gui.general_settings": "設定",
+  "fancytoasts.gui.toast_settings": "トースト設定",
+  "fancytoasts.gui.toasts_filtering": "トーストフィルタリング", // Machine translation
+  "fancytoasts.gui.jade_hiding": "トースト中にJadeを非表示", // Machine translation
+  "fancytoasts.gui.sounds_enabled": "トーストの音",
+  "fancytoasts.gui.task_volume": "タスクタイプの音量",
+  "fancytoasts.gui.goal_volume": "目標タイプの音量",
+  "fancytoasts.gui.challenge_volume": "チャレンジタイプの音量",
+  "fancytoasts.gui.screen_behavior": "表示方法",
+  "fancytoasts.gui.loops_strength": "ループの強度", // Machine translation
+  "fancytoasts.gui.loops_speed": "ループの速度", // Machine translation
+  "fancytoasts.gui.anchor": "アンカー", // Machine translation
+  "fancytoasts.gui.fancy_advancement_toasts": "華やかな進級祝賀会", // Machine translation
+  "fancytoasts.gui.advancement_toasts": "進級祝杯", // Machine translation
+  "fancytoasts.gui.fancy_quest_toasts": "ファンシークエストトースト", // Machine translation
+  "fancytoasts.gui.recipe_toasts": "レシピトースト", // Machine translation
+  "fancytoasts.gui.system_toasts": "システムトースト", // Machine translation
+  "fancytoasts.gui.tutorial_toasts": "チュートリアルトースト", // Machine translation
+  "fancytoasts.gui.ignored_toasts": "無視するトースト", // Machine translation
 
-  "fancytoasts.textures.toast.vanilla": "バニラ風",
-  "fancytoasts.textures.toast.vanilla.description": "バニラのマインクラフトにインスパイアされたもの",
-  "fancytoasts.textures.toast.nature": "自然風",
-  "fancytoasts.textures.toast.nature.description": "どこか森の奥深くに迷い込んだ様。母なる自然からインスパイアされたもの",
-  "fancytoasts.textures.toast.og": "オリジナル",
-  "fancytoasts.textures.toast.og.description": "真の古参プレイヤーで、昔ながらの無骨なスタイルが好きなら、これはあなたの為のもの",
-  "fancytoasts.textures.toast.modern": "モダン",
-  "fancytoasts.textures.toast.modern.description": "華やかで、すっきり整然としたもの",
-  "fancytoasts.textures.toast.terracraft": "テラクラフト",
-  "fancytoasts.textures.toast.terracraft.description": "なんだこれ？空に大きな赤い目が見えたぞ！あっ、突進してきた… Terrariaにインスパイアされたもの",
-  "fancytoasts.textures.toast.steamy": "スチーミー",
-  "fancytoasts.textures.toast.steamy.description": "1500時間かけて実績を100%にしたんだ！ママ、誇りに思ってくれる？ Steamにインスパイアされたもの",
+  "fancytoasts.toast_type.task": "タスク",
+  "fancytoasts.toast_type.goal": "目標",
+  "fancytoasts.toast_type.challenge": "チャレンジ",
 
-  "fancytoasts.sound.minecraft.description": "Minecraftに内蔵された音",
+  "fancytoasts.screen_behavior.transparent": "透過",
+  "fancytoasts.screen_behavior.behind": "背面",
+  "fancytoasts.screen_behavior.top": "最前面",
 
-  // By Bivrik with translator
-  "fancytoasts.gui.label.credits": "クレジット",
-  "fancytoasts.gui.label.translators": "翻訳者",
-  "fancytoasts.gui.label.github_activists": "GitHubアクティビスト",
-  "fancytoasts.gui.label.boosters": "サポーター",
-  "fancytoasts.gui.label.special_thanks": "スペシャルサンクス",
-  "fancytoasts.gui.label.fallback": "クレジットを読み込むための接続がありません",
-  "fancytoasts.animations.toast.oldlike": "旧式風",
-  "fancytoasts.animations.toast.oldlike.description": "少し気取った感じがいいですか？昔の進捗トーストにインスパイアされました。右から左へスライドし、おしゃれな出現効果付き",
-  "fancytoasts.sound.mod.description": "Modから読み込まれたサウンド",
-  "fancytoasts.sound.resource_pack.description": "リソースパックから読み込まれたサウンド",
-  "key.fancytoasts.config_menu": "Fancy Toasts メニュー",
-  "fancytoasts.gui.support": "私のBoostyブログを見てみてね！"
+  "fancytoasts.anchor.top_left": "左上", // Machine translation
+  "fancytoasts.anchor.top": "上中央", // Machine translation
+  "fancytoasts.anchor.top_right": "右上", // Machine translation
+  "fancytoasts.anchor.center_left": "中央左", // Machine translation
+  "fancytoasts.anchor.center": "中央", // Machine translation
+  "fancytoasts.anchor.center_right": "中央右", // Machine translation
+  "fancytoasts.anchor.bottom_left": "左下", // Machine translation
+  "fancytoasts.anchor.bottom": "下中央", // Machine translation
+  "fancytoasts.anchor.bottom_right": "右下", // Machine translation
+
+  "fancytoasts.filter.a_z": "A-Z",
+  "fancytoasts.filter.z_a": "Z-A",
+  "fancytoasts.filter.built_in": "組み込み", // Machine translation
+  "fancytoasts.filter.custom": "カスタム", // Machine translation
+
+  "fancytoasts.tooltip.task": "タスクタイプの進捗に使用される音",
+  "fancytoasts.tooltip.goal": "目標タイプの進捗に使用される音",
+  "fancytoasts.tooltip.challenge": "チャレンジタイプの進捗に使用される音",
+  "fancytoasts.tooltip.textures": "トーストに使用されるテクスチャ。カスタムテクスチャは \"./config/textures/\" フォルダから読み込めます",
+  "fancytoasts.tooltip.animations": "トーストが表示される際に使われるアニメーション",
+  "fancytoasts.tooltip.sounds": "トーストが表示されたときに再生される音",
+  "fancytoasts.tooltip.jade_hiding": "Jadeの非表示を切り替えます。オンにすると、進捗トーストが表示されたときにJadeのプレートが非表示になり、その後再表示されます", // Machine translation
+  "fancytoasts.tooltip.sounds_enabled": "サウンドを切り替えます。オフにすると、全てのトースト音がミュートされます",
+  "fancytoasts.tooltip.anchor": "画面上での進捗トーストのアンカーポイントを表します。位置\"x\"と\"y\"は、アンカーポイントに基づいて計算されたオフセットです", // Machine translation
+  "fancytoasts.tooltip.screen_behavior": "画面（インベントリ、チェストなど）を開いたときの進捗トーストの表示方法",
+  "fancytoasts.tooltip.reload_customs": "テクスチャなどの設定ベースのファイルをすべて再読み込みし、上記のリストに追加/削除します", // Machine translation
+  "fancytoasts.tooltip.loops_strength": "サイン/コサイン波の強度を表し、弱い/強い波になります", // Machine translation
+  "fancytoasts.tooltip.loops_speed": "サイン/コサイン波の速度を表し、遅い/速い波になります", // Machine translation
+  "fancytoasts.tooltip.toasts_filtering": "Minecraftの再起動が必要です。単一の進捗をブラックリストに登録するには、\"namespace:category/advancement\"を'toastsToIgnore'に入れてください。カテゴリ全体をブラックリストに登録するには、\"namespace:category/...\"を入れてください", // Machine translation
+
+  "fancytoasts.toast.animation.standard": "標準",
+  "fancytoasts.toast.animation.standard.description": "標準的なアニメーション。落ち着いていて安定感があり、バニラのマインクラフトの様にゆるやかにスライドします",
+  "fancytoasts.toast.animation.playful": "遊び心",
+  "fancytoasts.toast.animation.playful.description": "エナジー！遊び心！ゲーム感！活発でより実験的なアニメーション",
+  "fancytoasts.toast.animation.quirky": "風変わり",
+  "fancytoasts.toast.animation.quirky.description": "グラグラ揺れていて野性的。止まることなく常に動き続けます",
+  "fancytoasts.toast.animation.oldlike": "旧式風", // Machine translation
+  "fancytoasts.toast.animation.oldlike.description": "今日は少し気分がファンシー？懐かしい進捗トーストにインスパイアされました。右から左にスライドし、透明な状態から現れます", // Machine translation
+
+  "fancytoasts.toast.texture.vanilla": "バニラ風",
+  "fancytoasts.toast.texture.vanilla.description": "バニラのマインクラフトにインスパイアされたもの",
+  "fancytoasts.toast.texture.nature": "自然風",
+  "fancytoasts.toast.texture.nature.description": "どこか森の奥深くに迷い込んだ様。母なる自然からインスパイアされたもの",
+  "fancytoasts.toast.texture.og": "オリジナル",
+  "fancytoasts.toast.texture.og.description": "真の古参プレイヤーで、昔ながらの無骨なスタイルが好きなら、これはあなたの為のもの",
+  "fancytoasts.toast.texture.modern": "モダン",
+  "fancytoasts.toast.texture.modern.description": "華やかで、すっきり整然としたもの",
+  "fancytoasts.toast.texture.terracraft": "テラクラフト",
+  "fancytoasts.toast.texture.terracraft.description": "なんだこれ？空に大きな赤い目が見えたぞ！あっ、突進してきた… Terrariaにインスパイアされたもの",
+  "fancytoasts.toast.texture.steamy": "スチーミー",
+  "fancytoasts.toast.texture.steamy.description": "1500時間かけて実績を100%にしたんだ！ママ、誇りに思ってくれる？ Steamにインスパイアされたもの",
+  "fancytoasts.toast.texture.landspaper": "ランドスペーパー", // Machine translation
+  "fancytoasts.toast.texture.landspaper.description": "新しい手紙が届いたようです！どこかにピン留めしてよく見てみましょう。濡れて溶けないといいですね", // Machine translation
+
+  "fancytoasts.toast.sound.minecraft.description": "Minecraftに内蔵された音",
+  "fancytoasts.toast.sound.mod.description": "Modからの音", // Machine translation
+  "fancytoasts.toast.sound.resourcepack.description": "リソースパックからの音", // Machine translation
+
+  "key.fancytoasts.config_menu": "Fancy Toastsメニュー" // Machine translation
 }
