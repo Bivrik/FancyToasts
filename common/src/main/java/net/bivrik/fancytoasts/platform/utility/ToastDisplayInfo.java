@@ -33,7 +33,7 @@ public class ToastDisplayInfo {
         return description;
     }
 
-    public Component getAdvancementsAnnouncement() {
+    public Component getAnnouncement() {
         return advancementType.getDisplayAnnouncement();
     }
 

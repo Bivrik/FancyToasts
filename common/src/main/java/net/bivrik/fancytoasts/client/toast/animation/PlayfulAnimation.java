@@ -92,7 +92,7 @@ public class PlayfulAnimation extends FancyToastAnimation {
             context.pop();
         }
 
-        if (textAppearProgress > 0) {
+        if (textAppearProgress > 0.05f) {
             this.drawTitle(guiGraphics, textAppearProgress);
             this.drawDescription(guiGraphics, textAppearProgress);
         }

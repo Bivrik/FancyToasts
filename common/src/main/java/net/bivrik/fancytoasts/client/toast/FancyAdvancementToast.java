@@ -100,7 +100,7 @@ public class FancyAdvancementToast {
     }
 
     private void playSound(ResourceLocation soundLocation, float volume) {
-        playSound(new SoundEvent(soundLocation, Optional.empty()), volume);
+        playSound(SoundEvent.createVariableRangeEvent(soundLocation), volume);
     }
 
     public boolean isEnded() {

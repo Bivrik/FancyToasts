@@ -109,7 +109,7 @@ public class CustomTextureManager implements IManager {
         try {
             NativeImage image = NativeImage.read(Files.readAllBytes(getFileFromId(id).toPath()));
             String dynamicTextureName = id.toLanguageKey().replace(FileType.PNG.get(), "").replace("/", "_").replace(".", "-");
-            DynamicTexture dynamicTexture = new DynamicTexture(() -> dynamicTextureName, image);
+            DynamicTexture dynamicTexture = new DynamicTexture(image);
 
             textureManager.register(id, dynamicTexture);
             registeredInMinecraft.add(id);

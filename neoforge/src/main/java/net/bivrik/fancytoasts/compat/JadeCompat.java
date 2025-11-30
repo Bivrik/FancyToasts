@@ -20,7 +20,7 @@ public class JadeCompat {
 
     private static void toggle(boolean value) {
         isEnabled = value;
-        WailaConfig config = Jade.config();
-        config.general().setDisplayTooltip(isEnabled);
+        WailaConfig config = Jade.CONFIG.get();
+        config.getGeneral().setDisplayTooltip(isEnabled);
     }
 }

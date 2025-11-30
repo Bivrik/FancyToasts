@@ -21,7 +21,7 @@ public class KeyBindingRegistry {
             return;
         }
 
-        KeyMapping key = new KeyMapping(translatableName, keyCode, KeyMapping.Category.MISC);
+        KeyMapping key = new KeyMapping(translatableName, keyCode, KeyMapping.CATEGORY_MISC);
         KeyBinding bind = new KeyBinding(key, executor);
 
         KEY_BINDINGS.put(translatableName, bind);

@@ -6,6 +6,7 @@ import net.bivrik.fancytoasts.platform.utility.Components;
 import net.bivrik.fancytoasts.platform.utility.GuiContext;
 import net.bivrik.fancytoasts.platform.utility.Colors;
 import net.bivrik.fancytoasts.platform.utility.ResourceLocations;
+import net.bivrik.fancytoasts.utility.TextureUV;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.GuiGraphics;
@@ -60,7 +61,7 @@ public class InformationList extends AbstractSelectionList<InformationList.Entry
 
     private void clear() {
         this.clearEntries();
-        this.refreshScrollAmount();
+        this.setScrollAmount(0);
         lines.clear();
     }
 
@@ -105,7 +106,7 @@ public class InformationList extends AbstractSelectionList<InformationList.Entry
     }
 
     @Override
-    protected int scrollBarX() {
+    protected int getScrollbarPosition() {
         return this.getX() + this.width - 8;
     }
 
@@ -123,8 +124,8 @@ public class InformationList extends AbstractSelectionList<InformationList.Entry
         }
 
         @Override
-        public void renderContent(@NotNull GuiGraphics guiGraphics, int mouseX, int mouseY, boolean hovering, float partialTick) {
-            guiGraphics.drawString(font, content, this.getX(), this.getY() + 3, color);
+        public void render(@NotNull GuiGraphics guiGraphics, int index, int y, int x, int width, int height, int mouseX, int mouseY, boolean isHovering, float partialTick) {
+            guiGraphics.drawString(font, content, x, y + 3, color);
         }
     }
 }

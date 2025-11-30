@@ -3,6 +3,7 @@ package net.bivrik.fancytoasts.mixin;
 import net.bivrik.fancytoasts.core.Managers;
 import net.bivrik.fancytoasts.core.manager.ToastManager;
 import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.components.toasts.ToastComponent;
 import net.minecraft.client.renderer.GameRenderer;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
@@ -14,14 +15,16 @@ public class GameRendererMixin {
             method = "render",
             at = @At(
                     value = "INVOKE",
-                    target = "Lnet/minecraft/client/gui/components/toasts/ToastManager;render(Lnet/minecraft/client/gui/GuiGraphics;)V"
+                    target = "Lnet/minecraft/client/gui/components/toasts/ToastComponent;render(Lnet/minecraft/client/gui/GuiGraphics;)V"
             )
     )
-    private void onToastManagerRender(net.minecraft.client.gui.components.toasts.ToastManager minecraftToastManager, GuiGraphics guiGraphics) {
-        minecraftToastManager.render(guiGraphics);
+    private void onToastManagerRender(ToastComponent toastComponent, GuiGraphics guiGraphics) {
+        toastComponent.render(guiGraphics);
 
         ToastManager toastManager = Managers.getToastManager();
         if (toastManager == null) return;
+
+        toastManager.update();
 
         if (!toastManager.shouldRenderBehind()) {
             toastManager.render(guiGraphics);

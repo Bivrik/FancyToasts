@@ -22,7 +22,7 @@ public class StandardAnimation extends FancyToastAnimation {
     public void setup(AnimationSetup setup, Minecraft minecraft, int toastWidth, int toastHeight) {
         super.setup(setup, minecraft, toastWidth, toastHeight);
 
-        this.setLines(displayInfo.getAdvancementsAnnouncement(), displayInfo.getTitle());
+        this.setLines(displayInfo.getAnnouncement(), displayInfo.getTitle());
     }
 
     @Override
@@ -79,7 +79,7 @@ public class StandardAnimation extends FancyToastAnimation {
             context.pop();
         }
 
-        if (textAppearProgress > 0) {
+        if (textAppearProgress > 0.05f) {
             this.drawTitle(guiGraphics, textAppearProgress);
             this.drawDescription(guiGraphics, textAppearProgress);
         }

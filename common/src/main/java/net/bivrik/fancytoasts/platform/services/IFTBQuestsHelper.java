@@ -1,5 +1,7 @@
 package net.bivrik.fancytoasts.platform.services;
 
+import net.bivrik.fancytoasts.core.Constants;
+import net.bivrik.fancytoasts.platform.Services;
 import net.bivrik.fancytoasts.platform.utility.ToastDisplayInfo;
 import net.minecraft.client.gui.components.toasts.Toast;
 
@@ -20,5 +22,9 @@ public interface IFTBQuestsHelper {
      */
     default ToastDisplayInfo getDisplayInfo(Toast toast) {
         return null;
+    }
+
+    default boolean isLoaded() {
+        return Services.PLATFORM.isModLoaded(Constants.Compatibilities.FTB_QUESTS_ID);
     }
 }

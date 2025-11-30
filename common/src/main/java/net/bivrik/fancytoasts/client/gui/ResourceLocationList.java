@@ -9,8 +9,7 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.ObjectSelectionList;
-import net.minecraft.client.input.KeyEvent;
-import net.minecraft.client.input.MouseButtonEvent;
+import net.minecraft.client.gui.navigation.CommonInputs;
 import net.minecraft.client.resources.sounds.SimpleSoundInstance;
 import net.minecraft.client.sounds.SoundManager;
 import net.minecraft.network.chat.Component;
@@ -51,7 +50,7 @@ public class ResourceLocationList extends ObjectSelectionList<ResourceLocationLi
     }
 
     @Override
-    protected int scrollBarX() {
+    protected int getScrollbarPosition() {
         return this.getX() + this.width - 8;
     }
 
@@ -85,7 +84,7 @@ public class ResourceLocationList extends ObjectSelectionList<ResourceLocationLi
 
     private void clearList() {
         this.clearEntries();
-        this.refreshScrollAmount();
+        this.setScrollAmount(0);
     }
 
     public void setSearch(String search) {
@@ -189,7 +188,7 @@ public class ResourceLocationList extends ObjectSelectionList<ResourceLocationLi
         }
 
         @Override
-        public boolean mouseClicked(@NotNull MouseButtonEvent e, boolean isDoubleClick) {
+        public boolean mouseClicked(double mouseX, double mouseY, int button) {
             if (Util.getMillis() - lastClickTime >= 250L) {
                 lastClickTime = Util.getMillis();
                 focus();
@@ -198,16 +197,16 @@ public class ResourceLocationList extends ObjectSelectionList<ResourceLocationLi
                 select();
             }
 
-            return super.mouseClicked(e, isDoubleClick);
+            return super.mouseClicked(mouseX, mouseY, button);
         }
 
         @Override
-        public boolean keyPressed(KeyEvent e) {
-            if (e.isSelection()) {
+        public boolean keyPressed(int keyCode, int scanCode, int modifiers) {
+            if (CommonInputs.selected(keyCode)) {
                 select();
             }
 
-            return super.keyPressed(e);
+            return super.keyPressed(keyCode, scanCode, modifiers);
         }
 
         private void focus() {
@@ -229,36 +228,10 @@ public class ResourceLocationList extends ObjectSelectionList<ResourceLocationLi
             }
         }
 
-        // For easier backport I hope
-        private int x() {
-            return this.getX();
-        }
-
-        private int y() {
-            return this.getY();
-        }
-
-        private int width() {
-            return this.getWidth();
-        }
-
-        private int height() {
-            return this.getHeight();
-        }
-        //
-
         @Override
-        public int getX() {
-            return super.getX() - 3;
-        }
+        public void render(@NotNull GuiGraphics guiGraphics, int index, int y, int x, int width, int height, int mouseX, int mouseY, boolean isHovering, float partialTick) {
+            x += 3;
 
-        @Override
-        public int getWidth() {
-            return super.getWidth() + 3;
-        }
-
-        @Override
-        public void renderContent(@NotNull GuiGraphics guiGraphics, int mouseX, int mouseY, boolean isHovering, float partialTick) {
             int mainColor = Colors.WHITE;
             int secondColor = Colors.LIGHT_GRAY;
 
@@ -268,12 +241,12 @@ public class ResourceLocationList extends ObjectSelectionList<ResourceLocationLi
             }
             else if (isHovering) {
                 var context = new GuiContext(guiGraphics);
-                context.fill(x(), y(), width(), height(), Colors.alpha(16, Colors.WHITE));
-                context.fill(x() + 1, y() + 1, width() - 2, height() - 2, Colors.alpha(64, Colors.BLACK));
+                context.fill(x, y - 2, width, height + 4, Colors.alpha(16, Colors.WHITE));
+                context.fill(x + 1, y - 1, width - 2, height + 2, Colors.alpha(64, Colors.BLACK));
             }
 
-            int nameX = x() + 3;
-            int nameY = y() + 5;
+            int nameX = x + 3;
+            int nameY = y + 3;
             FormattedCharSequence nameFirstLine = nameLines.getFirst();
 
             if (nameLines.size() == 1) {
@@ -285,7 +258,7 @@ public class ResourceLocationList extends ObjectSelectionList<ResourceLocationLi
             }
 
             if (isConfig) {
-                guiGraphics.drawString(font, Component.literal("c"), x() + width() - 10, nameY, Colors.LIGHT_GRAY);
+                guiGraphics.drawString(font, Component.literal("c"),  + width - 10, nameY, Colors.LIGHT_GRAY);
             }
         }
     }

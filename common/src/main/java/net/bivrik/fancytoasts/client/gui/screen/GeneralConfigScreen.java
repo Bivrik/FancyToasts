@@ -1,5 +1,6 @@
 package net.bivrik.fancytoasts.client.gui.screen;
 
+import com.mojang.blaze3d.systems.RenderSystem;
 import net.bivrik.fancytoasts.client.config.ToastAnchor;
 import net.bivrik.fancytoasts.client.config.ToastScreenBehavior;
 import net.bivrik.fancytoasts.client.config.ConfigHandler;
@@ -8,6 +9,7 @@ import net.bivrik.fancytoasts.client.gui.IntegerEditBox;
 import net.bivrik.fancytoasts.client.gui.Slider;
 import net.bivrik.fancytoasts.client.toast.Appearance;
 import net.bivrik.fancytoasts.core.Constants;
+import net.bivrik.fancytoasts.core.Debug;
 import net.bivrik.fancytoasts.core.event.GeneralConfigDataEvent;
 import net.bivrik.fancytoasts.platform.Services;
 import net.bivrik.fancytoasts.platform.utility.Colors;
@@ -176,8 +178,10 @@ public class GeneralConfigScreen extends UniversalScreen {
 
     @Override
     public void render(@NotNull GuiGraphics guiGraphics, int mouseX, int mouseY, float partialTick) {
+        this.renderBackground(guiGraphics, mouseX, mouseY, partialTick);
+        this.drawTitle(guiGraphics);
         drawListBackground(guiGraphics);
-        super.render(guiGraphics, mouseX, mouseY, partialTick);
+        this.drawRenderables(guiGraphics, mouseX, mouseY, partialTick);
         drawSavedFeedback(guiGraphics, this.width / 2 + PADDING - 25 + BUTTON_WIDTH, this.height - BUTTON_HEIGHT);
         drawPositionHints(guiGraphics);
     }
@@ -203,19 +207,20 @@ public class GeneralConfigScreen extends UniversalScreen {
         float disappearanceLerp = Appearance.getProgress(time, 500, 400);
 
         int color = Colors.alpha(appearanceLerp - disappearanceLerp, Colors.YELLOW);
-
         guiGraphics.drawString(this.font, SAVED_LABEL, x, y, color);
 
-        if (time >= 1000) {
+        if (time > 850) {
             isSaved = false;
         }
     }
 
     private void drawListBackground(GuiGraphics guiGraphics) {
         GuiContext context = new GuiContext(guiGraphics);
+        RenderSystem.enableBlend();
         context.drawGUITexture(LIST_BACKGROUND, 0, MARGIN, this.width, this.height - MARGIN * 2 - 2, TextureUV.ZERO, 32, 32);
         context.drawGUITexture(Screen.HEADER_SEPARATOR, 0, MARGIN, this.width, 2, TextureUV.ZERO, 32, 2);
         context.drawGUITexture(Screen.FOOTER_SEPARATOR, 0, this.height - MARGIN - 2, this.width, 2, TextureUV.ZERO, 32, 2);
+        RenderSystem.disableBlend();
     }
 
     private Component multiplierDisplayer(float value) {

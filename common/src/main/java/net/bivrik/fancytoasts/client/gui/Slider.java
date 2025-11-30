@@ -1,9 +1,12 @@
 package net.bivrik.fancytoasts.client.gui;
 
-import net.bivrik.fancytoasts.core.Debug;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.components.AbstractSliderButton;
+import net.minecraft.client.resources.sounds.SimpleSoundInstance;
+import net.minecraft.client.sounds.SoundManager;
 import net.minecraft.network.chat.CommonComponents;
 import net.minecraft.network.chat.Component;
+import net.minecraft.sounds.SoundEvents;
 import net.minecraft.util.Mth;
 
 import java.util.function.Consumer;
@@ -15,6 +18,7 @@ public class Slider extends AbstractSliderButton {
     private final double max;
     private final float threshold;
 
+    private boolean isPressed;
     private Function<Float, Component> displayer;
     private Consumer<Float> responder;
 
@@ -28,12 +32,32 @@ public class Slider extends AbstractSliderButton {
         this.updateMessage();
     }
 
-    public Slider(int x, int y, int width, int height, Component label, float value, float max, float threshold) {
-        this(x, y, width, height, label, value, 0.0f, max, threshold);
+    @Override
+    public boolean mouseClicked(double mouseX, double mouseY, int button) {
+        boolean clicked = super.mouseClicked(mouseX, mouseY, button);
+
+        if (clicked) {
+            isPressed = true;
+        }
+
+        return clicked;
     }
 
-    public Slider(int x, int y, int width, int height, Component label, float value, float max) {
-        this(x, y, width, height, label, value, 0.0f, max, 0.0f);
+    @Override
+    public void onRelease(double mouseX, double mouseY) {
+        if (isPressed) {
+            playSound(Minecraft.getInstance().getSoundManager());
+        }
+
+        isPressed = false;
+    }
+
+    private void playSound(SoundManager soundManager) {
+        soundManager.play(SimpleSoundInstance.forUI(SoundEvents.UI_BUTTON_CLICK, 1.0F));
+    }
+
+    public Slider(int x, int y, int width, int height, Component label, float value, float max, float threshold) {
+        this(x, y, width, height, label, value, 0.0f, max, threshold);
     }
 
     public Slider setResponder(Consumer<Float> responder) {

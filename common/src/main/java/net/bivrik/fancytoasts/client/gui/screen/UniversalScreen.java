@@ -62,8 +62,13 @@ public abstract class UniversalScreen extends Screen {
 
     @Override
     public void render(@NotNull GuiGraphics guiGraphics, int mouseX, int mouseY, float partialTick) {
+        drawBackground(guiGraphics, mouseX, mouseY, partialTick);
         drawRenderables(guiGraphics, mouseX, mouseY, partialTick);
         drawTitle(guiGraphics);
+    }
+
+    public void drawBackground(@NotNull GuiGraphics guiGraphics, int mouseX, int mouseY, float partialTick) {
+        super.renderBackground(guiGraphics, mouseX, mouseY, partialTick);
     }
 
     public void drawRenderables(GuiGraphics guiGraphics, int mouseX, int mouseY, float partialTick) {

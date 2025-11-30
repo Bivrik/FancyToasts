@@ -2,9 +2,7 @@ package net.bivrik.fancytoasts.core.manager;
 
 import net.bivrik.fancytoasts.client.config.data.GeneralConfigData;
 import net.bivrik.fancytoasts.client.config.data.ToastConfigData;
-import net.bivrik.fancytoasts.core.Debug;
 import net.bivrik.fancytoasts.core.IManager;
-import net.bivrik.fancytoasts.core.ITickableManager;
 import net.bivrik.fancytoasts.core.event.GeneralConfigDataEvent;
 import net.bivrik.fancytoasts.client.toast.FancyAdvancementToast;
 import net.bivrik.fancytoasts.client.config.ToastScreenBehavior;
@@ -69,7 +67,7 @@ public class ToastManager implements IManager {
     }
 
     public void update() {
-        if (currentToast != null) {
+        if (!isEmpty()) {
             if (generalConfigData.isJadeHiding() && Services.JADE.isEnabled()) {
                 Services.JADE.tryEnable();
             }
@@ -106,7 +104,7 @@ public class ToastManager implements IManager {
 
         GuiContext context = new GuiContext(guiGraphics);
         context.push();
-        context.translate(xPos, yPos);
+        context.translate(xPos, yPos, 4200);
         currentToast.draw(guiGraphics);
         context.pop();
     }
@@ -140,7 +138,7 @@ public class ToastManager implements IManager {
     }
 
     private boolean shouldRender() {
-        return currentToast != null && !minecraft.options.hideGui;
+        return !isEmpty() && !minecraft.options.hideGui;
     }
 
     public boolean isScreenOpened() {
@@ -149,5 +147,9 @@ public class ToastManager implements IManager {
 
     public boolean shouldRenderBehind() {
         return generalConfigData.getToastScreenBehavior() == ToastScreenBehavior.BEHIND && isScreenOpened();
+    }
+
+    public boolean isEmpty() {
+        return currentToast == null;
     }
 }

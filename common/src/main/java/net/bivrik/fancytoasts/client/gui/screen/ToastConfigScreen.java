@@ -185,10 +185,9 @@ public class ToastConfigScreen extends UniversalScreen {
         float disappearanceLerp = Appearance.getProgress(time, 500, 400);
 
         int color = Colors.alpha(appearanceLerp - disappearanceLerp, Colors.YELLOW);
-
         guiGraphics.drawString(this.font, SAVED_LABEL, x, y, color);
 
-        if (time >= 1000) {
+        if (time > 850) {
             isSaved = false;
         }
     }

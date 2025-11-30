@@ -1,6 +1,9 @@
 package net.bivrik.fancytoasts.client.gui.screen;
 
+import com.mojang.blaze3d.platform.GlStateManager;
+import com.mojang.blaze3d.systems.RenderSystem;
 import net.bivrik.fancytoasts.core.manager.CreditsManager;
+import net.bivrik.fancytoasts.platform.utility.Colors;
 import net.bivrik.fancytoasts.utility.TextureUV;
 import net.bivrik.fancytoasts.platform.utility.GuiContext;
 import net.bivrik.fancytoasts.client.gui.CreditsList;
@@ -8,7 +11,6 @@ import net.bivrik.fancytoasts.core.Managers;
 import net.bivrik.fancytoasts.platform.utility.ResourceLocations;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.screens.Screen;
-import net.minecraft.client.renderer.RenderPipelines;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import org.jetbrains.annotations.NotNull;
@@ -37,7 +39,11 @@ public class CreditsScreen extends UniversalScreen {
     public void render(@NotNull GuiGraphics guiGraphics, int mouseX, int mouseY, float partialTick) {
         super.render(guiGraphics, mouseX, mouseY, partialTick);
 
-        new GuiContext(guiGraphics).drawTexture(RenderPipelines.VIGNETTE, VIGNETTE_LOCATION, 0, 0, this.width, this.height, TextureUV.ZERO, this.width, this.height);
+        RenderSystem.enableBlend();
+        RenderSystem.blendFunc(GlStateManager.SourceFactor.ZERO, GlStateManager.DestFactor.ONE_MINUS_SRC_COLOR);
+        new GuiContext(guiGraphics).drawGUITexture(VIGNETTE_LOCATION, 0, 0, this.width, this.height, TextureUV.ZERO, this.width, this.height);
+        RenderSystem.defaultBlendFunc();
+        RenderSystem.disableBlend();
 
         creditsList.scroll();
     }

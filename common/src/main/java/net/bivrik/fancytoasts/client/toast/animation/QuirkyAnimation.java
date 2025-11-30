@@ -2,7 +2,6 @@ package net.bivrik.fancytoasts.client.toast.animation;
 
 import net.bivrik.fancytoasts.client.toast.AnimationSetup;
 import net.bivrik.fancytoasts.client.toast.Appearance;
-import net.bivrik.fancytoasts.core.Debug;
 import net.bivrik.fancytoasts.platform.utility.Colors;
 import net.bivrik.fancytoasts.platform.utility.GuiContext;
 import net.bivrik.fancytoasts.utility.MathEasing;
@@ -26,7 +25,7 @@ public class QuirkyAnimation extends FancyToastAnimation {
     public void setup(AnimationSetup setup, Minecraft minecraft, int toastWidth, int toastHeight) {
         super.setup(setup, minecraft, toastWidth, toastHeight);
 
-        this.setLines(displayInfo.getAdvancementsAnnouncement(), displayInfo.getDescription());
+        this.setLines(displayInfo.getAnnouncement(), displayInfo.getDescription());
         randomRotation = new Random().nextFloat(-0.4f, 0.4f);
     }
 
@@ -96,7 +95,7 @@ public class QuirkyAnimation extends FancyToastAnimation {
             context.pop();
         }
 
-        if (textAppearProgress > 0) {
+        if (textAppearProgress > 0.05f) {
             this.drawTitle(guiGraphics, textAppearProgress);
             this.drawDescription(guiGraphics, textAppearProgress);
         }

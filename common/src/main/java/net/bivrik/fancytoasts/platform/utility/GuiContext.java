@@ -1,22 +1,31 @@
 package net.bivrik.fancytoasts.platform.utility;
 
-import com.mojang.blaze3d.pipeline.RenderPipeline;
+import com.mojang.blaze3d.platform.GlStateManager;
+import com.mojang.blaze3d.systems.RenderSystem;
+import com.mojang.blaze3d.vertex.PoseStack;
+import com.mojang.math.Axis;
 import net.bivrik.fancytoasts.utility.TextureUV;
+import net.minecraft.client.OptionInstance;
 import net.minecraft.client.gui.GuiGraphics;
-import net.minecraft.client.renderer.RenderPipelines;
+import net.minecraft.client.gui.components.Tooltip;
+import net.minecraft.client.gui.screens.inventory.InventoryScreen;
+import net.minecraft.client.gui.screens.inventory.tooltip.TooltipRenderUtil;
 import net.minecraft.resources.ResourceLocation;
-import org.joml.Matrix3x2fStack;
+import net.minecraft.world.entity.player.Inventory;
+import net.minecraft.world.inventory.tooltip.TooltipComponent;
+import net.minecraft.world.item.component.TooltipProvider;
+import org.lwjgl.opengl.GL11;
 
 public class GuiContext {
     private final GuiGraphics guiGraphics;
-    private final Matrix3x2fStack stack;
+    private final PoseStack stack;
 
     public GuiContext(GuiGraphics guiGraphics) {
         this.guiGraphics = guiGraphics;
         this.stack = guiGraphics.pose();
     }
 
-    public Matrix3x2fStack stack() {
+    public PoseStack stack() {
         return stack;
     }
 
@@ -25,63 +34,60 @@ public class GuiContext {
     }
 
     public void push() {
-        stack.pushMatrix();
+        stack.pushPose();
     }
 
     public void pop() {
-        stack.popMatrix();
+        stack.popPose();
+    }
+
+    public void translate(float x, float y, float z) {
+        stack.translate(x, y, z);
     }
 
     public void translate(float x, float y) {
-        stack.translate(x, y);
+        stack.translate(x, y, 0);
     }
 
     public void rotateAround(float rotation, float ox, float oy) {
-        stack.rotateAbout(rotation, ox, oy);
+        stack.rotateAround(Axis.ZP.rotation(rotation), ox, oy, 0);
     }
 
     public void scaleAround(float sx, float sy, float ox, float oy) {
-        stack.scaleAround(sx, sy, ox, oy);
+        stack.translate(ox, oy, 0);
+        stack.scale(sx, sy, 1);
+        stack.translate(-ox, -oy, 0);
     }
 
     public void scaleAround(float scale, float ox, float oy) {
         scaleAround(scale, scale, ox, oy);
     }
 
-    public void drawTexture(RenderPipeline pipeline, ResourceLocation textureLocation, int x, int y, int width, int height, TextureUV uv, int textureWidth, int textureHeight, int color) {
-        guiGraphics.blit(pipeline, textureLocation, x, y, uv.u(), uv.v(), width, height, textureWidth, textureHeight, color);
-    }
-
-    public void drawTexture(RenderPipeline pipeline, ResourceLocation textureLocation, int x, int y, int width, int height, TextureUV uv, int textureWidth, int textureHeight) {
-        drawTexture(pipeline, textureLocation, x, y, width, height, uv, textureWidth, textureHeight, Colors.WHITE);
-    }
-
-    public void drawTexture(RenderPipeline pipeline, ResourceLocation textureLocation, int x, int y, int width, int height, TextureUV uv) {
-        drawTexture(pipeline, textureLocation, x, y, width, height, uv, width, height, Colors.WHITE);
+    public void drawGUITexture(ResourceLocation textureLocation, int x, int y, int width, int height, TextureUV uv, int textureWidth, int textureHeight) {
+        guiGraphics.blit(textureLocation, x, y, uv.u(), uv.v(), width, height, textureWidth, textureHeight);
     }
 
     public void drawGUITexture(ResourceLocation textureLocation, int x, int y, int width, int height, TextureUV uv, int textureWidth, int textureHeight, int color) {
-        guiGraphics.blit(RenderPipelines.GUI_TEXTURED, textureLocation, x, y, uv.u(), uv.v(), width, height, textureWidth, textureHeight, color);
-    }
+        if (color == Colors.WHITE) {
+            drawGUITexture(textureLocation, x, y, width, height, uv, textureWidth, textureHeight);
+            return;
+        }
 
-    public void drawGUITexture(ResourceLocation textureLocation, int x, int y, int width, int height, TextureUV uv, int textureWidth, int textureHeight) {
-        drawGUITexture(textureLocation, x, y, width, height, uv, textureWidth, textureHeight, Colors.WHITE);
+        float alpha = ((color >> 24) & 0xFF) / 255.0f;
+
+        RenderSystem.enableBlend();
+        guiGraphics.setColor(1, 1, 1, alpha);
+        guiGraphics.blit(textureLocation, x, y, uv.u(), uv.v(), width, height, textureWidth, textureHeight);
+        guiGraphics.setColor(1, 1, 1, 1);
+        RenderSystem.disableBlend();
     }
 
     public void drawGUITexture(ResourceLocation textureLocation, int x, int y, int width, int height, TextureUV uv, int color) {
         drawGUITexture(textureLocation, x, y, width, height, uv, 256, 256, color);
     }
 
-    public void drawGUITexture(ResourceLocation textureLocation, int x, int y, int width, int height, TextureUV uv) {
-        drawGUITexture(textureLocation, x, y, width, height, uv, 256, 256, Colors.WHITE);
-    }
-
-    public void drawSprite(ResourceLocation spriteLocation, int x, int y, int width, int height, int color) {
-        guiGraphics.blitSprite(RenderPipelines.GUI_TEXTURED, spriteLocation, x, y, width, height, color);
-    }
-
     public void drawSprite(ResourceLocation spriteLocation, int x, int y, int width, int height) {
-        drawSprite(spriteLocation, x, y, width, height, Colors.WHITE);
+        guiGraphics.blitSprite(spriteLocation, x, y, width, height);
     }
 
     public void fill(int x, int y, int width, int height, int color) {

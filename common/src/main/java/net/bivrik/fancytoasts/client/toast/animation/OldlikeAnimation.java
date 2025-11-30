@@ -21,7 +21,7 @@ public class OldlikeAnimation extends FancyToastAnimation {
     public void setup(AnimationSetup setup, Minecraft minecraft, int toastWidth, int toastHeight) {
         super.setup(setup, minecraft, toastWidth, toastHeight);
 
-        this.setLines(displayInfo.getAdvancementsAnnouncement(), displayInfo.getDescription());
+        this.setLines(displayInfo.getAnnouncement(), displayInfo.getDescription());
     }
 
     @Override
@@ -97,7 +97,7 @@ public class OldlikeAnimation extends FancyToastAnimation {
             fadeOutTextAlpha = MathEasing.easeInLerp(0, 1.0F, fadeOutProgress);
         }
 
-        if (titleAppearProgress > 0) {
+        if (titleAppearProgress > 0.05f) {
             context.push();
             if (titleAppearProgress != 1) {
                 int x = MathEasing.elasticEaseOutLerp(50, 0, titleAppearProgress);
@@ -107,7 +107,7 @@ public class OldlikeAnimation extends FancyToastAnimation {
             context.pop();
         }
 
-        if (descriptionAppearProgress > 0) {
+        if (descriptionAppearProgress > 0.05f) {
             context.push();
             if (descriptionAppearProgress != 1) {
                 int x = MathEasing.elasticEaseOutLerp(50, 0, descriptionAppearProgress);

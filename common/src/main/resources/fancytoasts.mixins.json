@@ -6,11 +6,13 @@
   "compatibilityLevel": "JAVA_18",
   "client": [
     "AdvancementToastMixinAccessor",
+    "ClientTextTooltipMixinAccessor",
     "GameRendererMixin",
+    "GuiGraphicsMixin",
     "GuiMixin",
     "MinecraftMixin",
     "OptionsMixin",
-    "ToastManagerMixin"
+    "ToastComponentMixin"
   ],
   "server": [],
   "injectors": {

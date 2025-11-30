@@ -8,7 +8,6 @@ import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.AbstractSelectionList;
 import net.minecraft.client.gui.narration.NarrationElementOutput;
-import net.minecraft.client.input.KeyEvent;
 import net.minecraft.network.chat.Component;
 import org.jetbrains.annotations.NotNull;
 import org.lwjgl.glfw.GLFW;
@@ -28,7 +27,7 @@ public class CreditsList extends AbstractSelectionList<CreditsList.Entry> {
     }
 
     private void updateList(CreditsManager.CreditsData data) {
-        for (int i = 0; i < this.height / defaultEntryHeight + 2; i++) {
+        for (int i = 0; i < this.height / this.itemHeight + 2; i++) {
             addSpace();
         }
 
@@ -40,7 +39,7 @@ public class CreditsList extends AbstractSelectionList<CreditsList.Entry> {
             addSpace();
         }
 
-        for (int i = 0; i < this.height / defaultEntryHeight; i++) {
+        for (int i = 0; i < this.height / this.itemHeight; i++) {
             addSpace();
         }
 
@@ -67,35 +66,32 @@ public class CreditsList extends AbstractSelectionList<CreditsList.Entry> {
     }
 
     public void scroll() {
-        this.setScrollAmount(scrollAmount() + scrollSpeed);
+        this.setScrollAmount(getScrollAmount() + scrollSpeed);
 
-        if (scrollAmount() == maxScrollAmount()) {
+        if (getScrollAmount() == getMaxScroll()) {
             setScrollAmount(0);
         }
     }
 
     @Override
-    public boolean keyPressed(KeyEvent event) {
-        if (event.key() == GLFW.GLFW_KEY_SPACE) {
+    public boolean keyPressed(int keyCode, int scanCode, int modifiers) {
+        if (keyCode == GLFW.GLFW_KEY_SPACE) {
             scrollSpeed = 1.2f;
         }
 
-        return super.keyPressed(event);
+        return super.keyPressed(keyCode, scanCode, modifiers);
     }
 
     @Override
-    public boolean keyReleased(KeyEvent event) {
-        if (event.key() == GLFW.GLFW_KEY_SPACE) {
+    public boolean keyReleased(int keyCode, int scanCode, int modifiers) {
+        if (keyCode == GLFW.GLFW_KEY_SPACE) {
             scrollSpeed = 0.4f;
         }
 
-        return super.keyReleased(event);
+        return super.keyReleased(keyCode, scanCode, modifiers);
     }
 
     // Don't move bro, stop it
-    @Override
-    public void refreshScrollAmount() {}
-
     @Override
     protected void renderListBackground(@NotNull GuiGraphics guiGraphics) {}
 
@@ -105,11 +101,6 @@ public class CreditsList extends AbstractSelectionList<CreditsList.Entry> {
     @Override
     protected boolean scrollbarVisible() {
         return false;
-    }
-
-    @Override
-    protected double scrollRate() {
-        return 0;
     }
     //
 
@@ -128,7 +119,7 @@ public class CreditsList extends AbstractSelectionList<CreditsList.Entry> {
         }
 
         @Override
-        public void renderContent(@NotNull GuiGraphics guiGraphics, int mouseX, int mouseY, boolean isHovering, float partialTick) {}
+        public void render(@NotNull GuiGraphics guiGraphics, int index, int y, int x, int width, int height, int mouseX, int mouseY, boolean isHovering, float partialTick) {}
     }
 
     private static class CategoryEntry extends Entry {
@@ -143,8 +134,8 @@ public class CreditsList extends AbstractSelectionList<CreditsList.Entry> {
         }
 
         @Override
-        public void renderContent(@NotNull GuiGraphics guiGraphics, int mouseX, int mouseY, boolean isHovering, float partialTick) {
-            guiGraphics.drawCenteredString(font, displayName, xCenter, getY(), Colors.YELLOW);
+        public void render(@NotNull GuiGraphics guiGraphics, int index, int y, int x, int width, int height, int mouseX, int mouseY, boolean isHovering, float partialTick) {
+            guiGraphics.drawCenteredString(font, displayName, xCenter, y, Colors.YELLOW);
         }
     }
 
@@ -165,11 +156,11 @@ public class CreditsList extends AbstractSelectionList<CreditsList.Entry> {
         }
 
         @Override
-        public void renderContent(@NotNull GuiGraphics guiGraphics, int mouseX, int mouseY, boolean isHovering, float partialTick) {
-            guiGraphics.drawString(this.font, this.content, this.getX(), this.getY(), Colors.WHITE);
+        public void render(@NotNull GuiGraphics guiGraphics, int index, int y, int x, int width, int height, int mouseX, int mouseY, boolean isHovering, float partialTick) {
+            guiGraphics.drawString(this.font, this.content, x, y, Colors.WHITE);
 
             if (isValidAnnotation) {
-                guiGraphics.drawString(this.font, annotation, this.getX() + font.width(this.content) + 8, this.getY(), Colors.LIGHT_GRAY);
+                guiGraphics.drawString(this.font, annotation, x + font.width(this.content) + 8, y, Colors.LIGHT_GRAY);
             }
         }
     }
