@@ -61,7 +61,6 @@ public class GeneralConfigScreen extends UniversalScreen {
     private static final ResourceLocation LIST_BACKGROUND = ResourceLocations.fromMinecraft("textures/gui/menu_list_background.png");
 
     private GeneralConfigData generalConfigData;
-
     private boolean isSaved;
     private long savedFeedbackStartTime;
 
