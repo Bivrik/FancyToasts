@@ -100,7 +100,7 @@ Big goals/plans/ideas for future updates. Some of them are abstract ideas, and s
   * 1.21.1 and lower: tooltips not being rendered properly under toast with `transparent` setting
   * 1.21.1 and lower: double click sound when opening a screen with sliders
   * EMI compatibility issue
-  * Badoptimization compatibility issue
+  * Badoptimizations compatibility issue
 * Adjustments:
   * Total refactor. More robust loadings, easier maintain, and less future compat issues (hopefully)
   * Pitch difference for Advancement Toast sounds
