@@ -120,7 +120,7 @@ Big goals/plans/ideas for future updates. Some of them are abstract ideas, and s
 ## v1.4.4.1
 * Bug fixes:
   * Key bindings can't be changed on Forge/NeoForge
-  * Render type `begind` quirks a bit
+  * Render type `behind` quirks a bit
 
 ## v1.4.4
 * New features:
