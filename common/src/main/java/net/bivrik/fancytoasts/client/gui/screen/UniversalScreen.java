@@ -125,14 +125,6 @@ public abstract class UniversalScreen extends Screen {
         return createSlider(label, initialValue, maxValue, threshold, displayer, responder, x, y, LayoutValues.BUTTON_WIDTH, LayoutValues.BUTTON_HEIGHT, tooltip);
     }
 
-    protected Slider createSlider(Component label, float initialValue, float maxValue, Function<Float, Component> displayer, Consumer<Float> responder, int x, int y, Tooltip tooltip) {
-        return createSlider(label, initialValue, maxValue, 0.0f, displayer, responder, x, y, LayoutValues.BUTTON_WIDTH, LayoutValues.BUTTON_HEIGHT, tooltip);
-    }
-
-    protected Slider createSlider(Component label, float initialValue, float maxValue, float threshold, Function<Float, Component> displayer, Consumer<Float> responder, int x, int y) {
-        return createSlider(label, initialValue, maxValue, threshold, displayer, responder, x, y, LayoutValues.BUTTON_WIDTH, LayoutValues.BUTTON_HEIGHT, null);
-    }
-
     protected Slider createSlider(Component label, float initialValue, float maxValue, Function<Float, Component> displayer, Consumer<Float> responder, int x, int y) {
         return createSlider(label, initialValue, maxValue, 0.0f, displayer, responder, x, y, LayoutValues.BUTTON_WIDTH, LayoutValues.BUTTON_HEIGHT, null);
     }
