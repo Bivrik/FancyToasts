@@ -104,6 +104,7 @@ Big goals/plans/ideas for future updates. Some of them are abstract ideas, and s
   * 1.21.1 and lower: double click sound when opening a screen with sliders
   * EMI compatibility issue
   * Badoptimizations compatibility issue
+  * Too dark credits screen list
 * Adjustments:
   * Total refactor. More robust loadings, easier maintain, and less future compat issues (hopefully)
   * Pitch difference for Advancement Toast sounds
@@ -114,7 +115,6 @@ Big goals/plans/ideas for future updates. Some of them are abstract ideas, and s
   * Better visual settings UI
   * Better translations (in term of keys, and maybe slightly improved English version)
   * Toast Control won't disable Fancy Toasts anymore, but they still conflict
-  * Too dark credits screen list
 > I'm gonna need a rest after this... huh, a rest? (30.11.25)
 
 ## v1.4.4.1
