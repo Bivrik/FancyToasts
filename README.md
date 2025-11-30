@@ -111,6 +111,7 @@ Big goals/plans/ideas for future updates. Some of them are abstract ideas, and s
   * Better visual settings UI
   * Better translations (in term of keys, and maybe slightly improved English version)
   * Toast Control won't disable Fancy Toasts anymore, but they still conflict
+  * Too dark credits screen list
 > I'm gonna need a rest after this... huh, a rest? (30.11.25)
 
 ## v1.4.4.1
