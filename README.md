@@ -91,6 +91,9 @@ Big goals/plans/ideas for future updates. Some of them are abstract ideas, and s
 * New features:
   * Advancements filtering! Can be changed types of advancements, toasts and even specific advancement or whole categories to enable/disable
   * FTBQuests support! Now quests from FTBQuests can be seen on the screen in new fancy way!
+    * Announcement text -> Quest's announcement
+    * Title text -> Quest's title
+    * Description text -> Quest's subtitle (fallback: toast's announcement)
   * Texture type `Landspaper`
   * Toast advanced positioning. It supports anchor system with offsets relative to this anchor
   * Customizable loops. Now strength and speed of them (sin/cos waves) can be changed
