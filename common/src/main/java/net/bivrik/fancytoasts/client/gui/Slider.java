@@ -48,7 +48,6 @@ public class Slider extends AbstractSliderButton {
         if (isPressed) {
             playSound(Minecraft.getInstance().getSoundManager());
         }
-
         isPressed = false;
     }
 
