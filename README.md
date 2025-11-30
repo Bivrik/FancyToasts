@@ -17,7 +17,7 @@ This mods supports custom textures! Yes, you can add textures from friends, modp
 It's not only about visuals, it's also about conveniences. It adds new screens for configuration. You can change textures, animations and sounds easily, along side with more tehnical settings, such as volumes, compatibilities and etc!
 
 # Description 🏗️
-Adds new advancement toast system into Minecraft. Currently mod has 24 standard toast variants, because of 4 animation styles and 6 texture types. Supports config screen on Fabric (Mod Menu)/Forge/NeoForge
+Adds new advancement toast system into Minecraft. Currently mod has 28 standard toast variants, because of 4 animation styles and 7 texture types. Supports config screen on Fabric (Mod Menu)/Forge/NeoForge
 
 ### Animations
 * Standard
@@ -32,6 +32,7 @@ Adds new advancement toast system into Minecraft. Currently mod has 24 standard 
 * Modern
 * Terracraft
 * Steamy
+* Landspaper
 
 # Other 🔎
 
@@ -55,7 +56,7 @@ Big goals/plans/ideas for future updates. Some of them are abstract ideas, and s
 
 * More languages
 * More animations (goal: 4/5)
-* More textures (goal: 6/10)
+* More textures (goal: 7/10)
 * Wide version support
   * **Currently maintaining**
 
@@ -75,7 +76,6 @@ Big goals/plans/ideas for future updates. Some of them are abstract ideas, and s
 * Animations rework to make them easier to make
 * Personalized settings for specific advancements' origins
 * Custom sounds (v1.5.x?)
-* FTBQuests compatibility (v1.4.5)
 * Bundles
 #### Completed
 * Config GUI rework
@@ -83,11 +83,40 @@ Big goals/plans/ideas for future updates. Some of them are abstract ideas, and s
 * Ability to change sounds, position, render type
 * Custom textures
 * Jade compatibility
+* FTBQuests compatibility
 
 # Changelog 📝
 
 ## v1.4.5
-> working... not much tho
+* New features:
+  * Advancements filtering! Can be changed types of advancements, toasts and even specific advancement or whole categories to enable/disable
+  * FTBQuests support! Now quests from FTBQuests can be seen on the screen in new fancy way!
+  * Texture type `Landspaper`
+  * Toast advanced positioning. It supports anchor system with offsets relative to this anchor
+  * Customizable loops. Now strength and speed of them (sin/cos waves) can be changed
+* Bug fixes:
+  * Key bindings don't register sometimes
+  * Vignette offset
+  * 1.21.1 and lower: tooltips not being rendered properly under toast with `transparent` setting
+  * 1.21.1 and lower: double click sound when opening a screen with sliders
+  * EMI compatibility issue
+  * Badoptimization compatibility issue
+* Adjustments:
+  * Total refactor. More robust loadings, easier maintain, and less future compat issues (hopefully)
+  * Pitch difference for Advancement Toast sounds
+  * Toasts sound timing tweaked
+  * Custom textures are now loaded until the last toast using it is shown. Prevents missing textures and memory leaks
+  * Splashes
+  * Settings screens aren't closed after saving. It's for easier tweaking of toasts' position and etc.
+  * Better visual settings UI
+  * Better translations (in term of keys, and maybe slightly improved English version)
+  * Toast Control won't disable Fancy Toasts anymore, but they still conflict
+> I'm gonna need a rest after this... huh, a rest? (30.11.25)
+
+## v1.4.4.1
+* Bug fixes:
+  * Key bindings can't be changed on Forge/NeoForge
+  * Render type `begind` quirks a bit
 
 ## v1.4.4
 * New features:
@@ -108,6 +137,13 @@ Big goals/plans/ideas for future updates. Some of them are abstract ideas, and s
   * Support for sounds from mods and resourcepacks instead of just Minecraft ones (suggested by F0rsakenPhant0M)
   * By default Render Type is set to `Transparent` instead of `Top`
 > I need to refactor it tho... Whatever, press UPDATE! (13.11.25)
+
+## v1.4.3.1
+* Bug fixes:
+  * Fabric version not working
+  * Crash with Paladin's Furniture
+* Adjustments:
+  * More robust rendering system
 
 ## v1.4.3
 * New features:
