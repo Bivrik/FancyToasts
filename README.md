@@ -96,7 +96,7 @@ Big goals/plans/ideas for future updates. Some of them are abstract ideas, and s
   * Customizable loops. Now strength and speed of them (sin/cos waves) can be changed
 * Bug fixes:
   * Key bindings don't register sometimes
-  * Vignette offset
+  * Credits' vignette offset
   * 1.21.1 and lower: tooltips not being rendered properly under toast with `transparent` setting
   * 1.21.1 and lower: double click sound when opening a screen with sliders
   * EMI compatibility issue
