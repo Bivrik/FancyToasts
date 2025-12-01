@@ -1,119 +1,119 @@
-﻿{
-  // By Gao Xinyang (< 1.4.4)
-  "fancytoasts.title.visual_settings": "自定义设置",
+{
+  // By Gao Xinyang
+  "fancytoasts.title.visual_settings": "视觉设置",
   "fancytoasts.title.general_settings": "通用设置",
-  "fancytoasts.title.toasts_filtering": "提示过滤", // Machine translation
-  "fancytoasts.title.reset_general_settings": "重置通用设置", // Machine translation
-  "fancytoasts.title.reset_toasts_filtering": "重置提示过滤", // Machine translation
+  "fancytoasts.title.toasts_filtering": "提示过滤设置",
+  "fancytoasts.title.reset_general_settings": "重置通用设置",
+  "fancytoasts.title.reset_toasts_filtering": "重置提示过滤设置",
 
-  "fancytoasts.label.support": "在Boosty上查看我的博客！", // Machine translation
+  "fancytoasts.label.support": "在 Boosty 上查看我的博客！",
   "fancytoasts.label.unknown": "未知",
   "fancytoasts.label.custom": "自定义",
-  "fancytoasts.label.reset_general_settings": "重置通用设置将把所有现有设置恢复为标准设置。你确定要这样做吗？", // Machine translation
-  "fancytoasts.label.reset_toasts_filtering": "重置提示过滤将把所有现有过滤器恢复为标准设置。你确定要这样做吗？", // Machine translation
+  "fancytoasts.label.reset_general_settings": "重置通用设置将会把所有现有设置恢复为默认值。确定要继续吗？",
+  "fancytoasts.label.reset_toasts_filtering": "重置提示过滤将会清除所有现有过滤器并恢复为默认设置。确定要继续吗？",
   "fancytoasts.label.author": "作者：",
   "fancytoasts.label.description": "描述：",
-  "fancytoasts.label.translators": "翻译人员", // Machine translation
-  "fancytoasts.label.github_activists": "Github贡献者", // Machine translation
-  "fancytoasts.label.boosters": "支持者", // Machine translation
-  "fancytoasts.label.special_thanks": "特别感谢", // Machine translation
-  "fancytoasts.label.credits_fallback": "无法连接以加载鸣谢列表", // Machine translation
-  "fancytoasts.label.saved": "已保存！", // Machine translation
+  "fancytoasts.label.translators": "翻译人员",
+  "fancytoasts.label.github_activists": "GitHub 贡献者",
+  "fancytoasts.label.boosters": "赞助者",
+  "fancytoasts.label.special_thanks": "特别鸣谢",
+  "fancytoasts.label.credits_fallback": "无法连接至鸣谢列表",
+  "fancytoasts.label.saved": "已保存！",
 
   "fancytoasts.gui.textures": "材质",
   "fancytoasts.gui.animations": "动画",
   "fancytoasts.gui.sounds": "音效",
-  "fancytoasts.gui.credits": "鸣谢", // Machine translation
-  "fancytoasts.gui.config_folder": "配置文件夹", // Machine translation
-  "fancytoasts.gui.reload_customs": "重新加载自定义内容", // Machine translation
+  "fancytoasts.gui.credits": "鸣谢",
+  "fancytoasts.gui.config_folder": "配置文件夹",
+  "fancytoasts.gui.reload_customs": "重新加载自定义内容",
   "fancytoasts.gui.reset": "重置",
   "fancytoasts.gui.general_settings": "设置",
   "fancytoasts.gui.toast_settings": "提示设置",
-  "fancytoasts.gui.toasts_filtering": "提示过滤", // Machine translation
-  "fancytoasts.gui.jade_hiding": "在提示时隐藏Jade", // Machine translation
+  "fancytoasts.gui.toasts_filtering": "提示过滤设置",
+  "fancytoasts.gui.jade_hiding": "提示显示时隐藏 Jade",
   "fancytoasts.gui.sounds_enabled": "提示音效",
   "fancytoasts.gui.task_volume": "任务音量",
   "fancytoasts.gui.goal_volume": "目标音量",
   "fancytoasts.gui.challenge_volume": "挑战音量",
-  "fancytoasts.gui.screen_behavior": "渲染方式",
-  "fancytoasts.gui.loops_strength": "循环强度", // Machine translation
-  "fancytoasts.gui.loops_speed": "循环速度", // Machine translation
-  "fancytoasts.gui.anchor": "锚点", // Machine translation
-  "fancytoasts.gui.fancy_advancement_toasts": "花式进度提示", // Machine translation
-  "fancytoasts.gui.advancement_toasts": "进度提示", // Machine translation
-  "fancytoasts.gui.fancy_quest_toasts": "花式任务提示", // Machine translation
-  "fancytoasts.gui.recipe_toasts": "配方提示", // Machine translation
-  "fancytoasts.gui.system_toasts": "系统提示", // Machine translation
-  "fancytoasts.gui.tutorial_toasts": "教程提示", // Machine translation
-  "fancytoasts.gui.ignored_toasts": "已忽略的提示", // Machine translation
+  "fancytoasts.gui.screen_behavior": "界面渲染模式",
+  "fancytoasts.gui.loops_strength": "波动强度",
+  "fancytoasts.gui.loops_speed": "波动速度",
+  "fancytoasts.gui.anchor": "定位锚点",
+  "fancytoasts.gui.fancy_advancement_toasts": "花式进度提示",
+  "fancytoasts.gui.advancement_toasts": "进度提示",
+  "fancytoasts.gui.fancy_quest_toasts": "花式任务提示",
+  "fancytoasts.gui.recipe_toasts": "配方提示",
+  "fancytoasts.gui.system_toasts": "系统提示",
+  "fancytoasts.gui.tutorial_toasts": "教程提示",
+  "fancytoasts.gui.ignored_toasts": "已忽略的提示",
 
   "fancytoasts.toast_type.task": "任务",
   "fancytoasts.toast_type.goal": "目标",
   "fancytoasts.toast_type.challenge": "挑战",
 
   "fancytoasts.screen_behavior.transparent": "透明",
-  "fancytoasts.screen_behavior.behind": "底层",
-  "fancytoasts.screen_behavior.top": "顶层",
+  "fancytoasts.screen_behavior.behind": "置于界面后",
+  "fancytoasts.screen_behavior.top": "置于界面上",
 
-  "fancytoasts.anchor.top_left": "左上", // Machine translation
-  "fancytoasts.anchor.top": "中上", // Machine translation
-  "fancytoasts.anchor.top_right": "右上", // Machine translation
-  "fancytoasts.anchor.center_left": "左中", // Machine translation
-  "fancytoasts.anchor.center": "居中", // Machine translation
-  "fancytoasts.anchor.center_right": "右中", // Machine translation
-  "fancytoasts.anchor.bottom_left": "左下", // Machine translation
-  "fancytoasts.anchor.bottom": "中下", // Machine translation
-  "fancytoasts.anchor.bottom_right": "右下", // Machine translation
+  "fancytoasts.anchor.top_left": "左上",
+  "fancytoasts.anchor.top": "中上",
+  "fancytoasts.anchor.top_right": "右上",
+  "fancytoasts.anchor.center_left": "左中",
+  "fancytoasts.anchor.center": "居中",
+  "fancytoasts.anchor.center_right": "右中",
+  "fancytoasts.anchor.bottom_left": "左下",
+  "fancytoasts.anchor.bottom": "中下",
+  "fancytoasts.anchor.bottom_right": "右下",
 
   "fancytoasts.filter.a_z": "A-Z",
   "fancytoasts.filter.z_a": "Z-A",
-  "fancytoasts.filter.built_in": "内置", // Machine translation
-  "fancytoasts.filter.custom": "自定义", // Machine translation
+  "fancytoasts.filter.built_in": "内置",
+  "fancytoasts.filter.custom": "自定义",
 
-  "fancytoasts.tooltip.task": "任务类进度提示音效。",
-  "fancytoasts.tooltip.goal": "目标类进度提示音效。",
-  "fancytoasts.tooltip.challenge": "挑战类进度提示音效。",
-  "fancytoasts.tooltip.textures": "用于提示框的材质。自定义材质可从 \"./config/textures/\" 文件夹加载。",
-  "fancytoasts.tooltip.animations": "提示框显示时使用的动画。",
-  "fancytoasts.tooltip.sounds": "提示框出现时播放的音效。",
-  "fancytoasts.tooltip.jade_hiding": "切换Jade隐藏功能。如果开启，当进度提示出现时，Jade铭牌将会被隐藏，之后再次显示。", // Machine translation
-  "fancytoasts.tooltip.sounds_enabled": "切换音效。关闭后，所有提示音效将被静音。",
-  "fancytoasts.tooltip.anchor": "表示进度提示在屏幕上的锚点。位置 \"x\" 和 \"y\" 是基于锚点计算的偏移量。", // Machine translation
-  "fancytoasts.tooltip.screen_behavior": "设定打开界面（如背包、箱子等）时进度提示的渲染方式。",
-  "fancytoasts.tooltip.reload_customs": "重新加载所有基于配置的文件，例如材质，并将它们从上面的列表中添加/删除。", // Machine translation
-  "fancytoasts.tooltip.loops_strength": "表示正弦/余弦波的强度，波动较弱/较强。", // Machine translation
-  "fancytoasts.tooltip.loops_speed": "表示正弦/余弦波的速度，波动较慢/较快。", // Machine translation
-  "fancytoasts.tooltip.toasts_filtering": "需要重启Minecraft。要将单个进度加入黑名单，请在'toastsToIgnore'中输入\"namespace:category/advancement\"。要将整个类别加入黑名单，请输入\"namespace:category/...\"", // Machine translation
+  "fancytoasts.tooltip.task": "任务类进度提示的出现音效。",
+  "fancytoasts.tooltip.goal": "目标类进度提示的出现音效。",
+  "fancytoasts.tooltip.challenge": "挑战类进度提示的出现音效。",
+  "fancytoasts.tooltip.textures": "用于进度提示的材质样式。自定义材质可从 \"./config/textures/\" 文件夹加载。",
+  "fancytoasts.tooltip.animations": "进度提示显示时使用的动画效果。",
+  "fancytoasts.tooltip.sounds": "进度提示出现时播放的音效，根据进度类型而定。",
+  "fancytoasts.tooltip.jade_hiding": "开关 Jade 隐藏功能。开启后，当进度提示出现时，Jade 信息牌会暂时隐藏，随后再次显示。",
+  "fancytoasts.tooltip.sounds_enabled": "开关提示音效。关闭后，所有进度提示音效将被静音。",
+  "fancytoasts.tooltip.anchor": "设置进度提示在屏幕上的定位锚点。坐标 “x” 和 “y” 是基于锚点的偏移量。",
+  "fancytoasts.tooltip.screen_behavior": "设置打开界面（如背包、箱子等）时进度提示的渲染方式。",
+  "fancytoasts.tooltip.reload_customs": "重新加载所有基于配置的文件（如材质），并更新上方列表中的内容。",
+  "fancytoasts.tooltip.loops_strength": "控制正弦/余弦波的强度，数值越大波动越明显。",
+  "fancytoasts.tooltip.loops_speed": "控制正弦/余弦波的速度，数值越大波动越快。",
+  "fancytoasts.tooltip.toasts_filtering": "需要重启 Minecraft 生效。若要屏蔽单个进度，请在 'toastsToIgnore' 中输入 “命名空间:类别/进度”。若要屏蔽整个类别，请输入 “命名空间:类别/...”。",
 
   "fancytoasts.toast.animation.standard": "标准",
-  "fancytoasts.toast.animation.standard.description": "标准动画。平稳流畅，轻柔滑动。带有一些原版风格",
+  "fancytoasts.toast.animation.standard.description": "标准动画。平稳流畅，自上而下轻柔滑动。略带原版风格。",
   "fancytoasts.toast.animation.playful": "活泼",
-  "fancytoasts.toast.animation.playful.description": "活力！趣味！游戏感！充满能量且更具实验性的动画",
+  "fancytoasts.toast.animation.playful.description": "活力四射！趣味十足！游戏感满满！充满能量且更具实验性的动画，带有旋转效果。",
   "fancytoasts.toast.animation.quirky": "搞怪",
-  "fancytoasts.toast.animation.quirky.description": "摇摆不定，充满野性。持续运动，永不停歇",
-  "fancytoasts.toast.animation.oldlike": "旧式风格", // Machine translation
-  "fancytoasts.toast.animation.oldlike.description": "今天想来点特别的吗？灵感来源于经典的进度提示。从右向左滑动。带有透明出现效果", // Machine translation
+  "fancytoasts.toast.animation.quirky.description": "摇摆不定，充满野性。持续运动，永不停歇——不过看久了可能会眼花哦。",
+  "fancytoasts.toast.animation.oldlike": "怀旧风格",
+  "fancytoasts.toast.animation.oldlike.description": "今天想来点复古风味？灵感来源于经典的进度提示。从右向左滑动，带有透明浮现效果。",
 
   "fancytoasts.toast.texture.vanilla": "原版风格",
-  "fancytoasts.toast.texture.vanilla.description": "灵感源自Minecraft原版风格",
+  "fancytoasts.toast.texture.vanilla.description": "灵感源自 Minecraft 原版风格。",
   "fancytoasts.toast.texture.nature": "自然",
-  "fancytoasts.toast.texture.nature.description": "彷徨于林间某处。灵感源自我们的大自然母亲",
+  "fancytoasts.toast.texture.nature.description": "彷徨于林间某处。灵感源自我们的大自然母亲，仿佛用树枝与其他自然材料制成。",
   "fancytoasts.toast.texture.og": "怀旧经典",
-  "fancytoasts.toast.texture.og.description": "如果你是真正的老派玩家，并且喜爱古老粗犷的风格，那么这个正适合你",
+  "fancytoasts.toast.texture.og.description": "如果你是真正的老派玩家，并且喜爱古老粗犷的风格，那么这个正适合你。毫无花哨！",
   "fancytoasts.toast.texture.modern": "现代",
-  "fancytoasts.toast.texture.modern.description": "精美、简洁、利落",
+  "fancytoasts.toast.texture.modern.description": "精美、简洁、利落。",
   "fancytoasts.toast.texture.terracraft": "泰拉工艺",
-  "fancytoasts.toast.texture.terracraft.description": "那是什么？我想我看到了天空中有一只巨大的红眼！哦，等等，它冲过来了……灵感源自《泰拉瑞亚》",
-  "fancytoasts.toast.texture.steamy": "蒸汽风格",
-  "fancytoasts.toast.texture.steamy.description": "我花了1500小时才达成100%完成度！妈妈你为我骄傲吗？灵感源自Steam",
-  "fancytoasts.toast.texture.landspaper": "信件壁纸", // Machine translation
-  "fancytoasts.toast.texture.landspaper.description": "我想你收到了一封新信！或许可以把它钉在某个地方以便更好地查看。希望它不会受潮溶解。", // Machine translation
+  "fancytoasts.toast.texture.terracraft.description": "那是什么？我想我看到了天空中有一只巨大的红眼！哦，等等，它冲过来了……灵感源自《泰拉瑞亚》。",
+  "fancytoasts.toast.texture.steamy": "Steam 风格",
+  "fancytoasts.toast.texture.steamy.description": "我花了 1500 小时才达成 100% 完成度！妈妈你为我骄傲吗？灵感源自 Steam。",
+  "fancytoasts.toast.texture.landspaper": "信件壁纸",
+  "fancytoasts.toast.texture.landspaper.description": "你收到了一封新信！不妨把它钉在某个地方以便仔细阅读。希望它不会受潮溶解。",
 
-  "fancytoasts.toast.sound.minecraft.description": "Minecraft内置音效",
-  "fancytoasts.toast.sound.mod.description": "来自模组的音效", // Machine translation
-  "fancytoasts.toast.sound.resourcepack.description": "来自资源包的音效", // Machine translation
+  "fancytoasts.toast.sound.minecraft.description": "Minecraft 内置音效",
+  "fancytoasts.toast.sound.mod.description": "来自模组的音效",
+  "fancytoasts.toast.sound.resourcepack.description": "来自资源包的音效",
 
-  "key.fancytoasts.config_menu": "Fancy Toasts菜单", // Machine translation
+  "key.fancytoasts.config_menu": "Fancy Toasts 设置菜单",
 
   "modmenu.descriptionTranslation.fancytoasts": "重新设计了旧的进度提示系统，用更吸引人、更有趣的提示样式取而代之。"
 }
