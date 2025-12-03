@@ -15,7 +15,6 @@ import org.lwjgl.glfw.GLFW;
 
 import java.util.function.Supplier;
 
-// Testing, commit on master
 public class Common {
     // Mod lifecycle
     public static void onModInit() {
