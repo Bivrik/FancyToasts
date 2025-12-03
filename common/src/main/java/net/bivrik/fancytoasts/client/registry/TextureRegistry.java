@@ -1,0 +1,67 @@
+package net.bivrik.fancytoasts.client.registry;
+
+import net.bivrik.fancytoasts.core.Constants;
+import net.bivrik.fancytoasts.core.Debug;
+import net.bivrik.fancytoasts.client.toast.DisplayData;
+import net.minecraft.resources.ResourceLocation;
+import org.slf4j.Logger;
+
+import java.util.*;
+import java.util.stream.Collectors;
+
+public class TextureRegistry {
+    private static final Logger LOGGER = Debug.getLogger(TextureRegistry.class);
+
+    private static final Map<ResourceLocation, DisplayData> TEXTURES = new HashMap<>();
+
+    private static void addTexture(ResourceLocation id, DisplayData data) {
+        TEXTURES.put(id, data);
+    }
+
+    public static boolean register(ResourceLocation id, DisplayData data) {
+        if (isRegistered(id)) {
+            LOGGER.warn("{} already exists! It has to be unique", id);
+            return false;
+        }
+        
+        addTexture(id, data);
+
+        LOGGER.info("Registered: {}", id);
+        return true;
+    }
+
+    public static boolean register(ResourceLocation id, String name, String author, String description) {
+        return register(id, new DisplayData(name, author, description, true));
+    }
+
+    public static void unregister(ResourceLocation id) {
+        TEXTURES.remove(id);
+        LOGGER.info("Unregistered: {}", id);
+    }
+
+    public static boolean isRegistered(ResourceLocation id) {
+        return TEXTURES.getOrDefault(id, null) != null;
+    }
+
+    public static DisplayData getData(ResourceLocation id) {
+        DisplayData data = TEXTURES.getOrDefault(id, null);
+        if (data == null) {
+            LOGGER.error("{} is missing, using default", id);
+            return getDefaultData();
+        }
+
+        return data;
+    }
+    
+    public static DisplayData getDefaultData() {
+        return new DisplayData("fancytoasts.gui.unknown", "fancytoasts.gui.unknown", "fancytoasts.gui.unknown", true);
+    }
+
+    public static Collection<ResourceLocation> getIds() {
+        return TEXTURES.keySet();
+    }
+
+    public static List<ResourceLocation> getCustomIds() {
+        return TEXTURES.keySet().stream().filter(id -> id.getPath().contains(Constants.CONFIG)).collect(Collectors.toList());
+    }
+}

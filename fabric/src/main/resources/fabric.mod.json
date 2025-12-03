@@ -1,0 +1,34 @@
+{
+  "schemaVersion": 1,
+  "id": "${mod_id}",
+  "version": "${version}",
+  "name": "${mod_name}",
+  "description": "${description}",
+  "authors": [ "${mod_author}" ],
+  "contributors": [ "${credits}" ],
+  "contact": {
+    "homepage": "${homepage_url}",
+    "sources": "${sources_url}",
+    "issues": "${issue_tracker_url}"
+  },
+  "license": "${license}",
+  "icon": "icon.png",
+  "environment": "client",
+  "entrypoints": {
+    "main": [
+      "net.bivrik.fancytoasts.FancyToasts"
+    ],
+    "modmenu": [
+      "net.bivrik.fancytoasts.gui.ModMenuImplementation"
+    ]
+  },
+  "mixins": [
+    "fancytoasts.mixins.json"
+  ],
+  "depends": {
+    "fabricloader": ">=${fabric_loader_version}",
+    "fabric-api": "*",
+    "minecraft": "~${minecraft_version}",
+    "java": ">=${java_version}"
+  }
+}

@@ -1,0 +1,19 @@
+{
+  "required": true,
+  "minVersion": "0.8",
+  "package": "net.bivrik.fancytoasts.mixin",
+  "refmap": "fancytoasts.refmap.json",
+  "compatibilityLevel": "JAVA_17",
+  "client": [
+    "AdvancementToastMixinAccessor",
+    "ClientTextTooltipMixinAccessor",
+    "GameRendererMixin",
+    "GuiGraphicsMixin",
+    "MinecraftMixin",
+    "OptionsMixin",
+    "ToastComponentMixin"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}

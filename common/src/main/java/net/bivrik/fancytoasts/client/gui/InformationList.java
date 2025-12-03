@@ -1,0 +1,133 @@
+package net.bivrik.fancytoasts.client.gui;
+
+import net.bivrik.fancytoasts.core.Debug;
+import net.bivrik.fancytoasts.client.toast.DisplayData;
+import net.bivrik.fancytoasts.platform.utility.Components;
+import net.bivrik.fancytoasts.platform.utility.GuiContext;
+import net.bivrik.fancytoasts.platform.utility.Colors;
+import net.bivrik.fancytoasts.platform.utility.ResourceLocations;
+import net.bivrik.fancytoasts.utility.TextureUV;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.Font;
+import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.components.AbstractSelectionList;
+import net.minecraft.client.gui.narration.NarrationElementOutput;
+import net.minecraft.network.chat.Component;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.util.FormattedCharSequence;
+import org.jetbrains.annotations.NotNull;
+
+import java.util.ArrayList;
+import java.util.List;
+
+public class InformationList extends AbstractSelectionList<InformationList.Entry> {
+    private static final Component CUSTOM_LABEL = Components.of("label.custom");
+    private static final Component AUTHOR_LABEL = Components.of("label.author");
+    private static final Component DESCRIPTION_LABEL = Components.of("label.description");
+
+    private final List<InformationListEntry> lines = new ArrayList<>(7);
+    private ResourceLocation location;
+
+    public InformationList(Minecraft minecraft, int width, int height, int x, int y, DisplayData displayData, boolean isConfig) {
+        super(minecraft, width, height, y, y + height, 10);
+        this.x0 = x;
+        this.x1 = x + width;
+        this.setRenderSelection(false);
+
+        this.update(displayData, isConfig, true);
+    }
+
+    public void update(DisplayData displayData, boolean isConfig, boolean isSelected) {
+        if (displayData == null) {
+            Debug.error("No Display Data to show in Information List");
+            return;
+        }
+
+        location = isSelected ? ResourceLocations.of("textures/gui/icons/success.png") : ResourceLocations.of("textures/gui/icons/looking.png");
+
+        clear();
+
+        this.addLine(displayData.getDisplayName(), Colors.YELLOW);
+        if (isConfig) {
+            addLine(CUSTOM_LABEL, Colors.RED);
+        }
+        addSpace();
+        addLine(AUTHOR_LABEL, Colors.WHITE);
+        addLine(displayData.getAuthor(), Colors.LIGHT_GRAY);
+        addSpace();
+        addLine(DESCRIPTION_LABEL, Colors.WHITE);
+        addLine(displayData.getDisplayDescription(), Colors.LIGHT_GRAY);
+
+        acceptLines();
+    }
+
+    private void clear() {
+        this.clearEntries();
+        this.setScrollAmount(0);
+        lines.clear();
+    }
+
+    private void addLine(Component content, int color) {
+        Font font = this.minecraft.font;
+
+        List<FormattedCharSequence> textLines = font.split(content, this.getRowWidth());
+        for (var textLine : textLines) {
+            lines.add(new InformationListEntry(font, textLine, color));
+        }
+    }
+
+    private void addSpace() {
+        lines.add(new InformationListEntry(this.minecraft.font, FormattedCharSequence.EMPTY, 0));
+    }
+
+    private void acceptLines() {
+        for (var line : lines) {
+            this.addEntry(line);
+        }
+    }
+
+    @Override
+    public void render(@NotNull GuiGraphics guiGraphics, int mouseX, int mouseY, float partialTick) {
+        super.render(guiGraphics, mouseX, mouseY, partialTick);
+
+        GuiContext context = new GuiContext(guiGraphics);
+        context.drawSprite(location, this.x1 - 8 - 3, this.y0 + 3, 8, 8);
+    }
+
+    @Override
+    public int getRowWidth() {
+        return this.width - 16 - 8;
+    }
+
+    @Override
+    public int getRowLeft() {
+        return this.x0 + 8;
+    }
+
+    @Override
+    protected int getScrollbarPosition() {
+        return this.x1 + this.width - 8;
+    }
+
+    @Override
+    public void updateNarration(@NotNull NarrationElementOutput narrationElementOutput) {}
+
+    protected abstract static class Entry extends AbstractSelectionList.Entry<Entry> {}
+
+    private static final class InformationListEntry extends Entry {
+        private final Font font;
+        private final FormattedCharSequence content;
+        private final int color;
+
+        public InformationListEntry(Font font, FormattedCharSequence content, int color) {
+            this.font = font;
+            this.content = content;
+            this.color = color;
+        }
+
+        @Override
+        public void render(@NotNull GuiGraphics guiGraphics, int index, int y, int x, int width, int height, int mouseX, int mouseY, boolean isHovering, float partialTick) {
+            guiGraphics.drawString(font, content, x, y + 3, color);
+        }
+    }
+}
