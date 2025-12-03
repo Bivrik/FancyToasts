@@ -12,7 +12,7 @@
       <profile name="Gradle Imported" enabled="true">
         <outputRelativeToContentRoot value="true" />
         <processorPath useClasspath="false">
-          <entry name="$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.github.bawnorton.mixinsquared/mixinsquared-common/0.3.7-beta.1/5c279d26aacbf0d75a5cd72d88b2aede5baa9e0a/mixinsquared-common-0.3.7-beta.1.jar" />
+          <entry name="$USER_HOME$/.gradle/caches/modules-2/files-2.1/io.github.llamalad7/mixinextras-common/0.3.5/5de895137aa0478675b6ecf7602d9652b05dc37e/mixinextras-common-0.3.5.jar" />
         </processorPath>
         <module name="FancyToasts.common.main" />
       </profile>
