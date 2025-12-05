@@ -48,7 +48,7 @@ public class CustomTextureManager implements IManager {
     public void onMinecraftInit(Minecraft minecraft) {
         textureManager = minecraft.getTextureManager();
         toastConfigData = Managers.getConfigManager().getToastConfigData();
-        Managers.getEventManager().subscribe(ToastConfigDataEvent.class, this::onToastConfigDataChanged);
+        Managers.getEventManager().subscribeToEvent(ToastConfigDataEvent.class, this::onToastConfigDataChanged);
 
         load();
         registerInMainRegistry();

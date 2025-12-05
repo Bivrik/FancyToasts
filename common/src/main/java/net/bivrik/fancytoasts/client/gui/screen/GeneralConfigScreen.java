@@ -14,8 +14,6 @@ import net.bivrik.fancytoasts.platform.utility.Colors;
 import net.bivrik.fancytoasts.platform.utility.Components;
 import net.bivrik.fancytoasts.platform.utility.ResourceLocations;
 import net.bivrik.fancytoasts.utility.MathEasing;
-import net.bivrik.fancytoasts.utility.TextureUV;
-import net.bivrik.fancytoasts.platform.utility.GuiContext;
 import net.bivrik.fancytoasts.core.Managers;
 import net.minecraft.Util;
 import net.minecraft.client.gui.GuiGraphics;
@@ -175,7 +173,7 @@ public class GeneralConfigScreen extends UniversalScreen {
 
     private void save(GeneralConfigData data) {
         ConfigHandler.save(data);
-        Managers.getEventManager().changed(new GeneralConfigDataEvent(data));
+        Managers.getEventManager().sendEvent(new GeneralConfigDataEvent(data));
         isSaved = true;
         savedFeedbackStartTime = Util.getMillis();
     }
