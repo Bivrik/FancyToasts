@@ -71,7 +71,8 @@ public class FancyAdvancementToast {
     public void update(long time) {
         this.time = time;
 
-        if (this.time >= animation.getDuration()) {
+        if (this.time >= animation.getDuration() && !isEnded) {
+            animation.unsubscribeFromGeneralConfigDataEvent();
             isEnded = true;
         }
 

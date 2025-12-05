@@ -1,6 +1,5 @@
 package net.bivrik.fancytoasts.client.gui.screen;
 
-import com.mojang.blaze3d.systems.RenderSystem;
 import net.bivrik.fancytoasts.client.config.ToastAnchor;
 import net.bivrik.fancytoasts.client.config.ToastScreenBehavior;
 import net.bivrik.fancytoasts.client.config.ConfigHandler;
@@ -9,14 +8,11 @@ import net.bivrik.fancytoasts.client.gui.IntegerEditBox;
 import net.bivrik.fancytoasts.client.gui.Slider;
 import net.bivrik.fancytoasts.client.toast.Appearance;
 import net.bivrik.fancytoasts.core.Constants;
-import net.bivrik.fancytoasts.core.Debug;
 import net.bivrik.fancytoasts.core.event.GeneralConfigDataEvent;
 import net.bivrik.fancytoasts.platform.Services;
 import net.bivrik.fancytoasts.platform.utility.Colors;
 import net.bivrik.fancytoasts.platform.utility.Components;
 import net.bivrik.fancytoasts.utility.MathEasing;
-import net.bivrik.fancytoasts.utility.TextureUV;
-import net.bivrik.fancytoasts.platform.utility.GuiContext;
 import net.bivrik.fancytoasts.core.Managers;
 import net.bivrik.fancytoasts.platform.utility.ResourceLocations;
 import net.minecraft.Util;
@@ -170,7 +166,7 @@ public class GeneralConfigScreen extends UniversalScreen {
 
     private void save(GeneralConfigData data) {
         ConfigHandler.save(data);
-        Managers.getEventManager().changed(new GeneralConfigDataEvent(data));
+        Managers.getEventManager().sendEvent(new GeneralConfigDataEvent(data));
         isSaved = true;
         savedFeedbackStartTime = Util.getMillis();
     }

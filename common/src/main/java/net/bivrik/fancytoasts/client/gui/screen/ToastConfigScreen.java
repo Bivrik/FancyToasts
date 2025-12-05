@@ -164,7 +164,7 @@ public class ToastConfigScreen extends UniversalScreen {
         }
 
         ConfigHandler.save(data);
-        Managers.getEventManager().changed(new ToastConfigDataEvent(data));
+        Managers.getEventManager().sendEvent(new ToastConfigDataEvent(data));
         isSaved = true;
         savedFeedbackStartTime = Util.getMillis();
     }

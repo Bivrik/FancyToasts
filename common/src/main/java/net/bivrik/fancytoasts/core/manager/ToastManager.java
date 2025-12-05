@@ -42,8 +42,8 @@ public class ToastManager implements IManager {
         toastConfigData = configManager.getToastConfigData();
 
         EventManager eventManager = Managers.getEventManager();
-        eventManager.subscribe(GeneralConfigDataEvent.class, this::onGeneralConfigDataChanged);
-        eventManager.subscribe(ToastConfigDataEvent.class, this::onToastConfigDataChanged);
+        eventManager.subscribeToEvent(GeneralConfigDataEvent.class, this::onGeneralConfigDataChanged);
+        eventManager.subscribeToEvent(ToastConfigDataEvent.class, this::onToastConfigDataChanged);
     }
 
     private void onGeneralConfigDataChanged(GeneralConfigDataEvent event) {
