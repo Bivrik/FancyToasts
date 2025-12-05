@@ -1,6 +1,5 @@
 package net.bivrik.fancytoasts.client.gui.screen;
 
-import com.mojang.blaze3d.systems.RenderSystem;
 import net.bivrik.fancytoasts.client.config.ConfigHandler;
 import net.bivrik.fancytoasts.client.config.data.ToastsFilteringData;
 import net.bivrik.fancytoasts.client.toast.Appearance;
@@ -10,10 +9,8 @@ import net.bivrik.fancytoasts.core.event.ToastsFilteringDataEvent;
 import net.bivrik.fancytoasts.platform.Services;
 import net.bivrik.fancytoasts.platform.utility.Colors;
 import net.bivrik.fancytoasts.platform.utility.Components;
-import net.bivrik.fancytoasts.platform.utility.GuiContext;
 import net.bivrik.fancytoasts.platform.utility.ResourceLocations;
 import net.bivrik.fancytoasts.utility.MathEasing;
-import net.bivrik.fancytoasts.utility.TextureUV;
 import net.bivrik.fancytoasts.utility.file.Paths;
 import net.minecraft.Util;
 import net.minecraft.client.gui.GuiGraphics;
@@ -29,7 +26,6 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import org.jetbrains.annotations.NotNull;
 
-import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Consumer;
@@ -147,7 +143,7 @@ public class ToastsFilteringScreen extends UniversalScreen {
 
     private void save(ToastsFilteringData data) {
         ConfigHandler.save(data);
-        Managers.getEventManager().changed(new ToastsFilteringDataEvent(data));
+        Managers.getEventManager().sendEvent(new ToastsFilteringDataEvent(data));
         isSaved = true;
         savedFeedbackStartTime = Util.getMillis();
     }

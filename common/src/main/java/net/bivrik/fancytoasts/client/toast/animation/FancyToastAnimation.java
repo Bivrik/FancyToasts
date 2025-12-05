@@ -17,8 +17,11 @@ import net.minecraft.util.FormattedCharSequence;
 
 import java.util.List;
 import java.util.Objects;
+import java.util.function.Consumer;
 
 public abstract class FancyToastAnimation {
+    private final Consumer<GeneralConfigDataEvent> generalConfigDataEventConsumer;
+
     private List<FormattedCharSequence> titleLines;
     private List<FormattedCharSequence> descriptionLines;
 
@@ -37,8 +40,12 @@ public abstract class FancyToastAnimation {
     private float loopsStrength;
     private float loopsSpeed;
 
+    FancyToastAnimation() {
+        generalConfigDataEventConsumer = this::onGeneralConfigDataChanged;
+        Managers.getEventManager().subscribeToEvent(GeneralConfigDataEvent.class, generalConfigDataEventConsumer);
+    }
+
     public void setup(AnimationSetup setup, Minecraft minecraft, int toastWidth, int toastHeight) {
-        Managers.getEventManager().subscribe(GeneralConfigDataEvent.class, this::onGeneralConfigDataChanged);
         var data = Managers.getConfigManager().getGeneralConfigData();
         this.shouldTransparentToast = data.getToastScreenBehavior().equals(ToastScreenBehavior.TRANSPARENT);
         this.loopsStrength = data.getLoopsStrength();
@@ -52,6 +59,10 @@ public abstract class FancyToastAnimation {
         this.typeBasedUVs = setup.typeBasedUVs();
         this.backgroundUV = setup.backgroundUV();
         this.plaqueUV = setup.plaqueUV();
+    }
+
+    public void unsubscribeFromGeneralConfigDataEvent() {
+        Managers.getEventManager().unsubscribeFromEvent(GeneralConfigDataEvent.class, generalConfigDataEventConsumer);
     }
 
     private void onGeneralConfigDataChanged(GeneralConfigDataEvent event) {
