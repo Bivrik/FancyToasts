@@ -1,56 +1,90 @@
 package net.bivrik.fancytoasts.compat;
 
+import dev.ftb.mods.ftblibrary.icon.Icon;
 import dev.ftb.mods.ftblibrary.icon.IconAnimation;
 import dev.ftb.mods.ftblibrary.icon.ItemIcon;
 import dev.ftb.mods.ftbquests.client.ClientQuestFile;
 import dev.ftb.mods.ftbquests.client.gui.ToastQuestObject;
+import dev.ftb.mods.ftbquests.item.FTBQuestsItems;
+import dev.ftb.mods.ftbquests.quest.Quest;
 import dev.ftb.mods.ftbquests.quest.QuestObjectBase;
-import net.bivrik.fancytoasts.core.Debug;
+import net.bivrik.fancytoasts.core.Constants;
 import net.bivrik.fancytoasts.platform.utility.FancyToastType;
 import net.bivrik.fancytoasts.platform.utility.QuestToastDisplayInfo;
+import net.bivrik.fancytoasts.platform.utility.ResourceLocations;
 import net.bivrik.fancytoasts.platform.utility.ToastDisplayInfo;
 import net.minecraft.client.gui.components.toasts.Toast;
 import net.minecraft.network.chat.Component;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 public class FTBQuestsCompat {
+    private static final Map<Long, Long> REPEATABLE_QUESTS = new WeakHashMap<>(4);
+    private static final int MINUTE = 1000 * 60;
+    private static final int TIME = MINUTE;
+
     public static boolean isQuest(Toast toast) {
         return toast instanceof ToastQuestObject;
     }
 
     public static ToastDisplayInfo getDisplayInfo(Toast toast) {
         ToastQuestObject questToast = (ToastQuestObject) toast;
-
-        Debug.info(questToast.getIcon().toString());
-
-        var toastType = !questToast.isImportant() ? FancyToastType.TASK : FancyToastType.CHALLENGE;
+        FancyToastType toastType = !questToast.isImportant() ? FancyToastType.TASK : FancyToastType.CHALLENGE;
 
         Component title = questToast.getSubtitle();
-        Component description = toastType.getDisplayAnnouncement();
+        Component description = toastType.getDisplayAnnouncement(); // fallback as a standard advancement announcement for description
         Component questAnnouncement = questToast.getTitle();
         List<ItemStack> icons = new ArrayList<>(1);
 
+        // Try to find a description for quest. Not really efficient, but I can't think of any other solution
+        Quest quest = null;
         for (QuestObjectBase questObject : ClientQuestFile.INSTANCE.getAllObjects()) {
             if (questObject.getTitle().equals(title)) {
-                var quest = ClientQuestFile.INSTANCE.getQuest(questObject.id);
-                if (quest != null) {
-                    description = quest.getSubtitle();
+                Quest foundQuest = ClientQuestFile.INSTANCE.getQuest(questObject.id);
+                if (foundQuest != null) {
+                    quest = foundQuest;
+                    description = foundQuest.getSubtitle();
+                    break;
                 }
-                break;
             }
         }
 
-        if (questToast.getIcon() instanceof IconAnimation iconAnimation) {
-            for (var icon : iconAnimation.list) {
-                icons.add(((ItemIcon) icon).getStack());
+        // Handle repeatable quests
+        long currentTime = System.currentTimeMillis();
+        if (quest != null) {
+            Long id = quest.id;
+            REPEATABLE_QUESTS.entrySet().removeIf(entry -> currentTime - entry.getValue() > TIME);
+
+            if (quest.canBeRepeated()) {
+                if (REPEATABLE_QUESTS.containsKey(id)) {
+                    return null;
+                } else {
+                    REPEATABLE_QUESTS.put(id, currentTime);
+                }
             }
         }
 
-        if (questToast.getIcon() instanceof ItemIcon itemIcon) {
+        // Check icons and add them to the list
+        Icon questIcon = questToast.getIcon();
+        if (questIcon instanceof ItemIcon itemIcon) {
             icons.add(itemIcon.getStack());
+        } else if (questIcon instanceof IconAnimation iconAnimation) {
+            for (Icon icon : iconAnimation.list) {
+                if (icon instanceof ItemIcon itemIcon) {
+                    icons.add(itemIcon.getStack());
+                }
+            }
+        }
+
+        // If there is custom texture just replace it with a FTBQuests' book. Or just in general other edge cases. It's better to have something than nothing, I guess
+        if (icons.isEmpty()) {
+            Item item = FTBQuestsItems.ITEMS.getRegistrar().get(ResourceLocations.withNamespaceAndPath(Constants.Compatibilities.FTB_QUESTS_ID, "book"));
+            if (item != null) {
+                ItemStack icon = new ItemStack(item);
+                icons.add(icon);
+            }
         }
 
         return new QuestToastDisplayInfo(icons, title, description, toastType, questAnnouncement);
