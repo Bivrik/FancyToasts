@@ -33,6 +33,7 @@ public class QuestToastDisplayInfo extends ToastDisplayInfo {
     }
 
     private ItemStack getOrderedIcon() {
-        return icons.get((int) (System.currentTimeMillis() / 1000L % icons.size()));
+        int currentIdForIcon = (int) (System.currentTimeMillis() / 1000L % icons.size());
+        return icons.get(currentIdForIcon);
     }
 }
