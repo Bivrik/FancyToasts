@@ -1,20 +1,11 @@
 package net.bivrik.fancytoasts.platform.utility;
 
-import com.mojang.blaze3d.platform.GlStateManager;
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.math.Axis;
 import net.bivrik.fancytoasts.utility.TextureUV;
-import net.minecraft.client.OptionInstance;
 import net.minecraft.client.gui.GuiGraphics;
-import net.minecraft.client.gui.components.Tooltip;
-import net.minecraft.client.gui.screens.inventory.InventoryScreen;
-import net.minecraft.client.gui.screens.inventory.tooltip.TooltipRenderUtil;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.entity.player.Inventory;
-import net.minecraft.world.inventory.tooltip.TooltipComponent;
-import net.minecraft.world.item.component.TooltipProvider;
-import org.lwjgl.opengl.GL11;
 
 public class GuiContext {
     private final GuiGraphics guiGraphics;

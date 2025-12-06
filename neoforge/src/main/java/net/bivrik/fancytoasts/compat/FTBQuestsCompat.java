@@ -5,9 +5,9 @@ import dev.ftb.mods.ftblibrary.icon.IconAnimation;
 import dev.ftb.mods.ftblibrary.icon.ItemIcon;
 import dev.ftb.mods.ftbquests.client.ClientQuestFile;
 import dev.ftb.mods.ftbquests.client.gui.ToastQuestObject;
-import dev.ftb.mods.ftbquests.item.FTBQuestsItems;
 import dev.ftb.mods.ftbquests.quest.Quest;
 import dev.ftb.mods.ftbquests.quest.QuestObjectBase;
+import dev.ftb.mods.ftbquests.registry.ModItems;
 import net.bivrik.fancytoasts.core.Constants;
 import net.bivrik.fancytoasts.platform.utility.FancyToastType;
 import net.bivrik.fancytoasts.platform.utility.QuestToastDisplayInfo;
@@ -21,7 +21,7 @@ import net.minecraft.world.item.ItemStack;
 import java.util.*;
 
 public class FTBQuestsCompat {
-    private static final Map<Long, Long> REPEATABLE_QUESTS = new WeakHashMap<>(4);
+    private static final Map<Long, Long> REPEATABLE_QUESTS = new HashMap<>(3);
     private static final int MINUTE = 1000 * 60;
     private static final int TIME = MINUTE * 3;
 
@@ -80,7 +80,7 @@ public class FTBQuestsCompat {
 
         // If there is custom texture just replace it with a FTBQuests' book. Or just in general other edge cases. It's better to have something than nothing, I guess
         if (icons.isEmpty()) {
-            Item item = FTBQuestsItems.ITEMS.getRegistrar().get(ResourceLocations.withNamespaceAndPath(Constants.Compatibilities.FTB_QUESTS_ID, "book"));
+            Item item = ModItems.ITEMS.getRegistrar().get(ResourceLocations.withNamespaceAndPath(Constants.Compatibilities.FTB_QUESTS_ID, "book"));
             if (item != null) {
                 ItemStack icon = new ItemStack(item);
                 icons.add(icon);
