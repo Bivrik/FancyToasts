@@ -1,5 +1,6 @@
 package net.bivrik.fancytoasts.client.config.data;
 
+import net.bivrik.fancytoasts.core.Constants;
 import net.bivrik.fancytoasts.platform.utility.FancyToastType;
 import net.bivrik.fancytoasts.utility.file.Paths;
 import net.minecraft.resources.ResourceLocation;
@@ -7,6 +8,8 @@ import net.minecraft.resources.ResourceLocation;
 import java.util.*;
 
 public class ToastsFilteringData extends ConfigData {
+    private static final int VERSION = Constants.ConfigVersions.TOAST_FILTERING;
+
     private boolean fancyAdvancementToastsEnabled;
     private boolean fancyQuestToastsEnabled;
     private boolean advancementToastsEnabled;
@@ -21,7 +24,7 @@ public class ToastsFilteringData extends ConfigData {
     private final transient Set<String> exactMatches = new HashSet<>();
     private final transient Set<String> prefixMatches = new HashSet<>();
 
-    public ToastsFilteringData(boolean fancyAdvancementToastsEnabled, boolean fancyQuestToastsEnabled, boolean advancementToastsEnabled, boolean recipeToastsEnabled, boolean systemToastsEnabled, boolean tutorialToastsEnabled, Map<FancyToastType, Boolean> typesToIgnore, List<String> toastsToIgnore) {
+    private ToastsFilteringData(boolean fancyAdvancementToastsEnabled, boolean fancyQuestToastsEnabled, boolean advancementToastsEnabled, boolean recipeToastsEnabled, boolean systemToastsEnabled, boolean tutorialToastsEnabled, Map<FancyToastType, Boolean> typesToIgnore, List<String> toastsToIgnore) {
         super(Paths.TOASTS_FILTERING_FILE);
 
         this.fancyAdvancementToastsEnabled = fancyAdvancementToastsEnabled;
@@ -124,13 +127,13 @@ public class ToastsFilteringData extends ConfigData {
     }
 
     @Override
-    public boolean isValid() {
-        return true;
+    public int getLatestVersion() {
+        return VERSION;
     }
 
     @Override
     public ToastsFilteringData copy() {
-        return new ToastsFilteringData(fancyAdvancementToastsEnabled, fancyQuestToastsEnabled, advancementToastsEnabled, recipeToastsEnabled, systemToastsEnabled, tutorialToastsEnabled, typesToIgnore, toastsToIgnore);
+        return new ToastsFilteringData(fancyAdvancementToastsEnabled, fancyQuestToastsEnabled, advancementToastsEnabled, recipeToastsEnabled, systemToastsEnabled, tutorialToastsEnabled, typesToIgnore, toastsToIgnore).withLatestVersion();
     }
 
     @Override
