@@ -20,10 +20,14 @@ public class IntegerEditBox extends EditBox {
         super.insertText(textToWrite);
     }
 
-    public void setIntegerValue(Consumer<Integer> consumer) {
+    public void setIntegerResponder(Consumer<Integer> consumer) {
         Integer value = Ints.tryParse(this.getValue());
         if (value != null) {
             consumer.accept(value);
         }
+    }
+
+    public void setIntegerValue(int value) {
+        setValue(String.valueOf(value));
     }
 }
