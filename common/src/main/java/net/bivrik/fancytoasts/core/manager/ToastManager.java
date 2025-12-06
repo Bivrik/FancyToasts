@@ -100,7 +100,7 @@ public class ToastManager implements IManager {
         int screenWidth = guiGraphics.guiWidth();
         int screenHeight = guiGraphics.guiHeight();
 
-        Vector2d toastPosition = generalConfigData.getToastAnchor().getPosition(screenWidth, screenHeight, generalConfigData.getOffsetX(), generalConfigData.getOffsetY());
+        Vector2d toastPosition = generalConfigData.getToastAnchor().getPosition(screenWidth, screenHeight, generalConfigData.getOffsetX(), -generalConfigData.getOffsetY());
         int xPos = (int) toastPosition.x() - currentToast.getWidth() / 2;
         int yPos = (int) toastPosition.y() - currentToast.getHeight() / 2;
 
