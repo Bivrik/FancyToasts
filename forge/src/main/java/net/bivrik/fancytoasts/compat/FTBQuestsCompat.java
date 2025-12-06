@@ -21,7 +21,7 @@ import net.minecraft.world.item.ItemStack;
 import java.util.*;
 
 public class FTBQuestsCompat {
-    private static final Map<Long, Long> REPEATABLE_QUESTS = new WeakHashMap<>(4);
+    private static final Map<Long, Long> REPEATABLE_QUESTS = new HashMap<>(3);
     private static final int MINUTE = 1000 * 60;
     private static final int TIME = MINUTE * 3;
 
