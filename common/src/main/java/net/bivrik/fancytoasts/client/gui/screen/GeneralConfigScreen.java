@@ -12,6 +12,7 @@ import net.bivrik.fancytoasts.core.event.GeneralConfigDataEvent;
 import net.bivrik.fancytoasts.platform.Services;
 import net.bivrik.fancytoasts.platform.utility.Colors;
 import net.bivrik.fancytoasts.platform.utility.Components;
+import net.bivrik.fancytoasts.platform.utility.ResourceLocations;
 import net.bivrik.fancytoasts.utility.MathEasing;
 import net.bivrik.fancytoasts.utility.TextureUV;
 import net.bivrik.fancytoasts.platform.utility.GuiContext;
@@ -23,6 +24,7 @@ import net.minecraft.client.gui.screens.ConfirmScreen;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.network.chat.CommonComponents;
 import net.minecraft.network.chat.Component;
+import net.minecraft.resources.ResourceLocation;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
@@ -53,6 +55,8 @@ public class GeneralConfigScreen extends UniversalScreen {
     private static final Component ANCHOR_TOOLTIP = Components.of("tooltip.anchor");
     private static final Component LOOPS_STRENGTH_TOOLTIP = Components.of("tooltip.loops_strength");
     private static final Component LOOPS_SPEED_TOOLTIP = Components.of("tooltip.loops_speed");
+
+    private static final ResourceLocation LIST_BACKGROUND = ResourceLocations.fromMinecraft("textures/gui/menu_list_background.png");
 
     private GeneralConfigData generalConfigData;
 
