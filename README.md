@@ -62,9 +62,9 @@ Big goals/plans/ideas for future updates. Some of them are abstract ideas, and s
 
     | Minecraft version | Mod version |
     |-------------------|-------------|
-    | Latest (1.21.10)  | 1.4.4       |
-    | 1.21.1            | 1.4.4       |
-    | 1.20.1            | 1.4.4       |
+    | Latest (1.21.10)  | 1.4.5.1     |
+    | 1.21.1            | 1.4.5.1     |
+    | 1.20.1            | 1.4.5.1     |
   * **Planned with priorities**
 
     | Minecraft version | Port priority |
@@ -86,6 +86,20 @@ Big goals/plans/ideas for future updates. Some of them are abstract ideas, and s
 * FTBQuests compatibility
 
 # Changelog 📝
+
+## 1.4.5.1
+* Bug fixes:
+  * Memory leak due to lack of unsubscribing from events (sorry)
+  * FTBQuests compatibility:
+    * Quest not being rendered if there are multiple icons
+    * Custom textures causes just empty icon frame (now by default there is a fallback as a `Quest Book` for icon)
+* Adjustments:
+  * Updated Simplified Chinese language by Gao Xinyang (`zh_cn`)
+  * FTBQuests compatibility:
+    * There is now 3-minute window between repeatable quests, so they don't spam the screen
+  * Default positions for different anchors (suggested by Redls07)
+  * Inverted `y` position (`50` is now `-50`), because it just makes more sense
+  * New config version system (for easier migrating in the future, so configs don't reset to default when updated version)
 
 ## v1.4.5
 * New features:
