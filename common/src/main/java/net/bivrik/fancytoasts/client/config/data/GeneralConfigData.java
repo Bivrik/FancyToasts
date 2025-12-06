@@ -2,12 +2,15 @@ package net.bivrik.fancytoasts.client.config.data;
 
 import net.bivrik.fancytoasts.client.config.ToastAnchor;
 import net.bivrik.fancytoasts.client.config.ToastScreenBehavior;
+import net.bivrik.fancytoasts.core.Constants;
 import net.bivrik.fancytoasts.utility.file.Paths;
 import net.bivrik.fancytoasts.platform.Services;
 
 import java.util.Objects;
 
 public class GeneralConfigData extends ConfigData {
+    private static final int VERSION = Constants.ConfigVersions.GENERAL;
+
     private boolean isJadeHiding;
     private boolean areSoundsEnabled;
     private float taskVolume;
@@ -20,7 +23,7 @@ public class GeneralConfigData extends ConfigData {
     private ToastAnchor toastAnchor;
     private ToastScreenBehavior toastScreenBehavior;
 
-    public GeneralConfigData(boolean isJadeHiding, boolean areSoundsEnabled, float taskVolume, float goalVolume, float challengeVolume, float loopsStrength, float loopsSpeed, int offsetX, int offsetY, ToastAnchor toastAnchor, ToastScreenBehavior toastScreenBehavior) {
+    private GeneralConfigData(boolean isJadeHiding, boolean areSoundsEnabled, float taskVolume, float goalVolume, float challengeVolume, float loopsStrength, float loopsSpeed, int offsetX, int offsetY, ToastAnchor toastAnchor, ToastScreenBehavior toastScreenBehavior) {
         super(Paths.GENERAL_CONFIG_FILE);
 
         this.isJadeHiding = isJadeHiding;
@@ -37,7 +40,7 @@ public class GeneralConfigData extends ConfigData {
     }
 
     public GeneralConfigData() {
-        this(true, true, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 0, 50, ToastAnchor.TOP, ToastScreenBehavior.TRANSPARENT);
+        this(true, true, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, ToastAnchor.TOP.getBaseOffsetX(), ToastAnchor.TOP.getBaseOffsetY(), ToastAnchor.TOP, ToastScreenBehavior.TRANSPARENT);
     }
 
     public boolean isJadeHiding() {
@@ -133,13 +136,13 @@ public class GeneralConfigData extends ConfigData {
     }
 
     @Override
-    public boolean isValid() {
-        return true;
+    public int getLatestVersion() {
+        return VERSION;
     }
 
     @Override
     public GeneralConfigData copy() {
-        return new GeneralConfigData(isJadeHiding, areSoundsEnabled, taskVolume, goalVolume, challengeVolume, loopsStrength, loopsSpeed, offsetX, offsetY, toastAnchor, toastScreenBehavior);
+        return new GeneralConfigData(isJadeHiding, areSoundsEnabled, taskVolume, goalVolume, challengeVolume, loopsStrength, loopsSpeed, offsetX, offsetY, toastAnchor, toastScreenBehavior).withLatestVersion();
     }
 
     @Override

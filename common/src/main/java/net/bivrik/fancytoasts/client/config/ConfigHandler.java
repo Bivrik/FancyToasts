@@ -12,9 +12,11 @@ import java.util.Optional;
 public class ConfigHandler {
     private static final File CONFIG_DIR = new File(Paths.CONFIG);
 
-    private static <T extends ConfigData> T tryGetInstance(Class<T> configDataClass) {
+    private static <T extends ConfigData> T tryGetCopy(Class<T> configDataClass) {
         try {
-            return configDataClass.getConstructor().newInstance();
+            @SuppressWarnings("unchecked")
+            T result = (T) configDataClass.getConstructor().newInstance().copy();
+            return result;
         } catch (Exception e) {
             throw new RuntimeException("Failed to create an instance of " + configDataClass.getSimpleName() + " to get standard data", e);
         }
@@ -23,31 +25,41 @@ public class ConfigHandler {
     public static <T extends ConfigData> T load(Class<T> configDataClass) {
         FileHelper.tryCreateDir(CONFIG_DIR);
 
-        T standardConfigData = tryGetInstance(configDataClass);
+        T standardConfigData = tryGetCopy(configDataClass);
         String className = configDataClass.getSimpleName();
         String configPath = standardConfigData.getPath();
 
         File configFile = new File(configPath);
 
-        if (JsonHelper.isValid(configFile)) {
-            Optional<T> optionalData = JsonHelper.tryToRead(configFile, configDataClass);
-
-            if (optionalData.isPresent()) {
-                T data = optionalData.get();
-
-                if (data.isValid()) {
-                    Debug.info("Successfully read config file with following content:");
-                    Debug.info(data.toString());
-
-                    return data;
-                }
-            }
-
-            Debug.error("Config file {} is not valid or outdated", className);
-        } else {
-            Debug.error("Config file {} is not found in {}", className, configPath);
+        if (!JsonHelper.isValid(configFile)) {
+            Debug.error("Config file {} is not found in '{}'", className, configPath);
+            return loadFallback(standardConfigData, className);
         }
 
+        Optional<T> optionalData = JsonHelper.tryToRead(configFile, configDataClass);
+        if (optionalData.isEmpty()) {
+            Debug.error("Config file {} is not present", className);
+            return loadFallback(standardConfigData, className);
+        }
+
+        T data = optionalData.get();
+        if (data.isOutdated()) {
+            Debug.error("Config file {} is outdated, version: {}/{}", className, data.getVersion(), data.getLatestVersion());
+            return loadFallback(standardConfigData, className);
+        }
+
+        if (!data.isValid()) {
+            Debug.error("Config file {} is not valid", className);
+            return loadFallback(standardConfigData, className);
+        }
+
+        Debug.info("Successfully read config file with following content:");
+        Debug.info(data.toString());
+
+        return data;
+    }
+
+    private static <T extends ConfigData> T loadFallback(T standardConfigData, String className) {
         Debug.warn("Loaded standard data for config: {}", className);
 
         save(standardConfigData);

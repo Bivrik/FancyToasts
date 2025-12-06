@@ -16,11 +16,13 @@ import java.util.Map;
 import java.util.Objects;
 
 public class ToastConfigData extends ConfigData {
+    private static final int VERSION = Constants.ConfigVersions.TOAST;
+
     private ResourceLocation textureId;
     private ResourceLocation animationId;
     private final Map<FancyToastType, ResourceLocation> soundIds = new EnumMap<>(FancyToastType.class);
 
-    public ToastConfigData(ResourceLocation textureId, ResourceLocation animationId, Map<FancyToastType, ResourceLocation> soundIds) {
+    private ToastConfigData(ResourceLocation textureId, ResourceLocation animationId, Map<FancyToastType, ResourceLocation> soundIds) {
         super(Paths.TOAST_CONFIG_FILE);
 
         this.textureId = textureId;
@@ -91,6 +93,11 @@ public class ToastConfigData extends ConfigData {
         return isValid;
     }
 
+    @Override
+    public int getLatestVersion() {
+        return VERSION;
+    }
+
     private boolean isConfig(ResourceLocation id) {
         return id.toLanguageKey().contains(Constants.CONFIG);
     }
@@ -108,7 +115,7 @@ public class ToastConfigData extends ConfigData {
 
     @Override
     public ToastConfigData copy() {
-        return new ToastConfigData(textureId, animationId, soundIds);
+        return new ToastConfigData(textureId, animationId, soundIds).withLatestVersion();
     }
 
     @Override

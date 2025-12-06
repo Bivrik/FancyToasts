@@ -6,7 +6,6 @@ public class Constants {
 
     public static final String FABRIC = "Fabric";
     public static final String FORGE = "Forge";
-    public static final String NEOFORGE = "NeoForge";
 
     public static final String CONFIG = "config"; // ???
 
@@ -14,5 +13,11 @@ public class Constants {
         public static final String JADE_ID = "jade";
         public static final String FTB_QUESTS_ID = "ftbquests";
         public static final String MINECRAFT_ID = "minecraft";
+    }
+
+    public static class ConfigVersions {
+        public static final int GENERAL = 1;
+        public static final int TOAST = 1;
+        public static final int TOAST_FILTERING = 1;
     }
 }

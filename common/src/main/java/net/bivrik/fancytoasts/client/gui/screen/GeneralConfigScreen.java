@@ -16,7 +16,6 @@ import net.bivrik.fancytoasts.utility.MathEasing;
 import net.bivrik.fancytoasts.utility.TextureUV;
 import net.bivrik.fancytoasts.platform.utility.GuiContext;
 import net.bivrik.fancytoasts.core.Managers;
-import net.bivrik.fancytoasts.platform.utility.ResourceLocations;
 import net.minecraft.Util;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.*;
@@ -24,7 +23,6 @@ import net.minecraft.client.gui.screens.ConfirmScreen;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.network.chat.CommonComponents;
 import net.minecraft.network.chat.Component;
-import net.minecraft.resources.ResourceLocation;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
@@ -55,8 +53,6 @@ public class GeneralConfigScreen extends UniversalScreen {
     private static final Component ANCHOR_TOOLTIP = Components.of("tooltip.anchor");
     private static final Component LOOPS_STRENGTH_TOOLTIP = Components.of("tooltip.loops_strength");
     private static final Component LOOPS_SPEED_TOOLTIP = Components.of("tooltip.loops_speed");
-
-    private static final ResourceLocation LIST_BACKGROUND = ResourceLocations.fromMinecraft("textures/gui/menu_list_background.png");
 
     private GeneralConfigData generalConfigData;
 
@@ -115,13 +111,13 @@ public class GeneralConfigScreen extends UniversalScreen {
         toastAnchorButton = listHelper.addWidget(CycleButton.builder(ToastAnchor::getDisplayName)
                 .withValues(ToastAnchor.values()).withInitialValue(generalConfigData.getToastAnchor())
                 .withTooltip(toastAnchor -> Tooltip.create(ANCHOR_TOOLTIP))
-                .create(0, 0, BUTTON_WIDTH, BUTTON_HEIGHT, ANCHOR, (button, value) -> generalConfigData.setToastAnchor(value)));
+                .create(0, 0, BUTTON_WIDTH, BUTTON_HEIGHT, ANCHOR, (button, value) -> changeToastAnchor(value)));
 
         offsetXEditBox = listHelper.addWidget(new IntegerEditBox(this.font, 0, 0, HALF_BUTTON_WIDTH - HALF_PADDING, BUTTON_HEIGHT, this.offsetXEditBox, Component.empty(), generalConfigData.getOffsetX()));
-        offsetXEditBox.setResponder(value -> offsetXEditBox.setIntegerValue(generalConfigData::setOffsetX));
+        offsetXEditBox.setResponder(value -> offsetXEditBox.setIntegerResponder(generalConfigData::setOffsetX));
 
         offsetYEditBox = listHelper.addWidget(new IntegerEditBox(this.font, 0, 0, HALF_BUTTON_WIDTH - HALF_PADDING, BUTTON_HEIGHT, this.offsetYEditBox, Component.empty(), generalConfigData.getOffsetY()));
-        offsetYEditBox.setResponder(value -> offsetYEditBox.setIntegerValue(generalConfigData::setOffsetY));
+        offsetYEditBox.setResponder(value -> offsetYEditBox.setIntegerResponder(generalConfigData::setOffsetY));
 
         loopsStrengthSlider = listHelper.addWidget(createSlider(LOOPS_STRENGTH, generalConfigData.getLoopsStrength(), 10.0f, 0.02f,
                 this::multiplierDisplayer, generalConfigData::setLoopsStrength, 0, 0, Tooltip.create(LOOPS_STRENGTH_TOOLTIP)));
@@ -140,6 +136,12 @@ public class GeneralConfigScreen extends UniversalScreen {
 
         listHelper.arrangeWidgets();
         listHelper.visitWidgets(this::addFWidget);
+    }
+
+    private void changeToastAnchor(ToastAnchor anchor) {
+        generalConfigData.setToastAnchor(anchor);
+        offsetXEditBox.setIntegerValue(anchor.getBaseOffsetX());
+        offsetYEditBox.setIntegerValue(anchor.getBaseOffsetY());
     }
 
     private void confirmResetting() {
