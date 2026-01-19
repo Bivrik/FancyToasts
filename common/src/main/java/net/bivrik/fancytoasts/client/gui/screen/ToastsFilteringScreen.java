@@ -1,8 +1,22 @@
 package net.bivrik.fancytoasts.client.gui.screen;
 
+import static net.bivrik.fancytoasts.client.gui.LayoutValues.BUTTON_HEIGHT;
+import static net.bivrik.fancytoasts.client.gui.LayoutValues.BUTTON_WIDTH;
+import static net.bivrik.fancytoasts.client.gui.LayoutValues.HALF_PADDING;
+import static net.bivrik.fancytoasts.client.gui.LayoutValues.MARGIN;
+import static net.bivrik.fancytoasts.client.gui.LayoutValues.PADDING;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.function.Consumer;
+
+import org.jetbrains.annotations.NotNull;
+
 import com.mojang.blaze3d.systems.RenderSystem;
+
 import net.bivrik.fancytoasts.client.config.ConfigHandler;
 import net.bivrik.fancytoasts.client.config.data.ToastsFilteringData;
+import net.bivrik.fancytoasts.client.gui.LayoutValues;
 import net.bivrik.fancytoasts.client.toast.Appearance;
 import net.bivrik.fancytoasts.core.Constants;
 import net.bivrik.fancytoasts.core.Managers;
@@ -26,13 +40,6 @@ import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.network.chat.CommonComponents;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
-import org.jetbrains.annotations.NotNull;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.function.Consumer;
-
-import static net.bivrik.fancytoasts.client.gui.LayoutValues.*;
 
 public class ToastsFilteringScreen extends UniversalScreen {
     private static final Component TITLE = Components.of("title.toasts_filtering");
@@ -178,6 +185,7 @@ public class ToastsFilteringScreen extends UniversalScreen {
 
     private void drawListBackground(GuiGraphics guiGraphics) {
         GuiContext context = new GuiContext(guiGraphics);
+        int MARGIN = LayoutValues.MARGIN;
         RenderSystem.enableBlend();
         context.drawGUITexture(LIST_BACKGROUND, 0, MARGIN, this.width, this.height - MARGIN * 2 - 2, TextureUV.ZERO, 32, 32);
         context.drawGUITexture(Screen.HEADER_SEPARATOR, 0, MARGIN, this.width, 2, TextureUV.ZERO, 32, 2);
