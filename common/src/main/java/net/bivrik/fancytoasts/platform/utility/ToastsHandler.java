@@ -1,5 +1,7 @@
 package net.bivrik.fancytoasts.platform.utility;
 
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
+
 import net.bivrik.fancytoasts.client.config.data.ToastsFilteringData;
 import net.bivrik.fancytoasts.client.toast.IAdvancementAccessor;
 import net.bivrik.fancytoasts.core.manager.ToastManager;
@@ -8,7 +10,6 @@ import net.minecraft.advancements.AdvancementHolder;
 import net.minecraft.advancements.DisplayInfo;
 import net.minecraft.client.gui.components.toasts.AdvancementToast;
 import net.minecraft.client.gui.components.toasts.Toast;
-import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 public record ToastsHandler(ToastsFilteringData filteringData, ToastManager toastManager, CallbackInfo info) {
 
@@ -40,12 +41,22 @@ public record ToastsHandler(ToastsFilteringData filteringData, ToastManager toas
     }
 
     public void handleFTBQuestsToasts(Toast toast) {
-        if (filteringData.isFancyQuestToastsEnabled()) {
-            info.cancel();
-
-            ToastDisplayInfo displayInfo = Services.FTB_QUESTS.getDisplayInfo(toast);
-            toastManager.addToast(displayInfo);
+        if (!filteringData.isFancyQuestToastsEnabled()) {
+            return;
         }
+        
+        ToastDisplayInfo displayInfo = Services.FTB_QUESTS.getDisplayInfo(toast);
+        String announcement = displayInfo.getAnnouncement().toString();
+        if (!announcement.startsWith("translation")) return;
+        String key = extractKey(announcement);
+        
+        boolean isTask = key.startsWith("ftbquests.task");
+        boolean isQuest = key.startsWith("ftbquests.quest");
+        boolean isChapter = key.startsWith("ftbquests.chapter");
+        boolean isBook = key.startsWith("ftbquests.file");
+
+        info.cancel();
+        toastManager.addToast(displayInfo);
     }
 
     public void handleRecipeToasts() {
@@ -64,5 +75,18 @@ public record ToastsHandler(ToastsFilteringData filteringData, ToastManager toas
         if (!filteringData.isTutorialToastsEnabled()) {
             info.cancel();
         }
+    }
+
+    public static String extractKey(String s)
+    {
+        String marker = "key='";
+        int startIndex = s.indexOf(marker);
+        if (startIndex == -1) return null;
+
+        startIndex += marker.length();
+        int endIndex = s.indexOf("\'", startIndex);
+        if (endIndex == -1) return null;
+
+        return s.substring(startIndex, endIndex);
     }
 }
