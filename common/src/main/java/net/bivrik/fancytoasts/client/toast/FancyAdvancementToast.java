@@ -39,20 +39,38 @@ public class FancyAdvancementToast {
 
         AnimationSetup setup = new AnimationSetup(textureId, displayInfo, null, DefaultUVs.BACKGROUND, DefaultUVs.PLAQUE);
 
-        switch (displayInfo.getAdvancementType()) {
-            case TASK -> {
-                setup.setTypeBasedUVs(DefaultUVs.TASK);
-                volume = generalConfig.getTaskVolume();
+        if (displayInfo instanceof net.bivrik.fancytoasts.platform.utility.QuestToastDisplayInfo qdi) {
+            switch (qdi.getQuestType()) {
+                case TASK, QUEST -> {
+                    setup.setTypeBasedUVs(DefaultUVs.TASK);
+                    volume = generalConfig.getTaskVolume();
+                }
+                case CHAPTER -> {
+                    setup.setTypeBasedUVs(DefaultUVs.GOAL);
+                    volume = generalConfig.getGoalVolume();
+                }
+                case BOOK -> {
+                    setup.setTypeBasedUVs(DefaultUVs.CHALLENGE);
+                    volume = generalConfig.getChallengeVolume();
+                }
+                default -> throw new RuntimeException("Could match correct quest type");
             }
-            case GOAL -> {
-                setup.setTypeBasedUVs(DefaultUVs.GOAL);
-                volume = generalConfig.getGoalVolume();
+        } else {
+            switch (displayInfo.getAdvancementType()) {
+                case TASK -> {
+                    setup.setTypeBasedUVs(DefaultUVs.TASK);
+                    volume = generalConfig.getTaskVolume();
+                }
+                case GOAL -> {
+                    setup.setTypeBasedUVs(DefaultUVs.GOAL);
+                    volume = generalConfig.getGoalVolume();
+                }
+                case CHALLENGE -> {
+                    setup.setTypeBasedUVs(DefaultUVs.CHALLENGE);
+                    volume = generalConfig.getChallengeVolume();
+                }
+                default -> throw new RuntimeException("Could match correct advancement type");
             }
-            case CHALLENGE -> {
-                setup.setTypeBasedUVs(DefaultUVs.CHALLENGE);
-                volume = generalConfig.getChallengeVolume();
-            }
-            default -> throw new RuntimeException("Could match correct advancement type");
         }
 
         animation = AnimationRegistry.getAnimation(animationId).get();
