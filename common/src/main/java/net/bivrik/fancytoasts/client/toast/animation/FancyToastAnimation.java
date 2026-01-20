@@ -1,24 +1,23 @@
 package net.bivrik.fancytoasts.client.toast.animation;
 
+import java.util.List;
+import java.util.Objects;
+import java.util.function.Consumer;
+
 import net.bivrik.fancytoasts.client.config.ToastScreenBehavior;
 import net.bivrik.fancytoasts.client.toast.AnimationSetup;
-import net.bivrik.fancytoasts.core.Debug;
-import net.bivrik.fancytoasts.core.event.GeneralConfigDataEvent;
-import net.bivrik.fancytoasts.utility.TypeBasedUVs;
 import net.bivrik.fancytoasts.core.Managers;
-import net.bivrik.fancytoasts.platform.utility.ToastDisplayInfo;
-import net.bivrik.fancytoasts.utility.TextureUV;
+import net.bivrik.fancytoasts.core.event.GeneralConfigDataEvent;
 import net.bivrik.fancytoasts.platform.utility.Colors;
 import net.bivrik.fancytoasts.platform.utility.GuiContext;
+import net.bivrik.fancytoasts.platform.utility.ToastDisplayInfo;
+import net.bivrik.fancytoasts.utility.TextureUV;
+import net.bivrik.fancytoasts.utility.TypeBasedUVs;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.FormattedCharSequence;
-
-import java.util.List;
-import java.util.Objects;
-import java.util.function.Consumer;
 
 public abstract class FancyToastAnimation {
     private final Consumer<GeneralConfigDataEvent> generalConfigDataEventConsumer;
@@ -129,7 +128,7 @@ public abstract class FancyToastAnimation {
         }
 
         int toastCenterX = toastWidth / 2;
-        int titleColor = Colors.alpha(alpha, displayInfo.getAdvancementType().getMainColor());
+        int titleColor = getMainColorAlpha(alpha);
         FormattedCharSequence titleLine = titleLines.getFirst();
 
         if (titleLines.size() == 1) {
@@ -148,7 +147,7 @@ public abstract class FancyToastAnimation {
             return;
         }
 
-        int descriptionColor = Colors.alpha(alpha, displayInfo.getAdvancementType().getSecondaryColor());
+        int descriptionColor = getSecondaryColorAlpha(alpha);
 
         guiGraphics.drawString(minecraft.font, descriptionLines.get(0), 8, 38, descriptionColor);
         if (descriptionLines.size() > 1) {
@@ -178,5 +177,21 @@ public abstract class FancyToastAnimation {
 
     protected int getColor(float alpha) {
         return Colors.alpha(guiAlpha * alpha, Colors.WHITE);
+    }
+
+    protected int getMainColorAlpha(float alpha) {
+        if (displayInfo instanceof net.bivrik.fancytoasts.platform.utility.QuestToastDisplayInfo qdi) {
+            return Colors.alpha(alpha, qdi.getQuestType().getMainColor());
+        }
+
+        return Colors.alpha(alpha, displayInfo.getAdvancementType().getMainColor());
+    }
+
+    protected int getSecondaryColorAlpha(float alpha) {
+        if (displayInfo instanceof net.bivrik.fancytoasts.platform.utility.QuestToastDisplayInfo qdi) {
+            return Colors.alpha(alpha, qdi.getQuestType().getSecondaryColor());
+        }
+
+        return Colors.alpha(alpha, displayInfo.getAdvancementType().getSecondaryColor());
     }
 }

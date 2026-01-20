@@ -1,10 +1,11 @@
 package net.bivrik.fancytoasts.client.toast;
 
-import net.bivrik.fancytoasts.core.Debug;
+import java.util.Random;
+
 import net.bivrik.fancytoasts.client.registry.AnimationRegistry;
 import net.bivrik.fancytoasts.client.toast.animation.FancyToastAnimation;
+import net.bivrik.fancytoasts.core.Debug;
 import net.bivrik.fancytoasts.core.Managers;
-import net.bivrik.fancytoasts.core.manager.CustomTextureManager;
 import net.bivrik.fancytoasts.platform.utility.ToastDisplayInfo;
 import net.bivrik.fancytoasts.utility.DefaultUVs;
 import net.minecraft.client.Minecraft;
@@ -14,9 +15,6 @@ import net.minecraft.client.sounds.SoundManager;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
-
-import java.util.Optional;
-import java.util.Random;
 
 public class FancyAdvancementToast {
     private static final int WIDTH = 162;
@@ -59,7 +57,12 @@ public class FancyAdvancementToast {
 
         animation = AnimationRegistry.getAnimation(animationId).get();
         animation.setup(setup, minecraft, getWidth(), getHeight());
-        toastSoundId = Managers.getConfigManager().getToastConfigData().getSoundIdByType(displayInfo.getAdvancementType());
+
+        if (displayInfo instanceof net.bivrik.fancytoasts.platform.utility.QuestToastDisplayInfo qdi) {
+            toastSoundId = Managers.getConfigManager().getToastConfigData().getSoundIdByQuestType(qdi.getQuestType());
+        } else {
+            toastSoundId = Managers.getConfigManager().getToastConfigData().getSoundIdByType(displayInfo.getAdvancementType());
+        }
 
         Debug.info("Created new fancy advancement toast: {}; texture: {}; animation: {}", displayInfo.getTitle().getString(), textureId, animationId);
     }

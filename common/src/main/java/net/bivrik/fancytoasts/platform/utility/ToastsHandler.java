@@ -46,17 +46,21 @@ public record ToastsHandler(ToastsFilteringData filteringData, ToastManager toas
         }
         
         ToastDisplayInfo displayInfo = Services.FTB_QUESTS.getDisplayInfo(toast);
-        String announcement = displayInfo.getAnnouncement().toString();
-        if (!announcement.startsWith("translation")) return;
-        String key = extractKey(announcement);
-        
-        if (key == null) return;
+        if (displayInfo == null) return;
 
         FancyQuestType questType = null;
-        for (FancyQuestType fq : FancyQuestType.values()) {
-            if (key.startsWith("ftbquests." + fq.getName())) {
-                questType = fq;
-                break;
+        if (displayInfo instanceof QuestToastDisplayInfo qdi) {
+            questType = qdi.getQuestType();
+        } else {
+            String announcement = displayInfo.getAnnouncement().toString();
+            if (!announcement.startsWith("translation")) return;
+            String key = extractKey(announcement);
+            if (key == null) return;
+            for (FancyQuestType fq : FancyQuestType.values()) {
+                if (key.startsWith("ftbquests." + fq.getName())) {
+                    questType = fq;
+                    break;
+                }
             }
         }
 

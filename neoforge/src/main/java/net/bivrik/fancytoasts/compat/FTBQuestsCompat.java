@@ -1,5 +1,10 @@
 package net.bivrik.fancytoasts.compat;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 import dev.ftb.mods.ftblibrary.icon.Icon;
 import dev.ftb.mods.ftblibrary.icon.IconAnimation;
 import dev.ftb.mods.ftblibrary.icon.ItemIcon;
@@ -9,16 +14,16 @@ import dev.ftb.mods.ftbquests.quest.Quest;
 import dev.ftb.mods.ftbquests.quest.QuestObjectBase;
 import dev.ftb.mods.ftbquests.registry.ModItems;
 import net.bivrik.fancytoasts.core.Constants;
+import net.bivrik.fancytoasts.platform.utility.FancyQuestType;
 import net.bivrik.fancytoasts.platform.utility.FancyToastType;
 import net.bivrik.fancytoasts.platform.utility.QuestToastDisplayInfo;
 import net.bivrik.fancytoasts.platform.utility.ResourceLocations;
 import net.bivrik.fancytoasts.platform.utility.ToastDisplayInfo;
+import net.bivrik.fancytoasts.platform.utility.ToastsHandler;
 import net.minecraft.client.gui.components.toasts.Toast;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
-
-import java.util.*;
 
 public class FTBQuestsCompat {
     private static final Map<Long, Long> REPEATABLE_QUESTS = new HashMap<>(3);
@@ -87,6 +92,19 @@ public class FTBQuestsCompat {
             }
         }
 
-        return new QuestToastDisplayInfo(icons, title, description, toastType, questAnnouncement);
+        // Try to extract quest-type key from the announcement component (falls back to TASK)
+        FancyQuestType questType = FancyQuestType.TASK;
+        String ann = questAnnouncement.toString();
+        String key = ToastsHandler.extractKey(ann);
+        if (key != null) {
+            for (FancyQuestType fq : FancyQuestType.values()) {
+                if (key.startsWith("ftbquests." + fq.getName())) {
+                    questType = fq;
+                    break;
+                }
+            }
+        }
+
+        return new QuestToastDisplayInfo(icons, title, description, toastType, questAnnouncement, questType);
     }
 }
