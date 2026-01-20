@@ -6,7 +6,7 @@ public enum FancyQuestType {
     TASK("task", Colors.YELLOW, Colors.WHITE),
     QUEST("quest", Colors.CYAN, Colors.WHITE),
     CHAPTER("chapter", Colors.PURPLE, Colors.CYAN),
-    BOOK("file", Colors.BLACK, Colors.YELLOW);
+    BOOK("file", Colors.PURPLE, Colors.CYAN);
 
     private final String name;
     private final int mainColor;
