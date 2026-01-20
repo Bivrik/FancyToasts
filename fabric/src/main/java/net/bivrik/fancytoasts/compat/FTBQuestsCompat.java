@@ -2,6 +2,8 @@ package net.bivrik.fancytoasts.compat;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 import dev.ftb.mods.ftblibrary.icon.Icon;
 import dev.ftb.mods.ftblibrary.icon.IconAnimation;
@@ -103,6 +105,17 @@ public class FTBQuestsCompat {
             }
         }
 
-        return new QuestToastDisplayInfo(icons, title, description, toastType, questAnnouncement, questType);
+        // If a QUEST toast has a subtitle, swap display lines instead of 'Quest Completed'
+        Component announcementDisplay = questAnnouncement;
+        Component titleDisplay = title;
+        if (questType == FancyQuestType.QUEST && quest != null) {
+            Component questSubtitle = quest.getSubtitle();
+            if (questSubtitle != null && !questSubtitle.getString().isEmpty()) {
+                announcementDisplay = title; // quest title becomes main line
+                titleDisplay = questSubtitle; // quest subtitle becomes secondary line
+            }
+        }
+
+        return new QuestToastDisplayInfo(icons, titleDisplay, description, toastType, announcementDisplay, questType);
     }
 }
