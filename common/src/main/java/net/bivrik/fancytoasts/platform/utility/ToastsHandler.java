@@ -50,10 +50,17 @@ public record ToastsHandler(ToastsFilteringData filteringData, ToastManager toas
         if (!announcement.startsWith("translation")) return;
         String key = extractKey(announcement);
         
-        boolean isTask = key.startsWith("ftbquests.task");
-        boolean isQuest = key.startsWith("ftbquests.quest");
-        boolean isChapter = key.startsWith("ftbquests.chapter");
-        boolean isBook = key.startsWith("ftbquests.file");
+        if (key == null) return;
+
+        FancyQuestType questType = null;
+        for (FancyQuestType fq : FancyQuestType.values()) {
+            if (key.startsWith("ftbquests." + fq.getName())) {
+                questType = fq;
+                break;
+            }
+        }
+
+        if (questType != null && filteringData.isQuestTypeIgnored(questType)) return; // If ignored, do nothing
 
         info.cancel();
         toastManager.addToast(displayInfo);

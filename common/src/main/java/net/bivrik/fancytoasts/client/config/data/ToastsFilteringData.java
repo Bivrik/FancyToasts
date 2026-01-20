@@ -2,7 +2,6 @@ package net.bivrik.fancytoasts.client.config.data;
 
 import java.util.ArrayList;
 import java.util.EnumMap;
-import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
@@ -10,6 +9,7 @@ import java.util.Objects;
 import java.util.Set;
 
 import net.bivrik.fancytoasts.core.Constants;
+import net.bivrik.fancytoasts.platform.utility.FancyQuestType;
 import net.bivrik.fancytoasts.platform.utility.FancyToastType;
 import net.bivrik.fancytoasts.utility.file.Paths;
 import net.minecraft.resources.ResourceLocation;
@@ -26,13 +26,13 @@ public class ToastsFilteringData extends ConfigData {
 
     // Only set on load, changing through config file
     private final Map<FancyToastType, Boolean> typesToIgnore = new EnumMap<>(FancyToastType.class);
-    private final Map<String, Boolean> questTypesToIgnore = new HashMap<>();
+    private final Map<FancyQuestType, Boolean> questTypesToIgnore = new EnumMap<>(FancyQuestType.class);
     private final List<String> toastsToIgnore = new ArrayList<>();
 
     private final transient Set<String> exactMatches = new HashSet<>();
     private final transient Set<String> prefixMatches = new HashSet<>();
 
-    private ToastsFilteringData(boolean fancyAdvancementToastsEnabled, boolean fancyQuestToastsEnabled, boolean advancementToastsEnabled, boolean recipeToastsEnabled, boolean systemToastsEnabled, boolean tutorialToastsEnabled, Map<FancyToastType, Boolean> typesToIgnore, List<String> toastsToIgnore, Map<String, Boolean> questTypesToIgnore) {
+    private ToastsFilteringData(boolean fancyAdvancementToastsEnabled, boolean fancyQuestToastsEnabled, boolean advancementToastsEnabled, boolean recipeToastsEnabled, boolean systemToastsEnabled, boolean tutorialToastsEnabled, Map<FancyToastType, Boolean> typesToIgnore, List<String> toastsToIgnore, Map<FancyQuestType, Boolean> questTypesToIgnore) {
         super(Paths.TOASTS_FILTERING_FILE);
 
         this.fancyAdvancementToastsEnabled = fancyAdvancementToastsEnabled;
@@ -60,10 +60,10 @@ public class ToastsFilteringData extends ConfigData {
             FancyToastType.GOAL, false,
             FancyToastType.CHALLENGE, false
         ), new ArrayList<>(), Map.of(
-            "BOOK", false,
-            "CHAPTER", false,
-            "QUEST", false,
-            "TASK", false
+            FancyQuestType.BOOK, false,
+            FancyQuestType.CHAPTER, false,
+            FancyQuestType.QUEST, false,
+            FancyQuestType.TASK, false
         ));
         }
 
@@ -71,7 +71,7 @@ public class ToastsFilteringData extends ConfigData {
         return typesToIgnore.get(type);
     }
 
-    public boolean isQuestTypeIgnored(String key) {
+    public boolean isQuestTypeIgnored(FancyQuestType key) {
         return questTypesToIgnore.getOrDefault(key, false);
     }
 
