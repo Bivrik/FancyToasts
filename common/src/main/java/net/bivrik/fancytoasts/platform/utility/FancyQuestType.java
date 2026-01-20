@@ -5,8 +5,8 @@ import net.minecraft.network.chat.Component;
 public enum FancyQuestType {
     TASK("task", Colors.YELLOW, Colors.WHITE),
     QUEST("quest", Colors.CYAN, Colors.WHITE),
-    CHAPTER("chapter", Colors.PURPLE, Colors.CYAN),
-    BOOK("file", Colors.PURPLE, Colors.CYAN);
+    CHAPTER("chapter", Colors.CYAN, Colors.WHITE),
+    BOOK("file", Colors.PURPLE, Colors.WHITE);
 
     private final String name;
     private final int mainColor;
