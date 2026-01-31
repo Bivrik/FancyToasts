@@ -1,4 +1,4 @@
-> This is 1.20.1 Fabric/Forge version 1.4.5.1
+> This is 1.20.1 Fabric/Forge version 1.4.6
 
 # Fancy Toasts 🎉
 There is a reason why you are here. It might be curiosity. But I think you are here because of there old-fashion advancement toasts! This is a Minecraft Mod that changes plain, boring, and annoying advancement toasts to something new and interesting!
