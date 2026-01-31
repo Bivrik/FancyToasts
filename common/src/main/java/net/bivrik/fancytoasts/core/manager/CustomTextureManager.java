@@ -232,13 +232,16 @@ public class CustomTextureManager implements IManager {
 
     // Make it more constant
     // Please, don't forget
+    // Uugh God
     private ResourceLocation getIdFromFile(File file) {
-        String rawPath = file.getPath().replace("\\", "/");
-        return ResourceLocations.of(rawPath.replaceFirst("./config/fancytoasts", "config"));
+        String rawPath = file.getPath().replace("\\", "/").replaceFirst("./config/fancytoasts", "config");
+        Debug.warn(rawPath);
+        return ResourceLocations.of(rawPath);
     }
 
     private File getFileFromId(ResourceLocation id) {
         String rawPath = id.getPath().replaceFirst("config", "./config/fancytoasts");
-        return new File(rawPath.replace("/", "\\"));
+        Debug.warn(rawPath);
+        return new File(rawPath);
     }
 }
