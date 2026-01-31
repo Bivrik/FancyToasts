@@ -25,6 +25,7 @@ public class ToastManager implements IManager {
     private final Deque<FancyAdvancementToast> toasts = new ConcurrentLinkedDeque<>();
 
     private Minecraft minecraft;
+    private DeltaTracker deltaTracker;
 
     private volatile FancyAdvancementToast currentToast;
 
@@ -35,6 +36,7 @@ public class ToastManager implements IManager {
     @Override
     public void onMinecraftInit(Minecraft minecraft) {
         this.minecraft = minecraft;
+        this.deltaTracker = minecraft.getDeltaTracker();
 
         customTextureManager = Managers.getCustomTextureManager();
         ConfigManager configManager = Managers.getConfigManager();
@@ -125,7 +127,7 @@ public class ToastManager implements IManager {
     }
 
     private void updateCurrentToast() {
-        float delta = minecraft.getDeltaTracker().getGameTimeDeltaTicks();
+        float delta = deltaTracker.getGameTimeDeltaTicks();
         currentToast.update(delta);
     }
 
