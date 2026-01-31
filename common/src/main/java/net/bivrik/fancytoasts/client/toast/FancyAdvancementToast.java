@@ -71,7 +71,6 @@ public class FancyAdvancementToast {
 
     public void update(float delta) {
         time += delta * 50;
-        Debug.error("{}->{}", delta, time);
 
         if (time >= animation.getDuration() && !isEnded) {
             animation.unsubscribeFromGeneralConfigDataEvent();
