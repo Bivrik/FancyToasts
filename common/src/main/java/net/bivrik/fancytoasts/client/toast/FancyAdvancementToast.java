@@ -29,7 +29,7 @@ public class FancyAdvancementToast {
     private float volume;
     private SoundManager soundManager;
 
-    private long time;
+    private float time = 0;
     private boolean isEnded = false;
     private int playedSoundsCount = 0;
 
@@ -66,19 +66,20 @@ public class FancyAdvancementToast {
     }
 
     public void draw(GuiGraphics graphics) {
-        animation.draw(graphics, time);
+        animation.draw(graphics, (long) time);
     }
 
-    public void update(long time) {
-        this.time = time;
+    public void update(float delta) {
+        time += delta * 50;
+        Debug.error("{}->{}", delta, time);
 
-        if (this.time >= animation.getDuration() && !isEnded) {
+        if (time >= animation.getDuration() && !isEnded) {
             animation.unsubscribeFromGeneralConfigDataEvent();
             isEnded = true;
         }
 
         if (soundManager != null) {
-            int timeInSeconds = (int) (this.time / 50);
+            int timeInSeconds = (int) (time / 50);
 
             switch (playedSoundsCount) {
                 case 0 -> playSound(SoundEvents.UI_TOAST_IN, 1.5f);
