@@ -12,6 +12,7 @@ import net.bivrik.fancytoasts.platform.utility.GuiContext;
 import net.bivrik.fancytoasts.platform.utility.ToastDisplayInfo;
 import net.bivrik.fancytoasts.platform.Services;
 import net.minecraft.Util;
+import net.minecraft.client.DeltaTracker;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.screens.ChatScreen;
@@ -26,7 +27,6 @@ public class ToastManager implements IManager {
     private Minecraft minecraft;
 
     private volatile FancyAdvancementToast currentToast;
-    private long startingTimeOfToast;
 
     private CustomTextureManager customTextureManager;
     private GeneralConfigData generalConfigData;
@@ -125,15 +125,14 @@ public class ToastManager implements IManager {
     }
 
     private void updateCurrentToast() {
-        long time = Util.getMillis() - startingTimeOfToast;
-        currentToast.update(time);
+        float delta = minecraft.getDeltaTracker().getGameTimeDeltaTicks();
+        currentToast.update(delta);
     }
 
     private void setNewCurrentToast() {
         FancyAdvancementToast nextToast = toasts.pollFirst();
         if (nextToast != null) {
             currentToast = nextToast;
-            startingTimeOfToast = Util.getMillis();
         }
     }
 
