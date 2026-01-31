@@ -63,7 +63,7 @@ public class QuirkyAnimation extends FancyToastAnimation {
             context.push();
             float y = 58;
             if (bannerAppearProgress != 1) {
-                y = MathEasing.easeOutLerp(-24.0F, 58.0F, bannerAppearProgress);
+                y = MathEasing.easeOutLerp(10.0F, 58.0F, bannerAppearProgress);
             }
             context.translate(0, y);
             this.drawBanner(context);
