@@ -12,13 +12,27 @@ public class ToastDisplayInfo {
 
     public ToastDisplayInfo(ItemStack icon, Component title, Component description, FancyToastType advancementType) {
         this.icon = icon;
-        this.title = title;
-        this.description = description;
+        this.title = fixUnicode(title);
+        this.description = fixUnicode(description);
         this.advancementType = advancementType;
     }
 
     public ToastDisplayInfo(DisplayInfo displayInfo) {
         this(displayInfo.getIcon(), displayInfo.getTitle(), displayInfo.getDescription(), FancyToastType.transferTypes(displayInfo.getFrame()));
+    }
+
+    private Component fixUnicode(Component message) {
+        String temp = message.getString();
+        if (temp.contains("§")) {
+            for (int i = 0; i + 1 < temp.length(); i++) {
+                char c = temp.toCharArray()[i + 1];
+
+                if (c == '§') {
+                    return Component.literal(temp.substring(0, i));
+                }
+            }
+        }
+        return message;
     }
 
     public ItemStack getIcon() {
