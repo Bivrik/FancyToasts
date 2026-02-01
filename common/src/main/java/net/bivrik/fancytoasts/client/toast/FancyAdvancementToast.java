@@ -1,17 +1,16 @@
 package net.bivrik.fancytoasts.client.toast;
 
+import net.bivrik.fancytoasts.client.config.data.GeneralConfigData;
 import net.bivrik.fancytoasts.core.Debug;
 import net.bivrik.fancytoasts.client.registry.AnimationRegistry;
 import net.bivrik.fancytoasts.client.toast.animation.FancyToastAnimation;
 import net.bivrik.fancytoasts.core.Managers;
-import net.bivrik.fancytoasts.core.manager.CustomTextureManager;
 import net.bivrik.fancytoasts.platform.utility.ToastDisplayInfo;
 import net.bivrik.fancytoasts.utility.DefaultUVs;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.resources.sounds.SimpleSoundInstance;
 import net.minecraft.client.sounds.SoundManager;
-import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
@@ -24,6 +23,8 @@ public class FancyAdvancementToast {
     private static final int HEIGHT = 70;
     private static final Random random = new Random();
 
+    private final GeneralConfigData generalConfig;
+
     private FancyToastAnimation animation;
     private ResourceLocation toastSoundId;
     private float volume;
@@ -35,6 +36,7 @@ public class FancyAdvancementToast {
 
     public FancyAdvancementToast(Minecraft minecraft, ToastDisplayInfo displayInfo, ResourceLocation textureId, ResourceLocation animationId) {
         var generalConfig = Managers.getConfigManager().getGeneralConfigData();
+        this.generalConfig = generalConfig;
 
         if (generalConfig.areSoundsEnabled()) {
             soundManager = minecraft.getSoundManager();
@@ -97,7 +99,12 @@ public class FancyAdvancementToast {
     }
 
     private void playSound(SoundEvent sound, float volume) {
-        soundManager.play(SimpleSoundInstance.forUI(sound, random.nextFloat(0.95F, 1.05F), volume));
+        float pitch = 1.0f;
+        float pitchRandomness = generalConfig.getPitchRandomness();
+        if (pitchRandomness != 0.0f) {
+            pitch = random.nextFloat(pitch - pitchRandomness, pitch + pitchRandomness);
+        }
+        soundManager.play(SimpleSoundInstance.forUI(sound, pitch, volume));
         playedSoundsCount++;
     }
 

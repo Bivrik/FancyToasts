@@ -140,7 +140,7 @@ public class ToastManager implements IManager {
         }
     }
 
-    private boolean shouldRender() {
+    public boolean shouldRender() {
         return currentToast != null && !minecraft.options.hideGui;
     }
 
