@@ -41,6 +41,7 @@ public class GeneralConfigScreen extends UniversalScreen {
     private static final Component RESET_GENERAL_SETTINGS_LABEL = Components.of("label.reset_general_settings");
     private static final Component SAVED_LABEL = Components.of("label.saved");
     private static final Component JADE_HIDING = Components.of("gui.jade_hiding");
+    private static final Component BOSS_BAR_HIDING = Components.of("gui.boss_bar_hiding");
     private static final Component SOUNDS = Components.of("gui.sounds_enabled");
     private static final Component SCREEN_BEHAVIOR = Components.of("gui.screen_behavior");
     private static final Component TASK_VOLUME = Components.of("gui.task_volume");
@@ -48,14 +49,17 @@ public class GeneralConfigScreen extends UniversalScreen {
     private static final Component CHALLENGE_VOLUME = Components.of("gui.challenge_volume");
     private static final Component LOOPS_STRENGTH = Components.of("gui.loops_strength");
     private static final Component LOOPS_SPEED = Components.of("gui.loops_speed");
+    private static final Component PITCH_RANDOMNESS = Components.of("gui.pitch_randomness");
     private static final Component RESET = Components.of("gui.reset");
     private static final Component ANCHOR = Components.of("gui.anchor");
     private static final Component JADE_HIDING_TOOLTIP = Components.of("tooltip.jade_hiding");
+    private static final Component BOSS_BAR_HIDING_TOOLTIP = Components.of("tooltip.boss_bar_hiding");
     private static final Component SOUNDS_TOOLTIP = Components.of("tooltip.sounds_enabled");
     private static final Component SCREEN_BEHAVIOR_TOOLTIP = Components.of("tooltip.screen_behavior");
     private static final Component ANCHOR_TOOLTIP = Components.of("tooltip.anchor");
     private static final Component LOOPS_STRENGTH_TOOLTIP = Components.of("tooltip.loops_strength");
     private static final Component LOOPS_SPEED_TOOLTIP = Components.of("tooltip.loops_speed");
+    private static final Component PITCH_RANDOMNESS_TOOLTIP = Components.of("tooltip.pitch_randomness");
 
     private static final ResourceLocation LIST_BACKGROUND = ResourceLocations.fromMinecraft("textures/gui/menu_list_background.png");
 
@@ -67,11 +71,13 @@ public class GeneralConfigScreen extends UniversalScreen {
     private Button backButton;
     private Button resetButton;
     private CycleButton<Boolean> jadeHidingButton;
+    private CycleButton<Boolean> bossBarHidingButton;
     private CycleButton<Boolean> soundsEnabledButton;
     private CycleButton<ToastScreenBehavior> toastScreenBehaviorButton;
     private CycleButton<ToastAnchor> toastAnchorButton;
     private Slider loopsStrengthSlider;
     private Slider loopsSpeedSlider;
+    private Slider pitchRandomnessSlider;
     private Slider taskVolumeSlider;
     private Slider goalVolumeSlider;
     private Slider challengeVolumeSlider;
@@ -103,6 +109,9 @@ public class GeneralConfigScreen extends UniversalScreen {
                     (button, value) -> generalConfigData.setJadeHiding(value), 0, 0, Tooltip.create(JADE_HIDING_TOOLTIP)));
         }
 
+        bossBarHidingButton = listHelper.addWidget(createBooleanButton(BOSS_BAR_HIDING, generalConfigData.isBossBarHiding(),
+                (button, value) -> generalConfigData.setBossBarHiding(value), 0, 0, Tooltip.create(BOSS_BAR_HIDING_TOOLTIP)));
+
         soundsEnabledButton = listHelper.addWidget(createBooleanButton(SOUNDS, generalConfigData.areSoundsEnabled(),
                 (button, value) -> generalConfigData.setSoundsEnabled(value), 0, 0, Tooltip.create(SOUNDS_TOOLTIP)));
 
@@ -128,6 +137,9 @@ public class GeneralConfigScreen extends UniversalScreen {
 
         loopsSpeedSlider = listHelper.addWidget(createSlider(LOOPS_SPEED, generalConfigData.getLoopsSpeed(), 10.0f, 0.02f,
                 this::multiplierDisplayer, generalConfigData::setLoopsSpeed, 0, 0, Tooltip.create(LOOPS_SPEED_TOOLTIP)));
+
+        pitchRandomnessSlider = listHelper.addWidget(createSlider(PITCH_RANDOMNESS, generalConfigData.getPitchRandomness(), 0.2f, 0,
+                this::percentDisplayer, generalConfigData::setPitchRandomness, 0, 0, Tooltip.create(PITCH_RANDOMNESS_TOOLTIP)));
 
         taskVolumeSlider = listHelper.addWidget(createSlider(TASK_VOLUME, generalConfigData.getTaskVolume(), 2.0f,
                 this::percentDisplayer, generalConfigData::setTaskVolume, 0, 0));

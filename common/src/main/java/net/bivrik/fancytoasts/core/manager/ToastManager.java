@@ -138,7 +138,7 @@ public class ToastManager implements IManager {
         }
     }
 
-    private boolean shouldRender() {
+    public boolean shouldRender() {
         return !isEmpty() && !minecraft.options.hideGui;
     }
 
