@@ -64,6 +64,7 @@ public class Common {
         registerTexture(DefaultLocations.Textures.STEAMY, "steamy");
         registerTexture(DefaultLocations.Textures.TERRACRAFT, "terracraft");
         registerTexture(DefaultLocations.Textures.LANDSPAPER, "landspaper");
+        registerTexture(DefaultLocations.Textures.NEON, "neon");
 
         registerAnimation(DefaultLocations.Animations.STANDARD, "standard", StandardAnimation::new);
         registerAnimation(DefaultLocations.Animations.PLAYFUL, "playful", PlayfulAnimation::new);
