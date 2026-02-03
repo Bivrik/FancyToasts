@@ -17,7 +17,7 @@ This mods supports custom textures! Yes, you can add textures from friends, modp
 It's not only about visuals, it's also about conveniences. It adds new screens for configuration. You can change textures, animations and sounds easily, along side with more tehnical settings, such as volumes, compatibilities and etc!
 
 # Description 🏗️
-Adds new advancement toast system into Minecraft. Currently mod has 28 standard toast variants, because of 4 animation styles and 7 texture types. Supports config screen on Fabric (Mod Menu)/Forge/NeoForge
+Adds new advancement toast system into Minecraft. Currently mod has 32 standard toast variants, because of 4 animation styles and 8 texture types. Supports config screen on Fabric (Mod Menu)/Forge/NeoForge
 
 ### Animations
 * Standard
@@ -33,6 +33,7 @@ Adds new advancement toast system into Minecraft. Currently mod has 28 standard 
 * Terracraft
 * Steamy
 * Landspaper
+* Neon
 
 # Other 🔎
 
@@ -56,13 +57,13 @@ Big goals/plans/ideas for future updates. Some of them are abstract ideas, and s
 
 * More languages
 * More animations (goal: 4/5)
-* More textures (goal: 7/10)
+* More textures (goal: 8/10)
 * Wide version support
   * **Currently maintaining**
 
     | Minecraft version | Mod version |
     |-------------------|-------------|
-    | Latest (1.21.10)  | 1.4.5.1     |
+    | 1.21.10           | 1.4.6       |
     | 1.21.1            | 1.4.5.1     |
     | 1.20.1            | 1.4.5.1     |
   * **Planned with priorities**
@@ -73,6 +74,7 @@ Big goals/plans/ideas for future updates. Some of them are abstract ideas, and s
     | 1.16.5            | Medium        |
     | 1.18.2            | Low           |
     | 1.17.1            | Low           |
+* Advanced textures
 * Animations rework to make them easier to make
 * Personalized settings for specific advancements' origins
 * Custom sounds (v1.5.x?)
@@ -86,6 +88,21 @@ Big goals/plans/ideas for future updates. Some of them are abstract ideas, and s
 * FTBQuests compatibility
 
 # Changelog 📝
+
+## 1.4.6
+* New features:
+  * Texture type `Neon`
+  * Setting to hide boss bar health during an advancement (suggested by capaMEC)
+  * Setting to tweak pitch difference for sfx (suggested by shbashi)
+  * Setting to multiply animation's speed
+* Bug fixes:
+  * Crash on Linux and MacOS with custom textures (found by Furglitch & Fyoncle)
+  * Issue with texture packs that add unicode emojis (found by Fyoncle)
+  * More stable animation timings
+* Adjustments:
+  * Texture type `Landspaper` got a bit darker so it's easier to read
+  * Configs versioning system tweaked (?)
+> A Jack of all trades is master of none. Got carried away and scraped 1.5.0 update for future, duh (04.02.26)
 
 ## 1.4.5.1
 * Bug fixes:
