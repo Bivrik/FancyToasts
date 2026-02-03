@@ -40,6 +40,7 @@
   "fancytoasts.gui.loops_strength": "Loops' Strength",
   "fancytoasts.gui.loops_speed": "Loops' Speed",
   "fancytoasts.gui.pitch_randomness": "Pitch Randomness",
+  "fancytoasts.gui.animation_speed": "Animation Speed",
   "fancytoasts.gui.anchor": "Anchor",
   "fancytoasts.gui.fancy_advancement_toasts": "Fancy Advancement Toasts",
   "fancytoasts.gui.advancement_toasts": "Advancement Toasts",
@@ -87,6 +88,7 @@
   "fancytoasts.tooltip.loops_strength": "Represents strength of sin/cos waves, weaker/stronger waves.",
   "fancytoasts.tooltip.loops_speed": "Represents speed of sin/cos waves, slower/faster waves.",
   "fancytoasts.tooltip.pitch_randomness": "When sound is played the pitch randomness is applied to make it less repetitive. 0% = no pitch at all.",
+  "fancytoasts.tooltip.animation_speed": "Acts as a multiplier for animation's speed.",
   "fancytoasts.tooltip.toasts_filtering": "Requires Minecraft restart. To blacklist a single advancement, put \"namespace:category/advancement\" in 'toastsToIgnore'. To blacklist a whole category, put \"namespace:category/...\"",
 
   "fancytoasts.toast.animation.standard": "Standard",

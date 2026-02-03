@@ -20,6 +20,7 @@ public class GeneralConfigData extends ConfigData {
     private float loopsStrength;
     private float loopsSpeed;
     private float pitchRandomness;
+    private float animationSpeed;
     private int offsetX;
     private int offsetY;
     private ToastAnchor toastAnchor;
@@ -28,7 +29,7 @@ public class GeneralConfigData extends ConfigData {
     private GeneralConfigData(boolean isJadeHiding, boolean isBossBarHiding, boolean areSoundsEnabled,
                               float taskVolume, float goalVolume, float challengeVolume,
                               float loopsStrength, float loopsSpeed, float pitchRandomness,
-                              int offsetX, int offsetY,
+                              float animationSpeed, int offsetX, int offsetY,
                               ToastAnchor toastAnchor, ToastScreenBehavior toastScreenBehavior) {
         super(Paths.GENERAL_CONFIG_FILE);
 
@@ -41,6 +42,7 @@ public class GeneralConfigData extends ConfigData {
         this.loopsStrength = loopsStrength;
         this.loopsSpeed = loopsSpeed;
         this.pitchRandomness = pitchRandomness;
+        this.animationSpeed = animationSpeed;
         this.offsetX = offsetX;
         this.offsetY = offsetY;
         this.toastAnchor = toastAnchor;
@@ -48,7 +50,7 @@ public class GeneralConfigData extends ConfigData {
     }
 
     public GeneralConfigData() {
-        this(true, true, true, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 0.05f, ToastAnchor.TOP.getBaseOffsetX(), ToastAnchor.TOP.getBaseOffsetY(), ToastAnchor.TOP, ToastScreenBehavior.TRANSPARENT);
+        this(true, true, true, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 0.05f, 1.0f, ToastAnchor.TOP.getBaseOffsetX(), ToastAnchor.TOP.getBaseOffsetY(), ToastAnchor.TOP, ToastScreenBehavior.TRANSPARENT);
     }
 
     public boolean isJadeHiding() {
@@ -118,6 +120,13 @@ public class GeneralConfigData extends ConfigData {
         this.pitchRandomness = pitchRandomness;
     }
 
+    public float getAnimationSpeed() {
+        return animationSpeed;
+    }
+    public void setAnimationSpeed(float animationSpeed) {
+        this.animationSpeed = animationSpeed;
+    }
+
     public int getOffsetX() {
         return offsetX;
     }
@@ -149,12 +158,12 @@ public class GeneralConfigData extends ConfigData {
     @Override
     public boolean equals(Object o) {
         if (!(o instanceof GeneralConfigData that)) return false;
-        return isJadeHiding == that.isJadeHiding && isBossBarHiding == that.isBossBarHiding && areSoundsEnabled == that.areSoundsEnabled && Float.compare(taskVolume, that.taskVolume) == 0 && Float.compare(goalVolume, that.goalVolume) == 0 && Float.compare(challengeVolume, that.challengeVolume) == 0 && Float.compare(loopsStrength, that.loopsStrength) == 0 && Float.compare(loopsSpeed, that.loopsSpeed) == 0 && Float.compare(pitchRandomness, that.pitchRandomness) == 0 && offsetX == that.offsetX && offsetY == that.offsetY && toastAnchor == that.toastAnchor && toastScreenBehavior == that.toastScreenBehavior;
+        return isJadeHiding == that.isJadeHiding && isBossBarHiding == that.isBossBarHiding && areSoundsEnabled == that.areSoundsEnabled && Float.compare(taskVolume, that.taskVolume) == 0 && Float.compare(goalVolume, that.goalVolume) == 0 && Float.compare(challengeVolume, that.challengeVolume) == 0 && Float.compare(loopsStrength, that.loopsStrength) == 0 && Float.compare(loopsSpeed, that.loopsSpeed) == 0 && Float.compare(pitchRandomness, that.pitchRandomness) == 0 && Float.compare(animationSpeed, that.animationSpeed) == 0 && offsetX == that.offsetX && offsetY == that.offsetY && toastAnchor == that.toastAnchor && toastScreenBehavior == that.toastScreenBehavior;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(isJadeHiding, isBossBarHiding, areSoundsEnabled, taskVolume, goalVolume, challengeVolume, loopsStrength, loopsSpeed, pitchRandomness, offsetX, offsetY, toastAnchor, toastScreenBehavior);
+        return Objects.hash(isJadeHiding, isBossBarHiding, areSoundsEnabled, taskVolume, goalVolume, challengeVolume, loopsStrength, loopsSpeed, pitchRandomness, animationSpeed, offsetX, offsetY, toastAnchor, toastScreenBehavior);
     }
 
     @Override
@@ -164,14 +173,14 @@ public class GeneralConfigData extends ConfigData {
 
     @Override
     public GeneralConfigData copy() {
-        return new GeneralConfigData(isJadeHiding, isBossBarHiding, areSoundsEnabled, taskVolume, goalVolume, challengeVolume, loopsStrength, loopsSpeed, pitchRandomness, offsetX, offsetY, toastAnchor, toastScreenBehavior).withLatestVersion();
+        return new GeneralConfigData(isJadeHiding, isBossBarHiding, areSoundsEnabled, taskVolume, goalVolume, challengeVolume, loopsStrength, loopsSpeed, pitchRandomness, animationSpeed, offsetX, offsetY, toastAnchor, toastScreenBehavior).withLatestVersion();
     }
 
     @Override
     public String toString() {
         return super.toString().replace("}", ", ") + String.format(
-                "isJadeHiding='%s', isBossBarHiding='%s', areSoundsEnabled='%s', taskVolume='%s', goalVolume='%s', challengeVolume='%s', loopsStrength='%s', loopsSpeed='%s', pitchRandomness='%s', offsetX='%s', offsetY='%s', toastAnchor='%s', toastScreenBehavior='%s'}",
-                isJadeHiding, isBossBarHiding, areSoundsEnabled, taskVolume, goalVolume, challengeVolume, loopsStrength, loopsSpeed, pitchRandomness, offsetX, offsetY, toastAnchor, toastScreenBehavior
+                "isJadeHiding='%s', isBossBarHiding='%s', areSoundsEnabled='%s', taskVolume='%s', goalVolume='%s', challengeVolume='%s', loopsStrength='%s', loopsSpeed='%s', pitchRandomness='%s', animationSpeed='%s', offsetX='%s', offsetY='%s', toastAnchor='%s', toastScreenBehavior='%s'}",
+                isJadeHiding, isBossBarHiding, areSoundsEnabled, taskVolume, goalVolume, challengeVolume, loopsStrength, loopsSpeed, pitchRandomness, animationSpeed, offsetX, offsetY, toastAnchor, toastScreenBehavior
         );
     }
 }

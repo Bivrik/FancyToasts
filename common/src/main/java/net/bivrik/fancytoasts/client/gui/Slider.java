@@ -23,7 +23,7 @@ public class Slider extends AbstractSliderButton {
     private Consumer<Float> responder;
 
     public Slider(int x, int y, int width, int height, Component label, float value, float min, float max, float threshold) {
-        super(x, y, width, height, Component.empty(), value / max);
+        super(x, y, width, height, Component.empty(), (value - min) / (max - min));
         this.label = label;
         this.min = min;
         this.max = max;
