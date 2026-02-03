@@ -129,7 +129,7 @@ public class ToastManager implements IManager {
     }
 
     private void updateCurrentToast() {
-        float delta = deltaTracker.getGameTimeDeltaTicks();
+        float delta = deltaTracker.getGameTimeDeltaTicks() * generalConfigData.getAnimationSpeed();
         currentToast.update(delta);
     }
 
