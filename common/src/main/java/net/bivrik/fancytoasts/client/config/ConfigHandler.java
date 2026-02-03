@@ -43,11 +43,6 @@ public class ConfigHandler {
         }
 
         T data = optionalData.get();
-        if (data.isOutdated()) {
-            Debug.error("Config file {} is outdated, version: {}/{}", className, data.getVersion(), data.getLatestVersion());
-            return loadFallback(standardConfigData, className);
-        }
-
         if (!data.isValid()) {
             Debug.error("Config file {} is not valid", className);
             return loadFallback(standardConfigData, className);
@@ -55,6 +50,12 @@ public class ConfigHandler {
 
         Debug.info("Successfully read config file with following content:");
         Debug.info(data.toString());
+
+        if (data.isOutdated()) {
+            Debug.warn("Config file {} is outdated, config version: {}; current version: {}", className, data.getVersion(), data.getLatestVersion());
+            data.setVersion(data.getLatestVersion());
+            save(data);
+        }
 
         return data;
     }
