@@ -46,6 +46,7 @@ public class GeneralConfigScreen extends UniversalScreen {
     private static final Component LOOPS_STRENGTH = Components.of("gui.loops_strength");
     private static final Component LOOPS_SPEED = Components.of("gui.loops_speed");
     private static final Component PITCH_RANDOMNESS = Components.of("gui.pitch_randomness");
+    private static final Component ANIMATION_SPEED = Components.of("gui.animation_speed");
     private static final Component RESET = Components.of("gui.reset");
     private static final Component ANCHOR = Components.of("gui.anchor");
     private static final Component JADE_HIDING_TOOLTIP = Components.of("tooltip.jade_hiding");
@@ -56,6 +57,7 @@ public class GeneralConfigScreen extends UniversalScreen {
     private static final Component LOOPS_STRENGTH_TOOLTIP = Components.of("tooltip.loops_strength");
     private static final Component LOOPS_SPEED_TOOLTIP = Components.of("tooltip.loops_speed");
     private static final Component PITCH_RANDOMNESS_TOOLTIP = Components.of("tooltip.pitch_randomness");
+    private static final Component ANIMATION_SPEED_TOOLTIP = Components.of("tooltip.animation_speed");
 
     private GeneralConfigData generalConfigData;
     private boolean isSaved;
@@ -72,6 +74,7 @@ public class GeneralConfigScreen extends UniversalScreen {
     private Slider loopsStrengthSlider;
     private Slider loopsSpeedSlider;
     private Slider pitchRandomnessSlider;
+    private Slider animationSpeedSlider;
     private Slider taskVolumeSlider;
     private Slider goalVolumeSlider;
     private Slider challengeVolumeSlider;
@@ -127,13 +130,16 @@ public class GeneralConfigScreen extends UniversalScreen {
         offsetYEditBox.setResponder(value -> offsetYEditBox.setIntegerResponder(generalConfigData::setOffsetY));
 
         loopsStrengthSlider = listHelper.addWidget(createSlider(LOOPS_STRENGTH, generalConfigData.getLoopsStrength(), 10.0f, 0.02f,
-                this::multiplierDisplayer, generalConfigData::setLoopsStrength, 0, 0, Tooltip.create(LOOPS_STRENGTH_TOOLTIP)));
+                this::multiplierDisplayer, generalConfigData::setLoopsStrength, 0, 0, HALF_BUTTON_WIDTH - HALF_PADDING, BUTTON_HEIGHT, Tooltip.create(LOOPS_STRENGTH_TOOLTIP)));
 
         loopsSpeedSlider = listHelper.addWidget(createSlider(LOOPS_SPEED, generalConfigData.getLoopsSpeed(), 10.0f, 0.02f,
-                this::multiplierDisplayer, generalConfigData::setLoopsSpeed, 0, 0, Tooltip.create(LOOPS_SPEED_TOOLTIP)));
+                this::multiplierDisplayer, generalConfigData::setLoopsSpeed, 0, 0, HALF_BUTTON_WIDTH - HALF_PADDING, BUTTON_HEIGHT, Tooltip.create(LOOPS_SPEED_TOOLTIP)));
 
         pitchRandomnessSlider = listHelper.addWidget(createSlider(PITCH_RANDOMNESS, generalConfigData.getPitchRandomness(), 0.2f, 0,
                 this::percentDisplayer, generalConfigData::setPitchRandomness, 0, 0, Tooltip.create(PITCH_RANDOMNESS_TOOLTIP)));
+
+        animationSpeedSlider = listHelper.addWidget(createSlider(ANIMATION_SPEED, generalConfigData.getAnimationSpeed(), 0.5f, 3.0f, 0.02f,
+                this::multiplierDisplayer, generalConfigData::setAnimationSpeed, 0, 0, BUTTON_WIDTH, BUTTON_HEIGHT, Tooltip.create(ANIMATION_SPEED_TOOLTIP)));
 
         taskVolumeSlider = listHelper.addWidget(createSlider(TASK_VOLUME, generalConfigData.getTaskVolume(), 2.0f,
                 this::percentDisplayer, generalConfigData::setTaskVolume, 0, 0));
