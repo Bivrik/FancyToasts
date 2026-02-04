@@ -36,7 +36,7 @@ public class ToastManager implements IManager {
     @Override
     public void onMinecraftInit(Minecraft minecraft) {
         this.minecraft = minecraft;
-        this.deltaTracker = minecraft.getDeltaTracker();
+        this.deltaTracker = minecraft.getTimer();
 
         customTextureManager = Managers.getCustomTextureManager();
         ConfigManager configManager = Managers.getConfigManager();
