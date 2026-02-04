@@ -38,6 +38,9 @@
   "fancytoasts.gui.screen_behavior": "Bildschirmverhalten",
   "fancytoasts.gui.loops_strength": "Wellen-Stärke",
   "fancytoasts.gui.loops_speed": "Wellen-Geschwindigkeit",
+  "fancytoasts.gui.boss_bar_hiding": "Boss-Leiste während Toast ausblenden",
+  "fancytoasts.gui.pitch_randomness": "Tonhöhen-Variation",
+  "fancytoasts.gui.animation_speed": "Animationsgeschwindigkeit",
   "fancytoasts.gui.anchor": "Ankerpunkt",
   "fancytoasts.gui.fancy_advancement_toasts": "Verschönerte Fortschritts-Toasts",
   "fancytoasts.gui.advancement_toasts": "Fortschritts-Toasts",
@@ -83,6 +86,9 @@
   "fancytoasts.tooltip.reload_customs": "Lädt alle konfigurationsbasierten Dateien (wie Texturen) neu und fügt sie der Liste oben hinzu bzw. entfernt sie daraus.",
   "fancytoasts.tooltip.loops_strength": "Legt die Stärke der Sinus-/Kosinus-Wellen fest (schwächere/stärkere Wellen).",
   "fancytoasts.tooltip.loops_speed": "Legt die Geschwindigkeit der Sinus-/Kosinus-Wellen fest (langsamere/schnellere Wellen).",
+  "fancytoasts.tooltip.boss_bar_hiding": "Schaltet das Ausblenden der Boss-Leiste um. Wenn aktiviert, wird die Boss-Leiste bei einem Erfolgs-Toast ausgeblendet und anschließend wieder eingeblendet.",
+  "fancytoasts.tooltip.pitch_randomness": "Bei abgespielten Sounds wird die Tonhöhe variiert, um Monotonie zu vermeiden. 0% = keine Tonhöhenänderung.",
+  "fancytoasts.tooltip.animation_speed": "Wirkt als Multiplikator für die Geschwindigkeit der Animation.",
   "fancytoasts.tooltip.toasts_filtering": "Erfordert einen Neustart von Minecraft. Um einen einzelnen Fortschritt zu ignorieren, füge \"namespace:category/advancement\" in 'toastsToIgnore' ein. Um eine ganze Kategorie zu ignorieren, füge \"namespace:category/...\" ein.",
 
   "fancytoasts.toast.animation.standard": "Standard",
@@ -108,6 +114,8 @@
   "fancytoasts.toast.texture.steamy.description": "Ich habe 1500 Stunden gebraucht, um 100% zu schaffen! Bist du stolz auf mich, Mama? Mama?! Inspiriert von Steam.",
   "fancytoasts.toast.texture.landspaper": "Landbrief",
   "fancytoasts.toast.texture.landspaper.description": "Ich glaube, du hast einen neuen Brief! Vielleicht heftest du ihn irgendwo an für einen besseren Blick. Hoffentlich wird er nicht nass und löst sich auf.",
+  "fancytoasts.toast.texture.neon": "Neon",
+  "fancytoasts.toast.texture.neon.description": "Magst du es etwas düsterer? Neonlichter sind nachts sehr attraktiv, weißt du",
 
   "fancytoasts.toast.sound.minecraft.description": "Eingebauter Sound aus Minecraft",
   "fancytoasts.toast.sound.mod.description": "Sound aus einer Modifikation",

@@ -1,5 +1,5 @@
 {
-  // By PExPE3, (< 1.4.4)
+  // By PExPE3 (< 1.4.4)
   "fancytoasts.title.visual_settings": "カスタマイズ設定",
   "fancytoasts.title.general_settings": "一般設定",
   "fancytoasts.title.toasts_filtering": "トーストフィルタリング", // Machine translation
@@ -38,6 +38,9 @@
   "fancytoasts.gui.screen_behavior": "表示方法",
   "fancytoasts.gui.loops_strength": "ループの強度", // Machine translation
   "fancytoasts.gui.loops_speed": "ループの速度", // Machine translation
+  "fancytoasts.gui.boss_bar_hiding": "トースト中にボスバーを非表示", // Machine translation
+  "fancytoasts.gui.pitch_randomness": "ピッチのランダム性", // Machine translation
+  "fancytoasts.gui.animation_speed": "アニメーション速度", // Machine translation
   "fancytoasts.gui.anchor": "アンカー", // Machine translation
   "fancytoasts.gui.fancy_advancement_toasts": "華やかな進級祝賀会", // Machine translation
   "fancytoasts.gui.advancement_toasts": "進級祝杯", // Machine translation
@@ -83,6 +86,9 @@
   "fancytoasts.tooltip.reload_customs": "テクスチャなどの設定ベースのファイルをすべて再読み込みし、上記のリストに追加/削除します", // Machine translation
   "fancytoasts.tooltip.loops_strength": "サイン/コサイン波の強度を表し、弱い/強い波になります", // Machine translation
   "fancytoasts.tooltip.loops_speed": "サイン/コサイン波の速度を表し、遅い/速い波になります", // Machine translation
+  "fancytoasts.tooltip.boss_bar_hiding": "ボスバーの非表示を切り替えます。オンにすると、進捗トースト表示中にボスバーが非表示になり、終了後に再表示されます。", // Machine translation
+  "fancytoasts.tooltip.pitch_randomness": "サウンド再生時にピッチのランダム性を適用して単調さを軽減します。0% = ピッチ変化なし。", // Machine translation
+  "fancytoasts.tooltip.animation_speed": "アニメーション速度の乗数として機能します。", // Machine translation
   "fancytoasts.tooltip.toasts_filtering": "Minecraftの再起動が必要です。単一の進捗をブラックリストに登録するには、\"namespace:category/advancement\"を'toastsToIgnore'に入れてください。カテゴリ全体をブラックリストに登録するには、\"namespace:category/...\"を入れてください", // Machine translation
 
   "fancytoasts.toast.animation.standard": "標準",
@@ -108,6 +114,8 @@
   "fancytoasts.toast.texture.steamy.description": "1500時間かけて実績を100%にしたんだ！ママ、誇りに思ってくれる？ Steamにインスパイアされたもの",
   "fancytoasts.toast.texture.landspaper": "ランドスペーパー", // Machine translation
   "fancytoasts.toast.texture.landspaper.description": "新しい手紙が届いたようです！どこかにピン留めしてよく見てみましょう。濡れて溶けないといいですね", // Machine translation
+  "fancytoasts.toast.texture.neon": "ネオン", // Machine translation
+  "fancytoasts.toast.texture.neon.description": "少しダークな雰囲気がお好きですか？ネオンサインは夜にとても魅力的ですよ", // Machine translation
 
   "fancytoasts.toast.sound.minecraft.description": "Minecraftに内蔵された音",
   "fancytoasts.toast.sound.mod.description": "Modからの音", // Machine translation

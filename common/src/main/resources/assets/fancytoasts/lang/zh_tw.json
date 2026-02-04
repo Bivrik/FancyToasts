@@ -38,6 +38,9 @@
   "fancytoasts.gui.screen_behavior": "顯示方式",
   "fancytoasts.gui.loops_strength": "循環強度", // Machine translation
   "fancytoasts.gui.loops_speed": "循環速度", // Machine translation
+  "fancytoasts.gui.boss_bar_hiding": "提示顯示時隱藏首領血條", // Machine translation
+  "fancytoasts.gui.pitch_randomness": "音高隨機性", // Machine translation
+  "fancytoasts.gui.animation_speed": "動畫速度", // Machine translation
   "fancytoasts.gui.anchor": "錨點", // Machine translation
   "fancytoasts.gui.fancy_advancement_toasts": "華麗進度提示", // Machine translation
   "fancytoasts.gui.advancement_toasts": "進度提示", // Machine translation
@@ -83,6 +86,9 @@
   "fancytoasts.tooltip.reload_customs": "重新載入所有基於設定的檔案，例如材質，並在列表中新增/移除它們。", // Machine translation
   "fancytoasts.tooltip.loops_strength": "代表正弦/餘弦波的強度，較弱/較強的波浪。", // Machine translation
   "fancytoasts.tooltip.loops_speed": "代表正弦/餘弦波的速度，較慢/較快的波浪。", // Machine translation
+  "fancytoasts.tooltip.boss_bar_hiding": "切換是否隱藏首領血條。若開啟，當進度提示出現時，首領血條將會暫時隱藏，並在提示結束後重新顯示。", // Machine translation
+  "fancytoasts.tooltip.pitch_randomness": "播放音效時會應用音高隨機性，使其聽起來不那麼重複。0% = 完全無音高變化。", // Machine translation
+  "fancytoasts.tooltip.animation_speed": "作為動畫速度的倍率係數。", // Machine translation
   "fancytoasts.tooltip.toasts_filtering": "需要重新啟動 Minecraft。要將單一進度加入黑名單，請在 'toastsToIgnore' 中輸入 \"namespace:category/advancement\"。要將整個類別加入黑名單，請輸入 \"namespace:category/...\"", // Machine translation
 
   "fancytoasts.toast.animation.standard": "標準",
@@ -108,6 +114,8 @@
   "fancytoasts.toast.texture.steamy.description": "我花了 1500 小時才拿到 100%！媽媽，妳為我驕傲嗎？靈感來自 Steam",
   "fancytoasts.toast.texture.landspaper": "報紙", // Machine translation
   "fancytoasts.toast.texture.landspaper.description": "我想你收到了一封新信件！或許可以把它釘在某處以便仔細閱讀。希望它不會受潮溶解", // Machine translation
+  "fancytoasts.toast.texture.neon": "霓虹", // Machine translation
+  "fancytoasts.toast.texture.neon.description": "想要一些更暗黑的氛圍嗎？你知道的，霓虹招牌在夜裡總是格外引人注目", // Machine translation
 
   "fancytoasts.toast.sound.minecraft.description": "Minecraft 內建音效",
   "fancytoasts.toast.sound.mod.description": "來自模組的音效", // Machine translation
