@@ -6,7 +6,6 @@ public class Constants {
 
     public static final String FABRIC = "Fabric";
     public static final String FORGE = "Forge";
-    public static final String NEOFORGE = "NeoForge";
 
     public static final String CONFIG = "config"; // ???
 

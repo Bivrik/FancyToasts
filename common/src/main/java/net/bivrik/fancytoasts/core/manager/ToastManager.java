@@ -11,8 +11,6 @@ import net.bivrik.fancytoasts.core.event.ToastConfigDataEvent;
 import net.bivrik.fancytoasts.platform.utility.GuiContext;
 import net.bivrik.fancytoasts.platform.utility.ToastDisplayInfo;
 import net.bivrik.fancytoasts.platform.Services;
-import net.minecraft.Util;
-import net.minecraft.client.DeltaTracker;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.screens.ChatScreen;
@@ -25,7 +23,6 @@ public class ToastManager implements IManager {
     private final Deque<FancyAdvancementToast> toasts = new ConcurrentLinkedDeque<>();
 
     private Minecraft minecraft;
-    private DeltaTracker deltaTracker;
 
     private volatile FancyAdvancementToast currentToast;
 
@@ -36,7 +33,6 @@ public class ToastManager implements IManager {
     @Override
     public void onMinecraftInit(Minecraft minecraft) {
         this.minecraft = minecraft;
-        this.deltaTracker = minecraft.getDeltaTracker();
 
         customTextureManager = Managers.getCustomTextureManager();
         ConfigManager configManager = Managers.getConfigManager();
@@ -127,7 +123,7 @@ public class ToastManager implements IManager {
     }
 
     private void updateCurrentToast() {
-        float delta = deltaTracker.getGameTimeDeltaTicks() * generalConfigData.getAnimationSpeed();
+        float delta = minecraft.getDeltaFrameTime() * generalConfigData.getAnimationSpeed();
         currentToast.update(delta);
     }
 
