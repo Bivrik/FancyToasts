@@ -38,6 +38,9 @@
   "fancytoasts.gui.screen_behavior": "Comportamento na Tela",
   "fancytoasts.gui.loops_strength": "Força das Ondas",
   "fancytoasts.gui.loops_speed": "Velocidade das Ondas",
+  "fancytoasts.gui.boss_bar_hiding": "Ocultar Barra de Chefe Durante Notificação",
+  "fancytoasts.gui.pitch_randomness": "Aleatoriedade de Tom",
+  "fancytoasts.gui.animation_speed": "Velocidade da Animação",
   "fancytoasts.gui.anchor": "Âncora",
   "fancytoasts.gui.fancy_advancement_toasts": "Notificações de Conquistas Estilosas",
   "fancytoasts.gui.advancement_toasts": "Notificações de Conquistas",
@@ -83,6 +86,9 @@
   "fancytoasts.tooltip.reload_customs": "Recarrega todos os arquivos baseados em configuração, como texturas, e adiciona/remove-os da lista acima.",
   "fancytoasts.tooltip.loops_strength": "Representa a força das ondas seno/cosseno, ondas mais fracas/fortes.",
   "fancytoasts.tooltip.loops_speed": "Representa a velocidade das ondas seno/cosseno, ondas mais lentas/rápidas.",
+  "fancytoasts.tooltip.boss_bar_hiding": "Alterna a ocultação da barra de chefe. Se ativada, a barra de chefe será ocultada quando a Notificação de Conquista aparecer e então será exibida novamente.",
+  "fancytoasts.tooltip.pitch_randomness": "Quando um som é reproduzido, a aleatoriedade de tom é aplicada para torná-lo menos repetitivo. 0% = sem variação de tom.",
+  "fancytoasts.tooltip.animation_speed": "Atua como um multiplicador para a velocidade da animação.",
   "fancytoasts.tooltip.toasts_filtering": "Requer reinicialização do Minecraft. Para colocar uma conquista específica na lista negra, coloque \"namespace:categoria/conquista\" em 'toastsToIgnore'. Para colocar uma categoria inteira na lista negra, coloque \"namespace:categoria/...\"",
 
   "fancytoasts.toast.animation.standard": "Padrão",
@@ -108,6 +114,8 @@
   "fancytoasts.toast.texture.steamy.description": "Passei 1500 horas para conseguir 100%! Você está orgulhosa de mim, mãe? Mãe?! Inspirado pela Steam.",
   "fancytoasts.toast.texture.landspaper": "Landspaper",
   "fancytoasts.toast.texture.landspaper.description": "Acho que você recebeu uma nova carta! Talvez seja melhor afixá-la em algum lugar para uma melhor visualização. Espero que não molhe e dissolva.",
+  "fancytoasts.toast.texture.neon": "Neon",
+  "fancytoasts.toast.texture.neon.description": "Quer um clima mais sombrio? Letreiros de neon são muito atraentes à noite, sabe",
 
   "fancytoasts.toast.sound.minecraft.description": "Som integrado do Minecraft",
   "fancytoasts.toast.sound.mod.description": "Som de uma modificação",
