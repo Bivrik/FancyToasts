@@ -38,6 +38,9 @@
   "fancytoasts.gui.screen_behavior": "Comportamiento en Pantalla",
   "fancytoasts.gui.loops_strength": "Fuerza de los Bucles",
   "fancytoasts.gui.loops_speed": "Velocidad de los Bucles",
+  "fancytoasts.gui.boss_bar_hiding": "Ocultar Barra de Jefe Durante el Toast",
+  "fancytoasts.gui.pitch_randomness": "Aleatoriedad del Tono",
+  "fancytoasts.gui.animation_speed": "Velocidad de la Animación",
   "fancytoasts.gui.anchor": "Punto de Anclaje",
   "fancytoasts.gui.fancy_advancement_toasts": "Toasts de Progreso Mejorados",
   "fancytoasts.gui.advancement_toasts": "Toasts de Progreso",
@@ -83,6 +86,9 @@
   "fancytoasts.tooltip.reload_customs": "Recarga todos los archivos basados en configuración, como texturas, y los añade/elimina de la lista de arriba.",
   "fancytoasts.tooltip.loops_strength": "Representa la fuerza de las ondas seno/coseno, haciendo las ondas más débiles o más fuertes.",
   "fancytoasts.tooltip.loops_speed": "Representa la velocidad de las ondas seno/coseno, haciendo las ondas más lentas o más rápidas.",
+  "fancytoasts.tooltip.boss_bar_hiding": "Activa o desactiva la ocultación de la barra de jefe. Si está activado, la barra de jefe se ocultará cuando aparezca el Toast de Progreso, y luego se volverá a mostrar.",
+  "fancytoasts.tooltip.pitch_randomness": "Cuando se reproduce un sonido, se aplica aleatoriedad al tono para hacerlo menos repetitivo. 0% = sin variación de tono.",
+  "fancytoasts.tooltip.animation_speed": "Actúa como multiplicador de la velocidad de la animación.",
   "fancytoasts.tooltip.toasts_filtering": "Requiere reiniciar Minecraft. Para ignorar un progreso específico, añade \"namespace:categoría/progreso\" en 'toastsToIgnore'. Para ignorar una categoría entera, añade \"namespace:categoría/...\"",
 
   "fancytoasts.toast.animation.standard": "Estándar",
@@ -108,6 +114,8 @@
   "fancytoasts.toast.texture.steamy.description": "¡Pasé 1500 horas para conseguir el 100%! ¿Estás orgullosa de mí, mamá? ¡¿Mamá?! Inspirado por Steam.",
   "fancytoasts.toast.texture.landspaper": "Landspaper",
   "fancytoasts.toast.texture.landspaper.description": "¡Creo que tienes una nueva carta! Quizás clavarla en algún sitio para verla mejor. Espero que no se moje y se disuelva.",
+  "fancytoasts.toast.texture.neon": "Neón",
+  "fancytoasts.toast.texture.neon.description": "¿Buscas un ambiente más oscuro? Los letreros de neón son muy atractivos por la noche, ¿sabes?",
 
   "fancytoasts.toast.sound.minecraft.description": "Sonido integrado de Minecraft",
   "fancytoasts.toast.sound.mod.description": "Sonido de una modificación",
