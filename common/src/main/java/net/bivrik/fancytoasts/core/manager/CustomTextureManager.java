@@ -164,7 +164,7 @@ public class CustomTextureManager implements IManager {
     }
 
     public void load() {
-        if (FileHelper.tryCreateDir(TEXTURES_DIR)) {
+        if (FileHelper.tryCreateDirectory(TEXTURES_DIR)) {
             return;
         }
 

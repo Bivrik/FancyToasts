@@ -23,7 +23,7 @@ public class ConfigHandler {
     }
 
     public static <T extends ConfigData> T load(Class<T> configDataClass) {
-        FileHelper.tryCreateDir(CONFIG_DIR);
+        FileHelper.tryCreateDirectory(CONFIG_DIR);
 
         T standardConfigData = tryGetCopy(configDataClass);
         String className = configDataClass.getSimpleName();
@@ -68,7 +68,7 @@ public class ConfigHandler {
     }
 
     public static <T extends ConfigData> void save(T configData) {
-        FileHelper.tryCreateDir(CONFIG_DIR);
+        FileHelper.tryCreateDirectory(CONFIG_DIR);
 
         File configFile = new File(configData.getPath());
 
