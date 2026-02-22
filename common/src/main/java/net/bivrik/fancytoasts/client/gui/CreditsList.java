@@ -31,9 +31,9 @@ public class CreditsList extends AbstractSelectionList<CreditsList.Entry> {
             addSpace();
         }
 
-        for (String category : data.categories().keySet()) {
+        for (String category : data.getCategories().keySet()) {
             addCategory(category);
-            for (CreditsManager.CreditsData.User user : data.categories().get(category)) {
+            for (CreditsManager.CreditsData.User user : data.getCategories().get(category)) {
                 addLine(user);
             }
             addSpace();
