@@ -9,11 +9,12 @@ public class FileHelper {
         return file.getName().replace(FileType.PNG.get(), "").replace(FileType.JSON.get(), "");
     }
 
-    public static boolean tryCreateDir(File directory) {
+    public static boolean tryCreateDirectory(File directory) {
         if (directory.exists()) return false;
 
         if (!directory.mkdir()) {
-            Debug.error("Security manager does not let create directory in: " + directory.getPath());
+            Debug.error("Security manager does not let create directory '{}'", directory.getPath());
+            return false;
         }
 
         return true;
