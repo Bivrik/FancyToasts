@@ -1,5 +1,6 @@
 package net.bivrik.fancytoasts.client.gui;
 
+import net.bivrik.fancytoasts.utility.FastMath;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.components.AbstractSliderButton;
 import net.minecraft.client.resources.sounds.SimpleSoundInstance;
@@ -59,6 +60,10 @@ public class Slider extends AbstractSliderButton {
         this(x, y, width, height, label, value, 0.0f, max, threshold);
     }
 
+    public Slider(int x, int y, int width, int height, Component label, float value, float max) {
+        this(x, y, width, height, label, value, 0.0f, max, 0.0f);
+    }
+
     public Slider setResponder(Consumer<Float> responder) {
         this.responder = responder;
         return this;
@@ -71,8 +76,8 @@ public class Slider extends AbstractSliderButton {
     }
 
     private float getValue() {
-        float value = (float) Math.round(Mth.lerp(this.value, min, max) * 100) / 100;
-        int intValue = Math.round(value);
+        float value = (float) FastMath.round(Mth.lerp(this.value, min, max) * 100) / 100;
+        int intValue = FastMath.round(value);
 
         if (threshold != 0.0f) {
             if (value >= intValue - threshold && value <= intValue + threshold) {

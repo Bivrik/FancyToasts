@@ -1,6 +1,6 @@
 package net.bivrik.fancytoasts.platform.utility;
 
-import net.minecraft.util.Mth;
+import net.bivrik.fancytoasts.utility.FastMath;
 
 public class Colors {
     public static final int WHITE = -1;
@@ -16,7 +16,7 @@ public class Colors {
             return color;
         }
 
-        alpha = Mth.clamp(alpha, 0, 255);
+        alpha = FastMath.clamp(alpha, 0, 255);
         return alpha << 24 | color & 0xFFFFFF;
     }
 

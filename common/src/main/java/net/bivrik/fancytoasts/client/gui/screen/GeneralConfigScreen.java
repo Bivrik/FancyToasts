@@ -1,5 +1,6 @@
 package net.bivrik.fancytoasts.client.gui.screen;
 
+import com.mojang.blaze3d.systems.RenderSystem;
 import net.bivrik.fancytoasts.client.config.ToastAnchor;
 import net.bivrik.fancytoasts.client.config.ToastScreenBehavior;
 import net.bivrik.fancytoasts.client.config.ConfigHandler;
@@ -12,8 +13,12 @@ import net.bivrik.fancytoasts.core.event.GeneralConfigDataEvent;
 import net.bivrik.fancytoasts.platform.Services;
 import net.bivrik.fancytoasts.platform.utility.Colors;
 import net.bivrik.fancytoasts.platform.utility.Components;
+import net.bivrik.fancytoasts.platform.utility.GuiContext;
+import net.bivrik.fancytoasts.platform.utility.ResourceLocations;
+import net.bivrik.fancytoasts.utility.FastMath;
 import net.bivrik.fancytoasts.utility.MathEasing;
 import net.bivrik.fancytoasts.core.Managers;
+import net.bivrik.fancytoasts.utility.TextureUV;
 import net.minecraft.Util;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.*;
@@ -22,6 +27,7 @@ import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.network.chat.CommonComponents;
 import net.minecraft.network.chat.Component;
+import net.minecraft.resources.ResourceLocation;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
@@ -246,7 +252,7 @@ public class GeneralConfigScreen extends UniversalScreen {
     }
 
     private Component percentDisplayer(float value) {
-        return Component.literal(Math.round(value * 100) + "%");
+        return Component.literal(FastMath.round(value * 100) + "%");
     }
 
     private static class ListHelper {
