@@ -1,13 +1,14 @@
 package net.bivrik.fancytoasts.client.toast;
 
+import net.bivrik.fancytoasts.utility.FastMath;
+
 public record Appearance(int duration, int startPoint) {
 
     public static float getProgress(long time, int duration, int startPoint) {
-        return Math.min(1.0f, Math.max(0.0f, (float) (time - startPoint) / duration));
+        float progress = ((float) time - startPoint) / duration;
+        return FastMath.clamp(progress, 0.0f, 1.0f);
     }
-    public static float getProgress(long time, Appearance appearance) {
-        return getProgress(time, appearance.duration(), appearance.startPoint());
-    }
+
     public float getProgress(long time) {
         return getProgress(time, this.duration, this.startPoint);
     }
