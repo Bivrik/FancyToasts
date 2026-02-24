@@ -14,6 +14,7 @@ import net.bivrik.fancytoasts.platform.utility.Colors;
 import net.bivrik.fancytoasts.platform.utility.Components;
 import net.bivrik.fancytoasts.platform.utility.GuiContext;
 import net.bivrik.fancytoasts.platform.utility.ResourceLocations;
+import net.bivrik.fancytoasts.utility.FastMath;
 import net.bivrik.fancytoasts.utility.MathEasing;
 import net.bivrik.fancytoasts.core.Managers;
 import net.bivrik.fancytoasts.utility.TextureUV;
@@ -247,7 +248,7 @@ public class GeneralConfigScreen extends UniversalScreen {
     }
 
     private Component percentDisplayer(float value) {
-        return Component.literal(Math.round(value * 100) + "%");
+        return Component.literal(FastMath.round(value * 100) + "%");
     }
 
     private static class ListHelper {

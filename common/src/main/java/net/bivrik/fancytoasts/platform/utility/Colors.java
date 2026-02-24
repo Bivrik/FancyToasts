@@ -1,5 +1,7 @@
 package net.bivrik.fancytoasts.platform.utility;
 
+import net.bivrik.fancytoasts.utility.FastMath;
+
 public class Colors {
     public static final int WHITE = -1;
     public static final int BLACK = 0x000000;
@@ -14,7 +16,7 @@ public class Colors {
             return color;
         }
 
-        alpha = Math.clamp(alpha, 0, 255);
+        alpha = FastMath.clamp(alpha, 0, 255);
         return alpha << 24 | color & 0xFFFFFF;
     }
 
