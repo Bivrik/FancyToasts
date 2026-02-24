@@ -1,4 +1,4 @@
-> This is 1.21.10 Fabric/Forge/NeoForge version 1.4.6
+> This is 1.21.10 Fabric/Forge/NeoForge version 1.4.7
 
 # Fancy Toasts 🎉
 There is a reason why you are here. It might be curiosity. But I think you are here because of there old-fashion advancement toasts! This is a Minecraft Mod that changes plain, boring, and annoying advancement toasts to something new and interesting!
@@ -88,6 +88,14 @@ Big goals/plans/ideas for future updates. Some of them are abstract ideas, and s
 * FTBQuests compatibility
 
 # Changelog 📝
+
+## 1.4.7
+* Bug fixes:
+  * Credits not being loaded due to daily cap
+* Adjustments:
+  * Now credits are being cached on client-side! Even without WI-FI connection they can be shown
+  * Texture type `Vanilla` was slightly tweaked to match actual vanilla feeling
+> Work in progress...
 
 ## 1.4.6
 * New features:
