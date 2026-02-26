@@ -5,18 +5,18 @@ public enum Easing {
     SINE_IN(t -> (float) (1 - Math.cos(t * Math.PI * 0.5f))),
     SINE_OUT(t -> (float) Math.sin(t * Math.PI * 0.5f)),
     SINE_IN_OUT(t -> (float) ((1 - Math.cos(t * Math.PI)) * 0.5f)),
-    EASE_IN_OCT(t -> {
+    OCT_EASE_IN(t -> {
         float t2 = t * t;
         float t4 = t2 * t2;
         return t4 * t4;
     }),
-    EASE_OUT_OCT(t -> {
+    OCT_EASE_OUT(t -> {
         float x = 1 - t;
         float x2 = x * x;
         float x4 = x2 * x2;
         return 1 - (x4 * x4);
     }),
-    EASE_IN_OUT_OCT(t -> {
+    OCT_EASE_IN_OUT(t -> {
         if (t < 0.5f) {
             float x = t * 2;
             float x2 = x * x;
