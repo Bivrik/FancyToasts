@@ -2,13 +2,59 @@ package net.bivrik.fancytoasts.utility;
 
 public enum Easing {
     LINEAR(t -> t),
-    SINE_IN(t -> (float) (1 - Math.cos((t * Math.PI) / 2))),
-    SINE_OUT(t -> (float) Math.sin((t * Math.PI) / 2)),
-    SINE_IN_OUT(t -> (float) (-(Math.cos(Math.PI * t) - 1) / 2)),
-    EASE_IN(t -> (float) (Math.pow(t, 8))),
-    EASE_OUT(t -> (float) (1 - Math.pow(1 - t, 8))),
-    EASE_IN_OUT(t -> (float) (Math.pow(t, 2) * (3.0f - 2.0f * t))),
-    ELASTIC_OUT(t -> (float) (1 - Math.pow(2, -10 * t) * Math.cos(t * Math.PI * 4)));
+    SINE_IN(t -> (float) (1 - Math.cos(t * Math.PI * 0.5f))),
+    SINE_OUT(t -> (float) Math.sin(t * Math.PI * 0.5f)),
+    SINE_IN_OUT(t -> (float) ((1 - Math.cos(t * Math.PI)) * 0.5f)),
+    EASE_IN_OCT(t -> {
+        float t2 = t * t;
+        float t4 = t2 * t2;
+        return t4 * t4;
+    }),
+    EASE_OUT_OCT(t -> {
+        float x = 1 - t;
+        float x2 = x * x;
+        float x4 = x2 * x2;
+        return 1 - (x4 * x4);
+    }),
+    EASE_IN_OUT_OCT(t -> {
+        if (t < 0.5f) {
+            float x = t * 2;
+            float x2 = x * x;
+            float x4 = x2 * x2;
+            return (x4 * x4) / 2;
+        } else {
+            float x = t * -2 + 2;
+            float x2 = x * x;
+            float x4 = x2 * x2;
+            return 1 - (x4 * x4) / 2;
+        }
+    }),
+    ELASTIC_IN(t -> {
+        if (t == 0) return 0;
+        if (t == 1) return 1;
+
+        double c = Math.PI * 2 / 3;
+        return (float) (-Math.pow(2, 10 * t - 10) * Math.sin((t * 10 - 10.75f) * c));
+    }),
+    ELASTIC_OUT(t -> {
+        if (t == 0) return 0;
+        if (t == 1) return 1;
+
+        double c = Math.PI * 2 / 3;
+        return (float) (Math.pow(2, -10 * t) * Math.sin((t * 10 - 0.75f) * c) + 1);
+    }),
+    ELASTIC_IN_OUT(t -> {
+        if (t == 0) return 0;
+        if (t == 1) return 1;
+
+        double c = Math.PI * 2 / 4.5f;
+        double sin = Math.sin((20 * t - 11.125f) * c) / 2;
+        if (t < 0.5f) {
+            return (float) (-Math.pow(2, 20 * t - 10) * sin);
+        } else {
+            return (float) (Math.pow(2, -20 * t + 10) * sin + 1);
+        }
+    });
 
     private final MathEasing mathEasing;
 
@@ -16,21 +62,51 @@ public enum Easing {
         this.mathEasing = mathEasing;
     }
 
-    public float applyEasing(float delta) {
-        float clampedDelta = FastMath.clamp(delta, 0.0f, 1.0f);
-        return mathEasing.apply(clampedDelta);
+    private float applyEasing(float progress) {
+        float clampedProgress = FastMath.clamp(progress, 0.0f, 1.0f);
+        return mathEasing.apply(clampedProgress);
     }
 
-    public float lerp(float start, float end, float delta) {
-        return Interpolation.lerp(start, end, delta, this);
+    /**
+     * A lerping function that returns float value depending on the progress in range [0,1]. Values out of this will be clamped
+     * @param start start value (from)
+     * @param end end value (to)
+     * @param progress is a value in range [0,1] on change from <code>start</code> to <code>end</code>
+     * @return float value between <code>start</code> and <code>end</code> depending on <code>progress</code>
+     */
+    public float lerp(float start, float end, float progress) {
+        return innerLerp(start, end, progress);
     }
 
-    public int lerp(int start, int end, float delta) {
-        return Interpolation.lerp(start, end, delta, this);
+    private float innerLerp(float start, float end, float progress) {
+        float delta = end - start;
+        float easedProgress = applyEasing(progress);
+
+        return start + delta * easedProgress;
+    }
+
+    /**
+     * A lerping function that returns int value depending on the progress in range [0,1]. Values out of this will be clamped
+     * @param start start value (from)
+     * @param end end value (to)
+     * @param progress is a value in range [0,1] on change from <code>start</code> to <code>end</code>
+     * @return int value between <code>start</code> and <code>end</code> depending on <code>progress</code>
+     */
+    public int lerp(int start, int end, float progress) {
+        return innerLerp(start, end, progress);
+    }
+
+    private int innerLerp(int start, int end, float progress) {
+        if (start == end) return end;
+
+        int delta = end - start;
+        float easedProgress = applyEasing(progress);
+
+        return start + FastMath.round(delta * easedProgress);
     }
 
     @FunctionalInterface
-    interface MathEasing {
-        float apply(float delta);
+    private interface MathEasing {
+        float apply(float progress);
     }
 }

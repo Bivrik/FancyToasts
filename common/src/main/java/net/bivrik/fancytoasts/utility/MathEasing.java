@@ -1,5 +1,6 @@
 package net.bivrik.fancytoasts.utility;
 
+@Deprecated
 public class MathEasing {
     private static float easeOut(float t) {
         return (float) (1 - Math.pow(1 - t, 8));
