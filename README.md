@@ -95,6 +95,8 @@ Big goals/plans/ideas for future updates. Some of them are abstract ideas, and s
 * Adjustments:
   * Now credits are being cached on client-side! Even without WI-FI connection they can be shown
   * Texture type `Vanilla` was slightly tweaked to match actual vanilla feeling
+  * Animation type `Standard` was slightly tweaked to match vanilla feeling better
+  * Slightly better optimization and new easing system
 > Work in progress...
 
 ## 1.4.6
