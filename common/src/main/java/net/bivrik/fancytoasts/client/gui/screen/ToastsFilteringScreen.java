@@ -10,7 +10,7 @@ import net.bivrik.fancytoasts.platform.Services;
 import net.bivrik.fancytoasts.platform.utility.Colors;
 import net.bivrik.fancytoasts.platform.utility.Components;
 import net.bivrik.fancytoasts.platform.utility.ResourceLocations;
-import net.bivrik.fancytoasts.utility.MathEasing;
+import net.bivrik.fancytoasts.utility.Easing;
 import net.bivrik.fancytoasts.utility.file.Paths;
 import net.minecraft.Util;
 import net.minecraft.client.gui.GuiGraphics;
@@ -163,7 +163,7 @@ public class ToastsFilteringScreen extends UniversalScreen {
         }
         long time = Util.getMillis() - savedFeedbackStartTime;
 
-        float appearanceLerp = MathEasing.easeOutLerp(0.0f, 1.0f, Appearance.getProgress(time, 500, 0));
+        float appearanceLerp = Easing.OCT_EASE_OUT.lerp(0, 1.0f, Appearance.getProgress(time, 500, 0));
         float disappearanceLerp = Appearance.getProgress(time, 500, 400);
 
         int color = Colors.alpha(appearanceLerp - disappearanceLerp, Colors.YELLOW);
