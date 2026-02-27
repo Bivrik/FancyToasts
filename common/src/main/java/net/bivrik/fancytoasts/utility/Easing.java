@@ -33,21 +33,21 @@ public enum Easing {
         if (t == 0) return 0;
         if (t == 1) return 1;
 
-        double c = Math.PI * 2 / 3;
+        double c = Math.PI / 3;
         return (float) (-Math.pow(2, 10 * t - 10) * Math.sin((t * 10 - 10.75f) * c));
     }),
     ELASTIC_OUT(t -> {
         if (t == 0) return 0;
         if (t == 1) return 1;
 
-        double c = Math.PI * 2 / 3;
+        double c = Math.PI / 3;
         return (float) (Math.pow(2, -10 * t) * Math.sin((t * 10 - 0.75f) * c) + 1);
     }),
     ELASTIC_IN_OUT(t -> {
         if (t == 0) return 0;
         if (t == 1) return 1;
 
-        double c = Math.PI * 2 / 4.5f;
+        double c = Math.PI / 4.5f;
         double sin = Math.sin((20 * t - 11.125f) * c) / 2;
         if (t < 0.5f) {
             return (float) (-Math.pow(2, 20 * t - 10) * sin);
