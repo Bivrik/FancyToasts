@@ -1,9 +1,9 @@
 package net.bivrik.fancytoasts.client.gui;
 
+import net.bivrik.fancytoasts.core.Color;
 import net.bivrik.fancytoasts.core.Constants;
 import net.bivrik.fancytoasts.core.Debug;
 import net.bivrik.fancytoasts.platform.utility.GuiContext;
-import net.bivrik.fancytoasts.platform.utility.Colors;
 import net.minecraft.Util;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
@@ -235,17 +235,17 @@ public class ResourceLocationList extends ObjectSelectionList<ResourceLocationLi
         public void render(@NotNull GuiGraphics guiGraphics, int index, int y, int x, int width, int height, int mouseX, int mouseY, boolean isHovering, float partialTick) {
             x += 3;
 
-            int mainColor = Colors.WHITE;
-            int secondColor = Colors.LIGHT_GRAY;
+            Color mainColor = Color.WHITE;
+            Color secondColor = Color.LIGHT_GRAY;
 
             if (isFocused()) {
-                mainColor = Colors.YELLOW;
-                secondColor = Colors.PURPLE;
+                mainColor = Color.YELLOW;
+                secondColor = Color.PURPLE;
             }
             else if (isHovering) {
                 var context = new GuiContext(guiGraphics);
-                context.fill(x, y - 2, width, height + 4, Colors.alpha(16, Colors.WHITE));
-                context.fill(x + 1, y - 1, width - 2, height + 2, Colors.alpha(64, Colors.BLACK));
+                context.fill(x, y - 2, width, height + 4, Color.WHITE.withAlpha(16).getARGB());
+                context.fill(x + 1, y - 1, width - 2, height + 2, Color.BLACK.withAlpha(64).getARGB());
             }
 
             int nameX = x + 3;
@@ -253,15 +253,15 @@ public class ResourceLocationList extends ObjectSelectionList<ResourceLocationLi
             FormattedCharSequence nameFirstLine = nameLines.get(0);
 
             if (nameLines.size() == 1) {
-                guiGraphics.drawString(font, nameFirstLine, nameX, nameY, mainColor);
+                guiGraphics.drawString(font, nameFirstLine, nameX, nameY, mainColor.getARGB());
             }
             else {
-                guiGraphics.drawString(font, nameLines.get(1), nameX, nameY + 3, secondColor);
-                guiGraphics.drawString(font, nameFirstLine, nameX, nameY - 3, mainColor);
+                guiGraphics.drawString(font, nameLines.get(1), nameX, nameY + 3, secondColor.getARGB());
+                guiGraphics.drawString(font, nameFirstLine, nameX, nameY - 3, mainColor.getARGB());
             }
 
             if (isConfig) {
-                guiGraphics.drawString(font, Component.literal("c"), x + width - 10, nameY, Colors.LIGHT_GRAY);
+                guiGraphics.drawString(font, Component.literal("c"), x + width - 10, nameY, Color.LIGHT_GRAY.getARGB());
             }
         }
     }

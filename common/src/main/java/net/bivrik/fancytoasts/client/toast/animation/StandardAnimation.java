@@ -2,9 +2,8 @@ package net.bivrik.fancytoasts.client.toast.animation;
 
 import net.bivrik.fancytoasts.client.toast.AnimationSetup;
 import net.bivrik.fancytoasts.client.toast.Appearance;
-import net.bivrik.fancytoasts.platform.utility.Colors;
 import net.bivrik.fancytoasts.platform.utility.GuiContext;
-import net.bivrik.fancytoasts.utility.Easing;
+import net.bivrik.fancytoasts.core.Easing;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.util.FormattedCharSequence;
@@ -97,14 +96,14 @@ public class StandardAnimation extends FancyToastAnimation {
         }
 
         int centerToastX = this.toastWidth / 2;
-        int descriptionColor = Colors.alpha(alpha, this.displayInfo.getAdvancementType().getSecondaryColor());
+        int descriptionColorARGB = this.displayInfo.getAdvancementType().getSecondaryColor().withAlpha(alpha).getARGB();
 
         if (descriptionLines.size() == 1) {
-            guiGraphics.drawCenteredString(this.minecraft.font, descriptionLines.get(0), centerToastX, 43, descriptionColor);
+            guiGraphics.drawCenteredString(this.minecraft.font, descriptionLines.get(0), centerToastX, 43, descriptionColorARGB);
         } else {
             int lineHeight = 42 - (9 * (descriptionLines.size() - 1)) / 2;
             for (FormattedCharSequence line : descriptionLines) {
-                guiGraphics.drawCenteredString(this.minecraft.font, line, centerToastX, lineHeight, descriptionColor);
+                guiGraphics.drawCenteredString(this.minecraft.font, line, centerToastX, lineHeight, descriptionColorARGB);
                 lineHeight += 9;
             }
         }

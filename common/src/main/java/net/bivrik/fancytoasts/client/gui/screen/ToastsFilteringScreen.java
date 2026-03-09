@@ -3,14 +3,14 @@ package net.bivrik.fancytoasts.client.gui.screen;
 import net.bivrik.fancytoasts.client.config.ConfigHandler;
 import net.bivrik.fancytoasts.client.config.data.ToastsFilteringData;
 import net.bivrik.fancytoasts.client.toast.Appearance;
+import net.bivrik.fancytoasts.core.Color;
 import net.bivrik.fancytoasts.core.Constants;
+import net.bivrik.fancytoasts.core.Easing;
 import net.bivrik.fancytoasts.core.Managers;
 import net.bivrik.fancytoasts.core.event.ToastsFilteringDataEvent;
 import net.bivrik.fancytoasts.platform.Services;
-import net.bivrik.fancytoasts.platform.utility.Colors;
 import net.bivrik.fancytoasts.platform.utility.Components;
 import net.bivrik.fancytoasts.platform.utility.ResourceLocations;
-import net.bivrik.fancytoasts.utility.Easing;
 import net.bivrik.fancytoasts.utility.file.Paths;
 import net.minecraft.Util;
 import net.minecraft.client.gui.GuiGraphics;
@@ -166,10 +166,11 @@ public class ToastsFilteringScreen extends UniversalScreen {
         float appearanceLerp = Easing.OCT_EASE_OUT.lerp(0, 1.0f, Appearance.getProgress(time, 500, 0));
         float disappearanceLerp = Appearance.getProgress(time, 500, 400);
 
-        int color = Colors.alpha(appearanceLerp - disappearanceLerp, Colors.YELLOW);
-        guiGraphics.drawString(this.font, SAVED_LABEL, x, y, color);
+        Color color = Color.YELLOW.withAlpha(appearanceLerp - disappearanceLerp);
 
-        if (time > 850) {
+        guiGraphics.drawString(this.font, SAVED_LABEL, x, y, color.getARGB());
+
+        if (time >= 1000) {
             isSaved = false;
         }
     }
