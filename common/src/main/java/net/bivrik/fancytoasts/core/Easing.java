@@ -1,4 +1,6 @@
-package net.bivrik.fancytoasts.utility;
+package net.bivrik.fancytoasts.core;
+
+import net.bivrik.fancytoasts.utility.FastMath;
 
 public enum Easing {
     LINEAR(t -> t),
@@ -103,6 +105,21 @@ public enum Easing {
         float easedProgress = applyEasing(progress);
 
         return start + FastMath.round(delta * easedProgress);
+    }
+
+    /**
+     * A lerping function that returns color depending on the progress in range [0,1]. Values out of this will be clamped
+     * @param start start value (from)
+     * @param end end value (to)
+     * @param progress is a value in range [0,1] on change from <code>start</code> to <code>end</code>
+     * @return color between <code>start</code> and <code>end</code> depending on <code>progress</code>
+     */
+    public Color lerp (Color start, Color end, float progress) {
+        return new Color(
+                innerLerp(start.getA(), end.getA(), progress),
+                innerLerp(start.getR(), end.getR(), progress),
+                innerLerp(start.getG(), end.getG(), progress),
+                innerLerp(start.getB(), end.getB(), progress));
     }
 
     @FunctionalInterface

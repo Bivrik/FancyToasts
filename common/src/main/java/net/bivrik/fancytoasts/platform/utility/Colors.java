@@ -2,6 +2,7 @@ package net.bivrik.fancytoasts.platform.utility;
 
 import net.bivrik.fancytoasts.utility.FastMath;
 
+@Deprecated
 public class Colors {
     public static final int WHITE = -1;
     public static final int BLACK = 0x000000;
