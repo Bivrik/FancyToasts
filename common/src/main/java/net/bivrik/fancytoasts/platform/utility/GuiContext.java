@@ -8,6 +8,8 @@ import net.minecraft.resources.ResourceLocation;
 import org.joml.Matrix3x2fStack;
 
 public class GuiContext {
+    private static final int WHITE = -1;
+
     private final GuiGraphics guiGraphics;
     private final Matrix3x2fStack stack;
 
@@ -53,11 +55,11 @@ public class GuiContext {
     }
 
     public void drawTexture(RenderPipeline pipeline, ResourceLocation textureLocation, int x, int y, int width, int height, TextureUV uv, int textureWidth, int textureHeight) {
-        drawTexture(pipeline, textureLocation, x, y, width, height, uv, textureWidth, textureHeight, Colors.WHITE);
+        drawTexture(pipeline, textureLocation, x, y, width, height, uv, textureWidth, textureHeight, WHITE);
     }
 
     public void drawTexture(RenderPipeline pipeline, ResourceLocation textureLocation, int x, int y, int width, int height, TextureUV uv) {
-        drawTexture(pipeline, textureLocation, x, y, width, height, uv, width, height, Colors.WHITE);
+        drawTexture(pipeline, textureLocation, x, y, width, height, uv, width, height, WHITE);
     }
 
     public void drawGUITexture(ResourceLocation textureLocation, int x, int y, int width, int height, TextureUV uv, int textureWidth, int textureHeight, int color) {
@@ -65,7 +67,7 @@ public class GuiContext {
     }
 
     public void drawGUITexture(ResourceLocation textureLocation, int x, int y, int width, int height, TextureUV uv, int textureWidth, int textureHeight) {
-        drawGUITexture(textureLocation, x, y, width, height, uv, textureWidth, textureHeight, Colors.WHITE);
+        drawGUITexture(textureLocation, x, y, width, height, uv, textureWidth, textureHeight, WHITE);
     }
 
     public void drawGUITexture(ResourceLocation textureLocation, int x, int y, int width, int height, TextureUV uv, int color) {
@@ -73,7 +75,7 @@ public class GuiContext {
     }
 
     public void drawGUITexture(ResourceLocation textureLocation, int x, int y, int width, int height, TextureUV uv) {
-        drawGUITexture(textureLocation, x, y, width, height, uv, 256, 256, Colors.WHITE);
+        drawGUITexture(textureLocation, x, y, width, height, uv, 256, 256, WHITE);
     }
 
     public void drawSprite(ResourceLocation spriteLocation, int x, int y, int width, int height, int color) {
@@ -81,7 +83,7 @@ public class GuiContext {
     }
 
     public void drawSprite(ResourceLocation spriteLocation, int x, int y, int width, int height) {
-        drawSprite(spriteLocation, x, y, width, height, Colors.WHITE);
+        drawSprite(spriteLocation, x, y, width, height, WHITE);
     }
 
     public void fill(int x, int y, int width, int height, int color) {

@@ -1,7 +1,7 @@
 package net.bivrik.fancytoasts.client.gui;
 
+import net.bivrik.fancytoasts.core.Color;
 import net.bivrik.fancytoasts.core.manager.CreditsManager;
-import net.bivrik.fancytoasts.platform.utility.Colors;
 import net.bivrik.fancytoasts.platform.utility.Components;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
@@ -144,7 +144,7 @@ public class CreditsList extends AbstractSelectionList<CreditsList.Entry> {
 
         @Override
         public void renderContent(@NotNull GuiGraphics guiGraphics, int mouseX, int mouseY, boolean isHovering, float partialTick) {
-            guiGraphics.drawCenteredString(font, displayName, xCenter, getY(), Colors.YELLOW);
+            guiGraphics.drawCenteredString(font, displayName, xCenter, getY(), Color.YELLOW.getARGB());
         }
     }
 
@@ -166,10 +166,10 @@ public class CreditsList extends AbstractSelectionList<CreditsList.Entry> {
 
         @Override
         public void renderContent(@NotNull GuiGraphics guiGraphics, int mouseX, int mouseY, boolean isHovering, float partialTick) {
-            guiGraphics.drawString(this.font, this.content, this.getX(), this.getY(), Colors.WHITE);
+            guiGraphics.drawString(this.font, this.content, this.getX(), this.getY(), Color.WHITE.getARGB());
 
             if (isValidAnnotation) {
-                guiGraphics.drawString(this.font, annotation, this.getX() + font.width(this.content) + 8, this.getY(), Colors.LIGHT_GRAY);
+                guiGraphics.drawString(this.font, annotation, this.getX() + font.width(this.content) + 8, this.getY(), Color.LIGHT_GRAY.getARGB());
             }
         }
     }

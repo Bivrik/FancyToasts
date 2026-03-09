@@ -7,14 +7,14 @@ import net.bivrik.fancytoasts.client.config.data.GeneralConfigData;
 import net.bivrik.fancytoasts.client.gui.IntegerEditBox;
 import net.bivrik.fancytoasts.client.gui.Slider;
 import net.bivrik.fancytoasts.client.toast.Appearance;
+import net.bivrik.fancytoasts.core.Color;
 import net.bivrik.fancytoasts.core.Constants;
 import net.bivrik.fancytoasts.core.event.GeneralConfigDataEvent;
 import net.bivrik.fancytoasts.platform.Services;
-import net.bivrik.fancytoasts.platform.utility.Colors;
 import net.bivrik.fancytoasts.platform.utility.Components;
 import net.bivrik.fancytoasts.platform.utility.GuiContext;
 import net.bivrik.fancytoasts.platform.utility.ResourceLocations;
-import net.bivrik.fancytoasts.utility.Easing;
+import net.bivrik.fancytoasts.core.Easing;
 import net.bivrik.fancytoasts.utility.FastMath;
 import net.bivrik.fancytoasts.core.Managers;
 import net.bivrik.fancytoasts.utility.TextureUV;
@@ -214,8 +214,8 @@ public class GeneralConfigScreen extends UniversalScreen {
 
         int offsetX = 7;
         int offsetY = 5;
-        guiGraphics.drawString(this.font, "x:", offsetXEditBox.getX() - offsetX, offsetXEditBox.getY() + offsetY, Colors.LIGHT_GRAY);
-        guiGraphics.drawString(this.font, "y:", offsetYEditBox.getX() - offsetX, offsetYEditBox.getY() + offsetY, Colors.LIGHT_GRAY);
+        guiGraphics.drawString(this.font, "x:", offsetXEditBox.getX() - offsetX, offsetXEditBox.getY() + offsetY, Color.LIGHT_GRAY.getARGB());
+        guiGraphics.drawString(this.font, "y:", offsetYEditBox.getX() - offsetX, offsetYEditBox.getY() + offsetY, Color.LIGHT_GRAY.getARGB());
     }
 
     private void drawSavedFeedback(GuiGraphics guiGraphics, int x, int y) {
@@ -227,9 +227,9 @@ public class GeneralConfigScreen extends UniversalScreen {
         float appearanceLerp = Easing.OCT_EASE_OUT.lerp(0, 1.0f, Appearance.getProgress(time, 500, 0));
         float disappearanceLerp = Appearance.getProgress(time, 500, 400);
 
-        int color = Colors.alpha(appearanceLerp - disappearanceLerp, Colors.YELLOW);
+        Color color = Color.YELLOW.withAlpha(appearanceLerp - disappearanceLerp);
 
-        guiGraphics.drawString(this.font, SAVED_LABEL, x, y, color);
+        guiGraphics.drawString(this.font, SAVED_LABEL, x, y, color.getARGB());
 
         if (time >= 1000) {
             isSaved = false;
