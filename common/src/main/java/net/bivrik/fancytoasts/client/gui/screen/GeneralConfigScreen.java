@@ -1,11 +1,11 @@
 package net.bivrik.fancytoasts.client.gui.screen;
 
-import com.mojang.blaze3d.systems.RenderSystem;
 import net.bivrik.fancytoasts.client.config.ToastAnchor;
 import net.bivrik.fancytoasts.client.config.ToastScreenBehavior;
 import net.bivrik.fancytoasts.client.config.ConfigHandler;
 import net.bivrik.fancytoasts.client.config.data.GeneralConfigData;
 import net.bivrik.fancytoasts.client.gui.IntegerEditBox;
+import net.bivrik.fancytoasts.client.gui.SettingsList;
 import net.bivrik.fancytoasts.client.gui.Slider;
 import net.bivrik.fancytoasts.client.toast.Appearance;
 import net.bivrik.fancytoasts.core.Color;
@@ -67,6 +67,7 @@ public class GeneralConfigScreen extends UniversalScreen {
     private static final ResourceLocation LIST_BACKGROUND = ResourceLocations.fromMinecraft("textures/gui/menu_list_background.png");
 
     private GeneralConfigData generalConfigData;
+
     private boolean isSaved;
     private long savedFeedbackStartTime;
 
@@ -96,6 +97,7 @@ public class GeneralConfigScreen extends UniversalScreen {
     @Override
     protected void init() {
         int xCenter = this.width / 2;
+        var list = this.addFWidget(new SettingsList(this.minecraft, this.width, this.height - MARGIN * 2 - 2, MARGIN, 18, this));
 
         backButton = this.addFWidget(createButton(CommonComponents.GUI_BACK, button -> this.toParentScreen(),
                 xCenter - 125 - HALF_PADDING, this.height - BUTTON_HEIGHT - 6, 75, BUTTON_HEIGHT));
@@ -106,59 +108,56 @@ public class GeneralConfigScreen extends UniversalScreen {
         doneButton = this.addFWidget(createButton(CommonComponents.GUI_DONE, button -> done(),
                 xCenter + HALF_PADDING, this.height - BUTTON_HEIGHT - 6, 125, BUTTON_HEIGHT));
 
-        ListHelper listHelper = new ListHelper(this);
-
         if (Services.PLATFORM.isModLoaded(Constants.Compatibilities.JADE_ID)) {
-            jadeHidingButton = listHelper.addWidget(createBooleanButton(JADE_HIDING, generalConfigData.isJadeHiding(),
+            jadeHidingButton = list.addEntry(createBooleanButton(JADE_HIDING, generalConfigData.isJadeHiding(),
                     (button, value) -> generalConfigData.setJadeHiding(value), 0, 0, Tooltip.create(JADE_HIDING_TOOLTIP)));
         }
 
-        bossBarHidingButton = listHelper.addWidget(createBooleanButton(BOSS_BAR_HIDING, generalConfigData.isBossBarHiding(),
+        bossBarHidingButton = list.addEntry(createBooleanButton(BOSS_BAR_HIDING, generalConfigData.isBossBarHiding(),
                 (button, value) -> generalConfigData.setBossBarHiding(value), 0, 0, Tooltip.create(BOSS_BAR_HIDING_TOOLTIP)));
 
-        soundsEnabledButton = listHelper.addWidget(createBooleanButton(SOUNDS, generalConfigData.areSoundsEnabled(),
+        soundsEnabledButton = list.addEntry(createBooleanButton(SOUNDS, generalConfigData.areSoundsEnabled(),
                 (button, value) -> generalConfigData.setSoundsEnabled(value), 0, 0, Tooltip.create(SOUNDS_TOOLTIP)));
 
-        toastScreenBehaviorButton = listHelper.addWidget(CycleButton.builder(ToastScreenBehavior::getDisplayName)
+        toastScreenBehaviorButton = list.addEntry(CycleButton.builder(ToastScreenBehavior::getDisplayName)
                 .withValues(ToastScreenBehavior.values()).withInitialValue(generalConfigData.getToastScreenBehavior())
                 .withTooltip(toastScreenBehavior -> Tooltip.create(SCREEN_BEHAVIOR_TOOLTIP))
                 .create(0, 0, BUTTON_WIDTH, BUTTON_HEIGHT, SCREEN_BEHAVIOR, (button, value) -> generalConfigData.setToastScreenBehavior(value))
         );
 
-        toastAnchorButton = listHelper.addWidget(CycleButton.builder(ToastAnchor::getDisplayName)
+        toastAnchorButton = list.addEntry(CycleButton.builder(ToastAnchor::getDisplayName)
                 .withValues(ToastAnchor.values()).withInitialValue(generalConfigData.getToastAnchor())
                 .withTooltip(toastAnchor -> Tooltip.create(ANCHOR_TOOLTIP))
                 .create(0, 0, BUTTON_WIDTH, BUTTON_HEIGHT, ANCHOR, (button, value) -> changeToastAnchor(value)));
 
-        offsetXEditBox = listHelper.addWidget(new IntegerEditBox(this.font, 0, 0, HALF_BUTTON_WIDTH - HALF_PADDING, BUTTON_HEIGHT, this.offsetXEditBox, Component.empty(), generalConfigData.getOffsetX()));
+        offsetXEditBox = list.addEntry(new IntegerEditBox(this.font, 0, 0, HALF_BUTTON_WIDTH - HALF_PADDING, BUTTON_HEIGHT, this.offsetXEditBox, Component.empty(), generalConfigData.getOffsetX()));
         offsetXEditBox.setResponder(value -> offsetXEditBox.setIntegerResponder(generalConfigData::setOffsetX));
 
-        offsetYEditBox = listHelper.addWidget(new IntegerEditBox(this.font, 0, 0, HALF_BUTTON_WIDTH - HALF_PADDING, BUTTON_HEIGHT, this.offsetYEditBox, Component.empty(), generalConfigData.getOffsetY()));
+        offsetYEditBox = list.addEntry(new IntegerEditBox(this.font, 0, 0, HALF_BUTTON_WIDTH - HALF_PADDING, BUTTON_HEIGHT, this.offsetYEditBox, Component.empty(), generalConfigData.getOffsetY()));
         offsetYEditBox.setResponder(value -> offsetYEditBox.setIntegerResponder(generalConfigData::setOffsetY));
 
-        loopsStrengthSlider = listHelper.addWidget(createSlider(LOOPS_STRENGTH, generalConfigData.getLoopsStrength(), 10.0f, 0.02f,
+        loopsStrengthSlider = list.addEntry(createSlider(LOOPS_STRENGTH, generalConfigData.getLoopsStrength(), 10.0f, 0.02f,
                 this::multiplierDisplayer, generalConfigData::setLoopsStrength, 0, 0, HALF_BUTTON_WIDTH - HALF_PADDING, BUTTON_HEIGHT, Tooltip.create(LOOPS_STRENGTH_TOOLTIP)));
 
-        loopsSpeedSlider = listHelper.addWidget(createSlider(LOOPS_SPEED, generalConfigData.getLoopsSpeed(), 10.0f, 0.02f,
+        loopsSpeedSlider = list.addEntry(createSlider(LOOPS_SPEED, generalConfigData.getLoopsSpeed(), 10.0f, 0.02f,
                 this::multiplierDisplayer, generalConfigData::setLoopsSpeed, 0, 0, HALF_BUTTON_WIDTH - HALF_PADDING, BUTTON_HEIGHT, Tooltip.create(LOOPS_SPEED_TOOLTIP)));
 
-        pitchRandomnessSlider = listHelper.addWidget(createSlider(PITCH_RANDOMNESS, generalConfigData.getPitchRandomness(), 0.2f, 0,
+        pitchRandomnessSlider = list.addEntry(createSlider(PITCH_RANDOMNESS, generalConfigData.getPitchRandomness(), 0.2f, 0,
                 this::percentDisplayer, generalConfigData::setPitchRandomness, 0, 0, Tooltip.create(PITCH_RANDOMNESS_TOOLTIP)));
 
-        animationSpeedSlider = listHelper.addWidget(createSlider(ANIMATION_SPEED, generalConfigData.getAnimationSpeed(), 0.5f, 3.0f, 0.02f,
+        animationSpeedSlider = list.addEntry(createSlider(ANIMATION_SPEED, generalConfigData.getAnimationSpeed(), 0.5f, 3.0f, 0.02f,
                 this::multiplierDisplayer, generalConfigData::setAnimationSpeed, 0, 0, BUTTON_WIDTH, BUTTON_HEIGHT, Tooltip.create(ANIMATION_SPEED_TOOLTIP)));
 
-        taskVolumeSlider = listHelper.addWidget(createSlider(TASK_VOLUME, generalConfigData.getTaskVolume(), 2.0f,
+        taskVolumeSlider = list.addEntry(createSlider(TASK_VOLUME, generalConfigData.getTaskVolume(), 2.0f,
                 this::percentDisplayer, generalConfigData::setTaskVolume, 0, 0));
 
-        goalVolumeSlider = listHelper.addWidget(createSlider(GOAL_VOLUME, generalConfigData.getGoalVolume(), 2.0f,
+        goalVolumeSlider = list.addEntry(createSlider(GOAL_VOLUME, generalConfigData.getGoalVolume(), 2.0f,
                 this::percentDisplayer, generalConfigData::setGoalVolume, 0, 0));
 
-        challengeVolumeSlider = listHelper.addWidget(createSlider(CHALLENGE_VOLUME, generalConfigData.getChallengeVolume(), 2.0f,
+        challengeVolumeSlider = list.addEntry(createSlider(CHALLENGE_VOLUME, generalConfigData.getChallengeVolume(), 2.0f,
                 this::percentDisplayer, generalConfigData::setChallengeVolume, 0, 0));
 
-        listHelper.arrangeWidgets();
-        listHelper.visitWidgets(this::addFWidget);
+        list.visitWidgets(this::addFWidget);
     }
 
     private void changeToastAnchor(ToastAnchor anchor) {
@@ -201,10 +200,7 @@ public class GeneralConfigScreen extends UniversalScreen {
 
     @Override
     public void render(@NotNull GuiGraphics guiGraphics, int mouseX, int mouseY, float partialTick) {
-        this.renderBackground(guiGraphics, mouseX, mouseY, partialTick);
-        this.drawTitle(guiGraphics);
-        drawListBackground(guiGraphics);
-        this.drawRenderables(guiGraphics, mouseX, mouseY, partialTick);
+        super.render(guiGraphics, mouseX, mouseY, partialTick);
         drawSavedFeedback(guiGraphics, this.width / 2 + PADDING - 25 + BUTTON_WIDTH, this.height - BUTTON_HEIGHT);
         drawPositionHints(guiGraphics);
     }
@@ -240,11 +236,9 @@ public class GeneralConfigScreen extends UniversalScreen {
 
     private void drawListBackground(GuiGraphics guiGraphics) {
         GuiContext context = new GuiContext(guiGraphics);
-        RenderSystem.enableBlend();
         context.drawGUITexture(LIST_BACKGROUND, 0, MARGIN, this.width, this.height - MARGIN * 2 - 2, TextureUV.ZERO, 32, 32);
         context.drawGUITexture(Screen.HEADER_SEPARATOR, 0, MARGIN, this.width, 2, TextureUV.ZERO, 32, 2);
         context.drawGUITexture(Screen.FOOTER_SEPARATOR, 0, this.height - MARGIN - 2, this.width, 2, TextureUV.ZERO, 32, 2);
-        RenderSystem.disableBlend();
     }
 
     private Component multiplierDisplayer(float value) {
