@@ -49,6 +49,8 @@
   "fancytoasts.gui.system_toasts": "System Toasts",
   "fancytoasts.gui.tutorial_toasts": "Tutorial Toasts",
   "fancytoasts.gui.ignored_toasts": "Ignored Toasts",
+  "fancytoasts.gui.title_display_text": "Toast Title",
+  "fancytoasts.gui.description_display_text": "Toast Description",
 
   "fancytoasts.toast_type.task": "Task",
   "fancytoasts.toast_type.goal": "Goal",
@@ -57,6 +59,11 @@
   "fancytoasts.screen_behavior.transparent": "Transparent",
   "fancytoasts.screen_behavior.behind": "Behind",
   "fancytoasts.screen_behavior.top": "Top",
+
+  "fancytoasts.text_type.default": "Default",
+  "fancytoasts.text_type.title": "Title",
+  "fancytoasts.text_type.description": "Description",
+  "fancytoasts.text_type.announcement": "Announcement",
 
   "fancytoasts.anchor.top_left": "Top Left",
   "fancytoasts.anchor.top": "Top Center",
@@ -90,6 +97,10 @@
   "fancytoasts.tooltip.pitch_randomness": "When sound is played the pitch randomness is applied to make it less repetitive. 0% = no pitch at all.",
   "fancytoasts.tooltip.animation_speed": "Acts as a multiplier for animation's speed.",
   "fancytoasts.tooltip.toasts_filtering": "Requires Minecraft restart. To blacklist a single advancement, put \"namespace:category/advancement\" in 'toastsToIgnore'. To blacklist a whole category, put \"namespace:category/...\"",
+  "fancytoasts.tooltip.display_text.default": "Shows default preset from animation as title/description of the toast.",
+  "fancytoasts.tooltip.display_text.title": "Shows title of the advancement as title/description of the toast.",
+  "fancytoasts.tooltip.display_text.description": "Shows description of the advancement as title/description of the toast.",
+  "fancytoasts.tooltip.display_text.announcement": "Shows announcement of the advancement as title/description of the toast.",
 
   "fancytoasts.toast.animation.standard": "Standard",
   "fancytoasts.toast.animation.standard.description": "Standardness. Calm and steady. Slides from the top with icon going first. In some sort of Vanilla Style",

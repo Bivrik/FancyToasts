@@ -36,7 +36,7 @@ public class PlayfulAnimation extends FancyToastAnimation {
         float fadeOutProgress = Appearance.getProgress(time, FADE_OUT_DURATION, DURATION - FADE_OUT_DURATION);
 
         GuiContext context = new GuiContext(guiGraphics);
-        float globalSinY = this.sinusoidLoop(time, 2.0f, 1.0f) - 3;
+        float globalSinY = this.sinusoidLoop(time, 2.0f, 1.0f) - 1;
 
         if (fadeOutProgress > 0) {
             float fadeOutScale = Easing.OCT_EASE_IN.lerp(1.0f, 0, fadeOutProgress);

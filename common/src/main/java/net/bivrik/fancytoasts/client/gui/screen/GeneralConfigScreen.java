@@ -1,6 +1,7 @@
 package net.bivrik.fancytoasts.client.gui.screen;
 
 import net.bivrik.fancytoasts.client.config.ConfigHandler;
+import net.bivrik.fancytoasts.client.config.DisplayTextType;
 import net.bivrik.fancytoasts.client.config.ToastAnchor;
 import net.bivrik.fancytoasts.client.config.ToastScreenBehavior;
 import net.bivrik.fancytoasts.client.config.data.GeneralConfigData;
@@ -49,6 +50,8 @@ public class GeneralConfigScreen extends UniversalScreen {
     private static final Component ANIMATION_SPEED = Components.of("gui.animation_speed");
     private static final Component RESET = Components.of("gui.reset");
     private static final Component ANCHOR = Components.of("gui.anchor");
+    private static final Component TITLE_DISPLAY_TEXT = Components.of("gui.title_display_text");
+    private static final Component DESCRIPTION_DISPLAY_TEXT = Components.of("gui.description_display_text");
     private static final Component JADE_HIDING_TOOLTIP = Components.of("tooltip.jade_hiding");
     private static final Component BOSS_BAR_HIDING_TOOLTIP = Components.of("tooltip.boss_bar_hiding");
     private static final Component SOUNDS_TOOLTIP = Components.of("tooltip.sounds_enabled");
@@ -72,6 +75,8 @@ public class GeneralConfigScreen extends UniversalScreen {
     private CycleButton<Boolean> soundsEnabledButton;
     private CycleButton<ToastScreenBehavior> toastScreenBehaviorButton;
     private CycleButton<ToastAnchor> toastAnchorButton;
+    private CycleButton<DisplayTextType> titleDisplayTextType;
+    private CycleButton<DisplayTextType> descriptionDisplayTextType;
     private Slider loopsStrengthSlider;
     private Slider loopsSpeedSlider;
     private Slider pitchRandomnessSlider;
@@ -125,6 +130,16 @@ public class GeneralConfigScreen extends UniversalScreen {
 
         offsetYEditBox = list.addElement(new IntegerEditBox(this.font, 0, 0, HALF_BUTTON_WIDTH - HALF_PADDING, BUTTON_HEIGHT, this.offsetYEditBox, Component.empty(), generalConfigData.getOffsetY()), WidgetWidthType.SMALL);
         offsetYEditBox.setResponder(value -> offsetYEditBox.setIntegerResponder(generalConfigData::setOffsetY));
+
+        titleDisplayTextType = list.addElement(CycleButton.builder(DisplayTextType::getDisplayName)
+                .withValues(DisplayTextType.values()).withInitialValue(generalConfigData.getTitleDisplayTextType())
+                .withTooltip(displayTextType -> Tooltip.create(Components.of("tooltip.display_text." + displayTextType.getName())))
+                .create(0, 0, BUTTON_WIDTH, BUTTON_HEIGHT, TITLE_DISPLAY_TEXT, (button, value) -> generalConfigData.setTitleDisplayTextType(value)));
+
+        descriptionDisplayTextType = list.addElement(CycleButton.builder(DisplayTextType::getDisplayName)
+                .withValues(DisplayTextType.values()).withInitialValue(generalConfigData.getDescriptionDisplayTextType())
+                .withTooltip(displayTextType -> Tooltip.create(Components.of("tooltip.display_text." + displayTextType.getName())))
+                .create(0, 0, BUTTON_WIDTH, BUTTON_HEIGHT, DESCRIPTION_DISPLAY_TEXT, (button, value) -> generalConfigData.setDescriptionDisplayTextType(value)));
 
         loopsStrengthSlider = list.addElement(createSlider(LOOPS_STRENGTH, generalConfigData.getLoopsStrength(), 10.0f, 0.02f,
                 this::multiplierDisplayer, generalConfigData::setLoopsStrength, 0, 0, HALF_BUTTON_WIDTH - HALF_PADDING, BUTTON_HEIGHT, Tooltip.create(LOOPS_STRENGTH_TOOLTIP)));
