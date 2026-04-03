@@ -16,7 +16,7 @@ public class Constants {
     }
 
     public static class ConfigVersions {
-        public static final int GENERAL = 2;
+        public static final int GENERAL = 3;
         public static final int TOAST = 1;
         public static final int TOAST_FILTERING = 1;
     }
