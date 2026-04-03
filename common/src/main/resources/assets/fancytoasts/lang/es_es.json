@@ -29,7 +29,7 @@
   "fancytoasts.gui.reset": "Restablecer",
   "fancytoasts.gui.general_settings": "Ajustes Generales...",
   "fancytoasts.gui.toast_settings": "Ajustes Visuales...",
-  "fancytoasts.gui.toasts_filtering": "Filtrado de Toasts",
+  "fancytoasts.gui.toasts_filtering": "Filtrado de Toasts...",
   "fancytoasts.gui.jade_hiding": "Ocultar Jade Durante el Toast",
   "fancytoasts.gui.sounds_enabled": "Sonidos de los Toasts",
   "fancytoasts.gui.task_volume": "Volumen de Tarea",
@@ -49,6 +49,8 @@
   "fancytoasts.gui.system_toasts": "Toasts del Sistema",
   "fancytoasts.gui.tutorial_toasts": "Toasts de Tutorial",
   "fancytoasts.gui.ignored_toasts": "Toasts Ignorados",
+  "fancytoasts.gui.title_display_text": "Título del brindis",
+  "fancytoasts.gui.description_display_text": "Descripción de la tostada",
 
   "fancytoasts.toast_type.task": "Tarea",
   "fancytoasts.toast_type.goal": "Objetivo",
@@ -57,6 +59,11 @@
   "fancytoasts.screen_behavior.transparent": "Transparente",
   "fancytoasts.screen_behavior.behind": "Detrás",
   "fancytoasts.screen_behavior.top": "Encima",
+
+  "fancytoasts.text_type.default": "Por defecto",
+  "fancytoasts.text_type.title": "Título",
+  "fancytoasts.text_type.description": "Descripción",
+  "fancytoasts.text_type.announcement": "Anuncio",
 
   "fancytoasts.anchor.top_left": "Superior Izquierda",
   "fancytoasts.anchor.top": "Superior Centro",
@@ -90,6 +97,10 @@
   "fancytoasts.tooltip.pitch_randomness": "Cuando se reproduce un sonido, se aplica aleatoriedad al tono para hacerlo menos repetitivo. 0% = sin variación de tono.",
   "fancytoasts.tooltip.animation_speed": "Actúa como multiplicador de la velocidad de la animación.",
   "fancytoasts.tooltip.toasts_filtering": "Requiere reiniciar Minecraft. Para ignorar un progreso específico, añade \"namespace:categoría/progreso\" en 'toastsToIgnore'. Para ignorar una categoría entera, añade \"namespace:categoría/...\"",
+  "fancytoasts.tooltip.display_text.default": "Muestra la configuración predeterminada de la animación como título/descripción del mensaje emergente.",
+  "fancytoasts.tooltip.display_text.title": "Muestra el título del ascenso como título/descripción del brindis.",
+  "fancytoasts.tooltip.display_text.description": "Muestra la descripción del ascenso como título/descripción del brindis.",
+  "fancytoasts.tooltip.display_text.announcement": "Muestra el anuncio del ascenso como título/descripción del brindis.",
 
   "fancytoasts.toast.animation.standard": "Estándar",
   "fancytoasts.toast.animation.standard.description": "Lo estándar. Calma y firmeza. Se desliza desde la parte superior, con el icono yendo primero. En un estilo similar al Vanilla.",

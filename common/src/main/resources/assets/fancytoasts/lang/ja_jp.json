@@ -49,6 +49,8 @@
   "fancytoasts.gui.system_toasts": "システムトースト", // Machine translation
   "fancytoasts.gui.tutorial_toasts": "チュートリアルトースト", // Machine translation
   "fancytoasts.gui.ignored_toasts": "無視するトースト", // Machine translation
+  "fancytoasts.gui.title_display_text": "トーストタイトル", // Machine translation
+  "fancytoasts.gui.description_display_text": "トースト説明", // Machine translation
 
   "fancytoasts.toast_type.task": "タスク",
   "fancytoasts.toast_type.goal": "目標",
@@ -57,6 +59,11 @@
   "fancytoasts.screen_behavior.transparent": "透過",
   "fancytoasts.screen_behavior.behind": "背面",
   "fancytoasts.screen_behavior.top": "最前面",
+
+  "fancytoasts.text_type.default": "デフォルト", // Machine translation
+  "fancytoasts.text_type.title": "タイトル", // Machine translation
+  "fancytoasts.text_type.description": "説明", // Machine translation
+  "fancytoasts.text_type.announcement": "告知", // Machine translation
 
   "fancytoasts.anchor.top_left": "左上", // Machine translation
   "fancytoasts.anchor.top": "上中央", // Machine translation
@@ -90,6 +97,10 @@
   "fancytoasts.tooltip.pitch_randomness": "サウンド再生時にピッチのランダム性を適用して単調さを軽減します。0% = ピッチ変化なし。", // Machine translation
   "fancytoasts.tooltip.animation_speed": "アニメーション速度の乗数として機能します。", // Machine translation
   "fancytoasts.tooltip.toasts_filtering": "Minecraftの再起動が必要です。単一の進捗をブラックリストに登録するには、\"namespace:category/advancement\"を'toastsToIgnore'に入れてください。カテゴリ全体をブラックリストに登録するには、\"namespace:category/...\"を入れてください", // Machine translation
+  "fancytoasts.tooltip.display_text.default": "トーストのタイトル/説明として、アニメーションのデフォルトプリセットを表示します。", // Machine translation
+  "fancytoasts.tooltip.display_text.title": "トーストのタイトル/説明として、進捗のタイトルを表示します。", // Machine translation
+  "fancytoasts.tooltip.display_text.description": "トーストのタイトル/説明として、進捗の説明を表示します。", // Machine translation
+  "fancytoasts.tooltip.display_text.announcement": "トーストのタイトル/説明として、進捗の告知を表示します。", // Machine translation
 
   "fancytoasts.toast.animation.standard": "標準",
   "fancytoasts.toast.animation.standard.description": "標準的なアニメーション。落ち着いていて安定感があり、バニラのマインクラフトの様にゆるやかにスライドします",
