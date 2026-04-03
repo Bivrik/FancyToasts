@@ -2,8 +2,6 @@ package net.bivrik.fancytoasts.client.gui.screen;
 
 import net.bivrik.fancytoasts.client.gui.LayoutValues;
 import net.bivrik.fancytoasts.client.gui.Slider;
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.OptionInstance;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.gui.components.CycleButton;
