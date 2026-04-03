@@ -1,9 +1,9 @@
 package net.bivrik.fancytoasts.client.gui.screen;
 
 import net.bivrik.fancytoasts.core.Color;
-import net.bivrik.fancytoasts.platform.utility.GuiContext;
 import net.bivrik.fancytoasts.core.Managers;
 import net.bivrik.fancytoasts.platform.utility.Components;
+import net.bivrik.fancytoasts.platform.utility.GuiContext;
 import net.minecraft.Util;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.Button;

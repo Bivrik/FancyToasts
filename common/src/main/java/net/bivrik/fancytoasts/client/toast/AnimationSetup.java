@@ -1,8 +1,8 @@
 package net.bivrik.fancytoasts.client.toast;
 
+import net.bivrik.fancytoasts.platform.utility.ToastDisplayInfo;
 import net.bivrik.fancytoasts.utility.TextureUV;
 import net.bivrik.fancytoasts.utility.TypeBasedUVs;
-import net.bivrik.fancytoasts.platform.utility.ToastDisplayInfo;
 import net.minecraft.resources.ResourceLocation;
 
 public class AnimationSetup {

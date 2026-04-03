@@ -1,8 +1,8 @@
 package net.bivrik.fancytoasts.client.gui;
 
+import net.bivrik.fancytoasts.client.toast.DisplayData;
 import net.bivrik.fancytoasts.core.Color;
 import net.bivrik.fancytoasts.core.Debug;
-import net.bivrik.fancytoasts.client.toast.DisplayData;
 import net.bivrik.fancytoasts.platform.utility.Components;
 import net.bivrik.fancytoasts.platform.utility.GuiContext;
 import net.bivrik.fancytoasts.platform.utility.ResourceLocations;
