@@ -4,16 +4,15 @@ import net.bivrik.fancytoasts.client.config.ToastAnchor;
 import net.bivrik.fancytoasts.client.config.ToastScreenBehavior;
 import net.bivrik.fancytoasts.client.config.ConfigHandler;
 import net.bivrik.fancytoasts.client.config.data.GeneralConfigData;
-import net.bivrik.fancytoasts.client.gui.IntegerEditBox;
+import net.bivrik.fancytoasts.client.gui.*;
 import net.bivrik.fancytoasts.client.gui.OptionsList;
-import net.bivrik.fancytoasts.client.gui.Slider;
-import net.bivrik.fancytoasts.client.gui.WidgetWidthType;
 import net.bivrik.fancytoasts.client.toast.Appearance;
 import net.bivrik.fancytoasts.core.Color;
 import net.bivrik.fancytoasts.core.Constants;
 import net.bivrik.fancytoasts.core.event.GeneralConfigDataEvent;
 import net.bivrik.fancytoasts.platform.Services;
 import net.bivrik.fancytoasts.platform.utility.Components;
+import net.bivrik.fancytoasts.platform.utility.ResourceLocations;
 import net.bivrik.fancytoasts.core.Easing;
 import net.bivrik.fancytoasts.utility.FastMath;
 import net.bivrik.fancytoasts.core.Managers;
@@ -24,6 +23,7 @@ import net.minecraft.client.gui.screens.ConfirmScreen;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.network.chat.CommonComponents;
 import net.minecraft.network.chat.Component;
+import net.minecraft.resources.ResourceLocation;
 import org.jetbrains.annotations.NotNull;
 
 import static net.bivrik.fancytoasts.client.gui.LayoutValues.*;
@@ -87,17 +87,11 @@ public class GeneralConfigScreen extends UniversalScreen {
 
     @Override
     protected void init() {
-        int xCenter = this.width / 2;
+        addFooter();
+        addOptionsList();
+    }
 
-        backButton = this.addFWidget(createButton(CommonComponents.GUI_BACK, button -> this.toParentScreen(),
-                xCenter - 125 - HALF_PADDING, this.height - BUTTON_HEIGHT - 6, 75, BUTTON_HEIGHT));
-
-        resetButton = this.addFWidget(createButton(RESET, button -> confirmResetting(),
-                xCenter - 50, this.height - BUTTON_HEIGHT - 6, 50, BUTTON_HEIGHT));
-
-        doneButton = this.addFWidget(createButton(CommonComponents.GUI_DONE, button -> done(),
-                xCenter + HALF_PADDING, this.height - BUTTON_HEIGHT - 6, 125, BUTTON_HEIGHT));
-
+    private void addOptionsList() {
         var list = this.addFWidget(new OptionsList(this.minecraft, this.width, this.height - MARGIN * 2 - 2, MARGIN, 25, this));
 
         if (Services.PLATFORM.isModLoaded(Constants.Compatibilities.JADE_ID)) {
@@ -191,10 +185,8 @@ public class GeneralConfigScreen extends UniversalScreen {
 
     @Override
     public void render(@NotNull GuiGraphics guiGraphics, int mouseX, int mouseY, float partialTick) {
-        this.drawBackground(guiGraphics);
-        this.drawTitle(guiGraphics);
-        this.drawRenderables(guiGraphics, mouseX, mouseY, partialTick);
-        drawSavedFeedback(guiGraphics, this.width / 2 + PADDING - 25 + BUTTON_WIDTH, this.height - BUTTON_HEIGHT);
+        super.render(guiGraphics, mouseX, mouseY, partialTick);
+        drawSavedFeedback(guiGraphics, doneButton.getX() + doneButton.getWidth() + PADDING, this.height - BUTTON_HEIGHT);
         drawPositionHints(guiGraphics);
     }
 
