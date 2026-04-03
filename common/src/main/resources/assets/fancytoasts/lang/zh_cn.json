@@ -49,6 +49,8 @@
   "fancytoasts.gui.system_toasts": "系统提示",
   "fancytoasts.gui.tutorial_toasts": "教程提示",
   "fancytoasts.gui.ignored_toasts": "已忽略的提示",
+  "fancytoasts.gui.title_display_text": "提示标题", // Machine translation
+  "fancytoasts.gui.description_display_text": "提示描述", // Machine translation
 
   "fancytoasts.toast_type.task": "任务",
   "fancytoasts.toast_type.goal": "目标",
@@ -57,6 +59,11 @@
   "fancytoasts.screen_behavior.transparent": "透明",
   "fancytoasts.screen_behavior.behind": "置于界面后",
   "fancytoasts.screen_behavior.top": "置于界面上",
+
+  "fancytoasts.text_type.default": "默认", // Machine translation
+  "fancytoasts.text_type.title": "标题", // Machine translation
+  "fancytoasts.text_type.description": "描述", // Machine translation
+  "fancytoasts.text_type.announcement": "公告", // Machine translation
 
   "fancytoasts.anchor.top_left": "左上",
   "fancytoasts.anchor.top": "中上",
@@ -90,6 +97,10 @@
   "fancytoasts.tooltip.pitch_randomness": "播放音效时应用音高随机变化以避免重复单调。0% = 完全无音高变化。", // Machine translation
   "fancytoasts.tooltip.animation_speed": "作为动画速度的倍率系数。", // Machine translation
   "fancytoasts.tooltip.toasts_filtering": "需要重启 Minecraft 生效。若要屏蔽单个进度，请在 'toastsToIgnore' 中输入 “命名空间:类别/进度”。若要屏蔽整个类别，请输入 “命名空间:类别/...”。",
+  "fancytoasts.tooltip.display_text.default": "将动画中的默认预设显示为提示的标题/描述。", // Machine translation
+  "fancytoasts.tooltip.display_text.title": "将进度的标题显示为提示的标题/描述。", // Machine translation
+  "fancytoasts.tooltip.display_text.description": "将进度的描述显示为提示的标题/描述。", // Machine translation
+  "fancytoasts.tooltip.display_text.announcement": "将进度的公告显示为提示的标题/描述。", // Machine translation
 
   "fancytoasts.toast.animation.standard": "标准",
   "fancytoasts.toast.animation.standard.description": "标准动画。平稳流畅，自上而下轻柔滑动。略带原版风格。",
