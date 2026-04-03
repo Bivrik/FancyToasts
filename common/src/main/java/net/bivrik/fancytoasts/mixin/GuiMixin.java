@@ -1,7 +1,7 @@
 package net.bivrik.fancytoasts.mixin;
 
-import net.bivrik.fancytoasts.core.manager.ToastManager;
 import net.bivrik.fancytoasts.core.Managers;
+import net.bivrik.fancytoasts.core.manager.ToastManager;
 import net.minecraft.client.DeltaTracker;
 import net.minecraft.client.gui.Gui;
 import net.minecraft.client.gui.GuiGraphics;

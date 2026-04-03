@@ -3,8 +3,8 @@ package net.bivrik.fancytoasts.client.config.data;
 import net.bivrik.fancytoasts.client.config.ToastAnchor;
 import net.bivrik.fancytoasts.client.config.ToastScreenBehavior;
 import net.bivrik.fancytoasts.core.Constants;
-import net.bivrik.fancytoasts.utility.file.Paths;
 import net.bivrik.fancytoasts.platform.Services;
+import net.bivrik.fancytoasts.utility.file.Paths;
 
 import java.util.Objects;
 

@@ -1,12 +1,15 @@
 package net.bivrik.fancytoasts.client.registry;
 
+import net.bivrik.fancytoasts.client.toast.DisplayData;
 import net.bivrik.fancytoasts.core.Constants;
 import net.bivrik.fancytoasts.core.Debug;
-import net.bivrik.fancytoasts.client.toast.DisplayData;
 import net.minecraft.resources.ResourceLocation;
 import org.slf4j.Logger;
 
-import java.util.*;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 public class TextureRegistry {
