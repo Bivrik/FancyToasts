@@ -6,6 +6,7 @@ import net.bivrik.fancytoasts.core.Easing;
 import net.bivrik.fancytoasts.platform.utility.GuiContext;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.util.FormattedCharSequence;
 
 import java.util.Random;
 
@@ -123,8 +124,7 @@ public class QuirkyAnimation extends FancyToastAnimation {
             if (descriptionLines.size() == 2) {
                 guiGraphics.drawCenteredString(minecraft.font, descriptionSecondLine, centerToastX, 47, descriptionColorARGB);
             } else {
-                guiGraphics.drawCenteredString(minecraft.font, descriptionSecondLine, centerToastX - minecraft.font.width("...") / 2, 47, descriptionColorARGB);
-                guiGraphics.drawCenteredString(minecraft.font, "...", centerToastX + minecraft.font.width(descriptionSecondLine) / 2, 47, descriptionColorARGB);
+                guiGraphics.drawCenteredString(minecraft.font, FormattedCharSequence.composite(descriptionSecondLine, getDots(descriptionStyle)), centerToastX, 47, descriptionColorARGB);
             }
         }
     }
