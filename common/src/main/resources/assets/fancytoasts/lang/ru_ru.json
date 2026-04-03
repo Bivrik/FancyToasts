@@ -29,7 +29,7 @@
   "fancytoasts.gui.reset": "Сброс",
   "fancytoasts.gui.general_settings": "Общие настройки...",
   "fancytoasts.gui.toast_settings": "Визуальные настройки...",
-  "fancytoasts.gui.toasts_filtering": "Фильтрация уведомлений",
+  "fancytoasts.gui.toasts_filtering": "Фильтрация уведомлений...",
   "fancytoasts.gui.jade_hiding": "Прятать Jade во время достижения",
   "fancytoasts.gui.sounds_enabled": "Громкость достижений",
   "fancytoasts.gui.task_volume": "Громкость достижения",
@@ -49,6 +49,8 @@
   "fancytoasts.gui.system_toasts": "Системные тосты",
   "fancytoasts.gui.tutorial_toasts": "Обучающие тосты",
   "fancytoasts.gui.ignored_toasts": "Игнорируемые тосты",
+  "fancytoasts.gui.title_display_text": "Название тоста",
+  "fancytoasts.gui.description_display_text": "Описание тоста",
 
   "fancytoasts.toast_type.task": "Достижение",
   "fancytoasts.toast_type.goal": "Цель",
@@ -57,6 +59,11 @@
   "fancytoasts.screen_behavior.transparent": "Прозрачный",
   "fancytoasts.screen_behavior.behind": "Сзади",
   "fancytoasts.screen_behavior.top": "Сверху",
+
+  "fancytoasts.text_type.default": "По умолчанию",
+  "fancytoasts.text_type.title": "Название",
+  "fancytoasts.text_type.description": "Описание",
+  "fancytoasts.text_type.announcement": "Уведомление",
 
   "fancytoasts.anchor.top_left": "Сверху слева",
   "fancytoasts.anchor.top": "Сверху по центру",
@@ -89,7 +96,11 @@
   "fancytoasts.tooltip.boss_bar_hiding": "Включает/выключает скрытие здоровья боссов. Если этот параметр включен, здоровье боссов будет скрыто при появлении достижения, а затем снова отображено.",
   "fancytoasts.tooltip.pitch_randomness": "Звук проигрывается с разной высотой для уменьшения надоедливости. 0% = полное отключение случайности высот.",
   "fancytoasts.tooltip.animation_speed": "Работает как множитель скорости анимаций.",
-  "fancytoasts.tooltip.toasts_filtering": "Требует перезапуск Minecraft. Чтобы добавить в чёрный список достижение, добавьте \"namespace:category/advancement\" в 'toastsToIgnore'. Чтобы добавить в чёрный список целую категорию, добавьте \"namespace:category/...\".",
+  "fancytoasts.tooltip.toasts_filtering": "Требует перезапуска Minecraft. Чтобы добавить в чёрный список достижение, добавьте \"namespace:category/advancement\" в 'toastsToIgnore'. Чтобы добавить в чёрный список целую категорию, добавьте \"namespace:category/...\".",
+  "fancytoasts.tooltip.display_text.default": "Показывает предустановленную настройку из анимации для названия/описания тоста.",
+  "fancytoasts.tooltip.display_text.title": "Показывает название достижения как название/описание тоста.",
+  "fancytoasts.tooltip.display_text.description": "Показывает описание достижения как название/описание тоста.",
+  "fancytoasts.tooltip.display_text.announcement": "Показывает уведомления достижения как название/описание тоста.",
 
   "fancytoasts.toast.animation.standard": "Стандарт",
   "fancytoasts.toast.animation.standard.description": "Стандартная анимация. Спокойная и аккуратная. Въезжает сверху вниз. В каком-то смысле в стиле Minecraft",
