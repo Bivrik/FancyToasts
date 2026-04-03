@@ -99,13 +99,19 @@ public class StandardAnimation extends FancyToastAnimation {
         int descriptionColorARGB = this.displayInfo.getAdvancementType().getSecondaryColor().withAlpha(alpha).getARGB();
 
         if (descriptionLines.size() == 1) {
-            guiGraphics.drawCenteredString(this.minecraft.font, descriptionLines.get(0), centerToastX, 43, descriptionColorARGB);
+            guiGraphics.drawCenteredString(this.minecraft.font, descriptionLines.get(0), centerToastX, 42, descriptionColorARGB);
         } else {
-            int lineHeight = 42 - (9 * (descriptionLines.size() - 1)) / 2;
-            for (FormattedCharSequence line : descriptionLines) {
-                guiGraphics.drawCenteredString(this.minecraft.font, line, centerToastX, lineHeight, descriptionColorARGB);
-                lineHeight += 9;
+            int lineHeight = 38;
+            guiGraphics.drawCenteredString(this.minecraft.font, descriptionLines.get(0), centerToastX, lineHeight, descriptionColorARGB);
+
+            lineHeight += 9;
+            FormattedCharSequence secondLine;
+            if (descriptionLines.size() == 2) {
+                secondLine = descriptionLines.get(1);
+            } else {
+                secondLine = FormattedCharSequence.composite(descriptionLines.get(1), getDots(descriptionStyle));
             }
+            guiGraphics.drawCenteredString(this.minecraft.font, secondLine, centerToastX, lineHeight, descriptionColorARGB);
         }
     }
 

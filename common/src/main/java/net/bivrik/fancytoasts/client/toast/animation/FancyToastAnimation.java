@@ -43,8 +43,8 @@ public abstract class FancyToastAnimation {
     private float loopsSpeed;
     private DisplayTextType titleDisplayTextType;
     private DisplayTextType descriptionDisplayTextType;
-    private Style titleStyle;
-    private Style descriptionStyle;
+    protected Style titleStyle;
+    protected Style descriptionStyle;
 
     FancyToastAnimation() {
         generalConfigDataEventConsumer = this::onGeneralConfigDataChanged;
