@@ -1,23 +1,27 @@
 package net.bivrik.fancytoasts.client.gui.screen;
 
+import net.bivrik.fancytoasts.client.config.ConfigHandler;
 import net.bivrik.fancytoasts.client.config.ToastAnchor;
 import net.bivrik.fancytoasts.client.config.ToastScreenBehavior;
-import net.bivrik.fancytoasts.client.config.ConfigHandler;
 import net.bivrik.fancytoasts.client.config.data.GeneralConfigData;
-import net.bivrik.fancytoasts.client.gui.*;
+import net.bivrik.fancytoasts.client.gui.IntegerEditBox;
 import net.bivrik.fancytoasts.client.gui.OptionsList;
+import net.bivrik.fancytoasts.client.gui.Slider;
+import net.bivrik.fancytoasts.client.gui.WidgetWidthType;
 import net.bivrik.fancytoasts.client.toast.Appearance;
 import net.bivrik.fancytoasts.core.Color;
 import net.bivrik.fancytoasts.core.Constants;
+import net.bivrik.fancytoasts.core.Easing;
+import net.bivrik.fancytoasts.core.Managers;
 import net.bivrik.fancytoasts.core.event.GeneralConfigDataEvent;
 import net.bivrik.fancytoasts.platform.Services;
 import net.bivrik.fancytoasts.platform.utility.Components;
-import net.bivrik.fancytoasts.core.Easing;
 import net.bivrik.fancytoasts.utility.FastMath;
-import net.bivrik.fancytoasts.core.Managers;
 import net.minecraft.Util;
 import net.minecraft.client.gui.GuiGraphics;
-import net.minecraft.client.gui.components.*;
+import net.minecraft.client.gui.components.Button;
+import net.minecraft.client.gui.components.CycleButton;
+import net.minecraft.client.gui.components.Tooltip;
 import net.minecraft.client.gui.layouts.LinearLayout;
 import net.minecraft.client.gui.screens.ConfirmScreen;
 import net.minecraft.client.gui.screens.Screen;
@@ -26,7 +30,6 @@ import net.minecraft.network.chat.Component;
 import org.jetbrains.annotations.NotNull;
 
 import static net.bivrik.fancytoasts.client.gui.LayoutValues.*;
-import static net.bivrik.fancytoasts.client.gui.LayoutValues.PADDING;
 
 public class GeneralConfigScreen extends UniversalScreen {
     private static final Component TITLE = Components.of("title.general_settings");;

@@ -1,11 +1,11 @@
 package net.bivrik.fancytoasts.core;
 
 import net.bivrik.fancytoasts.client.gui.screen.FancyToastsScreen;
-import net.bivrik.fancytoasts.client.registry.KeyBindingRegistry;
-import net.bivrik.fancytoasts.client.toast.animation.*;
-import net.bivrik.fancytoasts.client.toast.DisplayData;
 import net.bivrik.fancytoasts.client.registry.AnimationRegistry;
+import net.bivrik.fancytoasts.client.registry.KeyBindingRegistry;
 import net.bivrik.fancytoasts.client.registry.TextureRegistry;
+import net.bivrik.fancytoasts.client.toast.DisplayData;
+import net.bivrik.fancytoasts.client.toast.animation.*;
 import net.bivrik.fancytoasts.platform.Services;
 import net.bivrik.fancytoasts.platform.utility.Components;
 import net.bivrik.fancytoasts.utility.DefaultLocations;

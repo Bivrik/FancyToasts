@@ -1,6 +1,5 @@
 package net.bivrik.fancytoasts.client.gui;
 
-import net.bivrik.fancytoasts.core.Debug;
 import net.bivrik.fancytoasts.utility.FastMath;
 import net.minecraft.client.gui.components.AbstractSliderButton;
 import net.minecraft.network.chat.CommonComponents;

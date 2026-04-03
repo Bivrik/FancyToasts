@@ -6,7 +6,9 @@ import net.bivrik.fancytoasts.utility.KeyBinding;
 import net.minecraft.client.KeyMapping;
 import org.slf4j.Logger;
 
-import java.util.*;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
 
 public class KeyBindingRegistry {
     private final static Logger LOGGER = Debug.getLogger(KeyBindingRegistry.class);

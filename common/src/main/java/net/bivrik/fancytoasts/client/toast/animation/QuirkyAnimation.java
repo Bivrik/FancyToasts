@@ -2,10 +2,11 @@ package net.bivrik.fancytoasts.client.toast.animation;
 
 import net.bivrik.fancytoasts.client.toast.AnimationSetup;
 import net.bivrik.fancytoasts.client.toast.Appearance;
-import net.bivrik.fancytoasts.platform.utility.GuiContext;
 import net.bivrik.fancytoasts.core.Easing;
+import net.bivrik.fancytoasts.platform.utility.GuiContext;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
+
 import java.util.Random;
 
 public class QuirkyAnimation extends FancyToastAnimation {
