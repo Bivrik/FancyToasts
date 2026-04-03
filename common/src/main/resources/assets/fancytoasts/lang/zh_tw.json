@@ -49,6 +49,8 @@
   "fancytoasts.gui.system_toasts": "系統提示", // Machine translation
   "fancytoasts.gui.tutorial_toasts": "教學提示", // Machine translation
   "fancytoasts.gui.ignored_toasts": "忽略的提示", // Machine translation
+  "fancytoasts.gui.title_display_text": "提示標題", // Machine translation
+  "fancytoasts.gui.description_display_text": "提示描述", // Machine translation
 
   "fancytoasts.toast_type.task": "任務",
   "fancytoasts.toast_type.goal": "目標",
@@ -57,6 +59,11 @@
   "fancytoasts.screen_behavior.transparent": "透明",
   "fancytoasts.screen_behavior.behind": "在畫面後方",
   "fancytoasts.screen_behavior.top": "上方",
+
+  "fancytoasts.text_type.default": "預設", // Machine translation
+  "fancytoasts.text_type.title": "標題", // Machine translation
+  "fancytoasts.text_type.description": "描述", // Machine translation
+  "fancytoasts.text_type.announcement": "公告", // Machine translation
 
   "fancytoasts.anchor.top_left": "左上", // Machine translation
   "fancytoasts.anchor.top": "中上", // Machine translation
@@ -90,6 +97,10 @@
   "fancytoasts.tooltip.pitch_randomness": "播放音效時會應用音高隨機性，使其聽起來不那麼重複。0% = 完全無音高變化。", // Machine translation
   "fancytoasts.tooltip.animation_speed": "作為動畫速度的倍率係數。", // Machine translation
   "fancytoasts.tooltip.toasts_filtering": "需要重新啟動 Minecraft。要將單一進度加入黑名單，請在 'toastsToIgnore' 中輸入 \"namespace:category/advancement\"。要將整個類別加入黑名單，請輸入 \"namespace:category/...\"", // Machine translation
+  "fancytoasts.tooltip.display_text.default": "以動畫中的預設預設值作為提示的標題/描述顯示。", // Machine translation
+  "fancytoasts.tooltip.display_text.title": "以進度的標題作為提示的標題/描述顯示。", // Machine translation
+  "fancytoasts.tooltip.display_text.description": "以進度的描述作為提示的標題/描述顯示。", // Machine translation
+  "fancytoasts.tooltip.display_text.announcement": "以進度的公告作為提示的標題/描述顯示。", // Machine translation
 
   "fancytoasts.toast.animation.standard": "標準",
   "fancytoasts.toast.animation.standard.description": "標準動畫。平穩柔和，滑動順暢。帶有原版風格",

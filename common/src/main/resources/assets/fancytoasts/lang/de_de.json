@@ -29,7 +29,7 @@
   "fancytoasts.gui.reset": "Zurücksetzen",
   "fancytoasts.gui.general_settings": "Allgemeine Einstellungen...",
   "fancytoasts.gui.toast_settings": "Visuelle Einstellungen...",
-  "fancytoasts.gui.toasts_filtering": "Toast-Filterung",
+  "fancytoasts.gui.toasts_filtering": "Toast-Filterung...",
   "fancytoasts.gui.jade_hiding": "Jade während Toasts ausblenden",
   "fancytoasts.gui.sounds_enabled": "Toast-Sounds",
   "fancytoasts.gui.task_volume": "Aufgaben-Lautstärke",
@@ -49,6 +49,8 @@
   "fancytoasts.gui.system_toasts": "System-Toasts",
   "fancytoasts.gui.tutorial_toasts": "Tutorial-Toasts",
   "fancytoasts.gui.ignored_toasts": "Ignorierte Toasts",
+  "fancytoasts.gui.title_display_text": "Toast-Titel",
+  "fancytoasts.gui.description_display_text": "Toastbeschreibung",
 
   "fancytoasts.toast_type.task": "Aufgabe",
   "fancytoasts.toast_type.goal": "Ziel",
@@ -57,6 +59,11 @@
   "fancytoasts.screen_behavior.transparent": "Transparent",
   "fancytoasts.screen_behavior.behind": "Im Hintergrund",
   "fancytoasts.screen_behavior.top": "Im Vordergrund",
+
+  "fancytoasts.text_type.default": "Standard",
+  "fancytoasts.text_type.title": "Titel",
+  "fancytoasts.text_type.description": "Beschreibung",
+  "fancytoasts.text_type.announcement": "Bekanntmachung",
 
   "fancytoasts.anchor.top_left": "Oben Links",
   "fancytoasts.anchor.top": "Oben Mitte",
@@ -90,6 +97,10 @@
   "fancytoasts.tooltip.pitch_randomness": "Bei abgespielten Sounds wird die Tonhöhe variiert, um Monotonie zu vermeiden. 0% = keine Tonhöhenänderung.",
   "fancytoasts.tooltip.animation_speed": "Wirkt als Multiplikator für die Geschwindigkeit der Animation.",
   "fancytoasts.tooltip.toasts_filtering": "Erfordert einen Neustart von Minecraft. Um einen einzelnen Fortschritt zu ignorieren, füge \"namespace:category/advancement\" in 'toastsToIgnore' ein. Um eine ganze Kategorie zu ignorieren, füge \"namespace:category/...\" ein.",
+  "fancytoasts.tooltip.display_text.default": "Zeigt die Standardvorgabe aus der Animation als Titel/Beschreibung der Benachrichtigung an.",
+  "fancytoasts.tooltip.display_text.title": "Zeigt den Titel der Beförderung als Titel/Beschreibung des Toasts an.",
+  "fancytoasts.tooltip.display_text.description": "Zeigt die Beschreibung des Aufstiegs als Titel/Beschreibung des Toasts an.",
+  "fancytoasts.tooltip.display_text.announcement": "Die Bekanntgabe der Beförderung wird als Titel/Beschreibung des Toasts angezeigt.",
 
   "fancytoasts.toast.animation.standard": "Standard",
   "fancytoasts.toast.animation.standard.description": "Standardmäßig. Ruhig und stetig. Gleitet von oben herein, wobei das Symbol zuerst kommt. In einer Art Vanilla-Stil.",
