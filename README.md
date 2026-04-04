@@ -1,31 +1,52 @@
-> This is 1.21.10 Fabric/Forge/NeoForge version 1.4.7
+> Fancy Toasts 1.4.7 Fabric/Forge/NeoForge
 
 # Fancy Toasts 🎉
-There is a reason why you are here. It might be curiosity. But I think you are here because of there old-fashion advancement toasts! This is a Minecraft Mod that changes plain, boring, and annoying advancement toasts to something new and interesting!
+<div>
+    <img src="https://img.shields.io/badge/latest-1.4.6-brightgreen?style=plastic&logo=data%3Aimage%2Fsvg%2Bxml%3Bbase64%2CPHN2ZyB4bWxucz0naHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmcnIHZpZXdCb3g9JzAgMCAyNCAyNCcgZmlsbD0nd2hpdGUnPjxwYXRoIGQ9J00zLjM3NSAzQzIuMzM5IDMgMS41IDMuODQgMS41IDQuODc1di43NWMwIDEuMDM2Ljg0IDEuODc1IDEuODc1IDEuODc1aDE3LjI1YzEuMDM1IDAgMS44NzUtLjg0IDEuODc1LTEuODc1di0uNzVDMjIuNSAzLjgzOSAyMS42NiAzIDIwLjYyNSAzSDMuMzc1WicvPjxwYXRoIGQ9J20zLjA4NyA5IC41NCA5LjE3NkEzIDMgMCAwIDAgNi42MiAyMWgxMC43NTdhMyAzIDAgMCAwIDIuOTk1LTIuODI0TDIwLjkxMyA5SDMuMDg3Wm02LjE2MyAzLjc1QS43NS43NSAwIDAgMSAxMCAxMmg0YS43NS43NSAwIDAgMSAwIDEuNWgtNGEuNzUuNzUgMCAwIDEtLjc1LS43NVonLz48L3N2Zz4K" alt="Version Static Badge" width="110">
+    <a href="https://github.com/Bivrik/FancyToasts/blob/master/LICENSE" target="_blank">
+        <img src="https://img.shields.io/badge/licence-MIT-blue?style=plastic&logo=data%3Aimage%2Fsvg%2Bxml%3Bbase64%2CPHN2ZyB4bWxucz0naHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmcnIHZpZXdCb3g9JzAgMCAyNCAyNCcgZmlsbD0nd2hpdGUnPjxwYXRoIGZpbGwtcnVsZT0nZXZlbm9kZCcgZD0nTTEyLjUxNiAyLjE3YS43NS43NSAwIDAgMC0xLjAzMiAwIDExLjIwOSAxMS4yMDkgMCAwIDEtNy44NzcgMy4wOC43NS43NSAwIDAgMC0uNzIyLjUxNUExMi43NCAxMi43NCAwIDAgMCAyLjI1IDkuNzVjMCA1Ljk0MiA0LjA2NCAxMC45MzMgOS41NjMgMTIuMzQ4YS43NDkuNzQ5IDAgMCAwIC4zNzQgMGM1LjQ5OS0xLjQxNSA5LjU2My02LjQwNiA5LjU2My0xMi4zNDggMC0xLjM5LS4yMjMtMi43My0uNjM1LTMuOTg1YS43NS43NSAwIDAgMC0uNzIyLS41MTZsLS4xNDMuMDAxYy0yLjk5NiAwLTUuNzE3LTEuMTctNy43MzQtMy4wOFptMy4wOTQgOC4wMTZhLjc1Ljc1IDAgMSAwLTEuMjItLjg3MmwtMy4yMzYgNC41M0w5LjUzIDEyLjIyYS43NS43NSAwIDAgMC0xLjA2IDEuMDZsMi4yNSAyLjI1YS43NS43NSAwIDAgMCAxLjE0LS4wOTRsMy43NS01LjI1WicvPjwvc3ZnPg%3D%3D" alt="Licence Static Badge" width="95">
+    </a>
+    <a href="https://boosty.to/bivrik" target="_blank">
+        <img src="https://img.shields.io/badge/boosty-support-red?style=plastic&logo=boosty&logoColor=white" alt="Boosty Static Badge" width="118">
+    </a>
+</div>
 
-<img src="https://cdn.modrinth.com/data/eUziWqPC/images/4906580b5c9307549e5f6ff80306f36b49f28a8f.gif" alt="Showcase of Standard Animation" width="400"/> <img src="https://cdn.modrinth.com/data/eUziWqPC/images/a33770e45d281106e9534ce83cb68de86d528f59.gif" alt="Showcase of Playful Animation" width="400"/>
+There is a reason why you are here. And I think the reason you are here because of these old-fashion Advancement Toasts.
 
-### Download
-Try it out on [CurseForge](https://www.curseforge.com/minecraft/mc-mods/fancy-toasts) or [Modrinth](https://modrinth.com/mod/fancy-toasts). Other sources are not mine.
+Fancy Toasts is a Minecraft Mod that changes plain, boring, and annoying Advancement Toasts to something new and exciting!
 
-# CUSTOMIZATION 🤪
+<div>
+    <img src="https://cdn.modrinth.com/data/eUziWqPC/images/4906580b5c9307549e5f6ff80306f36b49f28a8f.gif" alt="Showcase of Standard Animation" width="400"/>
+    <img src="https://cdn.modrinth.com/data/eUziWqPC/images/a33770e45d281106e9534ce83cb68de86d528f59.gif" alt="Showcase of Playful Animation" width="400"/>
+</div>
 
-### Custom Textures
-This mods supports custom textures! Yes, you can add textures from friends, modpcaks, or create your own! It's as easy as just drawing a texture. To do so, you can follow [this guide](https://github.com/Bivrik/FancyToasts/wiki/Custom-Texture-Guide). With this, possibilities of customization are endless! If you just want to add existing texture, check out this [page](https://github.com/Bivrik/FancyToasts/wiki/Custom-Texture-Guide#using).
+## Download 💾
 
-### Custom Config Screen
-It's not only about visuals, it's also about conveniences. It adds new screens for configuration. You can change textures, animations and sounds easily, along side with more tehnical settings, such as volumes, compatibilities and etc!
+You can download this mod here:
 
-# Description 🏗️
-Adds new advancement toast system into Minecraft. Currently mod has 32 standard toast variants, because of 4 animation styles and 8 texture types. Supports config screen on Fabric (Mod Menu)/Forge/NeoForge
+* [CurseForge](https://www.curseforge.com/minecraft/mc-mods/fancy-toasts)
+* [Modrinth](https://modrinth.com/mod/fancy-toasts)
 
-### Animations
-* Standard
-* Playful
-* Quirky
-* Old-Like
+Other sources are not mine.
+
+## Version Support 📋
+
+I plan to port Fancy Toasts to as much version as possible, but not every of them would get constant updates. Therefor, currently supported versions:
+
+| Minecraft version | Mod version |
+|-------------------|-------------|
+| 1.21.10           | 1.4.6       |
+| 1.21.1            | 1.4.6       |
+| 1.20.1            | 1.4.6       |
+
+# Features 📚
+
+## Textures and Animations 🖼️
+
+Fancy Toasts adds a wide variety of textures and animations for Advancement Toasts, as well as some features to adjust the look of toasts to match your playstyle, vibe, and atmosphere. Currently mod has 32 standard toast variants:
 
 ### Textures
+
 * Vanilla-Like
 * Nature
 * OG
@@ -35,12 +56,44 @@ Adds new advancement toast system into Minecraft. Currently mod has 32 standard 
 * Landspaper
 * Neon
 
+### Animations
+
+* Standard
+* Playful
+* Quirky
+* Old-Like
+
+## Custom Textures 🤪
+
+This mod supports custom data-driven textures, which can be loaded through custom data-driven system. You can use textures from friends, modpacks, or even create your own!
+
+In case of creating your own, you would want to follow [Custom Textures Guide](https://github.com/Bivrik/FancyToasts/wiki/Custom-Texture-Guide). It's almost as easy as just drawing a texture. With this, possibilities of customization are endless! If you just want to add existing textures from wherever, check out [Using Custom Textures Guide](https://github.com/Bivrik/FancyToasts/wiki/Custom-Texture-Guide#using).
+
+## Config Menus ✨
+
+It's not only about visuals, it's also about conveniences. It adds new polished menus for configuration. You can change textures, animations, and sounds easily, alongside with some more settings.
+
+## Settings ⚙️
+
+Config menus are so important because of the amount of settings you can adjust to your liking: 
+
+* Compatibility settings with other mods
+* Volumes and pitch
+* Screen behaviour (how Advancement Toast interacts with screen like Inventory, Chest, etc.)
+* Anchor and its relative 'x' and 'y' coordinates
+* Information displayed on the Advancement Toast
+* Speed of loops (sin/cos waves)
+* Speed of the animation
+* Advancement Toasts filtering
+
 # Other 🔎
 
-### Support 🧡
-If you like my mod, you play it, and you want to see future development, hear my thoughts, get early access, or even see devlogs, then visit my [Boosty](https://boosty.to/bivrik) and support me, whether it's a one-time donation or a subscription. I will be very thankful! 🤗
+## Support 🧡
 
-### Languages
+Developing anything is never an easy job. Therefor, if you like my mods, play with them, and you would want to support me, hear my thoughts, or even see devlogs, then visit my [Boosty Blog](https://boosty.to/bivrik). Whether it's a follow, one-time donation or a subscription - I will be very thankful! 🤗
+
+## Languages 🌍
+
 | Language              | Key     | Made by      |
 |-----------------------|---------|--------------|
 | English               | `en_us` |              |
@@ -52,44 +105,20 @@ If you like my mod, you play it, and you want to see future development, hear my
 | Chinese (Traditional) | `zh_tw` | ChaTian      |
 | Japanese              | `ja_jp` | PExPE3       |
 
-### Plans
-Big goals/plans/ideas for future updates. Some of them are abstract ideas, and some are more specific 
+## Plans 📜
 
-* More languages
 * More animations (goal: 4/5)
 * More textures (goal: 8/10)
 * Wide version support
-  * **Currently maintaining**
-
-    | Minecraft version | Mod version |
-    |-------------------|-------------|
-    | 1.21.10           | 1.4.6       |
-    | 1.21.1            | 1.4.5.1     |
-    | 1.20.1            | 1.4.5.1     |
-  * **Planned with priorities**
-
-    | Minecraft version | Port priority |
-    |-------------------|---------------|
-    | 1.19.4            | High          |
-    | 1.16.5            | Medium        |
-    | 1.18.2            | Low           |
-    | 1.17.1            | Low           |
 * Advanced textures
-* Animations rework to make them easier to make
-* Personalized settings for specific advancements' origins
-* Custom sounds (v1.5.x?)
+* Advanced Animations
+* Custom sounds
 * Bundles
-#### Completed
-* Config GUI rework
-* Wider support for sounds (mods, resourcepacks)
-* Ability to change sounds, position, render type
-* Custom textures
-* Jade compatibility
-* FTBQuests compatibility
+* Conditional textures based on advancement origin/biome that you are currently in
 
-# Changelog 📝
+## Changelog 📝
 
-## 1.4.7
+### 1.4.7
 * Bug fixes:
   * Credits not being loaded due to daily cap
 * Adjustments:
@@ -99,7 +128,7 @@ Big goals/plans/ideas for future updates. Some of them are abstract ideas, and s
   * Slightly better optimization and new easing system
 > Work in progress...
 
-## 1.4.6
+### 1.4.6
 * New features:
   * Texture type `Neon`
   * Setting to hide boss bar health during an advancement (suggested by capaMEC)
@@ -114,7 +143,7 @@ Big goals/plans/ideas for future updates. Some of them are abstract ideas, and s
   * Configs versioning system tweaked (?)
 > A Jack of all trades is master of none. Got carried away and scraped 1.5.0 update for future, duh (04.02.26)
 
-## 1.4.5.1
+### 1.4.5.1
 * Bug fixes:
   * Memory leak due to lack of unsubscribing from events (sorry)
   * FTBQuests compatibility:
@@ -128,7 +157,7 @@ Big goals/plans/ideas for future updates. Some of them are abstract ideas, and s
   * Inverted `y` position (`50` is now `-50`), because it just makes more sense
   * New config version system (for easier migrating in the future, so configs don't reset to default when updated version)
 
-## v1.4.5
+### v1.4.5
 * New features:
   * Advancements filtering! Can be changed types of advancements, toasts and even specific advancement or whole categories to enable/disable
   * FTBQuests support! Now quests from FTBQuests can be seen on the screen in new fancy way!
@@ -158,12 +187,12 @@ Big goals/plans/ideas for future updates. Some of them are abstract ideas, and s
   * Toast Control won't disable Fancy Toasts anymore, but they still conflict
 > I'm gonna need a rest after this... huh, a rest? (30.11.25)
 
-## v1.4.4.1
+### v1.4.4.1
 * Bug fixes:
   * Key bindings can't be changed on Forge/NeoForge
   * Render type `behind` quirks a bit
 
-## v1.4.4
+### v1.4.4
 * New features:
   * Community "Credits" screen! For everyone who supported or contributed!
   * Filtering! Easier way to find sounds, textures and animations
@@ -183,14 +212,14 @@ Big goals/plans/ideas for future updates. Some of them are abstract ideas, and s
   * By default Render Type is set to `Transparent` instead of `Top`
 > I need to refactor it tho... Whatever, press UPDATE! (13.11.25)
 
-## v1.4.3.1
+### v1.4.3.1
 * Bug fixes:
   * Fabric version not working
   * Crash with Paladin's Furniture
 * Adjustments:
   * More robust rendering system
 
-## v1.4.3
+### v1.4.3
 * New features:
   * UI highlights. Now it's more visual appealing when selecting animation/texture/sound
   * `Modern` texture redraw!
@@ -206,7 +235,7 @@ Big goals/plans/ideas for future updates. Some of them are abstract ideas, and s
   * ???
 > More technical update for easier maintaining (09.10.25)
 
-## v1.4.2
+### v1.4.2
 * New features:
   * Volume slider now changes by 1% instead of 10% (suggested by VaporeonScripts)
   * Ability to change toast's general position! Top left, top center or top right
@@ -218,7 +247,7 @@ Big goals/plans/ideas for future updates. Some of them are abstract ideas, and s
   * Slight optimization when rendering toasts
 > I wanted to call it Update Nobody Asked For, but there are a lot of community suggestions, actually (28.09.25)
 
-## v1.4.1
+### v1.4.1
 * New features:
   * Complete config screen overhaul! Now there are 3 screens, which makes it more user-friendly. Also much more options, descriptions, authors, searching... just check it out!
   * Ability to change sounds! Just as quite a lot of people asked for. Now you can choose from any Minecraft built-in sounds
@@ -233,7 +262,7 @@ Big goals/plans/ideas for future updates. Some of them are abstract ideas, and s
   * Changed config system
 > User-friendly gui screen update, baby (13.09.25)
 
-## v1.4.0
+### v1.4.0
 * New features:
   * Support for custom textures in configs! Create your own textures using simple template and json file!
   * Texture type `Steamy`
@@ -248,7 +277,7 @@ Big goals/plans/ideas for future updates. Some of them are abstract ideas, and s
   * Changed registration system and half of the code in general
 > Yet biggest update with custom texture system (26.08.25)
 
-## v1.3.3
+### v1.3.3
 * New features:
   * Texture type `Modern`
 * Bug fixes:
@@ -258,12 +287,12 @@ Big goals/plans/ideas for future updates. Some of them are abstract ideas, and s
   * Changed slightly code for easier version changes and multiloader support
 > Port to Fabric/Forge/NeoForge (18.08.25)
 
-## v1.3.2
+### v1.3.2
 * Bug fixes:
   * Wrong audio delaying due to pause menu
 * Adjustments:
   * Changed links
 > Bug fixes (14.08.25)
 
-## v1.3.1
+### v1.3.1
 > Initial release on Fabric (13.08.25)
