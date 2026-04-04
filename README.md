@@ -3,7 +3,7 @@
 # Fancy Toasts 🎉
 
 <div>
-    <a href="##">
+    <a href="#">
         <img alt="Version Static Badge" src="https://img.shields.io/badge/latest-1.4.6-brightgreen?style=plastic&logo=data%3Aimage%2Fsvg%2Bxml%3Bbase64%2CPHN2ZyB4bWxucz0naHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmcnIHZpZXdCb3g9JzAgMCAyNCAyNCcgZmlsbD0nd2hpdGUnPjxwYXRoIGQ9J00zLjM3NSAzQzIuMzM5IDMgMS41IDMuODQgMS41IDQuODc1di43NWMwIDEuMDM2Ljg0IDEuODc1IDEuODc1IDEuODc1aDE3LjI1YzEuMDM1IDAgMS44NzUtLjg0IDEuODc1LTEuODc1di0uNzVDMjIuNSAzLjgzOSAyMS42NiAzIDIwLjYyNSAzSDMuMzc1WicvPjxwYXRoIGQ9J20zLjA4NyA5IC41NCA5LjE3NkEzIDMgMCAwIDAgNi42MiAyMWgxMC43NTdhMyAzIDAgMCAwIDIuOTk1LTIuODI0TDIwLjkxMyA5SDMuMDg3Wm02LjE2MyAzLjc1QS43NS43NSAwIDAgMSAxMCAxMmg0YS43NS43NSAwIDAgMSAwIDEuNWgtNGEuNzUuNzUgMCAwIDEtLjc1LS43NVonLz48L3N2Zz4K">
     </a>
     <a href="https://github.com/Bivrik/FancyToasts/blob/master/LICENSE" target="_blank">
