@@ -3,7 +3,7 @@
 # Fancy Toasts 🎉
 
 <div>
-    <a href="#">
+    <a>
         <img alt="Version Static Badge" src="https://img.shields.io/badge/latest-1.4.6-brightgreen?style=plastic&logo=data%3Aimage%2Fsvg%2Bxml%3Bbase64%2CPHN2ZyB4bWxucz0naHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmcnIHZpZXdCb3g9JzAgMCAyNCAyNCcgZmlsbD0nd2hpdGUnPjxwYXRoIGQ9J00zLjM3NSAzQzIuMzM5IDMgMS41IDMuODQgMS41IDQuODc1di43NWMwIDEuMDM2Ljg0IDEuODc1IDEuODc1IDEuODc1aDE3LjI1YzEuMDM1IDAgMS44NzUtLjg0IDEuODc1LTEuODc1di0uNzVDMjIuNSAzLjgzOSAyMS42NiAzIDIwLjYyNSAzSDMuMzc1WicvPjxwYXRoIGQ9J20zLjA4NyA5IC41NCA5LjE3NkEzIDMgMCAwIDAgNi42MiAyMWgxMC43NTdhMyAzIDAgMCAwIDIuOTk1LTIuODI0TDIwLjkxMyA5SDMuMDg3Wm02LjE2MyAzLjc1QS43NS43NSAwIDAgMSAxMCAxMmg0YS43NS43NSAwIDAgMSAwIDEuNWgtNGEuNzUuNzUgMCAwIDEtLjc1LS43NVonLz48L3N2Zz4K">
     </a>
     <a href="https://github.com/Bivrik/FancyToasts/blob/master/LICENSE" target="_blank">
@@ -26,16 +26,6 @@ Fancy Toasts is a Minecraft Mod that changes plain, boring, and annoying Advance
 ## Download 💾
 
 You can download Fancy Toasts from [CurseForge](https://www.curseforge.com/minecraft/mc-mods/fancy-toasts) or [Modrinth](https://modrinth.com/mod/fancy-toasts). Other sources are not mine, do not trust them.
-
-## Version Support 📋
-
-I plan to port Fancy Toasts to as much version as possible, but not every of them would get constant updates. Therefor, currently supported versions:
-
-| Minecraft version | Mod version |
-|-------------------|-------------|
-| 1.21.10           | 1.4.6       |
-| 1.21.1            | 1.4.6       |
-| 1.20.1            | 1.4.6       |
 
 # Features 📚
 
@@ -83,6 +73,16 @@ Config menus are so important because of the amount of settings you can adjust t
 * Speed of loops (sin/cos waves)
 * Speed of the animation
 * Advancement Toasts filtering
+
+## Version Support 📋
+
+I plan to port Fancy Toasts to as much version as possible, but not every of them would get constant updates. Therefor, currently supported versions:
+
+| Minecraft version | Mod version |
+|-------------------|-------------|
+| 1.21.10           | 1.4.6       |
+| 1.21.1            | 1.4.6       |
+| 1.20.1            | 1.4.6       |
 
 # Other 🔎
 
