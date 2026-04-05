@@ -1,4 +1,4 @@
-> Fancy Toasts 1.4.7 Fabric/Forge/NeoForge (1.21.10)
+> Fancy Toasts 1.4.7 - Fabric/Forge/NeoForge - Minecraft 1.21.10
 
 # Fancy Toasts
 
