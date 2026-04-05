@@ -25,7 +25,7 @@ Fancy Toasts is a Minecraft mod that replaces plain, boring, and annoying advanc
 
 ## Download 💾
 
-You can download Fancy Toasts from [CurseForge](https://www.curseforge.com/minecraft/mc-mods/fancy-toasts) or [Modrinth](https://modrinth.com/mod/fancy-toasts). Other sources are not mine, do not trust them.
+You can download it from [CurseForge](https://www.curseforge.com/minecraft/mc-mods/fancy-toasts) or [Modrinth](https://modrinth.com/mod/fancy-toasts). Other sources are not mine, do not trust them.
 
 # Features
 
