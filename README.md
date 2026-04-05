@@ -1,9 +1,9 @@
 > Fancy Toasts 1.4.7 Fabric/Forge/NeoForge (1.21.10)
 
-# Fancy Toasts 🎉
+# Fancy Toasts
 
 <div>
-    <img alt="Version Static Badge" style="pointer-events: none;" src="https://img.shields.io/badge/latest-1.4.6-brightgreen?style=plastic&logo=data%3Aimage%2Fsvg%2Bxml%3Bbase64%2CPHN2ZyB4bWxucz0naHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmcnIHZpZXdCb3g9JzAgMCAyNCAyNCcgZmlsbD0nd2hpdGUnPjxwYXRoIGQ9J00zLjM3NSAzQzIuMzM5IDMgMS41IDMuODQgMS41IDQuODc1di43NWMwIDEuMDM2Ljg0IDEuODc1IDEuODc1IDEuODc1aDE3LjI1YzEuMDM1IDAgMS44NzUtLjg0IDEuODc1LTEuODc1di0uNzVDMjIuNSAzLjgzOSAyMS42NiAzIDIwLjYyNSAzSDMuMzc1WicvPjxwYXRoIGQ9J20zLjA4NyA5IC41NCA5LjE3NkEzIDMgMCAwIDAgNi42MiAyMWgxMC43NTdhMyAzIDAgMCAwIDIuOTk1LTIuODI0TDIwLjkxMyA5SDMuMDg3Wm02LjE2MyAzLjc1QS43NS43NSAwIDAgMSAxMCAxMmg0YS43NS43NSAwIDAgMSAwIDEuNWgtNGEuNzUuNzUgMCAwIDEtLjc1LS43NVonLz48L3N2Zz4K">
+    <img alt="Version Static Badge" style="pointer-events: none;" src="https://img.shields.io/badge/latest_stable-1.4.6-brightgreen?style=plastic&logo=data%3Aimage%2Fsvg%2Bxml%3Bbase64%2CPHN2ZyB4bWxucz0naHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmcnIHZpZXdCb3g9JzAgMCAyNCAyNCcgZmlsbD0nd2hpdGUnPjxwYXRoIGQ9J00zLjM3NSAzQzIuMzM5IDMgMS41IDMuODQgMS41IDQuODc1di43NWMwIDEuMDM2Ljg0IDEuODc1IDEuODc1IDEuODc1aDE3LjI1YzEuMDM1IDAgMS44NzUtLjg0IDEuODc1LTEuODc1di0uNzVDMjIuNSAzLjgzOSAyMS42NiAzIDIwLjYyNSAzSDMuMzc1WicvPjxwYXRoIGQ9J20zLjA4NyA5IC41NCA5LjE3NkEzIDMgMCAwIDAgNi42MiAyMWgxMC43NTdhMyAzIDAgMCAwIDIuOTk1LTIuODI0TDIwLjkxMyA5SDMuMDg3Wm02LjE2MyAzLjc1QS43NS43NSAwIDAgMSAxMCAxMmg0YS43NS43NSAwIDAgMSAwIDEuNWgtNGEuNzUuNzUgMCAwIDEtLjc1LS43NVonLz48L3N2Zz4K">
     <a href="https://github.com/Bivrik/FancyToasts/blob/master/LICENSE" target="_blank">
         <img alt="Licence Static Badge" src="https://img.shields.io/badge/licence-MIT-blue?style=plastic&logo=data%3Aimage%2Fsvg%2Bxml%3Bbase64%2CPHN2ZyB4bWxucz0naHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmcnIHZpZXdCb3g9JzAgMCAyNCAyNCcgZmlsbD0nd2hpdGUnPjxwYXRoIGZpbGwtcnVsZT0nZXZlbm9kZCcgZD0nTTEyLjUxNiAyLjE3YS43NS43NSAwIDAgMC0xLjAzMiAwIDExLjIwOSAxMS4yMDkgMCAwIDEtNy44NzcgMy4wOC43NS43NSAwIDAgMC0uNzIyLjUxNUExMi43NCAxMi43NCAwIDAgMCAyLjI1IDkuNzVjMCA1Ljk0MiA0LjA2NCAxMC45MzMgOS41NjMgMTIuMzQ4YS43NDkuNzQ5IDAgMCAwIC4zNzQgMGM1LjQ5OS0xLjQxNSA5LjU2My02LjQwNiA5LjU2My0xMi4zNDggMC0xLjM5LS4yMjMtMi43My0uNjM1LTMuOTg1YS43NS43NSAwIDAgMC0uNzIyLS41MTZsLS4xNDMuMDAxYy0yLjk5NiAwLTUuNzE3LTEuMTctNy43MzQtMy4wOFptMy4wOTQgOC4wMTZhLjc1Ljc1IDAgMSAwLTEuMjItLjg3MmwtMy4yMzYgNC41M0w5LjUzIDEyLjIyYS43NS43NSAwIDAgMC0xLjA2IDEuMDZsMi4yNSAyLjI1YS43NS43NSAwIDAgMCAxLjE0LS4wOTRsMy43NS01LjI1WicvPjwvc3ZnPg%3D%3D">
     </a>
@@ -12,9 +12,7 @@
     </a>
 </div>
 
-There is a reason why you are here. And I think the reason you are here because of these old-fashion Advancement Toasts.
-
-Fancy Toasts is a Minecraft Mod that changes plain, boring, and annoying Advancement Toasts to something new and exciting!
+Fancy Toasts is a Minecraft mod that replaces plain, boring, and annoying advancement toasts with something new, customizable, and exciting! It was never about gameplay or mechanics, but the atmosphere.
 
 <div>
     <img src="https://cdn.modrinth.com/data/eUziWqPC/images/4906580b5c9307549e5f6ff80306f36b49f28a8f.gif" alt="Showcase of Standard Animation" width="400"/>
@@ -25,11 +23,11 @@ Fancy Toasts is a Minecraft Mod that changes plain, boring, and annoying Advance
 
 You can download Fancy Toasts from [CurseForge](https://www.curseforge.com/minecraft/mc-mods/fancy-toasts) or [Modrinth](https://modrinth.com/mod/fancy-toasts). Other sources are not mine, do not trust them.
 
-# Features 📚
+# Features
 
 ## Textures and Animations 🖼️
 
-Fancy Toasts adds a wide variety of textures and animations for Advancement Toasts, as well as some features to adjust the look of toasts to match your playstyle, vibe, and atmosphere. Currently mod has 32 standard toast variants:
+It adds a wide variety of textures and animations for advancement toasts, as well as some features to adjust their look to match your playstyle, vibe, and atmosphere. Currently, the mod has 32 standard toast variants:
 
 ### Textures
 
@@ -51,30 +49,28 @@ Fancy Toasts adds a wide variety of textures and animations for Advancement Toas
 
 ## Custom Textures 🤪
 
-This mod supports custom data-driven textures, which can be loaded through custom data-driven system. You can use textures from friends, modpacks, or even create your own!
+It supports custom textures, which can be loaded through data-driven system. You can use textures from friends, modpacks, or even create your own!
 
 In case of creating your own, you would want to follow [Custom Textures Guide](https://github.com/Bivrik/FancyToasts/wiki/Custom-Texture-Guide). It's almost as easy as just drawing a texture. With this, possibilities of customization are endless! If you just want to add existing textures from wherever, check out [Using Custom Textures Guide](https://github.com/Bivrik/FancyToasts/wiki/Custom-Texture-Guide#using).
 
-## Config Menus ✨
+## Flexible Settings ✨
 
-It's not only about visuals, it's also about conveniences. It adds new polished menus for configuration. You can change textures, animations, and sounds easily, alongside with some more settings.
+I really care about players convenience. Because of that, it adds new polished menus for configuration, that are built to minimize friction between creativity and monotony. Especially when there are large amount of options to configure and adjust to your liking.
 
-## Settings ⚙️
-
-Config menus are so important because of the amount of settings you can adjust to your liking: 
+### Options
 
 * Compatibility settings with other mods
-* Volumes and pitch
-* Screen behaviour (how Advancement Toast interacts with screen like Inventory, Chest, etc.)
-* Anchor and its relative 'x' and 'y' coordinates
-* Information displayed on the Advancement Toast
-* Speed of loops (sin/cos waves)
-* Speed of the animation
-* Advancement Toasts filtering
+* Volume and pitch settings
+* Screen behaviour (the way advancement toast interacts with menus like inventory, chest, etc.)
+* Anchor and its relative `x` and `y` coordinates
+* Information displayed on the advancement toast as title and description
+* Loops speed (sin/cos waves)
+* Animation speed
+* Advancement toasts filtering (based on their resource location)
 
 ## Version Support 📋
 
-I plan to port Fancy Toasts to as much version as possible, but not every of them would get constant updates. Therefor, currently supported versions:
+I plan to port Fancy Toasts to as many versions as possible, but not every of them would get constant updates. Therefore, currently supported versions are:
 
 | Minecraft version | Mod version |
 |-------------------|-------------|
@@ -82,11 +78,11 @@ I plan to port Fancy Toasts to as much version as possible, but not every of the
 | 1.21.1            | 1.4.6       |
 | 1.20.1            | 1.4.6       |
 
-# Other 🔎
+# Other
 
 ## Support 🧡
 
-Developing anything is never an easy job. Therefor, if you like my mods, play with them, and you would want to support me, hear my thoughts, or even see devlogs, then visit my [Boosty Blog](https://boosty.to/bivrik). Whether it's a follow, one-time donation or a subscription - I will be very thankful! 🤗
+Developing anything is never an easy job. Therefore, if you like my mods, play with them, and you would want to support me, hear my thoughts, or even see devlogs, then visit my [Boosty Blog](https://boosty.to/bivrik). Whether it's a follow, one-time donation or a subscription - I will be very grateful!
 
 ## Languages 🌍
 
@@ -107,10 +103,10 @@ Developing anything is never an easy job. Therefor, if you like my mods, play wi
 * More textures (goal: 8/10)
 * Wide version support
 * Advanced textures
-* Advanced Animations
+* Custom animations
 * Custom sounds
-* Bundles
-* Conditional textures based on advancement origin/biome that you are currently in
+* Bundles with textures, animations, sounds
+* Conditional bundles based on advancement origin/biome that you are currently in
 
 ## Changelog 📝
 
@@ -119,7 +115,7 @@ Developing anything is never an easy job. Therefor, if you like my mods, play wi
   * Credits not being loaded due to daily cap
 * Adjustments:
   * Now credits are being cached on client-side! Even without WI-FI connection they can be shown
-  * Texture type `Vanilla` was slightly tweaked to match actual vanilla feeling
+  * Texture type `Vanilla-Like` was slightly tweaked to match actual vanilla feeling
   * Animation type `Standard` was slightly tweaked to match vanilla feeling better
   * Slightly better optimization and new easing system
 > Work in progress...
