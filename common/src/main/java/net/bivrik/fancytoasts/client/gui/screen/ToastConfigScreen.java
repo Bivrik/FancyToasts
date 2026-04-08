@@ -188,7 +188,7 @@ public class ToastConfigScreen extends UniversalScreen {
 
         guiGraphics.drawString(this.font, SAVED_LABEL, x, y, color.getARGB());
 
-        if (time >= 1000) {
+        if (time >= 850) {
             isSaved = false;
         }
     }
