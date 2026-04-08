@@ -31,7 +31,7 @@ public class ConfigHandler {
 
         File configFile = new File(configPath);
 
-        if (!JsonHelper.isValid(configFile)) {
+        if (!configFile.exists()) {
             Debug.error("Config file {} is not found in '{}'", className, configPath);
             return loadFallback(standardConfigData, className);
         }

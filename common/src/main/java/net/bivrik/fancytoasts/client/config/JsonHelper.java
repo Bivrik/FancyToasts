@@ -12,15 +12,11 @@ import java.lang.reflect.Type;
 import java.util.Optional;
 
 public class JsonHelper {
-    private static final Gson GSON = new GsonBuilder()
+    public static final Gson GSON = new GsonBuilder()
             .setPrettyPrinting()
             .registerTypeAdapter(ResourceLocation.class, new ResourceLocationAdapter())
             .create();
 
-
-    /**
-     * Adapter for correct working Json files: ResourceLocation
-     */
     private static class ResourceLocationAdapter implements JsonSerializer<ResourceLocation>, JsonDeserializer<ResourceLocation> {
         @Override
         public ResourceLocation deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context) throws JsonParseException {
@@ -33,42 +29,27 @@ public class JsonHelper {
         }
     }
 
-    /**
-     * Access to {@code GSON} for specific cases
-     * @return {@code GSON}
-     */
-    public static Gson getGson() {
-        return GSON;
-    }
-
-    /**
-     * Reads a json from file.
-     * @param jsonFile file to read from.
-     * @param toClass class that {@code jsonFile} has to be transformed to.
-     * @param <T> class reference.
-     * @return optional data from {@code jsonFile} in given {@code toClass} class.
-     */
-    public static <T> Optional<T> tryToRead(File jsonFile, Class<T> toClass) {
+    public static <T> Optional<T> tryToRead(File jsonFile, Class<T> classReference) {
         try (FileReader reader = new FileReader(jsonFile)) {
-            return Optional.of(GSON.fromJson(reader, toClass));
+            T data = GSON.fromJson(reader, classReference);
+            return Optional.of(data);
         } catch (Exception e) {
             Debug.error("Could not read json file {}: {}", jsonFile.getName(), e.getMessage());
             return Optional.empty();
         }
     }
 
-    public static boolean tryToWrite(File jsonFile, Object fromClass) {
+    public static boolean tryToWrite(File jsonFile, Object data) {
+        return tryToWrite(GSON, jsonFile, data);
+    }
+
+    public static boolean tryToWrite(Gson gson, File jsonFile, Object data) {
         try (FileWriter writer = new FileWriter(jsonFile)) {
-            GSON.toJson(fromClass, writer);
+            gson.toJson(data, writer);
+            return true;
         } catch (Exception e) {
             Debug.error("Could not write json file {}: {}", jsonFile.getName(), e.getMessage());
             return false;
         }
-
-        return true;
-    }
-
-    public static boolean isValid(File jsonFile) {
-        return jsonFile.exists() && jsonFile.length() > 0;
     }
 }

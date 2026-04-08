@@ -10,7 +10,7 @@ public enum DisplayTextType {
     DEFAULT("default", displayInfo -> null),
     TITLE("title", ToastDisplayInfo::getTitle),
     DESCRIPTION("description", ToastDisplayInfo::getDescription),
-    ANNOUNCEMENT("announcement", ToastDisplayInfo::getAdvancementsAnnouncement);
+    ANNOUNCEMENT("announcement", ToastDisplayInfo::getAnnouncement);
 
     private final String name;
     private final Component displayName;
