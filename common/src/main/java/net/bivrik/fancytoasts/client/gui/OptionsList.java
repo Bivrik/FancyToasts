@@ -22,7 +22,7 @@ public class OptionsList extends ContainerObjectSelectionList<OptionsList.Entry>
     private final Screen screen;
 
     public OptionsList(Minecraft minecraft, int width, int height, int y, int itemHeight, Screen screen) {
-        super(minecraft, width, height, y, itemHeight);
+        super(minecraft, width, height, y, y +  height, itemHeight);
         this.screen = screen;
     }
 
@@ -37,6 +37,11 @@ public class OptionsList extends ContainerObjectSelectionList<OptionsList.Entry>
     @Override
     public int getRowWidth() {
         return 310;
+    }
+
+    @Override
+    protected int getScrollbarPosition() {
+        return super.getScrollbarPosition() + 32 + 4;
     }
 
     public <T extends AbstractWidget> T addElement(T widget, WidgetWidthType widthType) {

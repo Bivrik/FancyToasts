@@ -163,14 +163,13 @@ public class GeneralConfigScreen extends UniversalScreen {
     }
 
     private void addFooter() {
-        LinearLayout layout = LinearLayout.horizontal().spacing(PADDING);
+        LinearLayout layout = new LinearLayout(this.width / 2 - 250 / 2, this.height - BUTTON_HEIGHT - 6, 250 + PADDING * 2, BUTTON_HEIGHT, LinearLayout.Orientation.HORIZONTAL);
 
         backButton = layout.addChild(createButton(CommonComponents.GUI_BACK, button -> this.toParentScreen(), 0, 0, 75, BUTTON_HEIGHT));
         resetButton = layout.addChild(createButton(RESET, button -> confirmResetting(), 0, 0, 50, BUTTON_HEIGHT));
         doneButton = layout.addChild(createButton(CommonComponents.GUI_DONE, button -> done(), 0, 0, 125, BUTTON_HEIGHT));
 
         layout.arrangeElements();
-        layout.setPosition(this.width / 2 - layout.getWidth() / 2, this.height - BUTTON_HEIGHT - 6);
         layout.visitWidgets(this::addFWidget);
     }
 
@@ -215,7 +214,7 @@ public class GeneralConfigScreen extends UniversalScreen {
     @Override
     public void render(@NotNull GuiGraphics guiGraphics, int mouseX, int mouseY, float partialTick) {
         super.render(guiGraphics, mouseX, mouseY, partialTick);
-        drawSavedFeedback(guiGraphics, doneButton.getRight() + PADDING, this.height - BUTTON_HEIGHT);
+        drawSavedFeedback(guiGraphics, doneButton.getX() + doneButton.getWidth() + PADDING, this.height - BUTTON_HEIGHT);
         drawPositionHints(guiGraphics);
     }
 

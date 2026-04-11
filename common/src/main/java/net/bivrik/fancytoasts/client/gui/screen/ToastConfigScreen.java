@@ -172,7 +172,7 @@ public class ToastConfigScreen extends UniversalScreen {
     @Override
     public void render(@NotNull GuiGraphics guiGraphics, int mouseX, int mouseY, float partialTick) {
         super.render(guiGraphics, mouseX, mouseY, partialTick);
-        drawSavedFeedback(guiGraphics, doneButton.getRight() + PADDING, this.height - BUTTON_HEIGHT);
+        drawSavedFeedback(guiGraphics, doneButton.getX() + doneButton.getWidth() + PADDING, this.height - BUTTON_HEIGHT);
     }
 
     private void drawSavedFeedback(GuiGraphics guiGraphics, int x, int y) {
