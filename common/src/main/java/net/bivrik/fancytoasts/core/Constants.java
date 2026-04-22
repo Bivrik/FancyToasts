@@ -13,6 +13,7 @@ public class Constants {
     public static class Compatibilities {
         public static final String JADE_ID = "jade";
         public static final String FTB_QUESTS_ID = "ftbquests";
+        public static final String AETHER_ID = "aether";
         public static final String MINECRAFT_ID = "minecraft";
     }
 

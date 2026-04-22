@@ -19,18 +19,10 @@ jar {
     }
 }
 
-apply from: rootProject.file('gradle/scripts/conditional-dependencies.gradle')
-
 dependencies {
-    minecraft "net.minecraftforge:forge:${minecraft_version}-${forge_version}"
-    annotationProcessor("org.spongepowered:mixin:0.8.5:processor")
+    minecraft("net.minecraftforge:forge:${minecraft_version}-${forge_version}")
+    annotationProcessor('org.spongepowered:mixin:0.8.5:processor')
     implementation('net.sf.jopt-simple:jopt-simple:5.0.4') { version { strictly '5.0.4' } }
-
-    conditionalModImplementation "forge_jade_version", "maven.modrinth:jade:${project.forge_jade_version}"
-    conditionalModImplementation "forge_ftb_quests_version", "curse.maven:ftb-quests-forge-289412:${project.forge_ftb_quests_version}"
-    conditionalModImplementation "forge_ftb_library_version", "curse.maven:ftb-library-forge-404465:${project.forge_ftb_library_version}"
-    conditionalModImplementation "forge_ftb_teams_version", "curse.maven:ftb-teams-forge-404468:${project.forge_ftb_teams_version}"
-    conditionalModImplementation "forge_architectury_version", "curse.maven:architectury-api-419699:${project.forge_architectury_version}"
 }
 
 minecraft {

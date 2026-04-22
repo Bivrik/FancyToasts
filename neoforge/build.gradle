@@ -3,14 +3,31 @@ plugins {
     id 'net.neoforged.moddev'
 }
 
-apply from: rootProject.file('gradle/scripts/conditional-dependencies.gradle')
-
 dependencies {
-    conditionalImplementation "neoforge_jade_version", "maven.modrinth:jade:${project.neoforge_jade_version}"
-    conditionalImplementation "neoforge_ftb_quests_version", "curse.maven:ftb-quests-forge-289412:${project.neoforge_ftb_quests_version}"
-    conditionalImplementation "neoforge_ftb_library_version", "curse.maven:ftb-library-forge-404465:${project.neoforge_ftb_library_version}"
-    conditionalImplementation "neoforge_ftb_teams_version", "curse.maven:ftb-teams-forge-404468:${project.neoforge_ftb_teams_version}"
-    conditionalImplementation "neoforge_architectury_version", "curse.maven:architectury-api-419699:${project.neoforge_architectury_version}"
+    implementation "maven.modrinth:jade:${project.neoforge_jade_version}"
+
+    // Aether compatibility
+    def aether_version = "maven.modrinth:aether:${project.neoforge_aether_version}"
+    compileOnly(aether_version)
+    if (project.aether_enable.toBoolean()) {
+        runtimeOnly(aether_version)
+        runtimeOnly("maven.modrinth:accessories:${project.neoforge_accessories_version}")
+        runtimeOnly("maven.modrinth:owo-lib:${project.neoforge_owo_version}")
+    }
+
+    // FTB Quests compatibility
+    def ftbquests_version = "curse.maven:ftb-quests-forge-289412:${project.neoforge_ftb_quests_version}"
+    def ftblibrary_version = "curse.maven:ftb-library-forge-404465:${project.neoforge_ftb_library_version}"
+    def architectury_version = "curse.maven:architectury-api-419699:${project.neoforge_architectury_version}"
+    compileOnly(ftbquests_version)
+    compileOnly(ftblibrary_version)
+    compileOnly(runtimeOnly(architectury_version))
+    if (project.ftbquests_enable.toBoolean()) {
+        runtimeOnly(ftbquests_version)
+        runtimeOnly(ftblibrary_version)
+        runtimeOnly(architectury_version)
+        runtimeOnly("curse.maven:ftb-teams-forge-404468:${project.neoforge_ftb_teams_version}")
+    }
 }
 
 neoForge {

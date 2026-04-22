@@ -14,6 +14,7 @@ import net.bivrik.fancytoasts.platform.utility.GuiContext;
 import net.bivrik.fancytoasts.platform.utility.ToastDisplayInfo;
 import net.bivrik.fancytoasts.platform.Services;
 import net.minecraft.Util;
+import net.minecraft.advancements.AdvancementHolder;
 import net.minecraft.client.DeltaTracker;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
@@ -58,10 +59,10 @@ public class ToastManager implements IManager {
         toastConfigData = event.toastConfigData();
     }
 
-    public void addToast(ToastDisplayInfo displayInfo) {
+    public void addToast(ToastDisplayInfo displayInfo, AdvancementHolder holder) {
         if (displayInfo == null) return;
 
-        FancyAdvancementToast fancyToast = new FancyAdvancementToast(minecraft, displayInfo, toastConfigData.getTextureId(), toastConfigData.getAnimationId());
+        FancyAdvancementToast fancyToast = new FancyAdvancementToast(minecraft, holder, displayInfo, toastConfigData.getTextureId(), toastConfigData.getAnimationId());
         toasts.add(fancyToast);
         customTextureManager.addBeingUsed(toastConfigData.getTextureId(), fancyToast);
 

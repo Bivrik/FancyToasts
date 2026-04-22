@@ -14,6 +14,7 @@ public class GeneralConfigData extends ConfigData {
 
     private boolean isJadeHiding;
     private boolean isBossBarHiding;
+    private boolean isAetherEnabled;
     private boolean areSoundsEnabled;
     private float taskVolume;
     private float goalVolume;
@@ -29,7 +30,7 @@ public class GeneralConfigData extends ConfigData {
     private DisplayTextType titleDisplayTextType;
     private DisplayTextType descriptionDisplayTextType;
 
-    private GeneralConfigData(boolean isJadeHiding, boolean isBossBarHiding, boolean areSoundsEnabled,
+    private GeneralConfigData(boolean isJadeHiding, boolean isBossBarHiding, boolean isAetherEnabled, boolean areSoundsEnabled,
                               float taskVolume, float goalVolume, float challengeVolume,
                               float loopsStrength, float loopsSpeed, float pitchRandomness,
                               float animationSpeed, int offsetX, int offsetY,
@@ -39,6 +40,7 @@ public class GeneralConfigData extends ConfigData {
 
         this.isJadeHiding = isJadeHiding;
         this.isBossBarHiding = isBossBarHiding;
+        this.isAetherEnabled = isAetherEnabled;
         this.areSoundsEnabled = areSoundsEnabled;
         this.taskVolume = taskVolume;
         this.goalVolume = goalVolume;
@@ -56,7 +58,7 @@ public class GeneralConfigData extends ConfigData {
     }
 
     public GeneralConfigData() {
-        this(true, true, true, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 0.05f, 1.0f, ToastAnchor.TOP.getBaseOffsetX(), ToastAnchor.TOP.getBaseOffsetY(), ToastAnchor.TOP, ToastScreenBehavior.TRANSPARENT, DisplayTextType.DEFAULT, DisplayTextType.DEFAULT);
+        this(true, true, true, true, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 0.05f, 1.0f, ToastAnchor.TOP.getBaseOffsetX(), ToastAnchor.TOP.getBaseOffsetY(), ToastAnchor.TOP, ToastScreenBehavior.TRANSPARENT, DisplayTextType.DEFAULT, DisplayTextType.DEFAULT);
     }
 
     public boolean isJadeHiding() {
@@ -75,6 +77,13 @@ public class GeneralConfigData extends ConfigData {
     }
     public void setBossBarHiding(boolean isBossBarHiding) {
         this.isBossBarHiding = isBossBarHiding;
+    }
+
+    public boolean isAetherEnabled() {
+        return isAetherEnabled;
+    }
+    public void setAetherEnabled(boolean isAetherEnabled) {
+        this.isAetherEnabled = isAetherEnabled;
     }
 
     public boolean areSoundsEnabled() {
@@ -178,12 +187,12 @@ public class GeneralConfigData extends ConfigData {
     @Override
     public boolean equals(Object o) {
         if (!(o instanceof GeneralConfigData that)) return false;
-        return isJadeHiding == that.isJadeHiding && isBossBarHiding == that.isBossBarHiding && areSoundsEnabled == that.areSoundsEnabled && Float.compare(taskVolume, that.taskVolume) == 0 && Float.compare(goalVolume, that.goalVolume) == 0 && Float.compare(challengeVolume, that.challengeVolume) == 0 && Float.compare(loopsStrength, that.loopsStrength) == 0 && Float.compare(loopsSpeed, that.loopsSpeed) == 0 && Float.compare(pitchRandomness, that.pitchRandomness) == 0 && Float.compare(animationSpeed, that.animationSpeed) == 0 && offsetX == that.offsetX && offsetY == that.offsetY && toastAnchor == that.toastAnchor && toastScreenBehavior == that.toastScreenBehavior && titleDisplayTextType == that.titleDisplayTextType && descriptionDisplayTextType == that.descriptionDisplayTextType;
+        return isJadeHiding == that.isJadeHiding && isBossBarHiding == that.isBossBarHiding && isAetherEnabled == that.isAetherEnabled && areSoundsEnabled == that.areSoundsEnabled && Float.compare(taskVolume, that.taskVolume) == 0 && Float.compare(goalVolume, that.goalVolume) == 0 && Float.compare(challengeVolume, that.challengeVolume) == 0 && Float.compare(loopsStrength, that.loopsStrength) == 0 && Float.compare(loopsSpeed, that.loopsSpeed) == 0 && Float.compare(pitchRandomness, that.pitchRandomness) == 0 && Float.compare(animationSpeed, that.animationSpeed) == 0 && offsetX == that.offsetX && offsetY == that.offsetY && toastAnchor == that.toastAnchor && toastScreenBehavior == that.toastScreenBehavior && titleDisplayTextType == that.titleDisplayTextType && descriptionDisplayTextType == that.descriptionDisplayTextType;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(isJadeHiding, isBossBarHiding, areSoundsEnabled, taskVolume, goalVolume, challengeVolume, loopsStrength, loopsSpeed, pitchRandomness, animationSpeed, offsetX, offsetY, toastAnchor, toastScreenBehavior, titleDisplayTextType, descriptionDisplayTextType);
+        return Objects.hash(isJadeHiding, isBossBarHiding, isAetherEnabled, areSoundsEnabled, taskVolume, goalVolume, challengeVolume, loopsStrength, loopsSpeed, pitchRandomness, animationSpeed, offsetX, offsetY, toastAnchor, toastScreenBehavior, titleDisplayTextType, descriptionDisplayTextType);
     }
 
     @Override
@@ -193,14 +202,14 @@ public class GeneralConfigData extends ConfigData {
 
     @Override
     public GeneralConfigData copy() {
-        return new GeneralConfigData(isJadeHiding, isBossBarHiding, areSoundsEnabled, taskVolume, goalVolume, challengeVolume, loopsStrength, loopsSpeed, pitchRandomness, animationSpeed, offsetX, offsetY, toastAnchor, toastScreenBehavior, titleDisplayTextType, descriptionDisplayTextType).withLatestVersion();
+        return new GeneralConfigData(isJadeHiding, isBossBarHiding, isAetherEnabled, areSoundsEnabled, taskVolume, goalVolume, challengeVolume, loopsStrength, loopsSpeed, pitchRandomness, animationSpeed, offsetX, offsetY, toastAnchor, toastScreenBehavior, titleDisplayTextType, descriptionDisplayTextType).withLatestVersion();
     }
 
     @Override
     public String toString() {
         return super.toString().replace("}", ", ") + String.format(
-                "isJadeHiding='%s', isBossBarHiding='%s', areSoundsEnabled='%s', taskVolume='%s', goalVolume='%s', challengeVolume='%s', loopsStrength='%s', loopsSpeed='%s', pitchRandomness='%s', animationSpeed='%s', offsetX='%s', offsetY='%s', toastAnchor='%s', toastScreenBehavior='%s', titleDisplayTextType='%s', descriptionDisplayTextType='%s'}",
-                isJadeHiding, isBossBarHiding, areSoundsEnabled, taskVolume, goalVolume, challengeVolume, loopsStrength, loopsSpeed, pitchRandomness, animationSpeed, offsetX, offsetY, toastAnchor, toastScreenBehavior, titleDisplayTextType, descriptionDisplayTextType
+                "isJadeHiding='%s', isBossBarHiding='%s', isAetherEnabled='%s', areSoundsEnabled='%s', taskVolume='%s', goalVolume='%s', challengeVolume='%s', loopsStrength='%s', loopsSpeed='%s', pitchRandomness='%s', animationSpeed='%s', offsetX='%s', offsetY='%s', toastAnchor='%s', toastScreenBehavior='%s', titleDisplayTextType='%s', descriptionDisplayTextType='%s'}",
+                isJadeHiding, isBossBarHiding, isAetherEnabled, areSoundsEnabled, taskVolume, goalVolume, challengeVolume, loopsStrength, loopsSpeed, pitchRandomness, animationSpeed, offsetX, offsetY, toastAnchor, toastScreenBehavior, titleDisplayTextType, descriptionDisplayTextType
         );
     }
 }
