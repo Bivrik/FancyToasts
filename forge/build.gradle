@@ -21,18 +21,34 @@ jar {
     ])
 }
 
-apply from: rootProject.file('gradle/scripts/conditional-dependencies.gradle')
-
 dependencies {
-    minecraft "net.minecraftforge:forge:${minecraft_version}-${forge_version}"
-    annotationProcessor("org.spongepowered:mixin:0.8.5:processor")
+    minecraft("net.minecraftforge:forge:${minecraft_version}-${forge_version}")
+    annotationProcessor('org.spongepowered:mixin:0.8.5:processor')
     implementation('net.sf.jopt-simple:jopt-simple:5.0.4') { version { strictly '5.0.4' } }
 
-    conditionalImplementation "forge_jade_version", fg.deobf("curse.maven:jade-324717:${project.forge_jade_version}")
-    conditionalImplementation "forge_ftb_quests_version", fg.deobf("curse.maven:ftb-quests-forge-289412:${project.forge_ftb_quests_version}")
-    conditionalImplementation "forge_ftb_library_version", fg.deobf("curse.maven:ftb-library-forge-404465:${project.forge_ftb_library_version}")
-    conditionalImplementation "forge_ftb_teams_version", fg.deobf("curse.maven:ftb-teams-forge-404468:${project.forge_ftb_teams_version}")
-    conditionalImplementation "forge_architectury_version", fg.deobf("curse.maven:architectury-api-419699:${project.forge_architectury_version}")
+    implementation(fg.deobf("curse.maven:jade-324717:${project.forge_jade_version}"))
+
+    // Aether compatibility
+    def aether_version = fg.deobf("maven.modrinth:aether:${project.forge_aether_version}")
+    compileOnly(aether_version)
+    if (project.aether_enable.toBoolean()) {
+        runtimeOnly(aether_version)
+        runtimeOnly(fg.deobf("maven.modrinth:curios:${project.forge_curios_api_version}"))
+    }
+
+    // FTB Quests compatibility
+    def ftbquests_version = fg.deobf("curse.maven:ftb-quests-forge-289412:${project.forge_ftb_quests_version}")
+    def ftblibrary_version = fg.deobf("curse.maven:ftb-library-forge-404465:${project.forge_ftb_library_version}")
+    def architectury_version = fg.deobf("curse.maven:architectury-api-419699:${project.forge_architectury_version}")
+    compileOnly(ftbquests_version)
+    compileOnly(ftblibrary_version)
+    compileOnly(architectury_version)
+    if (project.ftbquests_enable.toBoolean()) {
+        runtimeOnly(ftbquests_version)
+        runtimeOnly(ftblibrary_version)
+        runtimeOnly(architectury_version)
+        runtimeOnly(fg.deobf("curse.maven:ftb-teams-forge-404468:${project.forge_ftb_teams_version}"))
+    }
 }
 
 minecraft {

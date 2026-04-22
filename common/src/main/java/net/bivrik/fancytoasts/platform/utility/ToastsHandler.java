@@ -35,7 +35,7 @@ public record ToastsHandler(ToastsFilteringData filteringData, ToastManager toas
         if (filteringData.isFancyAdvancementToastsEnabled()) {
             info.cancel();
 
-            toastManager.addToast(displayInfo);
+            toastManager.addToast(displayInfo, advancement);
         }
     }
 
@@ -44,7 +44,7 @@ public record ToastsHandler(ToastsFilteringData filteringData, ToastManager toas
             info.cancel();
 
             ToastDisplayInfo displayInfo = Services.FTB_QUESTS.getDisplayInfo(toast);
-            toastManager.addToast(displayInfo);
+            toastManager.addToast(displayInfo, null);
         }
     }
 

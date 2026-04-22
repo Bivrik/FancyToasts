@@ -38,6 +38,7 @@ public class GeneralConfigScreen extends UniversalScreen {
     private static final Component RESET_GENERAL_SETTINGS_LABEL = Components.of("label.reset_general_settings");
     private static final Component SAVED_LABEL = Components.of("label.saved");
     private static final Component JADE_HIDING = Components.of("gui.jade_hiding");
+    private static final Component AETHER_COMPAT = Components.of("gui.aether_compat");
     private static final Component BOSS_BAR_HIDING = Components.of("gui.boss_bar_hiding");
     private static final Component SOUNDS = Components.of("gui.sounds_enabled");
     private static final Component SCREEN_BEHAVIOR = Components.of("gui.screen_behavior");
@@ -53,6 +54,7 @@ public class GeneralConfigScreen extends UniversalScreen {
     private static final Component TITLE_DISPLAY_TEXT = Components.of("gui.title_display_text");
     private static final Component DESCRIPTION_DISPLAY_TEXT = Components.of("gui.description_display_text");
     private static final Component JADE_HIDING_TOOLTIP = Components.of("tooltip.jade_hiding");
+    private static final Component AETHER_COMPAT_TOOLTIP = Components.of("tooltip.aether_compat");
     private static final Component BOSS_BAR_HIDING_TOOLTIP = Components.of("tooltip.boss_bar_hiding");
     private static final Component SOUNDS_TOOLTIP = Components.of("tooltip.sounds_enabled");
     private static final Component SCREEN_BEHAVIOR_TOOLTIP = Components.of("tooltip.screen_behavior");
@@ -71,6 +73,7 @@ public class GeneralConfigScreen extends UniversalScreen {
     private Button backButton;
     private Button resetButton;
     private CycleButton<Boolean> jadeHidingButton;
+    private CycleButton<Boolean> aetherCompatButton;
     private CycleButton<Boolean> bossBarHidingButton;
     private CycleButton<Boolean> soundsEnabledButton;
     private CycleButton<ToastScreenBehavior> toastScreenBehaviorButton;
@@ -104,6 +107,11 @@ public class GeneralConfigScreen extends UniversalScreen {
         if (Services.PLATFORM.isModLoaded(Constants.Compatibilities.JADE_ID)) {
             jadeHidingButton = list.addElement(createBooleanButton(JADE_HIDING, generalConfigData.isJadeHiding(),
                     (button, value) -> generalConfigData.setJadeHiding(value), 0, 0, Tooltip.create(JADE_HIDING_TOOLTIP)), WidgetWidthType.BIG);
+        }
+
+        if (Services.PLATFORM.isModLoaded(Constants.Compatibilities.AETHER_ID)) {
+            aetherCompatButton = list.addElement(createBooleanButton(AETHER_COMPAT, generalConfigData.isAetherEnabled(),
+                    (button, value) -> generalConfigData.setAetherEnabled(value), 0, 0, Tooltip.create(AETHER_COMPAT_TOOLTIP)), WidgetWidthType.BIG);
         }
 
         bossBarHidingButton = list.addElement(createBooleanButton(BOSS_BAR_HIDING, generalConfigData.isBossBarHiding(),

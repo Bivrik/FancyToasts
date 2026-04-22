@@ -2,9 +2,7 @@ package net.bivrik.fancytoasts.core.manager;
 
 import net.bivrik.fancytoasts.client.config.data.GeneralConfigData;
 import net.bivrik.fancytoasts.client.config.data.ToastConfigData;
-import net.bivrik.fancytoasts.core.Debug;
 import net.bivrik.fancytoasts.core.IManager;
-import net.bivrik.fancytoasts.core.ITickableManager;
 import net.bivrik.fancytoasts.core.event.GeneralConfigDataEvent;
 import net.bivrik.fancytoasts.client.toast.FancyAdvancementToast;
 import net.bivrik.fancytoasts.client.config.ToastScreenBehavior;
@@ -13,6 +11,7 @@ import net.bivrik.fancytoasts.core.event.ToastConfigDataEvent;
 import net.bivrik.fancytoasts.platform.utility.GuiContext;
 import net.bivrik.fancytoasts.platform.utility.ToastDisplayInfo;
 import net.bivrik.fancytoasts.platform.Services;
+import net.minecraft.advancements.Advancement;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.screens.ChatScreen;
@@ -54,10 +53,10 @@ public class ToastManager implements IManager {
         toastConfigData = event.toastConfigData();
     }
 
-    public void addToast(ToastDisplayInfo displayInfo) {
+    public void addToast(ToastDisplayInfo displayInfo, Advancement advancement) {
         if (displayInfo == null) return;
 
-        FancyAdvancementToast fancyToast = new FancyAdvancementToast(minecraft, displayInfo, toastConfigData.getTextureId(), toastConfigData.getAnimationId());
+        FancyAdvancementToast fancyToast = new FancyAdvancementToast(minecraft, advancement, displayInfo, toastConfigData.getTextureId(), toastConfigData.getAnimationId());
         toasts.add(fancyToast);
         customTextureManager.addBeingUsed(toastConfigData.getTextureId(), fancyToast);
 

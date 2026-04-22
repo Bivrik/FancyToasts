@@ -1,0 +1,65 @@
+plugins {
+    id 'multiloader-loader'
+    id 'net.neoforged.moddev'
+}
+
+dependencies {
+    implementation "maven.modrinth:jade:${project.neoforge_jade_version}"
+
+    // Aether compatibility
+    def aether_version = "maven.modrinth:aether:${project.neoforge_aether_version}"
+    compileOnly(aether_version)
+    if (project.aether_enable.toBoolean()) {
+        runtimeOnly(aether_version)
+        runtimeOnly("maven.modrinth:accessories:${project.neoforge_accessories_version}")
+        runtimeOnly("maven.modrinth:owo-lib:${project.neoforge_owo_version}")
+    }
+
+    // FTB Quests compatibility
+    def ftbquests_version = "curse.maven:ftb-quests-forge-289412:${project.neoforge_ftb_quests_version}"
+    def ftblibrary_version = "curse.maven:ftb-library-forge-404465:${project.neoforge_ftb_library_version}"
+    def architectury_version = "curse.maven:architectury-api-419699:${project.neoforge_architectury_version}"
+    compileOnly(ftbquests_version)
+    compileOnly(ftblibrary_version)
+    compileOnly(runtimeOnly(architectury_version))
+    if (project.ftbquests_enable.toBoolean()) {
+        runtimeOnly(ftbquests_version)
+        runtimeOnly(ftblibrary_version)
+        runtimeOnly(architectury_version)
+        runtimeOnly("curse.maven:ftb-teams-forge-404468:${project.neoforge_ftb_teams_version}")
+    }
+}
+
+neoForge {
+    version = neoforge_version
+    def at = project(':common').file('src/main/resources/META-INF/accesstransformer.cfg')
+    if (at.exists()) {
+        accessTransformers.add(at.absolutePath)
+    }
+    parchment {
+        minecraftVersion = parchment_minecraft
+        mappingsVersion = parchment_version
+    }
+    runs {
+        configureEach {
+            systemProperty('neoforge.enabledGameTestNamespaces', mod_id)
+            ideName = "NeoForge ${it.name.capitalize()} (${project.path})"
+        }
+        client {
+            client()
+        }
+        data {
+            data()
+        }
+        server {
+            server()
+        }
+    }
+    mods {
+        "${mod_id}" {
+            sourceSet sourceSets.main
+        }
+    }
+}
+
+sourceSets.main.resources { srcDir 'src/generated/resources' }

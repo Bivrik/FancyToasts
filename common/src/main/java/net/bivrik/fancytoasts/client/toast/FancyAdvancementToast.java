@@ -5,8 +5,10 @@ import net.bivrik.fancytoasts.client.registry.AnimationRegistry;
 import net.bivrik.fancytoasts.client.toast.animation.FancyToastAnimation;
 import net.bivrik.fancytoasts.core.Debug;
 import net.bivrik.fancytoasts.core.Managers;
+import net.bivrik.fancytoasts.platform.Services;
 import net.bivrik.fancytoasts.platform.utility.ToastDisplayInfo;
 import net.bivrik.fancytoasts.utility.DefaultUVs;
+import net.minecraft.advancements.Advancement;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.resources.sounds.SimpleSoundInstance;
@@ -15,7 +17,6 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 
-import java.util.Optional;
 import java.util.Random;
 
 public class FancyAdvancementToast {
@@ -34,7 +35,7 @@ public class FancyAdvancementToast {
     private boolean isEnded = false;
     private int playedSoundsCount = 0;
 
-    public FancyAdvancementToast(Minecraft minecraft, ToastDisplayInfo displayInfo, ResourceLocation textureId, ResourceLocation animationId) {
+    public FancyAdvancementToast(Minecraft minecraft, Advancement advancement, ToastDisplayInfo displayInfo, ResourceLocation textureId, ResourceLocation animationId) {
         var generalConfig = Managers.getConfigManager().getGeneralConfigData();
         this.generalConfig = generalConfig;
 
@@ -63,6 +64,14 @@ public class FancyAdvancementToast {
         animation = AnimationRegistry.getAnimation(animationId).get();
         animation.setup(setup, minecraft, getWidth(), getHeight());
         toastSoundId = Managers.getConfigManager().getToastConfigData().getSoundIdByType(displayInfo.getAdvancementType());
+
+        // Aether overriding sounds support
+        if (advancement != null) {
+            ResourceLocation overrideId = Services.AETHER_HELPER.getOverrideId(advancement);
+            if (overrideId  != null) {
+                toastSoundId = overrideId;
+            }
+        }
 
         Debug.info("Created new fancy advancement toast: {}; texture: {}; animation: {}", displayInfo.getTitle().getString(), textureId, animationId);
     }
