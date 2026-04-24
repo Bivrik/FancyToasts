@@ -31,6 +31,7 @@
   "fancytoasts.gui.toast_settings": "トースト設定",
   "fancytoasts.gui.toasts_filtering": "トーストフィルタリング", // Machine translation
   "fancytoasts.gui.jade_hiding": "トースト中にJadeを非表示", // Machine translation
+  "fancytoasts.gui.aether_compat": "Aether の上書きサウンドを使用する", // Machine translation
   "fancytoasts.gui.sounds_enabled": "トーストの音",
   "fancytoasts.gui.task_volume": "タスクタイプの音量",
   "fancytoasts.gui.goal_volume": "目標タイプの音量",
@@ -87,6 +88,7 @@
   "fancytoasts.tooltip.animations": "トーストが表示される際に使われるアニメーション",
   "fancytoasts.tooltip.sounds": "トーストが表示されたときに再生される音",
   "fancytoasts.tooltip.jade_hiding": "Jadeの非表示を切り替えます。オンにすると、進捗トーストが表示されたときにJadeのプレートが非表示になり、その後再表示されます", // Machine translation
+  "fancytoasts.tooltip.aether_compat": "Aether 互換性を切り替えます。オンにすると、Aether は意図した通りに進捗のサウンドを上書きします。", // Machine translation
   "fancytoasts.tooltip.sounds_enabled": "サウンドを切り替えます。オフにすると、全てのトースト音がミュートされます",
   "fancytoasts.tooltip.anchor": "画面上での進捗トーストのアンカーポイントを表します。位置\"x\"と\"y\"は、アンカーポイントに基づいて計算されたオフセットです", // Machine translation
   "fancytoasts.tooltip.screen_behavior": "画面（インベントリ、チェストなど）を開いたときの進捗トーストの表示方法",
