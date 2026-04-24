@@ -31,6 +31,7 @@
   "fancytoasts.gui.toast_settings": "提示設定",
   "fancytoasts.gui.toasts_filtering": "Toasts 過濾", // Machine translation
   "fancytoasts.gui.jade_hiding": "在提示時隱藏 Jade", // Machine translation
+  "fancytoasts.gui.aether_compat": "使用 Aether 覆蓋的音效", // Machine translation
   "fancytoasts.gui.sounds_enabled": "提示音效",
   "fancytoasts.gui.task_volume": "任務音量",
   "fancytoasts.gui.goal_volume": "目標音量",
@@ -87,6 +88,7 @@
   "fancytoasts.tooltip.animations": "提示框顯示時所使用的動畫。",
   "fancytoasts.tooltip.sounds": "提示框出現時播放的音效。.",
   "fancytoasts.tooltip.jade_hiding": "切換 Jade 隱藏。如果開啟，當進度提示出現時，Jade 的標記將會被隱藏，然後再重新顯示。", // Machine translation
+  "fancytoasts.tooltip.aether_compat": "切換 Aether 相容性。開啟後，Aether 將如預期覆蓋其進度的聲音。", // Machine translation
   "fancytoasts.tooltip.sounds_enabled": "切換音效。若關閉，所有提示音效將會靜音。",
   "fancytoasts.tooltip.anchor": "代表進度提示在畫面上的錨點。位置 \"x\" 和 \"y\" 是根據錨點計算的偏移量。", // Machine translation
   "fancytoasts.tooltip.screen_behavior": "設定當開啟介面（如背包、儲物箱等）時，進度提示的顯示方式。",
