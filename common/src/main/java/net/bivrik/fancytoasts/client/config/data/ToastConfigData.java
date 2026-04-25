@@ -32,7 +32,7 @@ public class ToastConfigData extends ConfigData {
 
     public ToastConfigData() {
         this(DefaultLocations.Textures.VANILLA, DefaultLocations.Animations.STANDARD, Map.of(
-                FancyToastType.TASK, SoundEvents.ALLAY_AMBIENT_WITH_ITEM.location(),
+                FancyToastType.TASK, SoundEvents.NOTE_BLOCK_CHIME.value().location(),
                 FancyToastType.GOAL, SoundEvents.FIREWORK_ROCKET_TWINKLE_FAR.location(),
                 FancyToastType.CHALLENGE, SoundEvents.UI_TOAST_CHALLENGE_COMPLETE.location())
         );
