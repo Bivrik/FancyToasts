@@ -116,11 +116,11 @@ Developing anything is never an easy job. Therefore, if you like my mods, play w
 
 ### 1.4.7
 * New features:
-  * Ability to change type of announcement for toasts instead of just hard-codded ones (title/description/announcement)
-  * Aether overridden sounds compatibility
-  * The Dawn Era advancement icons compatibility
+  * Ability to change type of announcement for toasts instead of just hard-codded ones (title/description/announcement) 
+  * Aether overridden sounds compatibility (suggested by TwoBluDogs)
+  * The Dawn Era advancement icons compatibility (suggested by SundGGs)
 * Bug fixes:
-  * Credits not being loaded due to daily cap
+  * Credits not being loaded due to daily cap (found by Fyoncle)
   * Dots of wrapped text is now the same color as the text
 * Adjustments:
   * Changed standard SFX for tasks (Note Block Chime sound instead of Allay)
