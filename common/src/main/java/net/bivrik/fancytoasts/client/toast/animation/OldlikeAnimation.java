@@ -4,6 +4,7 @@ import net.bivrik.fancytoasts.client.toast.AnimationSetup;
 import net.bivrik.fancytoasts.client.toast.Appearance;
 import net.bivrik.fancytoasts.core.Easing;
 import net.bivrik.fancytoasts.platform.utility.GuiContext;
+import net.minecraft.advancements.Advancement;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
 
@@ -18,8 +19,8 @@ public class OldlikeAnimation extends FancyToastAnimation {
     private final int DURATION = 3500 + FADE_OUT_DURATION;
 
     @Override
-    public void setup(AnimationSetup setup, Minecraft minecraft, int toastWidth, int toastHeight) {
-        super.setup(setup, minecraft, toastWidth, toastHeight);
+    public void setup(AnimationSetup setup, Minecraft minecraft, int toastWidth, int toastHeight, Advancement advancement) {
+        super.setup(setup, minecraft, toastWidth, toastHeight, advancement);
 
         this.setLines(displayInfo.getAnnouncement(), displayInfo.getDescription());
     }

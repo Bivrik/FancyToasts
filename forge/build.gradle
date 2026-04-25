@@ -28,6 +28,14 @@ dependencies {
 
     implementation(fg.deobf("curse.maven:jade-324717:${project.forge_jade_version}"))
 
+    // Dawn Era compatibility
+    def dawn_era_version = fg.deobf("maven.modrinth:the-dawn-era:${project.forge_dawn_era_version}")
+    compileOnly(dawn_era_version)
+    if (project.dawn_era_enable.toBoolean()) {
+        runtimeOnly(dawn_era_version)
+        runtimeOnly(fg.deobf("maven.modrinth:astemirlib:${project.forge_astemirlib_version}"))
+    }
+
     // Aether compatibility
     def aether_version = fg.deobf("maven.modrinth:aether:${project.forge_aether_version}")
     compileOnly(aether_version)

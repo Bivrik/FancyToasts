@@ -62,7 +62,7 @@ public class FancyAdvancementToast {
         }
 
         animation = AnimationRegistry.getAnimation(animationId).get();
-        animation.setup(setup, minecraft, getWidth(), getHeight());
+        animation.setup(setup, minecraft, getWidth(), getHeight(), advancement);
         toastSoundId = Managers.getConfigManager().getToastConfigData().getSoundIdByType(displayInfo.getAdvancementType());
 
         // Aether overriding sounds support
