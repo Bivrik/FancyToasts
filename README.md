@@ -78,9 +78,9 @@ I plan to port Fancy Toasts to as many versions as possible, but not every of th
 
 | Minecraft version | Mod version |
 |-------------------|-------------|
-| 1.21.10           | 1.4.6       |
-| 1.21.1            | 1.4.6       |
-| 1.20.1            | 1.4.6       |
+| 1.21.10           | 1.4.7       |
+| 1.21.1            | 1.4.7       |
+| 1.20.1            | 1.4.7       |
 
 # Other
 
@@ -115,14 +115,22 @@ Developing anything is never an easy job. Therefore, if you like my mods, play w
 ## Changelog 📝
 
 ### 1.4.7
+* New features:
+  * Ability to change type of announcement for toasts instead of just hard-codded ones (title/description/announcement)
+  * Aether overridden sounds compatibility
+  * The Dawn Era advancement icons compatibility
 * Bug fixes:
   * Credits not being loaded due to daily cap
+  * Dots of wrapped text is now the same color as the text
 * Adjustments:
+  * Changed standard SFX for tasks (Note Block Chime sound instead of Allay)
   * Now credits are being cached on client-side! Even without WI-FI connection they can be shown
-  * Texture type `Vanilla-Like` was slightly tweaked to match actual vanilla feeling
+  * Settings rearrange so they are more comfortable to use
+  * Settings now use actual lists, so there is a slider
+  * Texture type `Vanilla-Like` was slightly tweaked to match vanilla feeling better
   * Animation type `Standard` was slightly tweaked to match vanilla feeling better
   * Slightly better optimization and new easing system
-> Work in progress...
+> QoL changes which I should've done much faster, oops. And also new GitHub page :D (25.04.26)
 
 ### 1.4.6
 * New features:
