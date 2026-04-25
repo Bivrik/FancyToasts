@@ -118,7 +118,7 @@ public abstract class FancyToastAnimation {
 
     protected void drawIcon(GuiContext guiContext, float alpha) {
         guiContext.drawGUITexture(textureLocation, 68, 0, 26, 26, typeBasedUVs.frame(), getColor(alpha));
-        if (Services.DAWN_ERA_HELPER.isLoaded() && Services.DAWN_ERA_HELPER.isCustomIcon(advancement)) {
+        if (Services.DAWN_ERA_HELPER.isLoaded() && advancement != null && Services.DAWN_ERA_HELPER.isCustomIcon(advancement)) {
             Services.DAWN_ERA_HELPER.drawCustomIcon(guiContext.guiGraphics(), advancement, 66, 0);
         } else {
             guiContext.guiGraphics().renderFakeItem(displayInfo.getIcon(), 73, 5);
