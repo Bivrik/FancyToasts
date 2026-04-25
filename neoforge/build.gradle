@@ -3,14 +3,8 @@ plugins {
     id 'net.neoforged.moddev'
 }
 
-apply from: rootProject.file('gradle/scripts/conditional-dependencies.gradle')
-
 dependencies {
-    conditionalImplementation "neoforge_jade_version", "maven.modrinth:jade:${project.neoforge_jade_version}"
-    conditionalImplementation "neoforge_ftb_quests_version", "curse.maven:ftb-quests-forge-289412:${project.neoforge_ftb_quests_version}"
-    conditionalImplementation "neoforge_ftb_library_version", "curse.maven:ftb-library-forge-404465:${project.neoforge_ftb_library_version}"
-    conditionalImplementation "neoforge_ftb_teams_version", "curse.maven:ftb-teams-forge-404468:${project.neoforge_ftb_teams_version}"
-    conditionalImplementation "neoforge_architectury_version", "curse.maven:architectury-api-419699:${project.neoforge_architectury_version}"
+    implementation("maven.modrinth:jade:${project.neoforge_jade_version}")
 }
 
 neoForge {
