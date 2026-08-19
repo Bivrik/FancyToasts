@@ -21,7 +21,11 @@ public class PlayfulAnimation extends FancyToastAnimation {
     public void setup(AnimationSetup setup, Minecraft minecraft, int toastWidth, int toastHeight) {
         super.setup(setup, minecraft, toastWidth, toastHeight);
 
-        this.setLines(displayInfo.getTitle(), displayInfo.getDescription());
+        if (displayInfo instanceof net.bivrik.fancytoasts.platform.utility.QuestToastDisplayInfo) {
+            this.setLines(displayInfo.getAnnouncement(), displayInfo.getTitle());
+        } else {
+            this.setLines(displayInfo.getTitle(), displayInfo.getDescription());
+        }
     }
 
     @Override

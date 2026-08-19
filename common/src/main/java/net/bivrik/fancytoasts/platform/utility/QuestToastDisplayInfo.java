@@ -1,24 +1,30 @@
 package net.bivrik.fancytoasts.platform.utility;
 
+import java.util.List;
+
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.ItemStack;
-
-import java.util.List;
 
 public class QuestToastDisplayInfo extends ToastDisplayInfo {
     private final Component announcementDisplay;
     private final List<ItemStack> icons;
+    private final FancyQuestType questType;
 
-    public QuestToastDisplayInfo(List<ItemStack> icons, Component title, Component description, FancyToastType advancementType, Component announcementDisplay) {
+    public QuestToastDisplayInfo(List<ItemStack> icons, Component title, Component description, FancyToastType advancementType, Component announcementDisplay, FancyQuestType questType) {
         super(null, title, description, advancementType);
 
         this.announcementDisplay = announcementDisplay;
         this.icons = icons;
+        this.questType = questType;
     }
 
     @Override
     public Component getAnnouncement() {
         return announcementDisplay;
+    }
+
+    public FancyQuestType getQuestType() {
+        return questType;
     }
 
     @Override
