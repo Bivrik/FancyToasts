@@ -1,13 +1,14 @@
 package net.bivrik.fancytoasts.client.toast;
 
-import java.util.Random;
-
+import net.bivrik.fancytoasts.client.config.data.GeneralConfigData;
 import net.bivrik.fancytoasts.client.registry.AnimationRegistry;
 import net.bivrik.fancytoasts.client.toast.animation.FancyToastAnimation;
 import net.bivrik.fancytoasts.core.Debug;
 import net.bivrik.fancytoasts.core.Managers;
+import net.bivrik.fancytoasts.platform.Services;
 import net.bivrik.fancytoasts.platform.utility.ToastDisplayInfo;
 import net.bivrik.fancytoasts.utility.DefaultUVs;
+import net.minecraft.advancements.AdvancementHolder;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.resources.sounds.SimpleSoundInstance;
@@ -16,22 +17,27 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 
+import java.util.Random;
+
 public class FancyAdvancementToast {
     private static final int WIDTH = 162;
     private static final int HEIGHT = 70;
     private static final Random random = new Random();
+
+    private final GeneralConfigData generalConfig;
 
     private FancyToastAnimation animation;
     private ResourceLocation toastSoundId;
     private float volume;
     private SoundManager soundManager;
 
-    private long time;
+    private float time = 0;
     private boolean isEnded = false;
     private int playedSoundsCount = 0;
 
-    public FancyAdvancementToast(Minecraft minecraft, ToastDisplayInfo displayInfo, ResourceLocation textureId, ResourceLocation animationId) {
+    public FancyAdvancementToast(Minecraft minecraft, AdvancementHolder holder, ToastDisplayInfo displayInfo, ResourceLocation textureId, ResourceLocation animationId) {
         var generalConfig = Managers.getConfigManager().getGeneralConfigData();
+        this.generalConfig = generalConfig;
 
         if (generalConfig.areSoundsEnabled()) {
             soundManager = minecraft.getSoundManager();
@@ -82,23 +88,31 @@ public class FancyAdvancementToast {
             toastSoundId = Managers.getConfigManager().getToastConfigData().getSoundIdByType(displayInfo.getAdvancementType());
         }
 
+        // Aether overriding sounds support
+        if (holder != null) {
+            ResourceLocation overrideId = Services.AETHER_HELPER.getOverrideId(holder);
+            if (overrideId  != null) {
+                toastSoundId = overrideId;
+            }
+        }
+
         Debug.info("Created new fancy advancement toast: {}; texture: {}; animation: {}", displayInfo.getTitle().getString(), textureId, animationId);
     }
 
     public void draw(GuiGraphics graphics) {
-        animation.draw(graphics, time);
+        animation.draw(graphics, (long) time);
     }
 
-    public void update(long time) {
-        this.time = time;
+    public void update(float delta) {
+        time += delta * 50;
 
-        if (this.time >= animation.getDuration() && !isEnded) {
+        if (time >= animation.getDuration() && !isEnded) {
             animation.unsubscribeFromGeneralConfigDataEvent();
             isEnded = true;
         }
 
         if (soundManager != null) {
-            int timeInSeconds = (int) (this.time / 50);
+            int timeInSeconds = (int) (time / 50);
 
             switch (playedSoundsCount) {
                 case 0 -> playSound(SoundEvents.UI_TOAST_IN, 1.5f);
@@ -117,7 +131,12 @@ public class FancyAdvancementToast {
     }
 
     private void playSound(SoundEvent sound, float volume) {
-        soundManager.play(SimpleSoundInstance.forUI(sound, random.nextFloat(0.95F, 1.05F), volume));
+        float pitch = 1.0f;
+        float pitchRandomness = generalConfig.getPitchRandomness();
+        if (pitchRandomness != 0.0f) {
+            pitch = random.nextFloat(pitch - pitchRandomness, pitch + pitchRandomness);
+        }
+        soundManager.play(SimpleSoundInstance.forUI(sound, pitch, volume));
         playedSoundsCount++;
     }
 

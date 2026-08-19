@@ -1,14 +1,11 @@
 package net.bivrik.fancytoasts.client.toast.animation;
 
-import java.util.List;
-import java.util.Objects;
-import java.util.function.Consumer;
-
+import net.bivrik.fancytoasts.client.config.DisplayTextType;
 import net.bivrik.fancytoasts.client.config.ToastScreenBehavior;
 import net.bivrik.fancytoasts.client.toast.AnimationSetup;
+import net.bivrik.fancytoasts.core.Color;
 import net.bivrik.fancytoasts.core.Managers;
 import net.bivrik.fancytoasts.core.event.GeneralConfigDataEvent;
-import net.bivrik.fancytoasts.platform.utility.Colors;
 import net.bivrik.fancytoasts.platform.utility.GuiContext;
 import net.bivrik.fancytoasts.platform.utility.ToastDisplayInfo;
 import net.bivrik.fancytoasts.utility.TextureUV;
@@ -16,6 +13,7 @@ import net.bivrik.fancytoasts.utility.TypeBasedUVs;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.Style;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.FormattedCharSequence;
 
@@ -39,6 +37,10 @@ public abstract class FancyToastAnimation {
     private boolean shouldTransparentToast;
     private float loopsStrength;
     private float loopsSpeed;
+    private DisplayTextType titleDisplayTextType;
+    private DisplayTextType descriptionDisplayTextType;
+    protected Style titleStyle;
+    protected Style descriptionStyle;
 
     FancyToastAnimation() {
         generalConfigDataEventConsumer = this::onGeneralConfigDataChanged;
@@ -50,6 +52,8 @@ public abstract class FancyToastAnimation {
         this.shouldTransparentToast = data.getToastScreenBehavior().equals(ToastScreenBehavior.TRANSPARENT);
         this.loopsStrength = data.getLoopsStrength();
         this.loopsSpeed = data.getLoopsSpeed();
+        this.titleDisplayTextType = data.getTitleDisplayTextType();
+        this.descriptionDisplayTextType = data.getDescriptionDisplayTextType();
 
         this.minecraft = minecraft;
         this.toastWidth = toastWidth;
@@ -72,7 +76,13 @@ public abstract class FancyToastAnimation {
         loopsSpeed = data.getLoopsSpeed();
     }
 
-    protected void setLines(Component title, Component description) {
+    protected void setLines(Component toastTitle, Component toastDescription) {
+        Component title = titleDisplayTextType.getDisplayTextOrElse(displayInfo, toastTitle);
+        Component description = descriptionDisplayTextType.getDisplayTextOrElse(displayInfo, toastDescription);
+
+        titleStyle = title.getStyle();
+        descriptionStyle = description.getStyle();
+
         titleLines = minecraft.font.split(title, 142);
         descriptionLines = minecraft.font.split(description, 142);
     }
@@ -128,18 +138,14 @@ public abstract class FancyToastAnimation {
         }
 
         int toastCenterX = toastWidth / 2;
-        int titleColor = getMainColorAlpha(alpha);
+        int titleColorARGB = displayInfo.getAdvancementType().getMainColor().withAlpha(alpha).getARGB();
         FormattedCharSequence titleLine = titleLines.getFirst();
 
         if (titleLines.size() == 1) {
-            guiGraphics.drawCenteredString(minecraft.font, titleLine, toastCenterX, 25, titleColor);
+            guiGraphics.drawCenteredString(minecraft.font, titleLine, toastCenterX, 25, titleColorARGB);
         } else {
-            guiGraphics.drawCenteredString(minecraft.font, titleLine, toastCenterX - minecraft.font.width("...") / 2, 25, titleColor);
-            guiGraphics.drawCenteredString(minecraft.font, "...", toastCenterX + 1 + minecraft.font.width(titleLine) / 2, 25, titleColor);
+            guiGraphics.drawCenteredString(minecraft.font, FormattedCharSequence.composite(titleLine, getDots(titleStyle)), toastCenterX , 25, titleColorARGB);
         }
-    }
-    protected void drawTitle(GuiGraphics guiGraphics) {
-        drawTitle(guiGraphics, 1);
     }
 
     protected void drawDescription(GuiGraphics guiGraphics, float alpha) {
@@ -147,20 +153,21 @@ public abstract class FancyToastAnimation {
             return;
         }
 
-        int descriptionColor = getSecondaryColorAlpha(alpha);
+        int descriptionColorARGB = displayInfo.getAdvancementType().getSecondaryColor().withAlpha(alpha).getARGB();
 
-        guiGraphics.drawString(minecraft.font, descriptionLines.get(0), 8, 38, descriptionColor);
+        guiGraphics.drawString(minecraft.font, descriptionLines.get(0), 8, 38, descriptionColorARGB);
         if (descriptionLines.size() > 1) {
             var descriptionSecondLine = descriptionLines.get(1);
-            guiGraphics.drawString(minecraft.font, descriptionSecondLine, 8, 47, descriptionColor);
+            guiGraphics.drawString(minecraft.font, descriptionSecondLine, 8, 47, descriptionColorARGB);
 
             if (descriptionLines.size() > 2) {
-                guiGraphics.drawString(minecraft.font, "...", 8 + minecraft.font.width(descriptionSecondLine), 47, descriptionColor);
+                guiGraphics.drawString(minecraft.font, getDots(descriptionStyle), minecraft.font.width(descriptionSecondLine) + 8, 47, descriptionColorARGB);
             }
         }
     }
-    protected void drawDescription(GuiGraphics guiGraphics) {
-        drawDescription(guiGraphics, 1);
+
+    protected FormattedCharSequence getDots(Style style) {
+        return FormattedCharSequence.forward("...", style);
     }
 
     private final static float TIME_SCALE = 0.00125f;
@@ -176,7 +183,7 @@ public abstract class FancyToastAnimation {
     }
 
     protected int getColor(float alpha) {
-        return Colors.alpha(guiAlpha * alpha, Colors.WHITE);
+        return Color.WHITE.withAlpha(guiAlpha * alpha).getARGB();
     }
 
     protected int getMainColorAlpha(float alpha) {

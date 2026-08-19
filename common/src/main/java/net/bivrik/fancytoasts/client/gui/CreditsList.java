@@ -1,7 +1,7 @@
 package net.bivrik.fancytoasts.client.gui;
 
+import net.bivrik.fancytoasts.core.Color;
 import net.bivrik.fancytoasts.core.manager.CreditsManager;
-import net.bivrik.fancytoasts.platform.utility.Colors;
 import net.bivrik.fancytoasts.platform.utility.Components;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
@@ -31,9 +31,9 @@ public class CreditsList extends AbstractSelectionList<CreditsList.Entry> {
             addSpace();
         }
 
-        for (String category : data.categories().keySet()) {
+        for (String category : data.getCategories().keySet()) {
             addCategory(category);
-            for (CreditsManager.CreditsData.User user : data.categories().get(category)) {
+            for (CreditsManager.CreditsData.User user : data.getCategories().get(category)) {
                 addLine(user);
             }
             addSpace();
@@ -135,7 +135,7 @@ public class CreditsList extends AbstractSelectionList<CreditsList.Entry> {
 
         @Override
         public void render(@NotNull GuiGraphics guiGraphics, int index, int y, int x, int width, int height, int mouseX, int mouseY, boolean isHovering, float partialTick) {
-            guiGraphics.drawCenteredString(font, displayName, xCenter, y, Colors.YELLOW);
+            guiGraphics.drawCenteredString(font, displayName, xCenter, y, Color.YELLOW.getARGB());
         }
     }
 
@@ -157,10 +157,10 @@ public class CreditsList extends AbstractSelectionList<CreditsList.Entry> {
 
         @Override
         public void render(@NotNull GuiGraphics guiGraphics, int index, int y, int x, int width, int height, int mouseX, int mouseY, boolean isHovering, float partialTick) {
-            guiGraphics.drawString(this.font, this.content, x, y, Colors.WHITE);
+            guiGraphics.drawString(this.font, this.content, x, y, Color.WHITE.getARGB());
 
             if (isValidAnnotation) {
-                guiGraphics.drawString(this.font, annotation, x + font.width(this.content) + 8, y, Colors.LIGHT_GRAY);
+                guiGraphics.drawString(this.font, annotation, x + font.width(this.content) + 8, y, Color.LIGHT_GRAY.getARGB());
             }
         }
     }

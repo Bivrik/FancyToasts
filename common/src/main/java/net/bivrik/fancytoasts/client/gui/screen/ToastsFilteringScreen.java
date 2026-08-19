@@ -1,45 +1,31 @@
 package net.bivrik.fancytoasts.client.gui.screen;
 
-import static net.bivrik.fancytoasts.client.gui.LayoutValues.BUTTON_HEIGHT;
-import static net.bivrik.fancytoasts.client.gui.LayoutValues.BUTTON_WIDTH;
-import static net.bivrik.fancytoasts.client.gui.LayoutValues.HALF_PADDING;
-import static net.bivrik.fancytoasts.client.gui.LayoutValues.MARGIN;
-import static net.bivrik.fancytoasts.client.gui.LayoutValues.PADDING;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.function.Consumer;
-
-import org.jetbrains.annotations.NotNull;
-
-import com.mojang.blaze3d.systems.RenderSystem;
-
 import net.bivrik.fancytoasts.client.config.ConfigHandler;
 import net.bivrik.fancytoasts.client.config.data.ToastsFilteringData;
-import net.bivrik.fancytoasts.client.gui.LayoutValues;
+import net.bivrik.fancytoasts.client.gui.OptionsList;
+import net.bivrik.fancytoasts.client.gui.WidgetWidthType;
 import net.bivrik.fancytoasts.client.toast.Appearance;
+import net.bivrik.fancytoasts.core.Color;
 import net.bivrik.fancytoasts.core.Constants;
+import net.bivrik.fancytoasts.core.Easing;
 import net.bivrik.fancytoasts.core.Managers;
 import net.bivrik.fancytoasts.core.event.ToastsFilteringDataEvent;
 import net.bivrik.fancytoasts.platform.Services;
-import net.bivrik.fancytoasts.platform.utility.Colors;
 import net.bivrik.fancytoasts.platform.utility.Components;
-import net.bivrik.fancytoasts.platform.utility.GuiContext;
-import net.bivrik.fancytoasts.platform.utility.ResourceLocations;
-import net.bivrik.fancytoasts.utility.MathEasing;
-import net.bivrik.fancytoasts.utility.TextureUV;
 import net.bivrik.fancytoasts.utility.file.Paths;
 import net.minecraft.Util;
 import net.minecraft.client.gui.GuiGraphics;
-import net.minecraft.client.gui.components.AbstractWidget;
 import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.gui.components.CycleButton;
 import net.minecraft.client.gui.components.Tooltip;
+import net.minecraft.client.gui.layouts.LinearLayout;
 import net.minecraft.client.gui.screens.ConfirmScreen;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.network.chat.CommonComponents;
 import net.minecraft.network.chat.Component;
-import net.minecraft.resources.ResourceLocation;
+import org.jetbrains.annotations.NotNull;
+
+import static net.bivrik.fancytoasts.client.gui.LayoutValues.*;
 
 public class ToastsFilteringScreen extends UniversalScreen {
     private static final Component TITLE = Components.of("title.toasts_filtering");
@@ -55,8 +41,6 @@ public class ToastsFilteringScreen extends UniversalScreen {
     private static final Component TUTORIAL_TOASTS = Components.of("gui.tutorial_toasts");
     private static final Component IGNORED_TOASTS = Components.of("gui.ignored_toasts");
     private static final Component TOASTS_FILTERING_TOOLTIP = Components.of("tooltip.toasts_filtering");
-
-    private static final ResourceLocation LIST_BACKGROUND = ResourceLocations.fromMinecraft("textures/gui/menu_list_background.png");
 
     private ToastsFilteringData toastsFilteringData;
 
@@ -81,44 +65,49 @@ public class ToastsFilteringScreen extends UniversalScreen {
 
     @Override
     protected void init() {
-        int xCenter = this.width / 2;
+        addFooter();
+        addOptionsList();
+    }
 
-        backButton = this.addFWidget(createButton(CommonComponents.GUI_BACK, button -> this.toParentScreen(),
-                xCenter - 125 - HALF_PADDING, this.height - BUTTON_HEIGHT - 6, 75, BUTTON_HEIGHT));
+    private void addOptionsList() {
+        var list = this.addFWidget(new OptionsList(this.minecraft, this.width, this.height - MARGIN * 2 - 2, MARGIN, 25, this));
 
-        resetButton = this.addFWidget(createButton(RESET, button -> confirmResetting(),
-                xCenter - 50, this.height - BUTTON_HEIGHT - 6, 50, BUTTON_HEIGHT));
-
-        doneButton = this.addFWidget(createButton(CommonComponents.GUI_DONE, button -> done(),
-                xCenter + HALF_PADDING, this.height - BUTTON_HEIGHT - 6, 125, BUTTON_HEIGHT));
-
-        ListHelper listHelper = new ListHelper(this);
-
-        fancyAdvancementToastsButton = listHelper.addWidget(createBooleanButton(FANCY_ADVANCEMENT_TOASTS, toastsFilteringData.isFancyAdvancementToastsEnabled(),
-                (button, value) -> toastsFilteringData.setFancyAdvancementToastsEnabled(value), 0, 0));
+        fancyAdvancementToastsButton = list.addElement(createBooleanButton(FANCY_ADVANCEMENT_TOASTS, toastsFilteringData.isFancyAdvancementToastsEnabled(),
+                (button, value) -> toastsFilteringData.setFancyAdvancementToastsEnabled(value), 0, 0), WidgetWidthType.BIG);
 
         if (Services.PLATFORM.isModLoaded(Constants.Compatibilities.FTB_QUESTS_ID)) {
-            fancyQuestToastsButton = listHelper.addWidget(createBooleanButton(FANCY_QUEST_TOASTS, toastsFilteringData.isFancyQuestToastsEnabled(),
-                    (button, value) -> toastsFilteringData.setFancyQuestToastsEnabled(value), 0, 0));
+            fancyQuestToastsButton = list.addElement(createBooleanButton(FANCY_QUEST_TOASTS, toastsFilteringData.isFancyQuestToastsEnabled(),
+                    (button, value) -> toastsFilteringData.setFancyQuestToastsEnabled(value), 0, 0), WidgetWidthType.BIG);
         }
 
-        advancementToastsButton = listHelper.addWidget(createBooleanButton(ADVANCEMENT_TOASTS, toastsFilteringData.isAdvancementToastsEnabled(),
+        advancementToastsButton = list.addElement(createBooleanButton(ADVANCEMENT_TOASTS, toastsFilteringData.isAdvancementToastsEnabled(),
                 (button, value) -> toastsFilteringData.setAdvancementToastsEnabled(value), 0, 0));
 
-        recipeToastsButton = listHelper.addWidget(createBooleanButton(RECIPE_TOASTS, toastsFilteringData.isRecipeToastsEnabled(),
+        recipeToastsButton = list.addElement(createBooleanButton(RECIPE_TOASTS, toastsFilteringData.isRecipeToastsEnabled(),
                 (button, value) -> toastsFilteringData.setRecipeToastsEnabled(value), 0, 0));
 
-        systemToastsButton = listHelper.addWidget(createBooleanButton(SYSTEM_TOASTS, toastsFilteringData.isSystemToastsEnabled(),
+        systemToastsButton = list.addElement(createBooleanButton(SYSTEM_TOASTS, toastsFilteringData.isSystemToastsEnabled(),
                 (button, value) -> toastsFilteringData.setSystemToastsEnabled(value), 0, 0));
 
-        tutorialToastsButton = listHelper.addWidget(createBooleanButton(TUTORIAL_TOASTS, toastsFilteringData.isTutorialToastsEnabled(),
+        tutorialToastsButton = list.addElement(createBooleanButton(TUTORIAL_TOASTS, toastsFilteringData.isTutorialToastsEnabled(),
                 (button, value) -> toastsFilteringData.setTutorialToastsEnabled(value), 0, 0));
 
-        toastsFilteringFileButton = listHelper.addWidget(createButton(IGNORED_TOASTS, button -> openToastsFilteringFile(),
-                0, 0, Tooltip.create(TOASTS_FILTERING_TOOLTIP)));
+        toastsFilteringFileButton = list.addElement(createButton(IGNORED_TOASTS, button -> openToastsFilteringFile(),
+                0, 0, Tooltip.create(TOASTS_FILTERING_TOOLTIP)), WidgetWidthType.BIG);
 
-        listHelper.arrangeWidgets();
-        listHelper.visitWidgets(this::addFWidget);
+        list.alignElements();
+    }
+
+    private void addFooter() {
+        LinearLayout layout = LinearLayout.horizontal().spacing(PADDING);
+
+        backButton = layout.addChild(createButton(CommonComponents.GUI_BACK, button -> this.toParentScreen(), 0, 0, 75, BUTTON_HEIGHT));
+        resetButton = layout.addChild(createButton(RESET, button -> confirmResetting(), 0, 0, 50, BUTTON_HEIGHT));
+        doneButton = layout.addChild(createButton(CommonComponents.GUI_DONE, button -> done(), 0, 0, 125, BUTTON_HEIGHT));
+
+        layout.arrangeElements();
+        layout.setPosition(this.width / 2 - layout.getWidth() / 2, this.height - BUTTON_HEIGHT - 6);
+        layout.visitWidgets(this::addFWidget);
     }
 
     private void openToastsFilteringFile() {
@@ -159,11 +148,8 @@ public class ToastsFilteringScreen extends UniversalScreen {
 
     @Override
     public void render(@NotNull GuiGraphics guiGraphics, int mouseX, int mouseY, float partialTick) {
-        this.renderBackground(guiGraphics, mouseX, mouseY, partialTick);
-        this.drawTitle(guiGraphics);
-        drawListBackground(guiGraphics);
-        this.drawRenderables(guiGraphics, mouseX, mouseY, partialTick);
-        drawSavedFeedback(guiGraphics, this.width / 2 + PADDING - 25 + BUTTON_WIDTH, this.height - BUTTON_HEIGHT);
+        super.render(guiGraphics, mouseX, mouseY, partialTick);
+        drawSavedFeedback(guiGraphics, doneButton.getRight() + PADDING, this.height - BUTTON_HEIGHT);
     }
 
     private void drawSavedFeedback(GuiGraphics guiGraphics, int x, int y) {
@@ -172,62 +158,15 @@ public class ToastsFilteringScreen extends UniversalScreen {
         }
         long time = Util.getMillis() - savedFeedbackStartTime;
 
-        float appearanceLerp = MathEasing.easeOutLerp(0.0f, 1.0f, Appearance.getProgress(time, 500, 0));
+        float appearanceLerp = Easing.OCT_EASE_OUT.lerp(0, 1.0f, Appearance.getProgress(time, 500, 0));
         float disappearanceLerp = Appearance.getProgress(time, 500, 400);
 
-        int color = Colors.alpha(appearanceLerp - disappearanceLerp, Colors.YELLOW);
-        guiGraphics.drawString(this.font, SAVED_LABEL, x, y, color);
+        Color color = Color.YELLOW.withAlpha(appearanceLerp - disappearanceLerp);
 
-        if (time > 850) {
+        guiGraphics.drawString(this.font, SAVED_LABEL, x, y, color.getARGB());
+
+        if (time >= 850) {
             isSaved = false;
-        }
-    }
-
-    private void drawListBackground(GuiGraphics guiGraphics) {
-        GuiContext context = new GuiContext(guiGraphics);
-        int MARGIN = LayoutValues.MARGIN;
-        RenderSystem.enableBlend();
-        context.drawGUITexture(LIST_BACKGROUND, 0, MARGIN, this.width, this.height - MARGIN * 2 - 2, TextureUV.ZERO, 32, 32);
-        context.drawGUITexture(Screen.HEADER_SEPARATOR, 0, MARGIN, this.width, 2, TextureUV.ZERO, 32, 2);
-        context.drawGUITexture(Screen.FOOTER_SEPARATOR, 0, this.height - MARGIN - 2, this.width, 2, TextureUV.ZERO, 32, 2);
-        RenderSystem.disableBlend();
-    }
-
-    private static class ListHelper {
-        private final List<AbstractWidget> widgets = new ArrayList<>();
-        private final Screen parentScreen;
-
-        private ListHelper(Screen parentScreen) {
-            this.parentScreen = parentScreen;
-        }
-
-        public <T extends AbstractWidget> T addWidget(T widget) {
-            widgets.add(widget);
-            return widget;
-        }
-
-        public void arrangeWidgets() {
-            int y = MARGIN + PADDING;
-            int xCenter = parentScreen.width / 2;
-            for (int i = 0; i < widgets.size(); i++) {
-                int x = xCenter;
-
-                if ((i & 1) == 0) { // Even number - first column + higher than previous row
-                    if (i != 0) {
-                        y += 20 + PADDING;
-                    }
-
-                    x -= BUTTON_WIDTH + HALF_PADDING;
-                } else { // Odd number - second column
-                    x += HALF_PADDING;
-                }
-
-                widgets.get(i).setPosition(x, y);
-            }
-        }
-
-        public void visitWidgets(Consumer<AbstractWidget> widgetConsumer) {
-            widgets.forEach(widgetConsumer);
         }
     }
 }

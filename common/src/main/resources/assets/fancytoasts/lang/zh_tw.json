@@ -31,6 +31,7 @@
   "fancytoasts.gui.toast_settings": "提示設定",
   "fancytoasts.gui.toasts_filtering": "Toasts 過濾", // Machine translation
   "fancytoasts.gui.jade_hiding": "在提示時隱藏 Jade", // Machine translation
+  "fancytoasts.gui.aether_compat": "使用 Aether 覆蓋的音效", // Machine translation
   "fancytoasts.gui.sounds_enabled": "提示音效",
   "fancytoasts.gui.task_volume": "任務音量",
   "fancytoasts.gui.goal_volume": "目標音量",
@@ -38,6 +39,9 @@
   "fancytoasts.gui.screen_behavior": "顯示方式",
   "fancytoasts.gui.loops_strength": "循環強度", // Machine translation
   "fancytoasts.gui.loops_speed": "循環速度", // Machine translation
+  "fancytoasts.gui.boss_bar_hiding": "提示顯示時隱藏首領血條", // Machine translation
+  "fancytoasts.gui.pitch_randomness": "音高隨機性", // Machine translation
+  "fancytoasts.gui.animation_speed": "動畫速度", // Machine translation
   "fancytoasts.gui.anchor": "錨點", // Machine translation
   "fancytoasts.gui.fancy_advancement_toasts": "華麗進度提示", // Machine translation
   "fancytoasts.gui.advancement_toasts": "進度提示", // Machine translation
@@ -46,6 +50,8 @@
   "fancytoasts.gui.system_toasts": "系統提示", // Machine translation
   "fancytoasts.gui.tutorial_toasts": "教學提示", // Machine translation
   "fancytoasts.gui.ignored_toasts": "忽略的提示", // Machine translation
+  "fancytoasts.gui.title_display_text": "提示標題", // Machine translation
+  "fancytoasts.gui.description_display_text": "提示描述", // Machine translation
 
   "fancytoasts.toast_type.task": "任務",
   "fancytoasts.toast_type.goal": "目標",
@@ -54,6 +60,11 @@
   "fancytoasts.screen_behavior.transparent": "透明",
   "fancytoasts.screen_behavior.behind": "在畫面後方",
   "fancytoasts.screen_behavior.top": "上方",
+
+  "fancytoasts.text_type.default": "預設", // Machine translation
+  "fancytoasts.text_type.title": "標題", // Machine translation
+  "fancytoasts.text_type.description": "描述", // Machine translation
+  "fancytoasts.text_type.announcement": "公告", // Machine translation
 
   "fancytoasts.anchor.top_left": "左上", // Machine translation
   "fancytoasts.anchor.top": "中上", // Machine translation
@@ -77,13 +88,21 @@
   "fancytoasts.tooltip.animations": "提示框顯示時所使用的動畫。",
   "fancytoasts.tooltip.sounds": "提示框出現時播放的音效。.",
   "fancytoasts.tooltip.jade_hiding": "切換 Jade 隱藏。如果開啟，當進度提示出現時，Jade 的標記將會被隱藏，然後再重新顯示。", // Machine translation
+  "fancytoasts.tooltip.aether_compat": "切換 Aether 相容性。開啟後，Aether 將如預期覆蓋其進度的聲音。", // Machine translation
   "fancytoasts.tooltip.sounds_enabled": "切換音效。若關閉，所有提示音效將會靜音。",
   "fancytoasts.tooltip.anchor": "代表進度提示在畫面上的錨點。位置 \"x\" 和 \"y\" 是根據錨點計算的偏移量。", // Machine translation
   "fancytoasts.tooltip.screen_behavior": "設定當開啟介面（如背包、儲物箱等）時，進度提示的顯示方式。",
   "fancytoasts.tooltip.reload_customs": "重新載入所有基於設定的檔案，例如材質，並在列表中新增/移除它們。", // Machine translation
   "fancytoasts.tooltip.loops_strength": "代表正弦/餘弦波的強度，較弱/較強的波浪。", // Machine translation
   "fancytoasts.tooltip.loops_speed": "代表正弦/餘弦波的速度，較慢/較快的波浪。", // Machine translation
+  "fancytoasts.tooltip.boss_bar_hiding": "切換是否隱藏首領血條。若開啟，當進度提示出現時，首領血條將會暫時隱藏，並在提示結束後重新顯示。", // Machine translation
+  "fancytoasts.tooltip.pitch_randomness": "播放音效時會應用音高隨機性，使其聽起來不那麼重複。0% = 完全無音高變化。", // Machine translation
+  "fancytoasts.tooltip.animation_speed": "作為動畫速度的倍率係數。", // Machine translation
   "fancytoasts.tooltip.toasts_filtering": "需要重新啟動 Minecraft。要將單一進度加入黑名單，請在 'toastsToIgnore' 中輸入 \"namespace:category/advancement\"。要將整個類別加入黑名單，請輸入 \"namespace:category/...\"", // Machine translation
+  "fancytoasts.tooltip.display_text.default": "以動畫中的預設預設值作為提示的標題/描述顯示。", // Machine translation
+  "fancytoasts.tooltip.display_text.title": "以進度的標題作為提示的標題/描述顯示。", // Machine translation
+  "fancytoasts.tooltip.display_text.description": "以進度的描述作為提示的標題/描述顯示。", // Machine translation
+  "fancytoasts.tooltip.display_text.announcement": "以進度的公告作為提示的標題/描述顯示。", // Machine translation
 
   "fancytoasts.toast.animation.standard": "標準",
   "fancytoasts.toast.animation.standard.description": "標準動畫。平穩柔和，滑動順暢。帶有原版風格",
@@ -108,6 +127,8 @@
   "fancytoasts.toast.texture.steamy.description": "我花了 1500 小時才拿到 100%！媽媽，妳為我驕傲嗎？靈感來自 Steam",
   "fancytoasts.toast.texture.landspaper": "報紙", // Machine translation
   "fancytoasts.toast.texture.landspaper.description": "我想你收到了一封新信件！或許可以把它釘在某處以便仔細閱讀。希望它不會受潮溶解", // Machine translation
+  "fancytoasts.toast.texture.neon": "霓虹", // Machine translation
+  "fancytoasts.toast.texture.neon.description": "想要一些更暗黑的氛圍嗎？你知道的，霓虹招牌在夜裡總是格外引人注目", // Machine translation
 
   "fancytoasts.toast.sound.minecraft.description": "Minecraft 內建音效",
   "fancytoasts.toast.sound.mod.description": "來自模組的音效", // Machine translation

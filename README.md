@@ -1,9 +1,17 @@
-> This is 1.21.1 Fabric/Forge/NeoForge version 1.4.5.1
+> Fancy Toasts 1.4.7 - Fabric/Forge/NeoForge - Minecraft 1.21.1
 
-# Fancy Toasts 🎉
-There is a reason why you are here. It might be curiosity. But I think you are here because of there old-fashion advancement toasts! This is a Minecraft Mod that changes plain, boring, and annoying advancement toasts to something new and interesting!
+# Fancy Toasts
 
-<img src="https://cdn.modrinth.com/data/eUziWqPC/images/4906580b5c9307549e5f6ff80306f36b49f28a8f.gif" alt="Showcase of Standard Animation" width="400"/> <img src="https://cdn.modrinth.com/data/eUziWqPC/images/a33770e45d281106e9534ce83cb68de86d528f59.gif" alt="Showcase of Playful Animation" width="400"/>
+<div>
+    <img alt="Version Static Badge" style="pointer-events: none;" src="https://img.shields.io/badge/latest_stable-1.4.7-brightgreen?style=plastic&logo=data%3Aimage%2Fsvg%2Bxml%3Bbase64%2CPHN2ZyB4bWxucz0naHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmcnIHZpZXdCb3g9JzAgMCAyNCAyNCcgZmlsbD0nd2hpdGUnPjxwYXRoIGQ9J00zLjM3NSAzQzIuMzM5IDMgMS41IDMuODQgMS41IDQuODc1di43NWMwIDEuMDM2Ljg0IDEuODc1IDEuODc1IDEuODc1aDE3LjI1YzEuMDM1IDAgMS44NzUtLjg0IDEuODc1LTEuODc1di0uNzVDMjIuNSAzLjgzOSAyMS42NiAzIDIwLjYyNSAzSDMuMzc1WicvPjxwYXRoIGQ9J20zLjA4NyA5IC41NCA5LjE3NkEzIDMgMCAwIDAgNi42MiAyMWgxMC43NTdhMyAzIDAgMCAwIDIuOTk1LTIuODI0TDIwLjkxMyA5SDMuMDg3Wm02LjE2MyAzLjc1QS43NS43NSAwIDAgMSAxMCAxMmg0YS43NS43NSAwIDAgMSAwIDEuNWgtNGEuNzUuNzUgMCAwIDEtLjc1LS43NVonLz48L3N2Zz4K">
+    <a href="https://github.com/Bivrik/FancyToasts/blob/master/LICENSE" target="_blank">
+        <img alt="Licence Static Badge" src="https://img.shields.io/badge/licence-MIT-blue?style=plastic&logo=data%3Aimage%2Fsvg%2Bxml%3Bbase64%2CPHN2ZyB4bWxucz0naHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmcnIHZpZXdCb3g9JzAgMCAyNCAyNCcgZmlsbD0nd2hpdGUnPjxwYXRoIGZpbGwtcnVsZT0nZXZlbm9kZCcgZD0nTTEyLjUxNiAyLjE3YS43NS43NSAwIDAgMC0xLjAzMiAwIDExLjIwOSAxMS4yMDkgMCAwIDEtNy44NzcgMy4wOC43NS43NSAwIDAgMC0uNzIyLjUxNUExMi43NCAxMi43NCAwIDAgMCAyLjI1IDkuNzVjMCA1Ljk0MiA0LjA2NCAxMC45MzMgOS41NjMgMTIuMzQ4YS43NDkuNzQ5IDAgMCAwIC4zNzQgMGM1LjQ5OS0xLjQxNSA5LjU2My02LjQwNiA5LjU2My0xMi4zNDggMC0xLjM5LS4yMjMtMi43My0uNjM1LTMuOTg1YS43NS43NSAwIDAgMC0uNzIyLS41MTZsLS4xNDMuMDAxYy0yLjk5NiAwLTUuNzE3LTEuMTctNy43MzQtMy4wOFptMy4wOTQgOC4wMTZhLjc1Ljc1IDAgMSAwLTEuMjItLjg3MmwtMy4yMzYgNC41M0w5LjUzIDEyLjIyYS43NS43NSAwIDAgMC0xLjA2IDEuMDZsMi4yNSAyLjI1YS43NS43NSAwIDAgMCAxLjE0LS4wOTRsMy43NS01LjI1WicvPjwvc3ZnPg%3D%3D">
+    </a>
+    <a href="https://boosty.to/bivrik" target="_blank">
+        <img alt="Boosty Static Badge" src="https://img.shields.io/badge/boosty-check_out_blog_or_support-red?style=plastic&logo=boosty&logoColor=white">
+    </a>
+</div>
 
-### Download
-Try it out on [CurseForge](https://www.curseforge.com/minecraft/mc-mods/fancy-toasts) or [Modrinth](https://modrinth.com/mod/fancy-toasts). Other sources are not mine.
+Fancy Toasts is a Minecraft mod that replaces plain, boring, and annoying advancement toasts with something new, customizable, and exciting! It was never about gameplay or mechanics, but the atmosphere.
+
+Looking for the latest version? Check the main branch [`README.md`](https://github.com/Bivrik/FancyToasts/blob/master/README.md)

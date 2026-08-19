@@ -9,7 +9,7 @@ public abstract class ConfigData {
         this.version = 0;
     }
 
-    protected  <T extends ConfigData> T withLatestVersion() {
+    protected <T extends ConfigData> T withLatestVersion() {
         this.version = getLatestVersion();
         @SuppressWarnings("unchecked")
         T result = (T) this;
@@ -18,6 +18,10 @@ public abstract class ConfigData {
 
     public int getVersion() {
         return version;
+    }
+
+    public void setVersion(int version) {
+        this.version = version;
     }
 
     public String getPath() {

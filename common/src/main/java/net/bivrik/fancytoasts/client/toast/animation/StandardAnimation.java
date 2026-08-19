@@ -2,20 +2,20 @@ package net.bivrik.fancytoasts.client.toast.animation;
 
 import net.bivrik.fancytoasts.client.toast.AnimationSetup;
 import net.bivrik.fancytoasts.client.toast.Appearance;
+import net.bivrik.fancytoasts.core.Easing;
 import net.bivrik.fancytoasts.platform.utility.GuiContext;
-import net.bivrik.fancytoasts.utility.MathEasing;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.util.FormattedCharSequence;
 
 public class StandardAnimation extends FancyToastAnimation {
     private final Appearance ICON_APPEARANCE = new Appearance(2000, 0);
-    private final Appearance BANNER_APPEARANCE = new Appearance(500, 1500);
-    private final Appearance BACKGROUND_APPEARANCE = new Appearance(800, 1600);
+    private final Appearance BANNER_APPEARANCE = new Appearance(700, 1600);
+    private final Appearance BACKGROUND_APPEARANCE = new Appearance(1000, 1550);
     private final Appearance TEXT_APPEARANCE = new Appearance(1000, 2000);
 
     private final int FADE_OUT_DURATION = 2000;
-    private final int DURATION = 6000 + FADE_OUT_DURATION;
+    private final int DURATION = 5500 + FADE_OUT_DURATION;
 
     @Override
     public void setup(AnimationSetup setup, Minecraft minecraft, int toastWidth, int toastHeight) {
@@ -37,7 +37,7 @@ public class StandardAnimation extends FancyToastAnimation {
         GuiContext context = new GuiContext(guiGraphics);
 
         if (fadeOutProgress > 0) {
-            float fadeOutY = MathEasing.easeInLerp(0, -80.0F, fadeOutProgress);
+            float fadeOutY = Easing.OCT_EASE_IN_OUT.lerp(0, -80.0f, fadeOutProgress);
 
             context.push();
             context.translate(0, fadeOutY);
@@ -46,7 +46,7 @@ public class StandardAnimation extends FancyToastAnimation {
         if (backgroundAppearProgress > 0) {
             context.push();
             if (backgroundAppearProgress != 1) {
-                float y = MathEasing.easeOutLerp(-200.0F, 0, backgroundAppearProgress);
+                float y = Easing.OCT_EASE_OUT.lerp(-200.0f, 0, backgroundAppearProgress);
                 context.translate(0, y);
             }
             this.drawBackground(context);
@@ -56,7 +56,7 @@ public class StandardAnimation extends FancyToastAnimation {
         if (bannerAppearProgress > 0) {
             context.push();
             if (bannerAppearProgress != 1) {
-                float xScale = MathEasing.easeOutLerp(0, 1.0f, bannerAppearProgress);
+                float xScale = Easing.OCT_EASE_OUT.lerp(0, 1.0f, bannerAppearProgress);
                 context.scaleAround(xScale, 1, 81, 0);
             }
             this.drawBanner(context);
@@ -66,10 +66,10 @@ public class StandardAnimation extends FancyToastAnimation {
         if (iconAppearProgress > 0) {
             context.push();
             if (iconAppearProgress != 1) {
-                float scale = MathEasing.easeOutLerp(0, 1.0f, iconAppearProgress);
+                float scale = Easing.OCT_EASE_OUT.lerp(0, 1.0f, iconAppearProgress);
                 context.scaleAround(scale, 81, 13);
 
-                float y = MathEasing.easeOutLerp(-100.0F, 0, iconAppearProgress);
+                float y = Easing.ELASTIC_OUT.lerp(-40.0f, 0, iconAppearProgress);
                 context.translate(0, y);
             }
             float sinY = this.sinusoidLoop(time, 1.6f, 1.5f);
@@ -96,22 +96,28 @@ public class StandardAnimation extends FancyToastAnimation {
         }
 
         int centerToastX = this.toastWidth / 2;
-        int descriptionColor = getSecondaryColorAlpha(alpha);
+        int descriptionColorARGB = this.displayInfo.getAdvancementType().getSecondaryColor().withAlpha(alpha).getARGB();
 
         if (descriptionLines.size() == 1) {
-            guiGraphics.drawCenteredString(this.minecraft.font, descriptionLines.getFirst(), centerToastX, 43, descriptionColor);
+            guiGraphics.drawCenteredString(this.minecraft.font, descriptionLines.getFirst(), centerToastX, 42, descriptionColorARGB);
         } else {
-            int lineHeight = 42 - (9 * (descriptionLines.size() - 1)) / 2;
-            for (FormattedCharSequence line : descriptionLines) {
-                guiGraphics.drawCenteredString(this.minecraft.font, line, centerToastX, lineHeight, descriptionColor);
-                lineHeight += 9;
+            int lineHeight = 38;
+            guiGraphics.drawCenteredString(this.minecraft.font, descriptionLines.getFirst(), centerToastX, lineHeight, descriptionColorARGB);
+
+            lineHeight += 9;
+            FormattedCharSequence secondLine;
+            if (descriptionLines.size() == 2) {
+                secondLine = descriptionLines.get(1);
+            } else {
+                secondLine = FormattedCharSequence.composite(descriptionLines.get(1), getDots(descriptionStyle));
             }
+            guiGraphics.drawCenteredString(this.minecraft.font, secondLine, centerToastX, lineHeight, descriptionColorARGB);
         }
     }
 
     @Override
     public int getDuration() {
-        return DURATION;
+        return DURATION - 800;
     }
 
     @Override

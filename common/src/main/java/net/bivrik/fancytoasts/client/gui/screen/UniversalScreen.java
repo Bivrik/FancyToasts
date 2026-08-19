@@ -2,8 +2,6 @@ package net.bivrik.fancytoasts.client.gui.screen;
 
 import net.bivrik.fancytoasts.client.gui.LayoutValues;
 import net.bivrik.fancytoasts.client.gui.Slider;
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.OptionInstance;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.gui.components.CycleButton;
@@ -111,14 +109,18 @@ public abstract class UniversalScreen extends Screen {
         return createButton(label, action, x, y, LayoutValues.BUTTON_WIDTH, LayoutValues.BUTTON_HEIGHT, null);
     }
 
-    protected Slider createSlider(Component label, float initialValue, float maxValue, float threshold, Function<Float, Component> displayer, Consumer<Float> responder, int x, int y, int width, int height, Tooltip tooltip) {
-        var slider = new Slider(x, y, width, height, label, initialValue, maxValue, threshold).setDisplayer(displayer).setResponder(responder);
+    protected Slider createSlider(Component label, float initialValue, float minValue, float maxValue, float threshold, Function<Float, Component> displayer, Consumer<Float> responder, int x, int y, int width, int height, Tooltip tooltip) {
+        var slider = new Slider(x, y, width, height, label, initialValue, minValue, maxValue, threshold).setDisplayer(displayer).setResponder(responder);
 
         if (tooltip != null) {
             slider.setTooltip(tooltip);
         }
 
         return slider;
+    }
+
+    protected Slider createSlider(Component label, float initialValue, float maxValue, float threshold, Function<Float, Component> displayer, Consumer<Float> responder, int x, int y, int width, int height, Tooltip tooltip) {
+        return createSlider(label, initialValue, 0.0f, maxValue, threshold, displayer, responder, x, y, width, height, tooltip);
     }
 
     protected Slider createSlider(Component label, float initialValue, float maxValue, float threshold, Function<Float, Component> displayer, Consumer<Float> responder, int x, int y, Tooltip tooltip) {

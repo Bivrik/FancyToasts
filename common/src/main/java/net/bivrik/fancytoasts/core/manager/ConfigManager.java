@@ -1,7 +1,7 @@
 package net.bivrik.fancytoasts.core.manager;
 
-import net.bivrik.fancytoasts.client.config.data.ConfigData;
 import net.bivrik.fancytoasts.client.config.ConfigHandler;
+import net.bivrik.fancytoasts.client.config.data.ConfigData;
 import net.bivrik.fancytoasts.client.config.data.GeneralConfigData;
 import net.bivrik.fancytoasts.client.config.data.ToastConfigData;
 import net.bivrik.fancytoasts.client.config.data.ToastsFilteringData;

@@ -1,46 +1,45 @@
 package net.bivrik.fancytoasts.client.gui.screen;
 
-import com.mojang.blaze3d.systems.RenderSystem;
+import net.bivrik.fancytoasts.client.config.ConfigHandler;
+import net.bivrik.fancytoasts.client.config.DisplayTextType;
 import net.bivrik.fancytoasts.client.config.ToastAnchor;
 import net.bivrik.fancytoasts.client.config.ToastScreenBehavior;
-import net.bivrik.fancytoasts.client.config.ConfigHandler;
 import net.bivrik.fancytoasts.client.config.data.GeneralConfigData;
 import net.bivrik.fancytoasts.client.gui.IntegerEditBox;
+import net.bivrik.fancytoasts.client.gui.OptionsList;
 import net.bivrik.fancytoasts.client.gui.Slider;
+import net.bivrik.fancytoasts.client.gui.WidgetWidthType;
 import net.bivrik.fancytoasts.client.toast.Appearance;
+import net.bivrik.fancytoasts.core.Color;
 import net.bivrik.fancytoasts.core.Constants;
+import net.bivrik.fancytoasts.core.Easing;
+import net.bivrik.fancytoasts.core.Managers;
 import net.bivrik.fancytoasts.core.event.GeneralConfigDataEvent;
 import net.bivrik.fancytoasts.platform.Services;
-import net.bivrik.fancytoasts.platform.utility.Colors;
 import net.bivrik.fancytoasts.platform.utility.Components;
-import net.bivrik.fancytoasts.platform.utility.GuiContext;
-import net.bivrik.fancytoasts.platform.utility.ResourceLocations;
-import net.bivrik.fancytoasts.utility.MathEasing;
-import net.bivrik.fancytoasts.core.Managers;
-import net.bivrik.fancytoasts.utility.TextureUV;
+import net.bivrik.fancytoasts.utility.FastMath;
 import net.minecraft.Util;
 import net.minecraft.client.gui.GuiGraphics;
-import net.minecraft.client.gui.components.*;
+import net.minecraft.client.gui.components.Button;
+import net.minecraft.client.gui.components.CycleButton;
+import net.minecraft.client.gui.components.Tooltip;
+import net.minecraft.client.gui.layouts.LinearLayout;
 import net.minecraft.client.gui.screens.ConfirmScreen;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.network.chat.CommonComponents;
 import net.minecraft.network.chat.Component;
-import net.minecraft.resources.ResourceLocation;
 import org.jetbrains.annotations.NotNull;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.function.Consumer;
-
 import static net.bivrik.fancytoasts.client.gui.LayoutValues.*;
-import static net.bivrik.fancytoasts.client.gui.LayoutValues.PADDING;
 
 public class GeneralConfigScreen extends UniversalScreen {
-    private static final Component TITLE = Components.of("title.general_settings");
+    private static final Component TITLE = Components.of("title.general_settings");;
     private static final Component RESET_GENERAL_SETTINGS_TITLE = Components.of("title.reset_general_settings");
     private static final Component RESET_GENERAL_SETTINGS_LABEL = Components.of("label.reset_general_settings");
     private static final Component SAVED_LABEL = Components.of("label.saved");
     private static final Component JADE_HIDING = Components.of("gui.jade_hiding");
+    private static final Component AETHER_COMPAT = Components.of("gui.aether_compat");
+    private static final Component BOSS_BAR_HIDING = Components.of("gui.boss_bar_hiding");
     private static final Component SOUNDS = Components.of("gui.sounds_enabled");
     private static final Component SCREEN_BEHAVIOR = Components.of("gui.screen_behavior");
     private static final Component TASK_VOLUME = Components.of("gui.task_volume");
@@ -48,18 +47,25 @@ public class GeneralConfigScreen extends UniversalScreen {
     private static final Component CHALLENGE_VOLUME = Components.of("gui.challenge_volume");
     private static final Component LOOPS_STRENGTH = Components.of("gui.loops_strength");
     private static final Component LOOPS_SPEED = Components.of("gui.loops_speed");
+    private static final Component PITCH_RANDOMNESS = Components.of("gui.pitch_randomness");
+    private static final Component ANIMATION_SPEED = Components.of("gui.animation_speed");
     private static final Component RESET = Components.of("gui.reset");
     private static final Component ANCHOR = Components.of("gui.anchor");
+    private static final Component TITLE_DISPLAY_TEXT = Components.of("gui.title_display_text");
+    private static final Component DESCRIPTION_DISPLAY_TEXT = Components.of("gui.description_display_text");
     private static final Component JADE_HIDING_TOOLTIP = Components.of("tooltip.jade_hiding");
+    private static final Component AETHER_COMPAT_TOOLTIP = Components.of("tooltip.aether_compat");
+    private static final Component BOSS_BAR_HIDING_TOOLTIP = Components.of("tooltip.boss_bar_hiding");
     private static final Component SOUNDS_TOOLTIP = Components.of("tooltip.sounds_enabled");
     private static final Component SCREEN_BEHAVIOR_TOOLTIP = Components.of("tooltip.screen_behavior");
     private static final Component ANCHOR_TOOLTIP = Components.of("tooltip.anchor");
     private static final Component LOOPS_STRENGTH_TOOLTIP = Components.of("tooltip.loops_strength");
     private static final Component LOOPS_SPEED_TOOLTIP = Components.of("tooltip.loops_speed");
-
-    private static final ResourceLocation LIST_BACKGROUND = ResourceLocations.fromMinecraft("textures/gui/menu_list_background.png");
+    private static final Component PITCH_RANDOMNESS_TOOLTIP = Components.of("tooltip.pitch_randomness");
+    private static final Component ANIMATION_SPEED_TOOLTIP = Components.of("tooltip.animation_speed");
 
     private GeneralConfigData generalConfigData;
+
     private boolean isSaved;
     private long savedFeedbackStartTime;
 
@@ -67,11 +73,17 @@ public class GeneralConfigScreen extends UniversalScreen {
     private Button backButton;
     private Button resetButton;
     private CycleButton<Boolean> jadeHidingButton;
+    private CycleButton<Boolean> aetherCompatButton;
+    private CycleButton<Boolean> bossBarHidingButton;
     private CycleButton<Boolean> soundsEnabledButton;
     private CycleButton<ToastScreenBehavior> toastScreenBehaviorButton;
     private CycleButton<ToastAnchor> toastAnchorButton;
+    private CycleButton<DisplayTextType> titleDisplayTextType;
+    private CycleButton<DisplayTextType> descriptionDisplayTextType;
     private Slider loopsStrengthSlider;
     private Slider loopsSpeedSlider;
+    private Slider pitchRandomnessSlider;
+    private Slider animationSpeedSlider;
     private Slider taskVolumeSlider;
     private Slider goalVolumeSlider;
     private Slider challengeVolumeSlider;
@@ -85,61 +97,89 @@ public class GeneralConfigScreen extends UniversalScreen {
 
     @Override
     protected void init() {
-        int xCenter = this.width / 2;
+        addFooter();
+        addOptionsList();
+    }
 
-        backButton = this.addFWidget(createButton(CommonComponents.GUI_BACK, button -> this.toParentScreen(),
-                xCenter - 125 - HALF_PADDING, this.height - BUTTON_HEIGHT - 6, 75, BUTTON_HEIGHT));
-
-        resetButton = this.addFWidget(createButton(RESET, button -> confirmResetting(),
-                xCenter - 50, this.height - BUTTON_HEIGHT - 6, 50, BUTTON_HEIGHT));
-
-        doneButton = this.addFWidget(createButton(CommonComponents.GUI_DONE, button -> done(),
-                xCenter + HALF_PADDING, this.height - BUTTON_HEIGHT - 6, 125, BUTTON_HEIGHT));
-
-        ListHelper listHelper = new ListHelper(this);
+    private void addOptionsList() {
+        var list = this.addFWidget(new OptionsList(this.minecraft, this.width, this.height - MARGIN * 2 - 2, MARGIN, 25, this));
 
         if (Services.PLATFORM.isModLoaded(Constants.Compatibilities.JADE_ID)) {
-            jadeHidingButton = listHelper.addWidget(createBooleanButton(JADE_HIDING, generalConfigData.isJadeHiding(),
-                    (button, value) -> generalConfigData.setJadeHiding(value), 0, 0, Tooltip.create(JADE_HIDING_TOOLTIP)));
+            jadeHidingButton = list.addElement(createBooleanButton(JADE_HIDING, generalConfigData.isJadeHiding(),
+                    (button, value) -> generalConfigData.setJadeHiding(value), 0, 0, Tooltip.create(JADE_HIDING_TOOLTIP)), WidgetWidthType.BIG);
         }
 
-        soundsEnabledButton = listHelper.addWidget(createBooleanButton(SOUNDS, generalConfigData.areSoundsEnabled(),
+        if (Services.PLATFORM.isModLoaded(Constants.Compatibilities.AETHER_ID)) {
+            aetherCompatButton = list.addElement(createBooleanButton(AETHER_COMPAT, generalConfigData.isAetherEnabled(),
+                    (button, value) -> generalConfigData.setAetherEnabled(value), 0, 0, Tooltip.create(AETHER_COMPAT_TOOLTIP)), WidgetWidthType.BIG);
+        }
+
+        bossBarHidingButton = list.addElement(createBooleanButton(BOSS_BAR_HIDING, generalConfigData.isBossBarHiding(),
+                (button, value) -> generalConfigData.setBossBarHiding(value), 0, 0, Tooltip.create(BOSS_BAR_HIDING_TOOLTIP)), WidgetWidthType.BIG);
+
+        soundsEnabledButton = list.addElement(createBooleanButton(SOUNDS, generalConfigData.areSoundsEnabled(),
                 (button, value) -> generalConfigData.setSoundsEnabled(value), 0, 0, Tooltip.create(SOUNDS_TOOLTIP)));
 
-        toastScreenBehaviorButton = listHelper.addWidget(CycleButton.builder(ToastScreenBehavior::getDisplayName)
+        pitchRandomnessSlider = list.addElement(createSlider(PITCH_RANDOMNESS, generalConfigData.getPitchRandomness(), 0.2f, 0,
+                this::percentDisplayer, generalConfigData::setPitchRandomness, 0, 0, Tooltip.create(PITCH_RANDOMNESS_TOOLTIP)));
+
+        toastScreenBehaviorButton = list.addElement(CycleButton.builder(ToastScreenBehavior::getDisplayName)
                 .withValues(ToastScreenBehavior.values()).withInitialValue(generalConfigData.getToastScreenBehavior())
                 .withTooltip(toastScreenBehavior -> Tooltip.create(SCREEN_BEHAVIOR_TOOLTIP))
-                .create(0, 0, BUTTON_WIDTH, BUTTON_HEIGHT, SCREEN_BEHAVIOR, (button, value) -> generalConfigData.setToastScreenBehavior(value))
-        );
+                .create(0, 0, BUTTON_WIDTH, BUTTON_HEIGHT, SCREEN_BEHAVIOR, (button, value) -> generalConfigData.setToastScreenBehavior(value)), WidgetWidthType.BIG);
 
-        toastAnchorButton = listHelper.addWidget(CycleButton.builder(ToastAnchor::getDisplayName)
+        toastAnchorButton = list.addElement(CycleButton.builder(ToastAnchor::getDisplayName)
                 .withValues(ToastAnchor.values()).withInitialValue(generalConfigData.getToastAnchor())
                 .withTooltip(toastAnchor -> Tooltip.create(ANCHOR_TOOLTIP))
                 .create(0, 0, BUTTON_WIDTH, BUTTON_HEIGHT, ANCHOR, (button, value) -> changeToastAnchor(value)));
 
-        offsetXEditBox = listHelper.addWidget(new IntegerEditBox(this.font, 0, 0, HALF_BUTTON_WIDTH - HALF_PADDING, BUTTON_HEIGHT, this.offsetXEditBox, Component.empty(), generalConfigData.getOffsetX()));
+        offsetXEditBox = list.addElement(new IntegerEditBox(this.font, 0, 0, HALF_BUTTON_WIDTH, BUTTON_HEIGHT, this.offsetXEditBox, Component.empty(), generalConfigData.getOffsetX()), WidgetWidthType.SMALL);
         offsetXEditBox.setResponder(value -> offsetXEditBox.setIntegerResponder(generalConfigData::setOffsetX));
 
-        offsetYEditBox = listHelper.addWidget(new IntegerEditBox(this.font, 0, 0, HALF_BUTTON_WIDTH - HALF_PADDING, BUTTON_HEIGHT, this.offsetYEditBox, Component.empty(), generalConfigData.getOffsetY()));
+        offsetYEditBox = list.addElement(new IntegerEditBox(this.font, 0, 0, HALF_BUTTON_WIDTH - HALF_PADDING, BUTTON_HEIGHT, this.offsetYEditBox, Component.empty(), generalConfigData.getOffsetY()), WidgetWidthType.SMALL);
         offsetYEditBox.setResponder(value -> offsetYEditBox.setIntegerResponder(generalConfigData::setOffsetY));
 
-        loopsStrengthSlider = listHelper.addWidget(createSlider(LOOPS_STRENGTH, generalConfigData.getLoopsStrength(), 10.0f, 0.02f,
-                this::multiplierDisplayer, generalConfigData::setLoopsStrength, 0, 0, Tooltip.create(LOOPS_STRENGTH_TOOLTIP)));
+        titleDisplayTextType = list.addElement(CycleButton.builder(DisplayTextType::getDisplayName)
+                .withValues(DisplayTextType.values()).withInitialValue(generalConfigData.getTitleDisplayTextType())
+                .withTooltip(displayTextType -> Tooltip.create(Components.of("tooltip.display_text." + displayTextType.getName())))
+                .create(0, 0, BUTTON_WIDTH, BUTTON_HEIGHT, TITLE_DISPLAY_TEXT, (button, value) -> generalConfigData.setTitleDisplayTextType(value)));
 
-        loopsSpeedSlider = listHelper.addWidget(createSlider(LOOPS_SPEED, generalConfigData.getLoopsSpeed(), 10.0f, 0.02f,
-                this::multiplierDisplayer, generalConfigData::setLoopsSpeed, 0, 0, Tooltip.create(LOOPS_SPEED_TOOLTIP)));
+        descriptionDisplayTextType = list.addElement(CycleButton.builder(DisplayTextType::getDisplayName)
+                .withValues(DisplayTextType.values()).withInitialValue(generalConfigData.getDescriptionDisplayTextType())
+                .withTooltip(displayTextType -> Tooltip.create(Components.of("tooltip.display_text." + displayTextType.getName())))
+                .create(0, 0, BUTTON_WIDTH, BUTTON_HEIGHT, DESCRIPTION_DISPLAY_TEXT, (button, value) -> generalConfigData.setDescriptionDisplayTextType(value)));
 
-        taskVolumeSlider = listHelper.addWidget(createSlider(TASK_VOLUME, generalConfigData.getTaskVolume(), 2.0f,
+        loopsStrengthSlider = list.addElement(createSlider(LOOPS_STRENGTH, generalConfigData.getLoopsStrength(), 10.0f, 0.02f,
+                this::multiplierDisplayer, generalConfigData::setLoopsStrength, 0, 0, HALF_BUTTON_WIDTH - HALF_PADDING, BUTTON_HEIGHT, Tooltip.create(LOOPS_STRENGTH_TOOLTIP)));
+
+        loopsSpeedSlider = list.addElement(createSlider(LOOPS_SPEED, generalConfigData.getLoopsSpeed(), 10.0f, 0.02f,
+                this::multiplierDisplayer, generalConfigData::setLoopsSpeed, 0, 0, HALF_BUTTON_WIDTH - HALF_PADDING, BUTTON_HEIGHT, Tooltip.create(LOOPS_SPEED_TOOLTIP)));
+
+        animationSpeedSlider = list.addElement(createSlider(ANIMATION_SPEED, generalConfigData.getAnimationSpeed(), 0.5f, 3.0f, 0.02f,
+                this::multiplierDisplayer, generalConfigData::setAnimationSpeed, 0, 0, BUTTON_WIDTH, BUTTON_HEIGHT, Tooltip.create(ANIMATION_SPEED_TOOLTIP)));
+
+        taskVolumeSlider = list.addElement(createSlider(TASK_VOLUME, generalConfigData.getTaskVolume(), 2.0f,
                 this::percentDisplayer, generalConfigData::setTaskVolume, 0, 0));
 
-        goalVolumeSlider = listHelper.addWidget(createSlider(GOAL_VOLUME, generalConfigData.getGoalVolume(), 2.0f,
+        goalVolumeSlider = list.addElement(createSlider(GOAL_VOLUME, generalConfigData.getGoalVolume(), 2.0f,
                 this::percentDisplayer, generalConfigData::setGoalVolume, 0, 0));
 
-        challengeVolumeSlider = listHelper.addWidget(createSlider(CHALLENGE_VOLUME, generalConfigData.getChallengeVolume(), 2.0f,
+        challengeVolumeSlider = list.addElement(createSlider(CHALLENGE_VOLUME, generalConfigData.getChallengeVolume(), 2.0f,
                 this::percentDisplayer, generalConfigData::setChallengeVolume, 0, 0));
 
-        listHelper.arrangeWidgets();
-        listHelper.visitWidgets(this::addFWidget);
+        list.alignElements();
+    }
+
+    private void addFooter() {
+        LinearLayout layout = LinearLayout.horizontal().spacing(PADDING);
+
+        backButton = layout.addChild(createButton(CommonComponents.GUI_BACK, button -> this.toParentScreen(), 0, 0, 75, BUTTON_HEIGHT));
+        resetButton = layout.addChild(createButton(RESET, button -> confirmResetting(), 0, 0, 50, BUTTON_HEIGHT));
+        doneButton = layout.addChild(createButton(CommonComponents.GUI_DONE, button -> done(), 0, 0, 125, BUTTON_HEIGHT));
+
+        layout.arrangeElements();
+        layout.setPosition(this.width / 2 - layout.getWidth() / 2, this.height - BUTTON_HEIGHT - 6);
+        layout.visitWidgets(this::addFWidget);
     }
 
     private void changeToastAnchor(ToastAnchor anchor) {
@@ -182,11 +222,8 @@ public class GeneralConfigScreen extends UniversalScreen {
 
     @Override
     public void render(@NotNull GuiGraphics guiGraphics, int mouseX, int mouseY, float partialTick) {
-        this.renderBackground(guiGraphics, mouseX, mouseY, partialTick);
-        this.drawTitle(guiGraphics);
-        drawListBackground(guiGraphics);
-        this.drawRenderables(guiGraphics, mouseX, mouseY, partialTick);
-        drawSavedFeedback(guiGraphics, this.width / 2 + PADDING - 25 + BUTTON_WIDTH, this.height - BUTTON_HEIGHT);
+        super.render(guiGraphics, mouseX, mouseY, partialTick);
+        drawSavedFeedback(guiGraphics, doneButton.getRight() + PADDING, this.height - BUTTON_HEIGHT);
         drawPositionHints(guiGraphics);
     }
 
@@ -197,8 +234,8 @@ public class GeneralConfigScreen extends UniversalScreen {
 
         int offsetX = 7;
         int offsetY = 5;
-        guiGraphics.drawString(this.font, "x:", offsetXEditBox.getX() - offsetX, offsetXEditBox.getY() + offsetY, Colors.LIGHT_GRAY);
-        guiGraphics.drawString(this.font, "y:", offsetYEditBox.getX() - offsetX, offsetYEditBox.getY() + offsetY, Colors.LIGHT_GRAY);
+        guiGraphics.drawString(this.font, "x:", offsetXEditBox.getX() - offsetX, offsetXEditBox.getY() + offsetY, Color.LIGHT_GRAY.getARGB());
+        guiGraphics.drawString(this.font, "y:", offsetYEditBox.getX() - offsetX, offsetYEditBox.getY() + offsetY, Color.LIGHT_GRAY.getARGB());
     }
 
     private void drawSavedFeedback(GuiGraphics guiGraphics, int x, int y) {
@@ -207,24 +244,16 @@ public class GeneralConfigScreen extends UniversalScreen {
         }
         long time = Util.getMillis() - savedFeedbackStartTime;
 
-        float appearanceLerp = MathEasing.easeOutLerp(0.0f, 1.0f, Appearance.getProgress(time, 500, 0));
+        float appearanceLerp = Easing.OCT_EASE_OUT.lerp(0, 1.0f, Appearance.getProgress(time, 500, 0));
         float disappearanceLerp = Appearance.getProgress(time, 500, 400);
 
-        int color = Colors.alpha(appearanceLerp - disappearanceLerp, Colors.YELLOW);
-        guiGraphics.drawString(this.font, SAVED_LABEL, x, y, color);
+        Color color = Color.YELLOW.withAlpha(appearanceLerp - disappearanceLerp);
 
-        if (time > 850) {
+        guiGraphics.drawString(this.font, SAVED_LABEL, x, y, color.getARGB());
+
+        if (time >= 850) {
             isSaved = false;
         }
-    }
-
-    private void drawListBackground(GuiGraphics guiGraphics) {
-        GuiContext context = new GuiContext(guiGraphics);
-        RenderSystem.enableBlend();
-        context.drawGUITexture(LIST_BACKGROUND, 0, MARGIN, this.width, this.height - MARGIN * 2 - 2, TextureUV.ZERO, 32, 32);
-        context.drawGUITexture(Screen.HEADER_SEPARATOR, 0, MARGIN, this.width, 2, TextureUV.ZERO, 32, 2);
-        context.drawGUITexture(Screen.FOOTER_SEPARATOR, 0, this.height - MARGIN - 2, this.width, 2, TextureUV.ZERO, 32, 2);
-        RenderSystem.disableBlend();
     }
 
     private Component multiplierDisplayer(float value) {
@@ -232,64 +261,6 @@ public class GeneralConfigScreen extends UniversalScreen {
     }
 
     private Component percentDisplayer(float value) {
-        return Component.literal(Math.round(value * 100) + "%");
-    }
-
-    private static class ListHelper {
-        private final List<AbstractWidget> widgets = new ArrayList<>();
-        private final Screen parentScreen;
-
-        private ListHelper(Screen parentScreen) {
-            this.parentScreen = parentScreen;
-        }
-
-        public <T extends AbstractWidget> T addWidget(T widget) {
-            widgets.add(widget);
-            return widget;
-        }
-
-        public void arrangeWidgets() {
-            int y = MARGIN + PADDING;
-            int xCenter = parentScreen.width / 2;
-            int neighbours = 0; // Works only if two "neighbours" go together one after another
-            int numMinus = 0;
-            for (int i = 0; i < widgets.size(); i++) {
-                var widget = widgets.get(i);
-                int x = xCenter;
-
-                if (widget.getWidth() != BUTTON_WIDTH) {
-                    neighbours++;
-                }
-
-                if (neighbours == 2) {
-                    x += HALF_BUTTON_WIDTH + HALF_PADDING;
-                    i--;
-                }
-
-                i -= numMinus;
-                if ((i & 1) == 0) { // Even number - first column + higher than previous row
-                    if (i != 0 && neighbours != 2) {
-                        y += 20 + PADDING;
-                    }
-
-                    x -= BUTTON_WIDTH + HALF_PADDING;
-                } else { // Odd number - second column
-                    x += HALF_PADDING;
-                }
-                i += numMinus;
-
-                if (neighbours == 2) {
-                    i++;
-                    numMinus++;
-                    neighbours = 0;
-                }
-
-                widget.setPosition(x, y);
-            }
-        }
-
-        public void visitWidgets(Consumer<AbstractWidget> widgetConsumer) {
-            widgets.forEach(widgetConsumer);
-        }
+        return Component.literal(FastMath.round(value * 100) + "%");
     }
 }

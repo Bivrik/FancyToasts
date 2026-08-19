@@ -2,8 +2,8 @@ package net.bivrik.fancytoasts.client.toast.animation;
 
 import net.bivrik.fancytoasts.client.toast.AnimationSetup;
 import net.bivrik.fancytoasts.client.toast.Appearance;
+import net.bivrik.fancytoasts.core.Easing;
 import net.bivrik.fancytoasts.platform.utility.GuiContext;
-import net.bivrik.fancytoasts.utility.MathEasing;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
 
@@ -45,13 +45,13 @@ public class OldlikeAnimation extends FancyToastAnimation {
             context.push();
             float alpha = 1;
             if (bannerAppearProgress != 1) {
-                alpha = MathEasing.easeOutLerp(0.0F, 1.0F, bannerAppearProgress);
+                alpha = Easing.OCT_EASE_OUT.lerp(0, 1.0f, bannerAppearProgress);
 
-                float x = MathEasing.easeOutLerp(35.0F, 0, bannerAppearProgress);
+                float x = Easing.OCT_EASE_OUT.lerp(35, 0, bannerAppearProgress);
                 context.translate(x, 0);
             }
             else if (fadeOutProgress != 1 && fadeOutProgress > 0) {
-                alpha = MathEasing.easeInLerp(1.0F, 0, fadeOutProgress);
+                alpha = Easing.OCT_EASE_IN.lerp(1.0f, 0, fadeOutProgress);
             }
             float sinY = this.sinusoidLoop(time, 1.14f, 2.0f);
             context.translate(0, sinY + 5);
@@ -63,13 +63,13 @@ public class OldlikeAnimation extends FancyToastAnimation {
             context.push();
             float alpha = 1;
             if (backgroundAppearProgress != 1) {
-                alpha = MathEasing.easeOutLerp(0, 1.0F, backgroundAppearProgress);
+                alpha = Easing.OCT_EASE_OUT.lerp(0, 1.0f, backgroundAppearProgress);
 
-                float x = MathEasing.easeOutLerp(35.0F, 0, backgroundAppearProgress);
+                float x = Easing.OCT_EASE_OUT.lerp(35, 0, backgroundAppearProgress);
                 context.translate(x, 0);
             }
             else if (fadeOutProgress != 1 && fadeOutProgress > 0) {
-                alpha = MathEasing.easeInLerp(1.0F, 0, fadeOutProgress);
+                alpha = Easing.OCT_EASE_IN.lerp(1.0f, 0, fadeOutProgress);
             }
             this.drawBackground(context, alpha);
             context.pop();
@@ -81,12 +81,12 @@ public class OldlikeAnimation extends FancyToastAnimation {
             int x = 77;
             float scale = 1;
             if (iconAppearProgress != 1) {
-                alpha = MathEasing.easeOutLerp(0.0F, 1.0F, iconAppearProgress);
-                x = MathEasing.easeOutLerp(115, 77, iconAppearProgress);
+                alpha = Easing.OCT_EASE_OUT.lerp(0, 1.0f, iconAppearProgress);
+                x = Easing.OCT_EASE_OUT.lerp(115, 77, iconAppearProgress);
             }
             else if (fadeOutProgress != 1 && fadeOutProgress > 0) {
-                alpha = MathEasing.easeInLerp(1.0F, 0, fadeOutProgress);
-                scale = MathEasing.easeInLerp(1.0F, 0, fadeOutProgress);
+                alpha = Easing.OCT_EASE_IN.lerp(1.0f, 0, fadeOutProgress);
+                scale = Easing.OCT_EASE_IN.lerp(1.0f, 0, fadeOutProgress);
             }
             context.translate(x, 11);
             context.scaleAround(scale, 68 + 13, 14);
@@ -98,13 +98,13 @@ public class OldlikeAnimation extends FancyToastAnimation {
 
         float fadeOutTextAlpha = 0;
         if (fadeOutProgress != 1 && fadeOutProgress > 0) {
-            fadeOutTextAlpha = MathEasing.easeInLerp(0, 1.0F, fadeOutProgress);
+            fadeOutTextAlpha = Easing.OCT_EASE_IN.lerp(0, 1.0f, fadeOutProgress);
         }
 
         if (titleAppearProgress > 0.05f) {
             context.push();
             if (titleAppearProgress != 1) {
-                int x = MathEasing.elasticEaseOutLerp(50, 0, titleAppearProgress);
+                float x = Easing.ELASTIC_OUT.lerp(28, 0, titleAppearProgress);
                 context.translate(x, 0);
             }
             this.drawTitle(guiGraphics, titleAppearProgress - fadeOutTextAlpha);
@@ -114,7 +114,7 @@ public class OldlikeAnimation extends FancyToastAnimation {
         if (descriptionAppearProgress > 0.05f) {
             context.push();
             if (descriptionAppearProgress != 1) {
-                int x = MathEasing.elasticEaseOutLerp(50, 0, descriptionAppearProgress);
+                float x = Easing.ELASTIC_OUT.lerp(28, 0, descriptionAppearProgress);
                 context.translate(x, 0);
             }
             this.drawDescription(guiGraphics, descriptionAppearProgress - fadeOutTextAlpha);

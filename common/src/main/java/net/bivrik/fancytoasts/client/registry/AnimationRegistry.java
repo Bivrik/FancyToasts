@@ -1,9 +1,9 @@
 package net.bivrik.fancytoasts.client.registry;
 
-import net.bivrik.fancytoasts.core.Debug;
+import net.bivrik.fancytoasts.client.toast.DisplayData;
 import net.bivrik.fancytoasts.client.toast.animation.FancyToastAnimation;
 import net.bivrik.fancytoasts.client.toast.animation.StandardAnimation;
-import net.bivrik.fancytoasts.client.toast.DisplayData;
+import net.bivrik.fancytoasts.core.Debug;
 import net.minecraft.resources.ResourceLocation;
 import org.slf4j.Logger;
 

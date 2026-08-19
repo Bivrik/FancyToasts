@@ -1,9 +1,9 @@
 package net.bivrik.fancytoasts.client.gui.screen;
 
-import net.bivrik.fancytoasts.platform.utility.GuiContext;
+import net.bivrik.fancytoasts.core.Color;
 import net.bivrik.fancytoasts.core.Managers;
 import net.bivrik.fancytoasts.platform.utility.Components;
-import net.bivrik.fancytoasts.platform.utility.Colors;
+import net.bivrik.fancytoasts.platform.utility.GuiContext;
 import net.minecraft.Util;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.Button;
@@ -105,7 +105,7 @@ public class FancyToastsScreen extends UniversalScreen {
         GuiContext context = new GuiContext(guiGraphics);
         context.push();
         context.scaleAround(size, (float) (this.width / 2), 12 + 9 + 4.5F);
-        guiGraphics.drawCenteredString(this.font, splash, this.width / 2, 12 + 9, Colors.YELLOW);
+        guiGraphics.drawCenteredString(this.font, splash, this.width / 2, 12 + 9, Color.YELLOW.getARGB());
         context.pop();
     }
 }

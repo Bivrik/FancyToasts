@@ -3,6 +3,7 @@ package net.bivrik.fancytoasts.core.manager;
 import com.mojang.blaze3d.platform.NativeImage;
 import net.bivrik.fancytoasts.client.config.JsonHelper;
 import net.bivrik.fancytoasts.client.config.data.ToastConfigData;
+import net.bivrik.fancytoasts.client.registry.TextureRegistry;
 import net.bivrik.fancytoasts.client.toast.DisplayData;
 import net.bivrik.fancytoasts.client.toast.FancyAdvancementToast;
 import net.bivrik.fancytoasts.core.Constants;
@@ -10,11 +11,10 @@ import net.bivrik.fancytoasts.core.Debug;
 import net.bivrik.fancytoasts.core.IManager;
 import net.bivrik.fancytoasts.core.Managers;
 import net.bivrik.fancytoasts.core.event.ToastConfigDataEvent;
+import net.bivrik.fancytoasts.platform.utility.ResourceLocations;
 import net.bivrik.fancytoasts.utility.file.FileHelper;
 import net.bivrik.fancytoasts.utility.file.FileType;
 import net.bivrik.fancytoasts.utility.file.Paths;
-import net.bivrik.fancytoasts.client.registry.TextureRegistry;
-import net.bivrik.fancytoasts.platform.utility.ResourceLocations;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.texture.DynamicTexture;
 import net.minecraft.client.renderer.texture.TextureManager;
@@ -164,7 +164,7 @@ public class CustomTextureManager implements IManager {
     }
 
     public void load() {
-        if (FileHelper.tryCreateDir(TEXTURES_DIR)) {
+        if (FileHelper.tryCreateDirectory(TEXTURES_DIR)) {
             return;
         }
 
@@ -232,13 +232,16 @@ public class CustomTextureManager implements IManager {
 
     // Make it more constant
     // Please, don't forget
+    // Uugh God
     private ResourceLocation getIdFromFile(File file) {
-        String rawPath = file.getPath().replace("\\", "/");
-        return ResourceLocations.of(rawPath.replaceFirst("./config/fancytoasts", "config"));
+        String rawPath = file.getPath().replace("\\", "/").replaceFirst("./config/fancytoasts", "config");
+        Debug.warn(rawPath);
+        return ResourceLocations.of(rawPath);
     }
 
     private File getFileFromId(ResourceLocation id) {
         String rawPath = id.getPath().replaceFirst("config", "./config/fancytoasts");
-        return new File(rawPath.replace("/", "\\"));
+        Debug.warn(rawPath);
+        return new File(rawPath);
     }
 }

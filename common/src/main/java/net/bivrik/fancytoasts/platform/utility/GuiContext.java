@@ -8,6 +8,8 @@ import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.resources.ResourceLocation;
 
 public class GuiContext {
+    private static final int WHITE = -1;
+
     private final GuiGraphics guiGraphics;
     private final PoseStack stack;
 
@@ -59,7 +61,7 @@ public class GuiContext {
     }
 
     public void drawGUITexture(ResourceLocation textureLocation, int x, int y, int width, int height, TextureUV uv, int textureWidth, int textureHeight, int color) {
-        if (color == Colors.WHITE) {
+        if (color == WHITE) {
             drawGUITexture(textureLocation, x, y, width, height, uv, textureWidth, textureHeight);
             return;
         }

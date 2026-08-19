@@ -1,10 +1,10 @@
 package net.bivrik.fancytoasts.client.gui;
 
-import net.bivrik.fancytoasts.core.Constants;
 import net.bivrik.fancytoasts.client.gui.screen.ToastConfigScreen;
 import net.bivrik.fancytoasts.client.registry.AnimationRegistry;
 import net.bivrik.fancytoasts.client.registry.TextureRegistry;
 import net.bivrik.fancytoasts.client.toast.DisplayData;
+import net.bivrik.fancytoasts.core.Constants;
 import net.bivrik.fancytoasts.platform.utility.Components;
 import net.minecraft.client.Minecraft;
 import net.minecraft.core.registries.BuiltInRegistries;
