@@ -9,59 +9,59 @@ import net.bivrik.fancytoasts.platform.utility.Components;
 import net.minecraft.client.Minecraft;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.network.chat.Component;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 
 public enum SettingType {
     TEXTURES("textures") {
         @Override
-        public void apply(ToastConfigScreen instance, ResourceLocation id) {
+        public void apply(ToastConfigScreen instance, Identifier id) {
             instance.getConfigData().setTextureId(id);
         }
 
         @Override
-        public DisplayData getDisplayData(ResourceLocation id) {
+        public DisplayData getDisplayData(Identifier id) {
             return TextureRegistry.getData(id);
         }
 
         @Override
-        public ResourceLocation getCurrentId(ToastConfigScreen instance) {
+        public Identifier getCurrentId(ToastConfigScreen instance) {
             return instance.getConfigData().getTextureId();
         }
 
         @Override
-        public ResourceLocation[] getKeySet() {
-            return TextureRegistry.getIds().toArray(new ResourceLocation[0]);
+        public Identifier[] getKeySet() {
+            return TextureRegistry.getIds().toArray(new Identifier[0]);
         }
     },
     ANIMATIONS("animations") {
         @Override
-        public void apply(ToastConfigScreen instance, ResourceLocation id) {
+        public void apply(ToastConfigScreen instance, Identifier id) {
             instance.getConfigData().setAnimationId(id);
         }
 
         @Override
-        public DisplayData getDisplayData(ResourceLocation id) {
+        public DisplayData getDisplayData(Identifier id) {
             return AnimationRegistry.getData(id);
         }
 
         @Override
-        public ResourceLocation getCurrentId(ToastConfigScreen instance) {
+        public Identifier getCurrentId(ToastConfigScreen instance) {
             return instance.getConfigData().getAnimationId();
         }
 
         @Override
-        public ResourceLocation[] getKeySet() {
-            return AnimationRegistry.getIds().toArray(new ResourceLocation[0]);
+        public Identifier[] getKeySet() {
+            return AnimationRegistry.getIds().toArray(new Identifier[0]);
         }
     },
     SOUNDS("sounds") {
         @Override
-        public void apply(ToastConfigScreen instance, ResourceLocation id) {
+        public void apply(ToastConfigScreen instance, Identifier id) {
             instance.getConfigData().putSoundIdForType(id, instance.getAdvancementType());
         }
 
         @Override
-        public DisplayData getDisplayData(ResourceLocation id) {
+        public DisplayData getDisplayData(Identifier id) {
             DisplayData data;
 
             String name = id.toLanguageKey();
@@ -77,20 +77,20 @@ public enum SettingType {
         }
 
         @Override
-        public ResourceLocation getCurrentId(ToastConfigScreen instance) {
+        public Identifier getCurrentId(ToastConfigScreen instance) {
             return instance.getConfigData().getSoundIdByType(instance.getAdvancementType());
         }
 
         @Override
-        public ResourceLocation[] getKeySet() {
-            return Minecraft.getInstance().getSoundManager().getAvailableSounds().toArray(new ResourceLocation[0]);
+        public Identifier[] getKeySet() {
+            return Minecraft.getInstance().getSoundManager().getAvailableSounds().toArray(new Identifier[0]);
         }
     };
 
-    public abstract void apply(ToastConfigScreen instance, ResourceLocation entry);
-    public abstract DisplayData getDisplayData(ResourceLocation id);
-    public abstract ResourceLocation getCurrentId(ToastConfigScreen instance);
-    public abstract ResourceLocation[] getKeySet();
+    public abstract void apply(ToastConfigScreen instance, Identifier entry);
+    public abstract DisplayData getDisplayData(Identifier id);
+    public abstract Identifier getCurrentId(ToastConfigScreen instance);
+    public abstract Identifier[] getKeySet();
 
     private final String name;
 

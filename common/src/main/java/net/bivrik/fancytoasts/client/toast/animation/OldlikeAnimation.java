@@ -5,7 +5,7 @@ import net.bivrik.fancytoasts.client.toast.Appearance;
 import net.bivrik.fancytoasts.core.Easing;
 import net.bivrik.fancytoasts.platform.utility.GuiContext;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.GuiGraphicsExtractor;
 
 public class OldlikeAnimation extends FancyToastAnimation {
     private final Appearance ICON_APPEARANCE = new Appearance(2000, 0);
@@ -25,8 +25,8 @@ public class OldlikeAnimation extends FancyToastAnimation {
     }
 
     @Override
-    public void draw(GuiGraphics guiGraphics, long time) {
-        super.draw(guiGraphics, time);
+    public void draw(GuiGraphicsExtractor GuiGraphicsExtractor, long time) {
+        super.draw(GuiGraphicsExtractor, time);
 
         float iconAppearProgress = ICON_APPEARANCE.getProgress(time);
         float bannerAppearProgress = BANNER_APPEARANCE.getProgress(time);
@@ -35,7 +35,7 @@ public class OldlikeAnimation extends FancyToastAnimation {
         float descriptionAppearProgress = DESCRIPTION_TEXT_APPEARANCE.getProgress(time);
         float fadeOutProgress = Appearance.getProgress(time, FADE_OUT_DURATION, DURATION - FADE_OUT_DURATION);
 
-        GuiContext context = new GuiContext(guiGraphics);
+        GuiContext context = new GuiContext(GuiGraphicsExtractor);
 
         if (bannerAppearProgress > 0) {
             context.push();
@@ -103,7 +103,7 @@ public class OldlikeAnimation extends FancyToastAnimation {
                 float x = Easing.ELASTIC_OUT.lerp(28, 0, titleAppearProgress);
                 context.translate(x, 0);
             }
-            this.drawTitle(guiGraphics, titleAppearProgress - fadeOutTextAlpha);
+            this.drawTitle(GuiGraphicsExtractor, titleAppearProgress - fadeOutTextAlpha);
             context.pop();
         }
 
@@ -113,7 +113,7 @@ public class OldlikeAnimation extends FancyToastAnimation {
                 float x = Easing.ELASTIC_OUT.lerp(28, 0, descriptionAppearProgress);
                 context.translate(x, 0);
             }
-            this.drawDescription(guiGraphics, descriptionAppearProgress - fadeOutTextAlpha);
+            this.drawDescription(GuiGraphicsExtractor, descriptionAppearProgress - fadeOutTextAlpha);
             context.pop();
         }
     }

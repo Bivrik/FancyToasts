@@ -8,9 +8,9 @@ import net.bivrik.fancytoasts.client.toast.DisplayData;
 import net.bivrik.fancytoasts.client.toast.animation.*;
 import net.bivrik.fancytoasts.platform.Services;
 import net.bivrik.fancytoasts.platform.utility.Components;
-import net.bivrik.fancytoasts.utility.DefaultLocations;
+import net.bivrik.fancytoasts.utility.DefaultIdentifiers;
 import net.minecraft.client.Minecraft;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import org.lwjgl.glfw.GLFW;
 
 import java.util.function.Supplier;
@@ -37,17 +37,17 @@ public class Common {
 
     // Registrations
     public static void registerKeyBindings() {
-        KeyBindingRegistry.register("config_menu", GLFW.GLFW_KEY_K, () -> Minecraft.getInstance().setScreen(new FancyToastsScreen(null)));
+        KeyBindingRegistry.register("config_menu", GLFW.GLFW_KEY_K, () -> Minecraft.getInstance().gui.setScreen(new FancyToastsScreen(null)));
     }
 
-    private static void registerTexture(ResourceLocation id, String name) {
+    private static void registerTexture(Identifier id, String name) {
         String translationKeyName = Components.stringOf("toast.texture." + name);
         TextureRegistry.register(id, new DisplayData(
                 translationKeyName, Constants.MOD_NAME, translationKeyName + ".description", true)
         );
     }
 
-    private static void registerAnimation(ResourceLocation id, String name, Supplier<FancyToastAnimation> animation) {
+    private static void registerAnimation(Identifier id, String name, Supplier<FancyToastAnimation> animation) {
         String translationKeyName = Components.stringOf("toast.animation." + name);
         AnimationRegistry.register(id, animation, new DisplayData(
                 translationKeyName, Constants.MOD_NAME, translationKeyName + ".description", true)
@@ -57,18 +57,18 @@ public class Common {
     static {
         registerKeyBindings();
 
-        registerTexture(DefaultLocations.Textures.VANILLA, "vanilla");
-        registerTexture(DefaultLocations.Textures.NATURE, "nature");
-        registerTexture(DefaultLocations.Textures.OG, "og");
-        registerTexture(DefaultLocations.Textures.MODERN, "modern");
-        registerTexture(DefaultLocations.Textures.STEAMY, "steamy");
-        registerTexture(DefaultLocations.Textures.TERRACRAFT, "terracraft");
-        registerTexture(DefaultLocations.Textures.LANDSPAPER, "landspaper");
-        registerTexture(DefaultLocations.Textures.NEON, "neon");
+        registerTexture(DefaultIdentifiers.Textures.VANILLA, "vanilla");
+        registerTexture(DefaultIdentifiers.Textures.NATURE, "nature");
+        registerTexture(DefaultIdentifiers.Textures.OG, "og");
+        registerTexture(DefaultIdentifiers.Textures.MODERN, "modern");
+        registerTexture(DefaultIdentifiers.Textures.STEAMY, "steamy");
+        registerTexture(DefaultIdentifiers.Textures.TERRACRAFT, "terracraft");
+        registerTexture(DefaultIdentifiers.Textures.LANDSPAPER, "landspaper");
+        registerTexture(DefaultIdentifiers.Textures.NEON, "neon");
 
-        registerAnimation(DefaultLocations.Animations.STANDARD, "standard", StandardAnimation::new);
-        registerAnimation(DefaultLocations.Animations.PLAYFUL, "playful", PlayfulAnimation::new);
-        registerAnimation(DefaultLocations.Animations.QUIRKY, "quirky", QuirkyAnimation::new);
-        registerAnimation(DefaultLocations.Animations.OLDLIKE, "oldlike", OldlikeAnimation::new);
+        registerAnimation(DefaultIdentifiers.Animations.STANDARD, "standard", StandardAnimation::new);
+        registerAnimation(DefaultIdentifiers.Animations.PLAYFUL, "playful", PlayfulAnimation::new);
+        registerAnimation(DefaultIdentifiers.Animations.QUIRKY, "quirky", QuirkyAnimation::new);
+        registerAnimation(DefaultIdentifiers.Animations.OLDLIKE, "oldlike", OldlikeAnimation::new);
     }
 }

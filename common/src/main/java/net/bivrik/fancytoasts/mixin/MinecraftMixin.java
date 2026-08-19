@@ -21,19 +21,4 @@ public class MinecraftMixin {
     private void onTick(CallbackInfo info) {
         Common.onTick();
     }
-
-    @Redirect(
-            method = "runTick",
-            at = @At(
-                    value = "INVOKE",
-                    target = "Lnet/minecraft/client/gui/components/toasts/ToastManager;update()V")
-    )
-    private void onRunTick(net.minecraft.client.gui.components.toasts.ToastManager minecraftToastManager) {
-        minecraftToastManager.update();
-
-        ToastManager toastManager = Managers.getToastManager();
-        if (toastManager == null) return;
-
-        toastManager.update();
-    }
 }

@@ -4,8 +4,8 @@ import net.bivrik.fancytoasts.core.Color;
 import net.bivrik.fancytoasts.core.Managers;
 import net.bivrik.fancytoasts.platform.utility.Components;
 import net.bivrik.fancytoasts.platform.utility.GuiContext;
-import net.minecraft.Util;
-import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.util.Util;
+import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.gui.components.PlainTextButton;
 import net.minecraft.client.gui.screens.ConfirmLinkScreen;
@@ -93,19 +93,19 @@ public class FancyToastsScreen extends UniversalScreen {
     }
 
     @Override
-    public void render(@NotNull GuiGraphics guiGraphics, int mouseX, int mouseY, float partialTick) {
-        super.render(guiGraphics, mouseX, mouseY, partialTick);
+    public void extractRenderState(@NotNull GuiGraphicsExtractor GuiGraphicsExtractor, int mouseX, int mouseY, float partialTick) {
+        super.extractRenderState(GuiGraphicsExtractor, mouseX, mouseY, partialTick);
 
-        drawSplash(guiGraphics);
+        drawSplash(GuiGraphicsExtractor);
     }
 
-    private void drawSplash(@NotNull GuiGraphics guiGraphics) {
+    private void drawSplash(@NotNull GuiGraphicsExtractor GuiGraphicsExtractor) {
         float size = (float) (Math.abs(Math.cos((double) Util.getMillis() / 250) * 0.1f) + 0.9f);
 
-        GuiContext context = new GuiContext(guiGraphics);
+        GuiContext context = new GuiContext(GuiGraphicsExtractor);
         context.push();
         context.scaleAround(size, (float) (this.width / 2), 12 + 9 + 4.5F);
-        guiGraphics.drawCenteredString(this.font, splash, this.width / 2, 12 + 9, Color.YELLOW.getARGB());
+        GuiGraphicsExtractor.centeredText(this.font, splash, this.width / 2, 12 + 9, Color.YELLOW.getARGB());
         context.pop();
     }
 }

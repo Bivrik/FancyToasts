@@ -3,7 +3,7 @@ package net.bivrik.fancytoasts.client.config.data;
 import net.bivrik.fancytoasts.core.Constants;
 import net.bivrik.fancytoasts.platform.utility.FancyToastType;
 import net.bivrik.fancytoasts.utility.file.Paths;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 
 import java.util.*;
 
@@ -57,7 +57,7 @@ public class ToastsFilteringData extends ConfigData {
         return typesToIgnore.get(type);
     }
 
-    public boolean isToastIgnored(ResourceLocation toastLocation) {
+    public boolean isToastIgnored(Identifier toastLocation) {
         String toast = toastLocation.toString();
 
         if (exactMatches.contains(toast)) {

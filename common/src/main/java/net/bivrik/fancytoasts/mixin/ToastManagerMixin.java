@@ -11,7 +11,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 import java.util.Objects;
 
-@Mixin(value = net.minecraft.client.gui.components.toasts.ToastManager.class, priority = 5000)
+@Mixin(value = ToastManager.class, priority = 5000)
 public class ToastManagerMixin {
     @Inject(at = @At("HEAD"), method = "addToast", cancellable = true)
     private void onAddToast(Toast toast, CallbackInfo info) {

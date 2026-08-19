@@ -13,8 +13,8 @@ import net.bivrik.fancytoasts.core.event.ToastsFilteringDataEvent;
 import net.bivrik.fancytoasts.platform.Services;
 import net.bivrik.fancytoasts.platform.utility.Components;
 import net.bivrik.fancytoasts.utility.file.Paths;
-import net.minecraft.Util;
-import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.util.Util;
+import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.gui.components.CycleButton;
 import net.minecraft.client.gui.components.Tooltip;
@@ -147,12 +147,12 @@ public class ToastsFilteringScreen extends UniversalScreen {
     }
 
     @Override
-    public void render(@NotNull GuiGraphics guiGraphics, int mouseX, int mouseY, float partialTick) {
-        super.render(guiGraphics, mouseX, mouseY, partialTick);
-        drawSavedFeedback(guiGraphics, doneButton.getRight() + PADDING, this.height - BUTTON_HEIGHT);
+    public void extractRenderState(@NotNull GuiGraphicsExtractor GuiGraphicsExtractor, int mouseX, int mouseY, float partialTick) {
+        super.extractRenderState(GuiGraphicsExtractor, mouseX, mouseY, partialTick);
+        drawSavedFeedback(GuiGraphicsExtractor, doneButton.getRight() + PADDING, this.height - BUTTON_HEIGHT);
     }
 
-    private void drawSavedFeedback(GuiGraphics guiGraphics, int x, int y) {
+    private void drawSavedFeedback(GuiGraphicsExtractor GuiGraphicsExtractor, int x, int y) {
         if (!isSaved) {
             return;
         }
@@ -163,7 +163,7 @@ public class ToastsFilteringScreen extends UniversalScreen {
 
         Color color = Color.YELLOW.withAlpha(appearanceLerp - disappearanceLerp);
 
-        guiGraphics.drawString(this.font, SAVED_LABEL, x, y, color.getARGB());
+        GuiGraphicsExtractor.text(this.font, SAVED_LABEL, x, y, color.getARGB());
 
         if (time >= 1000) {
             isSaved = false;

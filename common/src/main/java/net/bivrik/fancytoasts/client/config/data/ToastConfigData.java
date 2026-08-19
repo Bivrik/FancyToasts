@@ -5,10 +5,10 @@ import net.bivrik.fancytoasts.client.registry.AnimationRegistry;
 import net.bivrik.fancytoasts.client.registry.TextureRegistry;
 import net.bivrik.fancytoasts.core.Constants;
 import net.bivrik.fancytoasts.platform.utility.FancyToastType;
-import net.bivrik.fancytoasts.utility.DefaultLocations;
+import net.bivrik.fancytoasts.utility.DefaultIdentifiers;
 import net.bivrik.fancytoasts.utility.file.Paths;
 import net.minecraft.client.Minecraft;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.sounds.SoundEvents;
 
 import java.util.EnumMap;
@@ -18,11 +18,11 @@ import java.util.Objects;
 public class ToastConfigData extends ConfigData {
     private static final int VERSION = Constants.ConfigVersions.TOAST;
 
-    private ResourceLocation textureId;
-    private ResourceLocation animationId;
-    private final Map<FancyToastType, ResourceLocation> soundIds = new EnumMap<>(FancyToastType.class);
+    private Identifier textureId;
+    private Identifier animationId;
+    private final Map<FancyToastType, Identifier> soundIds = new EnumMap<>(FancyToastType.class);
 
-    private ToastConfigData(ResourceLocation textureId, ResourceLocation animationId, Map<FancyToastType, ResourceLocation> soundIds) {
+    private ToastConfigData(Identifier textureId, Identifier animationId, Map<FancyToastType, Identifier> soundIds) {
         super(Paths.TOAST_CONFIG_FILE);
 
         this.textureId = textureId;
@@ -31,17 +31,17 @@ public class ToastConfigData extends ConfigData {
     }
 
     public ToastConfigData() {
-        this(DefaultLocations.Textures.VANILLA, DefaultLocations.Animations.STANDARD, Map.of(
+        this(DefaultIdentifiers.Textures.VANILLA, DefaultIdentifiers.Animations.STANDARD, Map.of(
                 FancyToastType.TASK, SoundEvents.NOTE_BLOCK_CHIME.value().location(),
                 FancyToastType.GOAL, SoundEvents.FIREWORK_ROCKET_TWINKLE_FAR.location(),
                 FancyToastType.CHALLENGE, SoundEvents.UI_TOAST_CHALLENGE_COMPLETE.location())
         );
     }
 
-    public ResourceLocation getTextureId() {
+    public Identifier getTextureId() {
         if (isConfig(textureId)) {
             if (!TextureRegistry.isRegistered(textureId)) {
-                ResourceLocation standardTextureId = new ToastConfigData().textureId;
+                Identifier standardTextureId = new ToastConfigData().textureId;
                 setTextureId(standardTextureId);
                 ConfigHandler.save(copy());
                 return standardTextureId;
@@ -50,23 +50,23 @@ public class ToastConfigData extends ConfigData {
 
         return textureId;
     }
-    public void setTextureId(ResourceLocation id) {
+    public void setTextureId(Identifier id) {
         textureId = id;
     }
 
-    public ResourceLocation getAnimationId() {
+    public Identifier getAnimationId() {
         return animationId;
     }
-    public void setAnimationId(ResourceLocation id) {
+    public void setAnimationId(Identifier id) {
         animationId = id;
     }
 
-    public ResourceLocation getSoundIdByType(FancyToastType type) {
+    public Identifier getSoundIdByType(FancyToastType type) {
         var availableSounds = Minecraft.getInstance().getSoundManager().getAvailableSounds();
-        ResourceLocation soundId = soundIds.get(type);
+        Identifier soundId = soundIds.get(type);
 
         if (!availableSounds.contains(soundId)) {
-            ResourceLocation standardSoundId = new ToastConfigData().soundIds.get(type);
+            Identifier standardSoundId = new ToastConfigData().soundIds.get(type);
             putSoundIdForType(standardSoundId, type);
             ConfigHandler.save(copy());
             return standardSoundId;
@@ -74,7 +74,7 @@ public class ToastConfigData extends ConfigData {
 
         return soundIds.get(type);
     }
-    public void putSoundIdForType(ResourceLocation location, FancyToastType type) {
+    public void putSoundIdForType(Identifier location, FancyToastType type) {
         soundIds.put(type, location);
     }
 
@@ -98,7 +98,7 @@ public class ToastConfigData extends ConfigData {
         return VERSION;
     }
 
-    private boolean isConfig(ResourceLocation id) {
+    private boolean isConfig(Identifier id) {
         return id.toLanguageKey().contains(Constants.CONFIG);
     }
 

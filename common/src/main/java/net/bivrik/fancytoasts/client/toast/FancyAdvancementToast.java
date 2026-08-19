@@ -8,10 +8,10 @@ import net.bivrik.fancytoasts.core.Managers;
 import net.bivrik.fancytoasts.platform.utility.ToastDisplayInfo;
 import net.bivrik.fancytoasts.utility.DefaultUVs;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.resources.sounds.SimpleSoundInstance;
 import net.minecraft.client.sounds.SoundManager;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 
@@ -26,7 +26,7 @@ public class FancyAdvancementToast {
     private final GeneralConfigData generalConfig;
 
     private FancyToastAnimation animation;
-    private ResourceLocation toastSoundId;
+    private Identifier toastSoundId;
     private float volume;
     private SoundManager soundManager;
 
@@ -34,7 +34,7 @@ public class FancyAdvancementToast {
     private boolean isEnded = false;
     private int playedSoundsCount = 0;
 
-    public FancyAdvancementToast(Minecraft minecraft, ToastDisplayInfo displayInfo, ResourceLocation textureId, ResourceLocation animationId) {
+    public FancyAdvancementToast(Minecraft minecraft, ToastDisplayInfo displayInfo, Identifier textureId, Identifier animationId) {
         var generalConfig = Managers.getConfigManager().getGeneralConfigData();
         this.generalConfig = generalConfig;
 
@@ -67,7 +67,7 @@ public class FancyAdvancementToast {
         Debug.info("Created new fancy advancement toast: {}; texture: {}; animation: {}", displayInfo.getTitle().getString(), textureId, animationId);
     }
 
-    public void draw(GuiGraphics graphics) {
+    public void draw(GuiGraphicsExtractor graphics) {
         animation.draw(graphics, (long) time);
     }
 
@@ -108,7 +108,7 @@ public class FancyAdvancementToast {
         playedSoundsCount++;
     }
 
-    private void playSound(ResourceLocation soundLocation, float volume) {
+    private void playSound(Identifier soundLocation, float volume) {
         playSound(new SoundEvent(soundLocation, Optional.empty()), volume);
     }
 

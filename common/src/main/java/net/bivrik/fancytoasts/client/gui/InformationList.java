@@ -5,14 +5,14 @@ import net.bivrik.fancytoasts.core.Color;
 import net.bivrik.fancytoasts.core.Debug;
 import net.bivrik.fancytoasts.platform.utility.Components;
 import net.bivrik.fancytoasts.platform.utility.GuiContext;
-import net.bivrik.fancytoasts.platform.utility.ResourceLocations;
+import net.bivrik.fancytoasts.platform.utility.Identifiers;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
-import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.gui.components.AbstractSelectionList;
 import net.minecraft.client.gui.narration.NarrationElementOutput;
 import net.minecraft.network.chat.Component;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.util.FormattedCharSequence;
 import org.jetbrains.annotations.NotNull;
 
@@ -25,7 +25,7 @@ public class InformationList extends AbstractSelectionList<InformationList.Entry
     private static final Component DESCRIPTION_LABEL = Components.of("label.description");
 
     private final List<InformationListEntry> lines = new ArrayList<>(7);
-    private ResourceLocation location;
+    private Identifier location;
 
     public InformationList(Minecraft minecraft, int width, int height, int x, int y, DisplayData displayData, boolean isConfig) {
         super(minecraft, width, height, y, 10);
@@ -40,7 +40,7 @@ public class InformationList extends AbstractSelectionList<InformationList.Entry
             return;
         }
 
-        location = isSelected ? ResourceLocations.of("icons/success") : ResourceLocations.of("icons/looking");
+        location = isSelected ? Identifiers.of("icons/success") : Identifiers.of("icons/looking");
 
         clear();
 
@@ -84,10 +84,10 @@ public class InformationList extends AbstractSelectionList<InformationList.Entry
     }
 
     @Override
-    public void renderWidget(@NotNull GuiGraphics guiGraphics, int mouseX, int mouseY, float partialTick) {
-        super.renderWidget(guiGraphics, mouseX, mouseY, partialTick);
+    public void extractWidgetRenderState(@NotNull GuiGraphicsExtractor GuiGraphicsExtractor, int mouseX, int mouseY, float partialTick) {
+        super.extractWidgetRenderState(GuiGraphicsExtractor, mouseX, mouseY, partialTick);
 
-        GuiContext context = new GuiContext(guiGraphics);
+        GuiContext context = new GuiContext(GuiGraphicsExtractor);
         context.drawSprite(location, this.getRight() - 8 - 3, this.getY() + 1, 8, 8);
     }
 
@@ -123,8 +123,8 @@ public class InformationList extends AbstractSelectionList<InformationList.Entry
         }
 
         @Override
-        public void renderContent(@NotNull GuiGraphics guiGraphics, int mouseX, int mouseY, boolean hovering, float partialTick) {
-            guiGraphics.drawString(font, content, this.getX(), this.getY() + 3, color);
+        public void extractContent(@NotNull GuiGraphicsExtractor GuiGraphicsExtractor, int mouseX, int mouseY, boolean hovering, float partialTick) {
+            GuiGraphicsExtractor.text(font, content, this.getX(), this.getY() + 3, color);
         }
     }
 }

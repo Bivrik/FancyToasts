@@ -4,40 +4,40 @@ import net.bivrik.fancytoasts.core.Color;
 import net.bivrik.fancytoasts.core.Constants;
 import net.bivrik.fancytoasts.core.Debug;
 import net.bivrik.fancytoasts.platform.utility.GuiContext;
-import net.minecraft.Util;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
-import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.gui.components.ObjectSelectionList;
 import net.minecraft.client.input.KeyEvent;
 import net.minecraft.client.input.MouseButtonEvent;
 import net.minecraft.client.resources.sounds.SimpleSoundInstance;
 import net.minecraft.client.sounds.SoundManager;
 import net.minecraft.network.chat.Component;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.util.FormattedCharSequence;
+import net.minecraft.util.Util;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.*;
 import java.util.function.Consumer;
 
-public class ResourceLocationList extends ObjectSelectionList<ResourceLocationList.Entry> {
-    private final Map<ResourceLocation, String> displayNames = new HashMap<>();
-    private ResourceLocation[] resourceLocations;
+public class IdentifierList extends ObjectSelectionList<IdentifierList.Entry> {
+    private final Map<Identifier, String> displayNames = new HashMap<>();
+    private Identifier[] Identifiers;
     private SettingType settingType;
 
-    private Consumer<ResourceLocation> selectResponder;
-    private Consumer<ResourceLocation> focusResponder;
+    private Consumer<Identifier> selectResponder;
+    private Consumer<Identifier> focusResponder;
 
-    private ResourceLocationFilter filter = ResourceLocationFilter.A_Z;
+    private IdentifierFilter filter = IdentifierFilter.A_Z;
     private String search = "";
 
-    public ResourceLocationList(Minecraft minecraft, int width, int height, int x, int y, int itemHeight, SettingType settingType) {
+    public IdentifierList(Minecraft minecraft, int width, int height, int x, int y, int itemHeight, SettingType settingType) {
         super(minecraft, width, height, y, itemHeight);
         this.setX(x);
 
-        setResourceLocations(settingType);
+        setIdentifiers(settingType);
     }
 
     @Override
@@ -55,11 +55,11 @@ public class ResourceLocationList extends ObjectSelectionList<ResourceLocationLi
         return this.getX() + this.width - 8;
     }
 
-    public void setResourceLocations(SettingType settingType) {
+    public void setIdentifiers(SettingType settingType) {
         this.settingType = settingType;
-        this.resourceLocations = this.settingType.getKeySet();
+        this.Identifiers = this.settingType.getKeySet();
         this.displayNames.clear();
-        for (ResourceLocation location : this.resourceLocations) {
+        for (Identifier location : this.Identifiers) {
             this.displayNames.computeIfAbsent(location, location1 -> this.settingType.getDisplayData(location1).getDisplayName().getString().toLowerCase(Locale.ROOT));
         }
         sortAZ();
@@ -71,13 +71,13 @@ public class ResourceLocationList extends ObjectSelectionList<ResourceLocationLi
         clearList();
 
         if (search.isEmpty()) {
-            for (ResourceLocation location : resourceLocations) {
-                this.addEntry(new ResourceLocationListEntry(this, location, settingType.getDisplayData(location).getDisplayName()));
+            for (Identifier location : Identifiers) {
+                this.addEntry(new IdentifierListEntry(this, location, settingType.getDisplayData(location).getDisplayName()));
             }
         } else {
-            for (ResourceLocation location : resourceLocations) {
+            for (Identifier location : Identifiers) {
                 if (displayNames.get(location).contains(search)) {
-                    this.addEntry(new ResourceLocationListEntry(this, location, settingType.getDisplayData(location).getDisplayName()));
+                    this.addEntry(new IdentifierListEntry(this, location, settingType.getDisplayData(location).getDisplayName()));
                 }
             }
         }
@@ -100,7 +100,7 @@ public class ResourceLocationList extends ObjectSelectionList<ResourceLocationLi
         refillList();
     }
 
-    public void setFilter(ResourceLocationFilter filter) {
+    public void setFilter(IdentifierFilter filter) {
         if (this.filter == filter || filter == null) {
             return;
         }
@@ -121,7 +121,7 @@ public class ResourceLocationList extends ObjectSelectionList<ResourceLocationLi
     }
 
     private void sortAZ(Comparator<String> comparator) {
-        Arrays.sort(resourceLocations, (loc1, loc2) -> comparator.compare(displayNames.get(loc1), displayNames.get(loc2)));
+        Arrays.sort(Identifiers, (loc1, loc2) -> comparator.compare(displayNames.get(loc1), displayNames.get(loc2)));
     }
     private void sortAZ() {
         sortAZ(Comparator.naturalOrder());
@@ -132,10 +132,10 @@ public class ResourceLocationList extends ObjectSelectionList<ResourceLocationLi
         // would be sorted by alphabetical order too! Example:
         // built-ins: A D F, configs: B C E, and it will be: A D F B C E
 
-        List<ResourceLocation> builtInLocations = new ArrayList<>(resourceLocations.length * 2 / 3);
-        List<ResourceLocation> configLocations = new ArrayList<>(); // can be 0
+        List<Identifier> builtInLocations = new ArrayList<>(Identifiers.length * 2 / 3);
+        List<Identifier> configLocations = new ArrayList<>(); // can be 0
 
-        for (var location : resourceLocations) {
+        for (var location : Identifiers) {
             String namespace = location.getNamespace();
             boolean isBuiltIn = namespace.equals(Constants.MOD_ID) || namespace.equals(Constants.Compatibilities.MINECRAFT_ID);
             boolean isConfig = location.getPath().contains(Constants.CONFIG) || !isBuiltIn;
@@ -148,15 +148,15 @@ public class ResourceLocationList extends ObjectSelectionList<ResourceLocationLi
         }
         builtInLocations.addAll(configLocations);
 
-        resourceLocations = builtInLocations.toArray(new ResourceLocation[0]);
+        Identifiers = builtInLocations.toArray(new Identifier[0]);
     }
 
-    public ResourceLocationList setSelectResponder(Consumer<ResourceLocation> selectResponder) {
+    public IdentifierList setSelectResponder(Consumer<Identifier> selectResponder) {
         this.selectResponder = selectResponder;
         return this;
     }
 
-    public ResourceLocationList setFocusResponder(Consumer<ResourceLocation> focusResponder) {
+    public IdentifierList setFocusResponder(Consumer<Identifier> focusResponder) {
         this.focusResponder = focusResponder;
         return this;
     }
@@ -168,9 +168,9 @@ public class ResourceLocationList extends ObjectSelectionList<ResourceLocationLi
         }
     }
 
-    private static final class ResourceLocationListEntry extends Entry {
-        private final ResourceLocationList parentList;
-        private final ResourceLocation id;
+    private static final class IdentifierListEntry extends Entry {
+        private final IdentifierList parentList;
+        private final Identifier id;
         private final boolean isConfig;
         private final Font font;
         private final SoundManager soundManager;
@@ -178,7 +178,7 @@ public class ResourceLocationList extends ObjectSelectionList<ResourceLocationLi
         private List<FormattedCharSequence> nameLines = new ArrayList<>();
         private long lastClickTime;
 
-        public ResourceLocationListEntry(ResourceLocationList parentList, ResourceLocation id, Component name) {
+        public IdentifierListEntry(IdentifierList parentList, Identifier id, Component name) {
             this.parentList = parentList;
             Minecraft minecraft = this.parentList.minecraft;
             this.soundManager = minecraft.getSoundManager();
@@ -258,7 +258,7 @@ public class ResourceLocationList extends ObjectSelectionList<ResourceLocationLi
         }
 
         @Override
-        public void renderContent(@NotNull GuiGraphics guiGraphics, int mouseX, int mouseY, boolean isHovering, float partialTick) {
+        public void extractContent(@NotNull GuiGraphicsExtractor GuiGraphicsExtractor, int mouseX, int mouseY, boolean isHovering, float partialTick) {
             Color mainColor = Color.WHITE;
             Color secondColor = Color.LIGHT_GRAY;
 
@@ -267,7 +267,7 @@ public class ResourceLocationList extends ObjectSelectionList<ResourceLocationLi
                 secondColor = Color.PURPLE;
             }
             else if (isHovering) {
-                var context = new GuiContext(guiGraphics);
+                var context = new GuiContext(GuiGraphicsExtractor);
                 context.fill(x(), y(), width(), height(), Color.WHITE.withAlpha(16).getARGB());
                 context.fill(x() + 1, y() + 1, width() - 2, height() - 2, Color.BLACK.withAlpha(64).getARGB());
             }
@@ -277,15 +277,15 @@ public class ResourceLocationList extends ObjectSelectionList<ResourceLocationLi
             FormattedCharSequence nameFirstLine = nameLines.getFirst();
 
             if (nameLines.size() == 1) {
-                guiGraphics.drawString(font, nameFirstLine, nameX, nameY, mainColor.getARGB());
+                GuiGraphicsExtractor.text(font, nameFirstLine, nameX, nameY, mainColor.getARGB());
             }
             else {
-                guiGraphics.drawString(font, nameLines.get(1), nameX, nameY + 3, secondColor.getARGB());
-                guiGraphics.drawString(font, nameFirstLine, nameX, nameY - 3, mainColor.getARGB());
+                GuiGraphicsExtractor.text(font, nameLines.get(1), nameX, nameY + 3, secondColor.getARGB());
+                GuiGraphicsExtractor.text(font, nameFirstLine, nameX, nameY - 3, mainColor.getARGB());
             }
 
             if (isConfig) {
-                guiGraphics.drawString(font, Component.literal("c"), x() + width() - 10, nameY, Color.LIGHT_GRAY.getARGB());
+                GuiGraphicsExtractor.text(font, Component.literal("c"), x() + width() - 10, nameY, Color.LIGHT_GRAY.getARGB());
             }
         }
     }

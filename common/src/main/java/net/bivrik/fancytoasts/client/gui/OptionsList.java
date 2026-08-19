@@ -2,7 +2,7 @@ package net.bivrik.fancytoasts.client.gui;
 
 import com.google.common.collect.ImmutableList;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.gui.components.AbstractWidget;
 import net.minecraft.client.gui.components.ContainerObjectSelectionList;
 import net.minecraft.client.gui.components.events.GuiEventListener;
@@ -106,11 +106,11 @@ public class OptionsList extends ContainerObjectSelectionList<OptionsList.Entry>
         }
 
         @Override
-        public void renderContent(@NotNull GuiGraphics guiGraphics, int mouseX, int mouseY, boolean isHovering, float partialTick) {
+        public void extractContent(@NotNull GuiGraphicsExtractor GuiGraphicsExtractor, int mouseX, int mouseY, boolean isHovering, float partialTick) {
             int i = 0;
             for (var widget : children) {
                 widget.setPosition(list.getRowLeft() + i, this.getContentY());
-                widget.render(guiGraphics, mouseX, mouseY, partialTick);
+                widget.extractRenderState(GuiGraphicsExtractor, mouseX, mouseY, partialTick);
                 i += widget.getWidth() + 10;
             }
         }

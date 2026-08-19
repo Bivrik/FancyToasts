@@ -2,7 +2,7 @@ package net.bivrik.fancytoasts.client.gui.screen;
 
 import net.bivrik.fancytoasts.client.gui.LayoutValues;
 import net.bivrik.fancytoasts.client.gui.Slider;
-import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.gui.components.CycleButton;
 import net.minecraft.client.gui.components.Renderable;
@@ -59,14 +59,14 @@ public abstract class UniversalScreen extends Screen {
     }
 
     @Override
-    public void render(@NotNull GuiGraphics guiGraphics, int mouseX, int mouseY, float partialTick) {
-        drawRenderables(guiGraphics, mouseX, mouseY, partialTick);
-        drawTitle(guiGraphics);
+    public void extractRenderState(@NotNull GuiGraphicsExtractor GuiGraphicsExtractor, int mouseX, int mouseY, float partialTick) {
+        drawRenderables(GuiGraphicsExtractor, mouseX, mouseY, partialTick);
+        drawTitle(GuiGraphicsExtractor);
     }
 
-    public void drawRenderables(GuiGraphics guiGraphics, int mouseX, int mouseY, float partialTick) {
+    public void drawRenderables(GuiGraphicsExtractor GuiGraphicsExtractor, int mouseX, int mouseY, float partialTick) {
         for (Renderable renderable : renderables) {
-            renderable.render(guiGraphics, mouseX, mouseY, partialTick);
+            renderable.extractRenderState(GuiGraphicsExtractor, mouseX, mouseY, partialTick);
         }
     }
 
@@ -75,11 +75,11 @@ public abstract class UniversalScreen extends Screen {
     }
 
     protected void openScreen(Screen screen) {
-        Objects.requireNonNull(this.minecraft).setScreen(screen);
+        this.minecraft.gui.setScreen(screen);
     }
 
-    protected void drawTitle(GuiGraphics guiGraphics) {
-        guiGraphics.drawCenteredString(this.font, this.title, this.width / 2, 12, -1);
+    protected void drawTitle(GuiGraphicsExtractor GuiGraphicsExtractor) {
+        GuiGraphicsExtractor.centeredText(this.font, this.title, this.width / 2, 12, -1);
     }
 
     protected Button createButton(Component label, Button.OnPress action, int x, int y, int width, int height, Tooltip tooltip) {
@@ -135,7 +135,7 @@ public abstract class UniversalScreen extends Screen {
     }
 
     protected CycleButton<Boolean> createBooleanButton(Component label, boolean initialValue, CycleButton.OnValueChange<Boolean> action, int x, int y, int width, int height, Tooltip tooltip) {
-        var onOffButton = CycleButton.onOffBuilder().withInitialValue(initialValue);
+        var onOffButton = CycleButton.onOffBuilder(initialValue);
 
         if (tooltip != null) {
             onOffButton.withTooltip(value -> tooltip);

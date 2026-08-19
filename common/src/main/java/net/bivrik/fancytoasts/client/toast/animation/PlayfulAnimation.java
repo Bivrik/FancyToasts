@@ -5,7 +5,7 @@ import net.bivrik.fancytoasts.client.toast.Appearance;
 import net.bivrik.fancytoasts.core.Easing;
 import net.bivrik.fancytoasts.platform.utility.GuiContext;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.GuiGraphicsExtractor;
 
 public class PlayfulAnimation extends FancyToastAnimation {
     private final Appearance ICON_APPEARANCE = new Appearance(1000, 0);
@@ -25,8 +25,8 @@ public class PlayfulAnimation extends FancyToastAnimation {
     }
 
     @Override
-    public void draw(GuiGraphics guiGraphics, long time) {
-        super.draw(guiGraphics, time);
+    public void draw(GuiGraphicsExtractor GuiGraphicsExtractor, long time) {
+        super.draw(GuiGraphicsExtractor, time);
 
         float iconAppearProgress = ICON_APPEARANCE.getProgress(time);
         float iconMovementProgress = ICON_MOVEMENT.getProgress(time);
@@ -35,7 +35,7 @@ public class PlayfulAnimation extends FancyToastAnimation {
         float textAppearProgress = TEXT_APPEARANCE.getProgress(time);
         float fadeOutProgress = Appearance.getProgress(time, FADE_OUT_DURATION, DURATION - FADE_OUT_DURATION);
 
-        GuiContext context = new GuiContext(guiGraphics);
+        GuiContext context = new GuiContext(GuiGraphicsExtractor);
         float globalSinY = this.sinusoidLoop(time, 2.0f, 1.0f) - 1;
 
         if (fadeOutProgress > 0) {
@@ -93,8 +93,8 @@ public class PlayfulAnimation extends FancyToastAnimation {
         }
 
         if (textAppearProgress > 0) {
-            this.drawTitle(guiGraphics, textAppearProgress);
-            this.drawDescription(guiGraphics, textAppearProgress);
+            this.drawTitle(GuiGraphicsExtractor, textAppearProgress);
+            this.drawDescription(GuiGraphicsExtractor, textAppearProgress);
         }
 
         if (fadeOutProgress > 0) {

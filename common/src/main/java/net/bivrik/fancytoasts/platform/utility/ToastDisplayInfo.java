@@ -3,14 +3,15 @@ package net.bivrik.fancytoasts.platform.utility;
 import net.minecraft.advancements.DisplayInfo;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.ItemStackTemplate;
 
 public class ToastDisplayInfo {
-    private final ItemStack icon;
+    private final ItemStackTemplate icon;
     private final Component title;
     private final Component description;
     private final FancyToastType advancementType;
 
-    public ToastDisplayInfo(ItemStack icon, Component title, Component description, FancyToastType advancementType) {
+    public ToastDisplayInfo(ItemStackTemplate icon, Component title, Component description, FancyToastType advancementType) {
         this.icon = icon;
         this.title = fixUnicode(title);
         this.description = fixUnicode(description);
@@ -36,7 +37,7 @@ public class ToastDisplayInfo {
     }
 
     public ItemStack getIcon() {
-        return icon;
+        return icon.create();
     }
 
     public Component getTitle() {

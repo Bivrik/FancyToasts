@@ -11,10 +11,10 @@ import net.bivrik.fancytoasts.platform.utility.ToastDisplayInfo;
 import net.bivrik.fancytoasts.utility.TextureUV;
 import net.bivrik.fancytoasts.utility.TypeBasedUVs;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.Style;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.util.FormattedCharSequence;
 
 import java.util.List;
@@ -32,7 +32,7 @@ public abstract class FancyToastAnimation {
     protected int toastWidth;
     protected int toastHeight;
 
-    private ResourceLocation textureLocation;
+    private Identifier textureLocation;
     private TypeBasedUVs typeBasedUVs;
     private TextureUV backgroundUV;
     private TextureUV plaqueUV;
@@ -99,7 +99,7 @@ public abstract class FancyToastAnimation {
         return descriptionLines;
     }
 
-    public void draw(GuiGraphics guiGraphics, long time) {
+    public void draw(GuiGraphicsExtractor GuiGraphicsExtractor, long time) {
         if (shouldTransparentToast && Objects.requireNonNull(Managers.getToastManager()).isScreenOpened()) {
             guiAlpha = 0.5f;
         }
@@ -114,7 +114,7 @@ public abstract class FancyToastAnimation {
 
     protected void drawIcon(GuiContext guiContext, float alpha) {
         guiContext.drawGUITexture(textureLocation, 68, 0, 26, 26, typeBasedUVs.frame(), getColor(alpha));
-        guiContext.guiGraphics().renderFakeItem(displayInfo.getIcon(), 73, 5);
+        guiContext.getGuiGraphicsExtractor().fakeItem(displayInfo.getIcon(), 73, 5);
     }
     protected void drawIcon(GuiContext guiContext) {
         drawIcon(guiContext, 1);
@@ -136,7 +136,7 @@ public abstract class FancyToastAnimation {
         drawBackground(guiContext, 1);
     }
 
-    protected void drawTitle(GuiGraphics guiGraphics, float alpha) {
+    protected void drawTitle(GuiGraphicsExtractor GuiGraphicsExtractor, float alpha) {
         if (titleLines.isEmpty()) {
             return;
         }
@@ -146,26 +146,26 @@ public abstract class FancyToastAnimation {
         FormattedCharSequence titleLine = titleLines.getFirst();
 
         if (titleLines.size() == 1) {
-            guiGraphics.drawCenteredString(minecraft.font, titleLine, toastCenterX, 25, titleColorARGB);
+            GuiGraphicsExtractor.centeredText(minecraft.font, titleLine, toastCenterX, 25, titleColorARGB);
         } else {
-            guiGraphics.drawCenteredString(minecraft.font, FormattedCharSequence.composite(titleLine, getDots(titleStyle)), toastCenterX , 25, titleColorARGB);
+            GuiGraphicsExtractor.centeredText(minecraft.font, FormattedCharSequence.composite(titleLine, getDots(titleStyle)), toastCenterX , 25, titleColorARGB);
         }
     }
 
-    protected void drawDescription(GuiGraphics guiGraphics, float alpha) {
+    protected void drawDescription(GuiGraphicsExtractor GuiGraphicsExtractor, float alpha) {
         if (descriptionLines.isEmpty()) {
             return;
         }
 
         int descriptionColorARGB = displayInfo.getAdvancementType().getSecondaryColor().withAlpha(alpha).getARGB();
 
-        guiGraphics.drawString(minecraft.font, descriptionLines.get(0), 8, 38, descriptionColorARGB);
+        GuiGraphicsExtractor.text(minecraft.font, descriptionLines.get(0), 8, 38, descriptionColorARGB);
         if (descriptionLines.size() > 1) {
             var descriptionSecondLine = descriptionLines.get(1);
-            guiGraphics.drawString(minecraft.font, descriptionSecondLine, 8, 47, descriptionColorARGB);
+            GuiGraphicsExtractor.text(minecraft.font, descriptionSecondLine, 8, 47, descriptionColorARGB);
 
             if (descriptionLines.size() > 2) {
-                guiGraphics.drawString(minecraft.font, getDots(descriptionStyle), minecraft.font.width(descriptionSecondLine) + 8, 47, descriptionColorARGB);
+                GuiGraphicsExtractor.text(minecraft.font, getDots(descriptionStyle), minecraft.font.width(descriptionSecondLine) + 8, 47, descriptionColorARGB);
             }
         }
     }

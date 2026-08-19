@@ -11,14 +11,14 @@ import net.bivrik.fancytoasts.core.Debug;
 import net.bivrik.fancytoasts.core.IManager;
 import net.bivrik.fancytoasts.core.Managers;
 import net.bivrik.fancytoasts.core.event.ToastConfigDataEvent;
-import net.bivrik.fancytoasts.platform.utility.ResourceLocations;
+import net.bivrik.fancytoasts.platform.utility.Identifiers;
 import net.bivrik.fancytoasts.utility.file.FileHelper;
 import net.bivrik.fancytoasts.utility.file.FileType;
 import net.bivrik.fancytoasts.utility.file.Paths;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.texture.DynamicTexture;
 import net.minecraft.client.renderer.texture.TextureManager;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import org.slf4j.Logger;
 
 import java.io.File;
@@ -37,9 +37,9 @@ public class CustomTextureManager implements IManager {
         return name.endsWith(FileType.PNG.get()) || name.endsWith(FileType.JSON.get());
     };
 
-    private final Map<ResourceLocation, DisplayData> customTextures = new HashMap<>();
-    private final List<ResourceLocation> registeredInMinecraft = new ArrayList<>();
-    private final Map<ResourceLocation, List<FancyAdvancementToast>> beingUsed = new HashMap<>();
+    private final Map<Identifier, DisplayData> customTextures = new HashMap<>();
+    private final List<Identifier> registeredInMinecraft = new ArrayList<>();
+    private final Map<Identifier, List<FancyAdvancementToast>> beingUsed = new HashMap<>();
 
     private TextureManager textureManager;
     private ToastConfigData toastConfigData;
@@ -53,7 +53,7 @@ public class CustomTextureManager implements IManager {
         load();
         registerInMainRegistry();
 
-        ResourceLocation textureId = toastConfigData.getTextureId();
+        Identifier textureId = toastConfigData.getTextureId();
         if (textureId.getPath().contains(Constants.CONFIG)) {
             registerInMinecraft(textureId);
         }
@@ -63,7 +63,7 @@ public class CustomTextureManager implements IManager {
         toastConfigData = event.toastConfigData();
     }
 
-    public void addBeingUsed(ResourceLocation id, FancyAdvancementToast toast) {
+    public void addBeingUsed(Identifier id, FancyAdvancementToast toast) {
         if (!id.getPath().contains(Constants.CONFIG)) {
             return;
         }
@@ -73,8 +73,8 @@ public class CustomTextureManager implements IManager {
     }
 
     public void removeBeingUsed(FancyAdvancementToast toast) {
-        ResourceLocation id = null;
-        for (Map.Entry<ResourceLocation, List<FancyAdvancementToast>> entry : beingUsed.entrySet()) {
+        Identifier id = null;
+        for (Map.Entry<Identifier, List<FancyAdvancementToast>> entry : beingUsed.entrySet()) {
             if (entry.getValue().contains(toast)) {
                 id = entry.getKey();
                 break;
@@ -88,7 +88,7 @@ public class CustomTextureManager implements IManager {
             if (toasts.isEmpty()) {
                 beingUsed.remove(id);
                 LOGGER.warn("Removed texture from cash: {}", id);
-                ResourceLocation currentId = toastConfigData.getTextureId();
+                Identifier currentId = toastConfigData.getTextureId();
                 if (currentId != id) {
                     releaseTextureFromMinecraft(id);
                 }
@@ -96,7 +96,7 @@ public class CustomTextureManager implements IManager {
         }
     }
 
-    public void registerInMinecraft(ResourceLocation id) {
+    public void registerInMinecraft(Identifier id) {
         if (isRegisteredMinecraft(id)) {
             return;
         }
@@ -121,7 +121,7 @@ public class CustomTextureManager implements IManager {
         }
     }
 
-    public void releaseTextureFromMinecraft(ResourceLocation id) {
+    public void releaseTextureFromMinecraft(Identifier id) {
         if (!registeredInMinecraft.contains(id)) {
             return;
         }
@@ -137,12 +137,12 @@ public class CustomTextureManager implements IManager {
         });
     }
 
-    public boolean isRegisteredMinecraft(ResourceLocation id) {
+    public boolean isRegisteredMinecraft(Identifier id) {
         return registeredInMinecraft.contains(id);
     }
 
     public void clear() {
-        ResourceLocation currentId = toastConfigData.getTextureId();
+        Identifier currentId = toastConfigData.getTextureId();
         if (currentId.getPath().contains(Constants.CONFIG)) {
             registeredInMinecraft.forEach(id -> {
                 if (currentId != id) textureManager.release(id);
@@ -203,7 +203,7 @@ public class CustomTextureManager implements IManager {
 
                 if (optionalDataDTO.isPresent()) {
                     DisplayData data = new DisplayData(optionalDataDTO.get());
-                    ResourceLocation id = getIdFromFile(textureFile);
+                    Identifier id = getIdFromFile(textureFile);
 
                     customTextures.put(id, data);
                     LOGGER.info("Added: {}", id);
@@ -233,13 +233,13 @@ public class CustomTextureManager implements IManager {
     // Make it more constant
     // Please, don't forget
     // Uugh God
-    private ResourceLocation getIdFromFile(File file) {
+    private Identifier getIdFromFile(File file) {
         String rawPath = file.getPath().replace("\\", "/").replaceFirst("./config/fancytoasts", "config");
         Debug.warn(rawPath);
-        return ResourceLocations.of(rawPath);
+        return Identifiers.of(rawPath);
     }
 
-    private File getFileFromId(ResourceLocation id) {
+    private File getFileFromId(Identifier id) {
         String rawPath = id.getPath().replaceFirst("config", "./config/fancytoasts");
         Debug.warn(rawPath);
         return new File(rawPath);

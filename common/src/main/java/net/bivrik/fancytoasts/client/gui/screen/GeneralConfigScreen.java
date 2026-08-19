@@ -18,8 +18,8 @@ import net.bivrik.fancytoasts.core.event.GeneralConfigDataEvent;
 import net.bivrik.fancytoasts.platform.Services;
 import net.bivrik.fancytoasts.platform.utility.Components;
 import net.bivrik.fancytoasts.utility.FastMath;
-import net.minecraft.Util;
-import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.util.Util;
+import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.gui.components.CycleButton;
 import net.minecraft.client.gui.components.Tooltip;
@@ -115,13 +115,13 @@ public class GeneralConfigScreen extends UniversalScreen {
         pitchRandomnessSlider = list.addElement(createSlider(PITCH_RANDOMNESS, generalConfigData.getPitchRandomness(), 0.2f, 0,
                 this::percentDisplayer, generalConfigData::setPitchRandomness, 0, 0, Tooltip.create(PITCH_RANDOMNESS_TOOLTIP)));
 
-        toastScreenBehaviorButton = list.addElement(CycleButton.builder(ToastScreenBehavior::getDisplayName)
-                .withValues(ToastScreenBehavior.values()).withInitialValue(generalConfigData.getToastScreenBehavior())
+        toastScreenBehaviorButton = list.addElement(CycleButton.builder(ToastScreenBehavior::getDisplayName, generalConfigData.getToastScreenBehavior())
+                .withValues(ToastScreenBehavior.values())
                 .withTooltip(toastScreenBehavior -> Tooltip.create(SCREEN_BEHAVIOR_TOOLTIP))
                 .create(0, 0, BUTTON_WIDTH, BUTTON_HEIGHT, SCREEN_BEHAVIOR, (button, value) -> generalConfigData.setToastScreenBehavior(value)), WidgetWidthType.BIG);
 
-        toastAnchorButton = list.addElement(CycleButton.builder(ToastAnchor::getDisplayName)
-                .withValues(ToastAnchor.values()).withInitialValue(generalConfigData.getToastAnchor())
+        toastAnchorButton = list.addElement(CycleButton.builder(ToastAnchor::getDisplayName, generalConfigData.getToastAnchor())
+                .withValues(ToastAnchor.values())
                 .withTooltip(toastAnchor -> Tooltip.create(ANCHOR_TOOLTIP))
                 .create(0, 0, BUTTON_WIDTH, BUTTON_HEIGHT, ANCHOR, (button, value) -> changeToastAnchor(value)));
 
@@ -131,13 +131,13 @@ public class GeneralConfigScreen extends UniversalScreen {
         offsetYEditBox = list.addElement(new IntegerEditBox(this.font, 0, 0, HALF_BUTTON_WIDTH - HALF_PADDING, BUTTON_HEIGHT, this.offsetYEditBox, Component.empty(), generalConfigData.getOffsetY()), WidgetWidthType.SMALL);
         offsetYEditBox.setResponder(value -> offsetYEditBox.setIntegerResponder(generalConfigData::setOffsetY));
 
-        titleDisplayTextType = list.addElement(CycleButton.builder(DisplayTextType::getDisplayName)
-                .withValues(DisplayTextType.values()).withInitialValue(generalConfigData.getTitleDisplayTextType())
+        titleDisplayTextType = list.addElement(CycleButton.builder(DisplayTextType::getDisplayName, generalConfigData.getTitleDisplayTextType())
+                .withValues(DisplayTextType.values())
                 .withTooltip(displayTextType -> Tooltip.create(Components.of("tooltip.display_text." + displayTextType.getName())))
                 .create(0, 0, BUTTON_WIDTH, BUTTON_HEIGHT, TITLE_DISPLAY_TEXT, (button, value) -> generalConfigData.setTitleDisplayTextType(value)));
 
-        descriptionDisplayTextType = list.addElement(CycleButton.builder(DisplayTextType::getDisplayName)
-                .withValues(DisplayTextType.values()).withInitialValue(generalConfigData.getDescriptionDisplayTextType())
+        descriptionDisplayTextType = list.addElement(CycleButton.builder(DisplayTextType::getDisplayName, generalConfigData.getDescriptionDisplayTextType())
+                .withValues(DisplayTextType.values())
                 .withTooltip(displayTextType -> Tooltip.create(Components.of("tooltip.display_text." + displayTextType.getName())))
                 .create(0, 0, BUTTON_WIDTH, BUTTON_HEIGHT, DESCRIPTION_DISPLAY_TEXT, (button, value) -> generalConfigData.setDescriptionDisplayTextType(value)));
 
@@ -213,24 +213,24 @@ public class GeneralConfigScreen extends UniversalScreen {
     }
 
     @Override
-    public void render(@NotNull GuiGraphics guiGraphics, int mouseX, int mouseY, float partialTick) {
-        super.render(guiGraphics, mouseX, mouseY, partialTick);
-        drawSavedFeedback(guiGraphics, doneButton.getRight() + PADDING, this.height - BUTTON_HEIGHT);
-        drawPositionHints(guiGraphics);
+    public void extractRenderState(@NotNull GuiGraphicsExtractor GuiGraphicsExtractor, int mouseX, int mouseY, float partialTick) {
+        super.extractRenderState(GuiGraphicsExtractor, mouseX, mouseY, partialTick);
+        drawSavedFeedback(GuiGraphicsExtractor, doneButton.getRight() + PADDING, this.height - BUTTON_HEIGHT);
+        drawPositionHints(GuiGraphicsExtractor);
     }
 
-    private void drawPositionHints(GuiGraphics guiGraphics) {
+    private void drawPositionHints(GuiGraphicsExtractor GuiGraphicsExtractor) {
         if (offsetXEditBox == null || offsetYEditBox == null) {
             return;
         }
 
         int offsetX = 7;
         int offsetY = 5;
-        guiGraphics.drawString(this.font, "x:", offsetXEditBox.getX() - offsetX, offsetXEditBox.getY() + offsetY, Color.LIGHT_GRAY.getARGB());
-        guiGraphics.drawString(this.font, "y:", offsetYEditBox.getX() - offsetX, offsetYEditBox.getY() + offsetY, Color.LIGHT_GRAY.getARGB());
+        GuiGraphicsExtractor.text(this.font, "x:", offsetXEditBox.getX() - offsetX, offsetXEditBox.getY() + offsetY, Color.LIGHT_GRAY.getARGB());
+        GuiGraphicsExtractor.text(this.font, "y:", offsetYEditBox.getX() - offsetX, offsetYEditBox.getY() + offsetY, Color.LIGHT_GRAY.getARGB());
     }
 
-    private void drawSavedFeedback(GuiGraphics guiGraphics, int x, int y) {
+    private void drawSavedFeedback(GuiGraphicsExtractor GuiGraphicsExtractor, int x, int y) {
         if (!isSaved) {
             return;
         }
@@ -241,7 +241,7 @@ public class GeneralConfigScreen extends UniversalScreen {
 
         Color color = Color.YELLOW.withAlpha(appearanceLerp - disappearanceLerp);
 
-        guiGraphics.drawString(this.font, SAVED_LABEL, x, y, color.getARGB());
+        GuiGraphicsExtractor.text(this.font, SAVED_LABEL, x, y, color.getARGB());
 
         if (time >= 1000) {
             isSaved = false;

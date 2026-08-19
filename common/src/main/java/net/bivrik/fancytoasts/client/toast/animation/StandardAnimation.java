@@ -5,7 +5,7 @@ import net.bivrik.fancytoasts.client.toast.Appearance;
 import net.bivrik.fancytoasts.core.Easing;
 import net.bivrik.fancytoasts.platform.utility.GuiContext;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.util.FormattedCharSequence;
 
 public class StandardAnimation extends FancyToastAnimation {
@@ -25,8 +25,8 @@ public class StandardAnimation extends FancyToastAnimation {
     }
 
     @Override
-    public void draw(GuiGraphics guiGraphics, long time) {
-        super.draw(guiGraphics, time);
+    public void draw(GuiGraphicsExtractor GuiGraphicsExtractor, long time) {
+        super.draw(GuiGraphicsExtractor, time);
 
         float iconAppearProgress = ICON_APPEARANCE.getProgress(time);
         float bannerAppearProgress = BANNER_APPEARANCE.getProgress(time);
@@ -34,7 +34,7 @@ public class StandardAnimation extends FancyToastAnimation {
         float textAppearProgress = TEXT_APPEARANCE.getProgress(time);
         float fadeOutProgress = Appearance.getProgress(time, FADE_OUT_DURATION, DURATION - FADE_OUT_DURATION);
 
-        GuiContext context = new GuiContext(guiGraphics);
+        GuiContext context = new GuiContext(GuiGraphicsExtractor);
 
         if (fadeOutProgress > 0) {
             float fadeOutY = Easing.OCT_EASE_IN_OUT.lerp(0, -80.0f, fadeOutProgress);
@@ -79,8 +79,8 @@ public class StandardAnimation extends FancyToastAnimation {
         }
 
         if (textAppearProgress > 0) {
-            this.drawTitle(guiGraphics, textAppearProgress);
-            this.drawDescription(guiGraphics, textAppearProgress);
+            this.drawTitle(GuiGraphicsExtractor, textAppearProgress);
+            this.drawDescription(GuiGraphicsExtractor, textAppearProgress);
         }
 
         if (fadeOutProgress > 0) {
@@ -89,7 +89,7 @@ public class StandardAnimation extends FancyToastAnimation {
     }
 
     @Override
-    protected void drawDescription(GuiGraphics guiGraphics, float alpha) {
+    protected void drawDescription(GuiGraphicsExtractor GuiGraphicsExtractor, float alpha) {
         var descriptionLines = getDescriptionLines();
         if (descriptionLines.isEmpty()) {
             return;
@@ -99,10 +99,10 @@ public class StandardAnimation extends FancyToastAnimation {
         int descriptionColorARGB = this.displayInfo.getAdvancementType().getSecondaryColor().withAlpha(alpha).getARGB();
 
         if (descriptionLines.size() == 1) {
-            guiGraphics.drawCenteredString(this.minecraft.font, descriptionLines.getFirst(), centerToastX, 42, descriptionColorARGB);
+            GuiGraphicsExtractor.centeredText(this.minecraft.font, descriptionLines.getFirst(), centerToastX, 42, descriptionColorARGB);
         } else {
             int lineHeight = 38;
-            guiGraphics.drawCenteredString(this.minecraft.font, descriptionLines.getFirst(), centerToastX, lineHeight, descriptionColorARGB);
+            GuiGraphicsExtractor.centeredText(this.minecraft.font, descriptionLines.getFirst(), centerToastX, lineHeight, descriptionColorARGB);
 
             lineHeight += 9;
             FormattedCharSequence secondLine;
@@ -111,7 +111,7 @@ public class StandardAnimation extends FancyToastAnimation {
             } else {
                 secondLine = FormattedCharSequence.composite(descriptionLines.get(1), getDots(descriptionStyle));
             }
-            guiGraphics.drawCenteredString(this.minecraft.font, secondLine, centerToastX, lineHeight, descriptionColorARGB);
+            GuiGraphicsExtractor.centeredText(this.minecraft.font, secondLine, centerToastX, lineHeight, descriptionColorARGB);
         }
     }
 

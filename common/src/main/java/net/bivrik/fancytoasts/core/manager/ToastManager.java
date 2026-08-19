@@ -13,7 +13,7 @@ import net.bivrik.fancytoasts.platform.utility.GuiContext;
 import net.bivrik.fancytoasts.platform.utility.ToastDisplayInfo;
 import net.minecraft.client.DeltaTracker;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.gui.screens.ChatScreen;
 import org.joml.Vector2d;
 
@@ -91,22 +91,22 @@ public class ToastManager implements IManager {
         }
     }
 
-    public void render(GuiGraphics guiGraphics) {
+    public void render(GuiGraphicsExtractor GuiGraphicsExtractor) {
         if (!shouldRender()) {
             return;
         }
 
-        int screenWidth = guiGraphics.guiWidth();
-        int screenHeight = guiGraphics.guiHeight();
+        int screenWidth = GuiGraphicsExtractor.guiWidth();
+        int screenHeight = GuiGraphicsExtractor.guiHeight();
 
         Vector2d toastPosition = generalConfigData.getToastAnchor().getPosition(screenWidth, screenHeight, generalConfigData.getOffsetX(), -generalConfigData.getOffsetY());
         int xPos = (int) toastPosition.x() - currentToast.getWidth() / 2;
         int yPos = (int) toastPosition.y() - currentToast.getHeight() / 2;
 
-        GuiContext context = new GuiContext(guiGraphics);
+        GuiContext context = new GuiContext(GuiGraphicsExtractor);
         context.push();
         context.translate(xPos, yPos);
-        currentToast.draw(guiGraphics);
+        currentToast.draw(GuiGraphicsExtractor);
         context.pop();
     }
 
@@ -138,11 +138,11 @@ public class ToastManager implements IManager {
     }
 
     public boolean shouldRender() {
-        return currentToast != null && !minecraft.options.hideGui;
+        return currentToast != null && !minecraft.gui.hud.isHidden();
     }
 
     public boolean isScreenOpened() {
-        return minecraft.screen != null && !(minecraft.screen instanceof ChatScreen);
+        return minecraft.gui.screen() != null && !(minecraft.gui.screen() instanceof ChatScreen);
     }
 
     public boolean shouldRenderBehind() {

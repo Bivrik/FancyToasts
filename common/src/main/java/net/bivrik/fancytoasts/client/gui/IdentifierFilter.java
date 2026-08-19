@@ -3,7 +3,7 @@ package net.bivrik.fancytoasts.client.gui;
 import net.bivrik.fancytoasts.platform.utility.Components;
 import net.minecraft.network.chat.Component;
 
-public enum ResourceLocationFilter {
+public enum IdentifierFilter {
     A_Z("a_z"),
     Z_A("z_a"),
     BUILT_IN("built_in"),
@@ -11,7 +11,7 @@ public enum ResourceLocationFilter {
 
     private final String name;
 
-    ResourceLocationFilter(String name) {
+    IdentifierFilter(String name) {
         this.name = name;
     }
 
