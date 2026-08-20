@@ -38,8 +38,8 @@ public class ToastConfigData extends ConfigData {
                 FancyToastType.TASK, SoundEvents.NOTE_BLOCK_CHIME.value().getLocation(),
                 FancyToastType.GOAL, SoundEvents.FIREWORK_ROCKET_TWINKLE_FAR.getLocation(),
                 FancyToastType.CHALLENGE, SoundEvents.UI_TOAST_CHALLENGE_COMPLETE.getLocation()), Map.of(
-                FancyQuestType.TASK, SoundEvents.ALLAY_ITEM_GIVEN.getLocation(),
-                FancyQuestType.QUEST, SoundEvents.ALLAY_AMBIENT_WITH_ITEM.getLocation(),
+                FancyQuestType.TASK, SoundEvents.NOTE_BLOCK_CHIME.value().getLocation(),
+                FancyQuestType.QUEST, SoundEvents.NOTE_BLOCK_CHIME.value().getLocation(),
                 FancyQuestType.CHAPTER, SoundEvents.FIREWORK_ROCKET_TWINKLE_FAR.getLocation(),
                 FancyQuestType.BOOK, SoundEvents.UI_TOAST_CHALLENGE_COMPLETE.getLocation()));
     }

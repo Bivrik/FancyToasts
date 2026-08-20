@@ -17,6 +17,10 @@ import net.minecraft.network.chat.Style;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.FormattedCharSequence;
 
+import java.util.List;
+import java.util.Objects;
+import java.util.function.Consumer;
+
 public abstract class FancyToastAnimation {
     private final Consumer<GeneralConfigDataEvent> generalConfigDataEventConsumer;
 
@@ -138,7 +142,7 @@ public abstract class FancyToastAnimation {
         }
 
         int toastCenterX = toastWidth / 2;
-        int titleColorARGB = displayInfo.getAdvancementType().getMainColor().withAlpha(alpha).getARGB();
+        int titleColorARGB = getMainColorAlpha(alpha);
         FormattedCharSequence titleLine = titleLines.getFirst();
 
         if (titleLines.size() == 1) {
@@ -153,7 +157,8 @@ public abstract class FancyToastAnimation {
             return;
         }
 
-        int descriptionColorARGB = displayInfo.getAdvancementType().getSecondaryColor().withAlpha(alpha).getARGB();
+        int descriptionColorARGB = getSecondaryColorAlpha(alpha);
+        // displayInfo.getAdvancementType().getSecondaryColor().withAlpha(alpha).getARGB();
 
         guiGraphics.drawString(minecraft.font, descriptionLines.get(0), 8, 38, descriptionColorARGB);
         if (descriptionLines.size() > 1) {
@@ -188,17 +193,17 @@ public abstract class FancyToastAnimation {
 
     protected int getMainColorAlpha(float alpha) {
         if (displayInfo instanceof net.bivrik.fancytoasts.platform.utility.QuestToastDisplayInfo qdi) {
-            return Colors.alpha(alpha, qdi.getQuestType().getMainColor());
+            return qdi.getQuestType().getMainColor().withAlpha(alpha).getARGB();
         }
 
-        return Colors.alpha(alpha, displayInfo.getAdvancementType().getMainColor());
+        return displayInfo.getAdvancementType().getMainColor().withAlpha(alpha).getARGB();
     }
 
     protected int getSecondaryColorAlpha(float alpha) {
         if (displayInfo instanceof net.bivrik.fancytoasts.platform.utility.QuestToastDisplayInfo qdi) {
-            return Colors.alpha(alpha, qdi.getQuestType().getSecondaryColor());
+            return qdi.getQuestType().getSecondaryColor().withAlpha(alpha).getARGB();
         }
 
-        return Colors.alpha(alpha, displayInfo.getAdvancementType().getSecondaryColor());
+        return displayInfo.getAdvancementType().getSecondaryColor().withAlpha(alpha).getARGB();
     }
 }

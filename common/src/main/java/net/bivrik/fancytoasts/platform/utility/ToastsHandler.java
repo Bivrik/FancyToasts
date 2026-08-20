@@ -44,18 +44,30 @@ public record ToastsHandler(ToastsFilteringData filteringData, ToastManager toas
         if (!filteringData.isFancyQuestToastsEnabled()) {
             return;
         }
-        
+
         ToastDisplayInfo displayInfo = Services.FTB_QUESTS.getDisplayInfo(toast);
         if (displayInfo == null) return;
 
-            ToastDisplayInfo displayInfo = Services.FTB_QUESTS.getDisplayInfo(toast);
-            toastManager.addToast(displayInfo, null);
+        FancyQuestType questType = null;
+        if (displayInfo instanceof QuestToastDisplayInfo qdi) {
+            questType = qdi.getQuestType();
+        } else {
+            String announcement = displayInfo.getAnnouncement().toString();
+            if (!announcement.startsWith("translation")) return;
+            String key = extractKey(announcement);
+            if (key == null) return;
+            for (FancyQuestType fq : FancyQuestType.values()) {
+                if (key.startsWith("ftbquests." + fq.getName())) {
+                    questType = fq;
+                    break;
+                }
+            }
         }
 
         if (questType != null && filteringData.isQuestTypeIgnored(questType)) return; // If ignored, do nothing
 
         info.cancel();
-        toastManager.addToast(displayInfo);
+        toastManager.addToast(displayInfo, null);
     }
 
     public void handleRecipeToasts() {

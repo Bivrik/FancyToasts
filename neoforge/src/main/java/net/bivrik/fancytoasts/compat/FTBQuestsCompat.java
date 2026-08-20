@@ -106,12 +106,16 @@ public class FTBQuestsCompat {
         }
 
         // If a QUEST toast has a subtitle, swap display lines instead of 'Quest Completed'
+        Component announcementDisplay = questAnnouncement;
+        Component titleDisplay = title;
         if (questType == FancyQuestType.QUEST && quest != null) {
             Component questSubtitle = quest.getSubtitle();
             if (questSubtitle != null && !questSubtitle.getString().isEmpty()) {
-                return new QuestToastDisplayInfo(icons, questSubtitle, description, toastType, title, questType);
+                announcementDisplay = title; // quest title becomes main line
+                titleDisplay = questSubtitle; // quest subtitle becomes secondary line
             }
         }
-        return new QuestToastDisplayInfo(icons, title, description, toastType, questAnnouncement, questType);
+
+        return new QuestToastDisplayInfo(icons, titleDisplay, description, toastType, announcementDisplay, questType);
     }
 }

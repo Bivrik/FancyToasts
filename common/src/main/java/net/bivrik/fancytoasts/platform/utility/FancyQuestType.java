@@ -1,20 +1,21 @@
 package net.bivrik.fancytoasts.platform.utility;
 
+import net.bivrik.fancytoasts.core.Color;
 import net.minecraft.network.chat.Component;
 
 public enum FancyQuestType {
-    TASK("task", Colors.YELLOW, Colors.WHITE),
-    QUEST("quest", Colors.CYAN, Colors.WHITE),
-    CHAPTER("chapter", Colors.CYAN, Colors.WHITE),
-    BOOK("file", Colors.PURPLE, Colors.WHITE);
+    TASK("task", Color.YELLOW, Color.WHITE),
+    QUEST("quest", Color.CYAN, Color.WHITE),
+    CHAPTER("chapter", Color.CYAN, Color.WHITE),
+    BOOK("file", Color.PURPLE, Color.WHITE);
 
     private final String name;
-    private final int mainColor;
-    private final int secondaryColor;
+    private final Color mainColor;
+    private final Color secondaryColor;
     private final Component displayName;
     private final Component displayAnnouncement;
 
-    FancyQuestType(String name, int mainColor, int secondaryColor) {
+    FancyQuestType(String name, Color mainColor, Color secondaryColor) {
         this.name = name;
         this.mainColor = mainColor;
         this.secondaryColor = secondaryColor;
@@ -34,11 +35,11 @@ public enum FancyQuestType {
         return displayAnnouncement;
     }
 
-    public int getMainColor() {
+    public Color getMainColor() {
         return mainColor;
     }
 
-    public int getSecondaryColor() {
+    public Color getSecondaryColor() {
         return secondaryColor;
     }
 }
