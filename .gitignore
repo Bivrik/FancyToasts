@@ -2,3 +2,5 @@
 /.gradle/
 /libs/
 /.idea/
+/.vscode/
+/forge/
