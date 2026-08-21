@@ -94,9 +94,25 @@ public final class FancyToasts {
         return toastManager;
     }
 
-    // Registrations
     public static void registerKeyBindings() {
         KeyBindingRegistry.register("config_menu", GLFW.GLFW_KEY_K, () -> Minecraft.getInstance().setScreen(new FancyToastsScreen(null)));
+    }
+
+    // Registration for Textures and Animations
+    static {
+        registerTexture(DefaultLocations.Textures.VANILLA, "vanilla");
+        registerTexture(DefaultLocations.Textures.NATURE, "nature");
+        registerTexture(DefaultLocations.Textures.OG, "og");
+        registerTexture(DefaultLocations.Textures.MODERN, "modern");
+        registerTexture(DefaultLocations.Textures.STEAMY, "steamy");
+        registerTexture(DefaultLocations.Textures.TERRACRAFT, "terracraft");
+        registerTexture(DefaultLocations.Textures.LANDSPAPER, "landspaper");
+        registerTexture(DefaultLocations.Textures.NEON, "neon");
+
+        registerAnimation(DefaultLocations.Animations.STANDARD, "standard", StandardAnimation::new);
+        registerAnimation(DefaultLocations.Animations.PLAYFUL, "playful", PlayfulAnimation::new);
+        registerAnimation(DefaultLocations.Animations.QUIRKY, "quirky", QuirkyAnimation::new);
+        registerAnimation(DefaultLocations.Animations.OLDLIKE, "oldlike", OldlikeAnimation::new);
     }
 
     private static void registerTexture(ResourceLocation id, String name) {
@@ -111,23 +127,5 @@ public final class FancyToasts {
         AnimationRegistry.register(id, animation, new DisplayData(
                 translationKeyName, Constants.MOD_NAME, translationKeyName + ".description", true)
         );
-    }
-
-    static {
-        registerKeyBindings();
-
-        registerTexture(DefaultLocations.Textures.VANILLA, "vanilla");
-        registerTexture(DefaultLocations.Textures.NATURE, "nature");
-        registerTexture(DefaultLocations.Textures.OG, "og");
-        registerTexture(DefaultLocations.Textures.MODERN, "modern");
-        registerTexture(DefaultLocations.Textures.STEAMY, "steamy");
-        registerTexture(DefaultLocations.Textures.TERRACRAFT, "terracraft");
-        registerTexture(DefaultLocations.Textures.LANDSPAPER, "landspaper");
-        registerTexture(DefaultLocations.Textures.NEON, "neon");
-
-        registerAnimation(DefaultLocations.Animations.STANDARD, "standard", StandardAnimation::new);
-        registerAnimation(DefaultLocations.Animations.PLAYFUL, "playful", PlayfulAnimation::new);
-        registerAnimation(DefaultLocations.Animations.QUIRKY, "quirky", QuirkyAnimation::new);
-        registerAnimation(DefaultLocations.Animations.OLDLIKE, "oldlike", OldlikeAnimation::new);
     }
 }
