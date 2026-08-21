@@ -1,5 +1,6 @@
 package net.bivrik.fancytoasts.client.toast.animation;
 
+import net.bivrik.fancytoasts.client.config.data.GeneralConfigData;
 import net.bivrik.fancytoasts.client.toast.AnimationSetup;
 import net.bivrik.fancytoasts.client.toast.Appearance;
 import net.bivrik.fancytoasts.core.Easing;
@@ -18,8 +19,8 @@ public class PlayfulAnimation extends FancyToastAnimation {
     private final int DURATION = 6000 + FADE_OUT_DURATION;
 
     @Override
-    public void setup(AnimationSetup setup, Minecraft minecraft, int toastWidth, int toastHeight) {
-        super.setup(setup, minecraft, toastWidth, toastHeight);
+    public void setup(AnimationSetup setup, GeneralConfigData generalConfig, Minecraft minecraft, int toastWidth, int toastHeight) {
+        super.setup(setup, generalConfig, minecraft, toastWidth, toastHeight);
 
         this.setLines(displayInfo.getTitle(), displayInfo.getDescription());
     }

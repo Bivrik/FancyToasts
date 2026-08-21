@@ -1,14 +1,16 @@
 package net.bivrik.fancytoasts.client.toast.animation;
 
+import java.util.Random;
+
+import net.bivrik.fancytoasts.client.config.data.GeneralConfigData;
 import net.bivrik.fancytoasts.client.toast.AnimationSetup;
 import net.bivrik.fancytoasts.client.toast.Appearance;
 import net.bivrik.fancytoasts.core.Easing;
 import net.bivrik.fancytoasts.platform.utility.GuiContext;
+import net.bivrik.fancytoasts.platform.utility.QuestAdvancementDisplay;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.GuiGraphicsExtractor;
+import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.util.FormattedCharSequence;
-
-import java.util.Random;
 
 public class QuirkyAnimation extends FancyToastAnimation {
     private final Appearance ICON_APPEARANCE = new Appearance(2000, 0);
@@ -23,16 +25,16 @@ public class QuirkyAnimation extends FancyToastAnimation {
     private float randomRotation;
 
     @Override
-    public void setup(AnimationSetup setup, Minecraft minecraft, int toastWidth, int toastHeight) {
-        super.setup(setup, minecraft, toastWidth, toastHeight);
+    public void setup(AnimationSetup setup, GeneralConfigData generalConfig, Minecraft minecraft, int toastWidth, int toastHeight) {
+        super.setup(setup, generalConfig, minecraft, toastWidth, toastHeight);
 
-        this.setLines(displayInfo.getAdvancementsAnnouncement(), displayInfo.getDescription());
+        this.setLines(display.getAnnouncement(), display.getDescription());
         randomRotation = new Random().nextFloat(-0.4f, 0.4f);
     }
 
     @Override
-    public void draw(GuiGraphicsExtractor GuiGraphicsExtractor, long time) {
-        super.draw(GuiGraphicsExtractor, time);
+    public void draw(GuiGraphics guiGraphics, long time) {
+        super.draw(guiGraphics, time);
 
         float iconAppearProgress = ICON_APPEARANCE.getProgress(time);
         float iconScaleProgress = ICON_SCALE.getProgress(time);
@@ -41,7 +43,7 @@ public class QuirkyAnimation extends FancyToastAnimation {
         float textAppearProgress = TEXT_APPEARANCE.getProgress(time);
         float fadeOutProgress = Appearance.getProgress(time, FADE_OUT_DURATION, DURATION - FADE_OUT_DURATION);
 
-        GuiContext context = new GuiContext(GuiGraphicsExtractor);
+        GuiContext context = new GuiContext(guiGraphics);
         float globalSinX = this.sinusoidLoop(time, 1.0F, 7.0F);
         float globalSinY = this.sinusoidLoop(time, 2.0F, 5.0F);
 
@@ -96,9 +98,9 @@ public class QuirkyAnimation extends FancyToastAnimation {
             context.pop();
         }
 
-        if (textAppearProgress > 0) {
-            this.drawTitle(GuiGraphicsExtractor, textAppearProgress);
-            this.drawDescription(GuiGraphicsExtractor, textAppearProgress);
+        if (textAppearProgress > 0.05f) {
+            this.drawTitle(guiGraphics, textAppearProgress);
+            this.drawDescription(guiGraphics, textAppearProgress);
         }
 
         if (fadeOutProgress > 0) {
@@ -109,22 +111,22 @@ public class QuirkyAnimation extends FancyToastAnimation {
     }
 
     @Override
-    protected void drawDescription(GuiGraphicsExtractor GuiGraphicsExtractor, float alpha) {
+    protected void drawDescription(GuiGraphics guiGraphics, float alpha) {
         var descriptionLines = getDescriptionLines();
         if (descriptionLines.isEmpty()) {
             return;
         }
 
         int centerToastX = toastWidth / 2;
-        int descriptionColorARGB = displayInfo.getAdvancementType().getSecondaryColor().withAlpha(alpha).getARGB();
+        int descriptionColorARGB = display.getDescriptionColor().withAlpha(alpha).getARGB();
 
-        GuiGraphicsExtractor.centeredText(minecraft.font, descriptionLines.get(0), centerToastX, 38, descriptionColorARGB);
+        guiGraphics.drawCenteredString(minecraft.font, descriptionLines.get(0), centerToastX, 38, descriptionColorARGB);
         if (descriptionLines.size() > 1) {
             var descriptionSecondLine = descriptionLines.get(1);
             if (descriptionLines.size() == 2) {
-                GuiGraphicsExtractor.centeredText(minecraft.font, descriptionSecondLine, centerToastX, 47, descriptionColorARGB);
+                guiGraphics.drawCenteredString(minecraft.font, descriptionSecondLine, centerToastX, 47, descriptionColorARGB);
             } else {
-                GuiGraphicsExtractor.centeredText(minecraft.font, FormattedCharSequence.composite(descriptionSecondLine, getDots(descriptionStyle)), centerToastX, 47, descriptionColorARGB);
+                guiGraphics.drawCenteredString(minecraft.font, FormattedCharSequence.composite(descriptionSecondLine, getDots(descriptionStyle)), centerToastX, 47, descriptionColorARGB);
             }
         }
     }
