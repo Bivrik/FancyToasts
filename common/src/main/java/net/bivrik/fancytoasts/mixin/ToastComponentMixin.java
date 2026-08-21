@@ -1,6 +1,7 @@
 package net.bivrik.fancytoasts.mixin;
 
 import net.bivrik.fancytoasts.core.Managers;
+import net.bivrik.fancytoasts.core.manager.ConfigManager;
 import net.bivrik.fancytoasts.platform.Services;
 import net.bivrik.fancytoasts.platform.utility.ToastsHandler;
 import net.minecraft.client.gui.components.toasts.*;
@@ -15,7 +16,8 @@ import java.util.Objects;
 public class ToastComponentMixin {
     @Inject(at = @At("HEAD"), method = "addToast", cancellable = true)
     private void onAddToast(Toast toast, CallbackInfo info) {
-        ToastsHandler toastsHandler = new ToastsHandler(Managers.getConfigManager().getToastsFilteringData(), Objects.requireNonNull(Managers.getToastManager()), info);
+        ConfigManager configManager = Managers.getConfigManager();
+        ToastsHandler toastsHandler = new ToastsHandler(configManager.getToastsFilteringData(), configManager.getToastConfigData(), Objects.requireNonNull(Managers.getToastManager()), info);
 
         if (toast instanceof AdvancementToast advancementToast) {
             toastsHandler.handleAdvancementToasts(advancementToast);

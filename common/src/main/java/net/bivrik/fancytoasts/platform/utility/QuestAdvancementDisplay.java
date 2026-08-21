@@ -2,25 +2,19 @@ package net.bivrik.fancytoasts.platform.utility;
 
 import java.util.List;
 
+import net.bivrik.fancytoasts.core.Color;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.ItemStack;
 
-public class QuestToastDisplayInfo extends ToastDisplayInfo {
-    private final Component announcementDisplay;
+public class QuestAdvancementDisplay extends AdvancementDisplay {
     private final List<ItemStack> icons;
     private final FancyQuestType questType;
 
-    public QuestToastDisplayInfo(List<ItemStack> icons, Component title, Component description, FancyToastType advancementType, Component announcementDisplay, FancyQuestType questType) {
-        super(null, title, description, advancementType);
+    public QuestAdvancementDisplay(List<ItemStack> icons, Component title, Component description, Component announcement, Color titleColor, Color descriptionColor, AdvancementType type, FancyQuestType questType) {
+        super(ItemStack.EMPTY, title, description, announcement, titleColor, descriptionColor, type);
 
-        this.announcementDisplay = announcementDisplay;
-        this.icons = icons;
+        this.icons = icons; // generally announcement & title
         this.questType = questType;
-    }
-
-    @Override
-    public Component getAnnouncement() {
-        return announcementDisplay;
     }
 
     public FancyQuestType getQuestType() {
@@ -30,12 +24,12 @@ public class QuestToastDisplayInfo extends ToastDisplayInfo {
     @Override
     public ItemStack getIcon() {
         if (icons.size() == 1) {
-            return icons.get(0);
+            return icons.getFirst();
         } else if (!icons.isEmpty()) {
             return getOrderedIcon();
         }
 
-        return ItemStack.EMPTY;
+        return super.getIcon();
     }
 
     private ItemStack getOrderedIcon() {

@@ -6,7 +6,8 @@ import net.bivrik.fancytoasts.client.toast.animation.FancyToastAnimation;
 import net.bivrik.fancytoasts.core.Debug;
 import net.bivrik.fancytoasts.core.Managers;
 import net.bivrik.fancytoasts.platform.Services;
-import net.bivrik.fancytoasts.platform.utility.ToastDisplayInfo;
+import net.bivrik.fancytoasts.platform.utility.AdvancementDisplay;
+import net.bivrik.fancytoasts.platform.utility.QuestAdvancementDisplay;
 import net.bivrik.fancytoasts.utility.DefaultUVs;
 import net.minecraft.advancements.AdvancementHolder;
 import net.minecraft.client.Minecraft;
@@ -35,7 +36,7 @@ public class FancyAdvancementToast {
     private boolean isEnded = false;
     private int playedSoundsCount = 0;
 
-    public FancyAdvancementToast(Minecraft minecraft, AdvancementHolder holder, ToastDisplayInfo displayInfo, ResourceLocation textureId, ResourceLocation animationId) {
+    public FancyAdvancementToast(Minecraft minecraft, AdvancementDisplay display, ResourceLocation soundId, ResourceLocation textureId, ResourceLocation animationId) {
         var generalConfig = Managers.getConfigManager().getGeneralConfigData();
         this.generalConfig = generalConfig;
 
@@ -43,60 +44,23 @@ public class FancyAdvancementToast {
             soundManager = minecraft.getSoundManager();
         }
 
-        AnimationSetup setup = new AnimationSetup(textureId, displayInfo, null, DefaultUVs.BACKGROUND, DefaultUVs.PLAQUE);
-
-        if (displayInfo instanceof net.bivrik.fancytoasts.platform.utility.QuestToastDisplayInfo qdi) {
-            switch (qdi.getQuestType()) {
-                case TASK, QUEST -> {
-                    setup.setTypeBasedUVs(DefaultUVs.TASK);
-                    volume = generalConfig.getTaskVolume();
-                }
-                case CHAPTER -> {
-                    setup.setTypeBasedUVs(DefaultUVs.GOAL);
-                    volume = generalConfig.getGoalVolume();
-                }
-                case BOOK -> {
-                    setup.setTypeBasedUVs(DefaultUVs.CHALLENGE);
-                    volume = generalConfig.getChallengeVolume();
-                }
-                default -> throw new RuntimeException("Could match correct quest type");
-            }
-        } else {
-            switch (displayInfo.getAdvancementType()) {
-                case TASK -> {
-                    setup.setTypeBasedUVs(DefaultUVs.TASK);
-                    volume = generalConfig.getTaskVolume();
-                }
-                case GOAL -> {
-                    setup.setTypeBasedUVs(DefaultUVs.GOAL);
-                    volume = generalConfig.getGoalVolume();
-                }
-                case CHALLENGE -> {
-                    setup.setTypeBasedUVs(DefaultUVs.CHALLENGE);
-                    volume = generalConfig.getChallengeVolume();
-                }
-                default -> throw new RuntimeException("Could match correct advancement type");
-            }
+        switch (display.getType()) {
+            case GOAL -> volume = generalConfig.getGoalVolume();
+            case CHALLENGE -> volume = generalConfig.getChallengeVolume();
+            default -> volume = generalConfig.getTaskVolume();
         }
 
         animation = AnimationRegistry.getAnimation(animationId).get();
+        AnimationSetup setup = new AnimationSetup(textureId, display, DefaultUVs.BACKGROUND, DefaultUVs.PLAQUE);
         animation.setup(setup, minecraft, getWidth(), getHeight());
 
-        if (displayInfo instanceof net.bivrik.fancytoasts.platform.utility.QuestToastDisplayInfo qdi) {
-            toastSoundId = Managers.getConfigManager().getToastConfigData().getSoundIdByQuestType(qdi.getQuestType());
-        } else {
-            toastSoundId = Managers.getConfigManager().getToastConfigData().getSoundIdByType(displayInfo.getAdvancementType());
-        }
+        toastSoundId = soundId;
 
-        // Aether overriding sounds support
-        if (holder != null) {
-            ResourceLocation overrideId = Services.AETHER_HELPER.getOverrideId(holder);
-            if (overrideId  != null) {
-                toastSoundId = overrideId;
-            }
-        }
+        Debug.info("Created new fancy advancement toast: {}", display.getTitle().getString());
 
-        Debug.info("Created new fancy advancement toast: {}; texture: {}; animation: {}", displayInfo.getTitle().getString(), textureId, animationId);
+        Debug.warn("{} - {}", display.getTitle().getString(), display.getTitle().toString());
+        Debug.warn("{} - {}", display.getDescription().getString(), display.getDescription().toString());
+        Debug.warn("{} - {}", display.getAnnouncement().getString(), display.getAnnouncement().toString());
     }
 
     public void draw(GuiGraphics graphics) {

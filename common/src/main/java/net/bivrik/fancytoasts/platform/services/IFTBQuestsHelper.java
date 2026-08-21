@@ -2,7 +2,7 @@ package net.bivrik.fancytoasts.platform.services;
 
 import net.bivrik.fancytoasts.core.Constants;
 import net.bivrik.fancytoasts.platform.Services;
-import net.bivrik.fancytoasts.platform.utility.ToastDisplayInfo;
+import net.bivrik.fancytoasts.platform.utility.AdvancementDisplay;
 import net.minecraft.client.gui.components.toasts.Toast;
 
 public interface IFTBQuestsHelper {
@@ -18,9 +18,9 @@ public interface IFTBQuestsHelper {
     /**
      * Gets a display info for toast from a QuestObjectToast. Not entirely accurate, but does the best job it can
      * @param toast abstract interface of every toast
-     * @return {@link ToastDisplayInfo} gathered from a QuestObjectToast
+     * @return {@link AdvancementDisplay} gathered from a QuestObjectToast
      */
-    default ToastDisplayInfo getDisplayInfo(Toast toast) {
+    default AdvancementDisplay getDisplayInfo(Toast toast) {
         return null;
     }
 

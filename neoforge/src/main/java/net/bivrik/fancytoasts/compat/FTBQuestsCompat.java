@@ -16,9 +16,9 @@ import dev.ftb.mods.ftbquests.registry.ModItems;
 import net.bivrik.fancytoasts.core.Constants;
 import net.bivrik.fancytoasts.platform.utility.FancyQuestType;
 import net.bivrik.fancytoasts.platform.utility.FancyToastType;
-import net.bivrik.fancytoasts.platform.utility.QuestToastDisplayInfo;
+import net.bivrik.fancytoasts.platform.utility.QuestAdvancementDisplay;
 import net.bivrik.fancytoasts.platform.utility.ResourceLocations;
-import net.bivrik.fancytoasts.platform.utility.ToastDisplayInfo;
+import net.bivrik.fancytoasts.platform.utility.AdvancementDisplay;
 import net.bivrik.fancytoasts.platform.utility.ToastsHandler;
 import net.minecraft.client.gui.components.toasts.Toast;
 import net.minecraft.network.chat.Component;
@@ -34,7 +34,7 @@ public class FTBQuestsCompat {
         return toast instanceof ToastQuestObject;
     }
 
-    public static ToastDisplayInfo getDisplayInfo(Toast toast) {
+    public static AdvancementDisplay getDisplayInfo(Toast toast) {
         ToastQuestObject questToast = (ToastQuestObject) toast;
         FancyToastType toastType = !questToast.isImportant() ? FancyToastType.TASK : FancyToastType.CHALLENGE;
 
@@ -116,6 +116,7 @@ public class FTBQuestsCompat {
             }
         }
 
-        return new QuestToastDisplayInfo(icons, titleDisplay, description, toastType, announcementDisplay, questType);
+        return null;
+        //return new QuestAdvancementDisplay(icons, titleDisplay, description, toastType, announcementDisplay, questType);
     }
 }

@@ -2,23 +2,20 @@ package net.bivrik.fancytoasts.core.manager;
 
 import net.bivrik.fancytoasts.client.config.data.GeneralConfigData;
 import net.bivrik.fancytoasts.client.config.data.ToastConfigData;
-import net.bivrik.fancytoasts.core.Debug;
 import net.bivrik.fancytoasts.core.IManager;
-import net.bivrik.fancytoasts.core.ITickableManager;
 import net.bivrik.fancytoasts.core.event.GeneralConfigDataEvent;
 import net.bivrik.fancytoasts.client.toast.FancyAdvancementToast;
 import net.bivrik.fancytoasts.client.config.ToastScreenBehavior;
 import net.bivrik.fancytoasts.core.Managers;
 import net.bivrik.fancytoasts.core.event.ToastConfigDataEvent;
 import net.bivrik.fancytoasts.platform.utility.GuiContext;
-import net.bivrik.fancytoasts.platform.utility.ToastDisplayInfo;
+import net.bivrik.fancytoasts.platform.utility.AdvancementDisplay;
 import net.bivrik.fancytoasts.platform.Services;
-import net.minecraft.Util;
-import net.minecraft.advancements.AdvancementHolder;
 import net.minecraft.client.DeltaTracker;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.screens.ChatScreen;
+import net.minecraft.resources.ResourceLocation;
 import org.joml.Vector2d;
 
 import java.util.Deque;
@@ -59,12 +56,14 @@ public class ToastManager implements IManager {
         toastConfigData = event.toastConfigData();
     }
 
-    public void addToast(ToastDisplayInfo displayInfo, AdvancementHolder holder) {
-        if (displayInfo == null) return;
+    public void addAdvancement(AdvancementDisplay display, ResourceLocation soundId) {
+        if (display == null) return;
 
-        FancyAdvancementToast fancyToast = new FancyAdvancementToast(minecraft, holder, displayInfo, toastConfigData.getTextureId(), toastConfigData.getAnimationId());
-        toasts.add(fancyToast);
-        customTextureManager.addBeingUsed(toastConfigData.getTextureId(), fancyToast);
+        FancyAdvancementToast toast = new FancyAdvancementToast(minecraft, display,
+                soundId, toastConfigData.getTextureId(), toastConfigData.getAnimationId());
+
+        toasts.add(toast);
+        customTextureManager.addBeingUsed(toastConfigData.getTextureId(), toast);
 
         if (generalConfigData.isJadeHiding()) {
             Services.JADE.tryDisable();

@@ -7,7 +7,7 @@ import net.bivrik.fancytoasts.core.Color;
 import net.bivrik.fancytoasts.core.Managers;
 import net.bivrik.fancytoasts.core.event.GeneralConfigDataEvent;
 import net.bivrik.fancytoasts.platform.utility.GuiContext;
-import net.bivrik.fancytoasts.platform.utility.ToastDisplayInfo;
+import net.bivrik.fancytoasts.platform.utility.AdvancementDisplay;
 import net.bivrik.fancytoasts.utility.TextureUV;
 import net.bivrik.fancytoasts.utility.TypeBasedUVs;
 import net.minecraft.client.Minecraft;
@@ -27,7 +27,7 @@ public abstract class FancyToastAnimation {
     private List<FormattedCharSequence> titleLines;
     private List<FormattedCharSequence> descriptionLines;
 
-    protected ToastDisplayInfo displayInfo;
+    protected AdvancementDisplay display;
     protected Minecraft minecraft;
     protected int toastWidth;
     protected int toastHeight;
@@ -62,11 +62,11 @@ public abstract class FancyToastAnimation {
         this.minecraft = minecraft;
         this.toastWidth = toastWidth;
         this.toastHeight = toastHeight;
-        this.textureLocation = setup.textureLocation();
-        this.displayInfo = setup.displayInfo();
-        this.typeBasedUVs = setup.typeBasedUVs();
-        this.backgroundUV = setup.backgroundUV();
-        this.plaqueUV = setup.plaqueUV();
+        this.textureLocation = setup.getTextureId();
+        this.display = setup.getDisplay();
+        this.typeBasedUVs = this.display.getType().getUvs();
+        this.backgroundUV = setup.getBackgroundUV();
+        this.plaqueUV = setup.getPlaqueUV();
     }
 
     public void unsubscribeFromGeneralConfigDataEvent() {
@@ -81,8 +81,8 @@ public abstract class FancyToastAnimation {
     }
 
     protected void setLines(Component toastTitle, Component toastDescription) {
-        Component title = titleDisplayTextType.getDisplayTextOrElse(displayInfo, toastTitle);
-        Component description = descriptionDisplayTextType.getDisplayTextOrElse(displayInfo, toastDescription);
+        Component title = titleDisplayTextType.getDisplayTextOrElse(display, toastTitle);
+        Component description = descriptionDisplayTextType.getDisplayTextOrElse(display, toastDescription);
 
         titleStyle = title.getStyle();
         descriptionStyle = description.getStyle();
@@ -114,7 +114,7 @@ public abstract class FancyToastAnimation {
 
     protected void drawIcon(GuiContext guiContext, float alpha) {
         guiContext.drawGUITexture(textureLocation, 68, 0, 26, 26, typeBasedUVs.frame(), getColor(alpha));
-        guiContext.guiGraphics().renderFakeItem(displayInfo.getIcon(), 73, 5);
+        guiContext.guiGraphics().renderFakeItem(display.getIcon(), 73, 5);
     }
     protected void drawIcon(GuiContext guiContext) {
         drawIcon(guiContext, 1);
@@ -142,7 +142,7 @@ public abstract class FancyToastAnimation {
         }
 
         int toastCenterX = toastWidth / 2;
-        int titleColorARGB = getMainColorAlpha(alpha);
+        int titleColorARGB = display.getTitleColor().withAlpha(alpha).getARGB();
         FormattedCharSequence titleLine = titleLines.getFirst();
 
         if (titleLines.size() == 1) {
@@ -157,8 +157,7 @@ public abstract class FancyToastAnimation {
             return;
         }
 
-        int descriptionColorARGB = getSecondaryColorAlpha(alpha);
-        // displayInfo.getAdvancementType().getSecondaryColor().withAlpha(alpha).getARGB();
+        int descriptionColorARGB = display.getDescriptionColor().withAlpha(alpha).getARGB();
 
         guiGraphics.drawString(minecraft.font, descriptionLines.get(0), 8, 38, descriptionColorARGB);
         if (descriptionLines.size() > 1) {
@@ -189,21 +188,5 @@ public abstract class FancyToastAnimation {
 
     protected int getColor(float alpha) {
         return Color.WHITE.withAlpha(guiAlpha * alpha).getARGB();
-    }
-
-    protected int getMainColorAlpha(float alpha) {
-        if (displayInfo instanceof net.bivrik.fancytoasts.platform.utility.QuestToastDisplayInfo qdi) {
-            return qdi.getQuestType().getMainColor().withAlpha(alpha).getARGB();
-        }
-
-        return displayInfo.getAdvancementType().getMainColor().withAlpha(alpha).getARGB();
-    }
-
-    protected int getSecondaryColorAlpha(float alpha) {
-        if (displayInfo instanceof net.bivrik.fancytoasts.platform.utility.QuestToastDisplayInfo qdi) {
-            return qdi.getQuestType().getSecondaryColor().withAlpha(alpha).getARGB();
-        }
-
-        return displayInfo.getAdvancementType().getSecondaryColor().withAlpha(alpha).getARGB();
     }
 }

@@ -21,7 +21,7 @@ public class StandardAnimation extends FancyToastAnimation {
     public void setup(AnimationSetup setup, Minecraft minecraft, int toastWidth, int toastHeight) {
         super.setup(setup, minecraft, toastWidth, toastHeight);
 
-        this.setLines(displayInfo.getAnnouncement(), displayInfo.getTitle());
+        this.setLines(display.getAnnouncement(), display.getTitle());
     }
 
     @Override
@@ -96,7 +96,7 @@ public class StandardAnimation extends FancyToastAnimation {
         }
 
         int centerToastX = this.toastWidth / 2;
-        int descriptionColorARGB = this.displayInfo.getAdvancementType().getSecondaryColor().withAlpha(alpha).getARGB();
+        int descriptionColorARGB = this.display.getDescriptionColor().withAlpha(alpha).getARGB();
 
         if (descriptionLines.size() == 1) {
             guiGraphics.drawCenteredString(this.minecraft.font, descriptionLines.getFirst(), centerToastX, 42, descriptionColorARGB);

@@ -1,5 +1,7 @@
 package net.bivrik.fancytoasts.platform.utility;
 
+import net.bivrik.fancytoasts.client.config.data.ToastConfigData;
+import net.minecraft.resources.ResourceLocation;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 import net.bivrik.fancytoasts.client.config.data.ToastsFilteringData;
@@ -11,7 +13,7 @@ import net.minecraft.advancements.DisplayInfo;
 import net.minecraft.client.gui.components.toasts.AdvancementToast;
 import net.minecraft.client.gui.components.toasts.Toast;
 
-public record ToastsHandler(ToastsFilteringData filteringData, ToastManager toastManager, CallbackInfo info) {
+public record ToastsHandler(ToastsFilteringData filteringData, ToastConfigData toastData, ToastManager toastManager, CallbackInfo info) {
 
     public void handleAdvancementToasts(AdvancementToast advancementToast) {
         if (!filteringData.isAdvancementToastsEnabled()) {
@@ -20,15 +22,20 @@ public record ToastsHandler(ToastsFilteringData filteringData, ToastManager toas
         }
 
         AdvancementHolder advancementHolder = ((IAdvancementAccessor) advancementToast).getAdvancementHolder();
-        DisplayInfo oldDisplayInfo = advancementHolder.value().display().orElse(null);
-        if (oldDisplayInfo == null) {
+        DisplayInfo vanillaDisplayInfo = advancementHolder.value().display().orElse(null);
+        if (vanillaDisplayInfo == null) {
             info.cancel();
             return;
         }
-        ToastDisplayInfo displayInfo = new ToastDisplayInfo(oldDisplayInfo);
 
-        if (filteringData.isTypeIgnored(displayInfo.getAdvancementType())
-                || filteringData.isToastIgnored(advancementHolder.id())) {
+        FancyToastType toastType;
+        switch (vanillaDisplayInfo.getType()) {
+            case GOAL -> toastType = FancyToastType.GOAL;
+            case CHALLENGE -> toastType = FancyToastType.CHALLENGE;
+            default -> toastType = FancyToastType.TASK;
+        }
+
+        if (filteringData.isTypeIgnored(toastType) || filteringData.isToastIgnored(advancementHolder.id())) {
             info.cancel();
             return;
         }
@@ -36,7 +43,21 @@ public record ToastsHandler(ToastsFilteringData filteringData, ToastManager toas
         if (filteringData.isFancyAdvancementToastsEnabled()) {
             info.cancel();
 
-            toastManager.addToast(displayInfo, advancementHolder);
+            ResourceLocation soundId = toastData.getSoundIdByType(toastType);
+            if (Services.AETHER_HELPER.isLoaded()) {
+                ResourceLocation aetherSoundOverrideId = Services.AETHER_HELPER.getOverrideId(advancementHolder);
+                if (aetherSoundOverrideId != null) {
+                    soundId = aetherSoundOverrideId;
+                }
+            }
+
+            AdvancementDisplay display = new AdvancementDisplay(
+                    vanillaDisplayInfo.getIcon(),
+                    vanillaDisplayInfo.getTitle(), vanillaDisplayInfo.getDescription(), toastType.getDisplayAnnouncement(),
+                    toastType.getTitleColor(), toastType.getDescriptionColor(),
+                    toastType.getConventionalType());
+
+            toastManager.addAdvancement(display, soundId);
         }
     }
 
@@ -45,29 +66,17 @@ public record ToastsHandler(ToastsFilteringData filteringData, ToastManager toas
             return;
         }
 
-        ToastDisplayInfo displayInfo = Services.FTB_QUESTS.getDisplayInfo(toast);
-        if (displayInfo == null) return;
-
-        FancyQuestType questType = null;
-        if (displayInfo instanceof QuestToastDisplayInfo qdi) {
-            questType = qdi.getQuestType();
-        } else {
-            String announcement = displayInfo.getAnnouncement().toString();
-            if (!announcement.startsWith("translation")) return;
-            String key = extractKey(announcement);
-            if (key == null) return;
-            for (FancyQuestType fq : FancyQuestType.values()) {
-                if (key.startsWith("ftbquests." + fq.getName())) {
-                    questType = fq;
-                    break;
-                }
-            }
+        QuestAdvancementDisplay display = (QuestAdvancementDisplay) Services.FTB_QUESTS.getDisplayInfo(toast);
+        if (display == null) {
+            return;
         }
 
-        if (questType != null && filteringData.isQuestTypeIgnored(questType)) return; // If ignored, do nothing
+        if (filteringData.isQuestTypeIgnored(display.getQuestType())) {
+            return;
+        }
 
         info.cancel();
-        toastManager.addToast(displayInfo, null);
+        toastManager.addAdvancement(display, toastData.getSoundIdByQuestType(display.getQuestType()));
     }
 
     public void handleRecipeToasts() {

@@ -14,12 +14,8 @@ import dev.ftb.mods.ftbquests.quest.Quest;
 import dev.ftb.mods.ftbquests.quest.QuestObjectBase;
 import dev.ftb.mods.ftbquests.registry.ModItems;
 import net.bivrik.fancytoasts.core.Constants;
-import net.bivrik.fancytoasts.platform.utility.FancyQuestType;
-import net.bivrik.fancytoasts.platform.utility.FancyToastType;
-import net.bivrik.fancytoasts.platform.utility.QuestToastDisplayInfo;
-import net.bivrik.fancytoasts.platform.utility.ResourceLocations;
-import net.bivrik.fancytoasts.platform.utility.ToastDisplayInfo;
-import net.bivrik.fancytoasts.platform.utility.ToastsHandler;
+import net.bivrik.fancytoasts.core.Debug;
+import net.bivrik.fancytoasts.platform.utility.*;
 import net.minecraft.client.gui.components.toasts.Toast;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.Item;
@@ -34,13 +30,19 @@ public class FTBQuestsCompat {
         return toast instanceof ToastQuestObject;
     }
 
-    public static ToastDisplayInfo getDisplayInfo(Toast toast) {
+    // OH MY GOD WHY IS THERE SO MANY THINGS
+    // DEPENDING ON DIFFERENT THINGS?!
+    // Chapters quests tasks, and they all KINDA
+    // have the same properties in the editing in-game,
+    // But realistically speaking they are all saved differently,
+    // oh my God it will take A WHILE to catch it all here,
+    // it's such a mess D:
+    public static AdvancementDisplay getDisplayInfo(Toast toast) {
         ToastQuestObject questToast = (ToastQuestObject) toast;
-        FancyToastType toastType = !questToast.isImportant() ? FancyToastType.TASK : FancyToastType.CHALLENGE;
 
-        Component title = questToast.getSubtitle();
-        Component description = toastType.getDisplayAnnouncement(); // fallback as a standard advancement announcement for description
-        Component questAnnouncement = questToast.getTitle();
+        Component title = questToast.getSubtitle(); // title
+        Component description = Component.empty(); // description
+        Component announcement = questToast.getTitle(); // announcement
         List<ItemStack> icons = new ArrayList<>(1);
 
         // Try to find a description for quest. Not really efficient, but I can't think of any other solution
@@ -51,6 +53,7 @@ public class FTBQuestsCompat {
                 if (foundQuest != null) {
                     quest = foundQuest;
                     description = foundQuest.getSubtitle();
+                    //Debug.error("title " + quest.getTitle().getString() + "; subtitle " + quest.getSubtitle().getString() + "; description first " + quest.getDescription().getFirst().getString() + "; alt title " + quest.getAltTitle().getString());
                     break;
                 }
             }
@@ -94,19 +97,19 @@ public class FTBQuestsCompat {
 
         // Try to extract quest-type key from the announcement component (falls back to TASK)
         FancyQuestType questType = FancyQuestType.TASK;
-        String ann = questAnnouncement.toString();
-        String key = ToastsHandler.extractKey(ann);
+        String announcementHolder = announcement.toString();
+        String key = ToastsHandler.extractKey(announcementHolder);
         if (key != null) {
-            for (FancyQuestType fq : FancyQuestType.values()) {
-                if (key.startsWith("ftbquests." + fq.getName())) {
-                    questType = fq;
+            for (FancyQuestType type : FancyQuestType.values()) {
+                if (key.startsWith("ftbquests." + type.getName())) {
+                    questType = type;
                     break;
                 }
             }
         }
 
         // If a QUEST toast has a subtitle, swap display lines instead of 'Quest Completed'
-        Component announcementDisplay = questAnnouncement;
+        /*Component announcementDisplay = questAnnouncement;
         Component titleDisplay = title;
         if (questType == FancyQuestType.QUEST && quest != null) {
             Component questSubtitle = quest.getSubtitle();
@@ -114,8 +117,11 @@ public class FTBQuestsCompat {
                 announcementDisplay = title; // quest title becomes main line
                 titleDisplay = questSubtitle; // quest subtitle becomes secondary line
             }
-        }
+        }*/
 
-        return new QuestToastDisplayInfo(icons, titleDisplay, description, toastType, announcementDisplay, questType);
+        return new QuestAdvancementDisplay(
+                icons, title, description, announcement,
+                questType.getTitleColor(), questType.getDescriptionColor(),
+                questType.getConventionalType(), questType);
     }
 }
