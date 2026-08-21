@@ -13,20 +13,17 @@ import net.bivrik.fancytoasts.platform.utility.GuiContext;
 import net.minecraft.client.DeltaTracker;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
-import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.gui.screens.ChatScreen;
-import net.minecraft.resources.Identifier;
 import net.minecraft.resources.ResourceLocation;
 import org.joml.Vector2d;
 
 import java.util.Deque;
 import java.util.concurrent.ConcurrentLinkedDeque;
 
-public class ToastManager {
+public class FancyToastManager {
     private final Deque<FancyAdvancementToast> toasts = new ConcurrentLinkedDeque<>();
-
-    private Minecraft minecraft;
-    private DeltaTracker deltaTracker;
+    private final Minecraft minecraft;
+    private final DeltaTracker deltaTracker;
 
     private volatile FancyAdvancementToast currentToast;
 
@@ -34,13 +31,13 @@ public class ToastManager {
     private GeneralConfigData generalConfigData;
     private ToastConfigData toastConfigData;
 
-    public ToastManager(Minecraft minecraft, CustomTextureManager customTextureManager, ConfigManager configManager) {
+    public FancyToastManager(Minecraft minecraft, CustomTextureManager customTextureManager, ConfigManager configManager) {
         this.minecraft = minecraft;
-        this.deltaTracker = minecraft.getDeltaTracker();
+        this.deltaTracker = minecraft.getTimer();
 
         this.customTextureManager = customTextureManager;
-        generalConfigData = configManager.getGeneralConfigData();
-        toastConfigData = configManager.getToastConfigData();
+        this.generalConfigData = configManager.getGeneralConfigData();
+        this.toastConfigData = configManager.getToastConfigData();
 
         FancyToasts.EVENTS.subscribeToEvent(GeneralConfigDataEvent.class, this::onGeneralConfigDataChanged);
         FancyToasts.EVENTS.subscribeToEvent(ToastConfigDataEvent.class, this::onToastConfigDataChanged);
@@ -54,29 +51,30 @@ public class ToastManager {
         toastConfigData = event.toastConfigData();
     }
 
-    public void addAdvancement(AdvancementDisplay display, Identifier soundId) {
-        if (display == null) return;
+    public void add(AdvancementDisplay display, ResourceLocation soundId) {
+        if (display == null) {
+            return;
+        }
 
         FancyAdvancementToast toast = new FancyAdvancementToast(minecraft, generalConfigData, display,
                 soundId, toastConfigData.getTextureId(), toastConfigData.getAnimationId());
 
-        toasts.add(toast);
-        customTextureManager.addBeingUsed(toastConfigData.getTextureId(), toast);
+        addToast(toast);
 
         if (generalConfigData.isJadeHiding()) {
             Services.JADE.tryDisable();
         }
     }
 
-    public void update() {
-        if (!isEmpty()) {
+    public void tick() {
+        if (isShowingToast()) {
             if (generalConfigData.isJadeHiding() && Services.JADE.isEnabled()) {
                 Services.JADE.tryEnable();
             }
 
-            updateCurrentToast();
+            currentToast.tick(); // NO SPEED CHANGE RN
 
-            if (currentToast.isEnded()) {
+            if (currentToast.isDead()) {
                 removeCurrentToast();
 
                 if (generalConfigData.isJadeHiding() && toasts.isEmpty()) {
@@ -88,37 +86,47 @@ public class ToastManager {
         }
 
         if (!toasts.isEmpty()) {
-            setNewCurrentToast();
+            FancyAdvancementToast nextToast = toasts.pollFirst();
+            if (nextToast != null) {
+                currentToast = nextToast;
+            }
         }
     }
 
-    public void render(GuiGraphicsExtractor graphics) {
+    public void render(GuiGraphics guiGraphics) {
         if (!shouldRender()) {
             return;
         }
 
-        int screenWidth = graphics.guiWidth();
-        int screenHeight = graphics.guiHeight();
+        int screenWidth = guiGraphics.guiWidth();
+        int screenHeight = guiGraphics.guiHeight();
 
         Vector2d toastPosition = generalConfigData.getToastAnchor().getPosition(screenWidth, screenHeight, generalConfigData.getOffsetX(), -generalConfigData.getOffsetY());
         int xPos = (int) toastPosition.x() - currentToast.getWidth() / 2;
         int yPos = (int) toastPosition.y() - currentToast.getHeight() / 2;
 
-        GuiContext context = new GuiContext(graphics);
+        float partialTick = deltaTracker.getGameTimeDeltaPartialTick(false);
+
+        GuiContext context = new GuiContext(guiGraphics);
         context.push();
-        context.translate(xPos, yPos);
-        currentToast.draw(graphics);
+        context.translate(xPos, yPos, 4200);
+        currentToast.render(guiGraphics, partialTick);
         context.pop();
     }
 
     public void clear() {
         toasts.clear();
-        removeCurrentToast();
         customTextureManager.clear();
+        removeCurrentToast();
 
         if (generalConfigData.isJadeHiding()) {
             Services.JADE.tryEnable();
         }
+    }
+
+    private void addToast(FancyAdvancementToast toast) {
+        customTextureManager.addBeingUsed(toastConfigData.getTextureId(), toast);
+        toasts.add(toast);
     }
 
     private void removeCurrentToast() {
@@ -126,20 +134,8 @@ public class ToastManager {
         currentToast = null;
     }
 
-    private void updateCurrentToast() {
-        float delta = deltaTracker.getGameTimeDeltaTicks() * generalConfigData.getAnimationSpeed();
-        currentToast.update(delta);
-    }
-
-    private void setNewCurrentToast() {
-        FancyAdvancementToast nextToast = toasts.pollFirst();
-        if (nextToast != null) {
-            currentToast = nextToast;
-        }
-    }
-
     public boolean shouldRender() {
-        return !isEmpty() && !minecraft.options.hideGui;
+        return isShowingToast() && !minecraft.options.hideGui;
     }
 
     public boolean isScreenOpened() {
@@ -150,7 +146,7 @@ public class ToastManager {
         return generalConfigData.getToastScreenBehavior() == ToastScreenBehavior.BEHIND && isScreenOpened();
     }
 
-    public boolean isEmpty() {
-        return currentToast == null;
+    public boolean isShowingToast() {
+        return currentToast != null;
     }
 }

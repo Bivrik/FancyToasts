@@ -2,127 +2,129 @@ package net.bivrik.fancytoasts.client.toast.animation;
 
 import net.bivrik.fancytoasts.client.config.data.GeneralConfigData;
 import net.bivrik.fancytoasts.client.toast.AnimationSetup;
-import net.bivrik.fancytoasts.client.toast.Appearance;
+import net.bivrik.fancytoasts.client.toast.Phase;
 import net.bivrik.fancytoasts.core.Easing;
 import net.bivrik.fancytoasts.platform.utility.GuiContext;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.GuiGraphicsExtractor;
+import net.minecraft.client.gui.Font;
+import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.util.FormattedCharSequence;
 
 public class StandardAnimation extends FancyToastAnimation {
-    private final Appearance ICON_APPEARANCE = new Appearance(2000, 0);
-    private final Appearance BANNER_APPEARANCE = new Appearance(700, 1600);
-    private final Appearance BACKGROUND_APPEARANCE = new Appearance(1000, 1550);
-    private final Appearance TEXT_APPEARANCE = new Appearance(1000, 2000);
+    private final Phase ICON_PHASE = new Phase(40, 0);
+    private final Phase BANNER_PHASE = new Phase(14, 32);
+    private final Phase BACKGROUND_PHASE = new Phase(20, 31);
+    private final Phase TEXT_PHASE = new Phase(20, 40);
 
-    private final int FADE_OUT_DURATION = 2000;
-    private final int DURATION = 5500 + FADE_OUT_DURATION;
+    private final int FADE_OUT_DURATION = 40;
+    private final int DURATION = 110 + FADE_OUT_DURATION;
+    private final Phase FADE_OUT_PHASE = new Phase(FADE_OUT_DURATION, DURATION - FADE_OUT_DURATION);
 
     @Override
-    public void setup(AnimationSetup setup, GeneralConfigData generalConfig, Minecraft minecraft, int toastWidth, int toastHeight) {
-        super.setup(setup, generalConfig, minecraft, toastWidth, toastHeight);
+    public void setup(AnimationSetup setup, GeneralConfigData generalConfig, Font font, int toastWidth, int toastHeight) {
+        super.setup(setup, generalConfig, font, toastWidth, toastHeight);
 
-        this.setLines(displayInfo.getAdvancementsAnnouncement(), displayInfo.getTitle());
+        setLines(this.display.getAnnouncement(), this.display.getTitle());
     }
 
     @Override
-    public void draw(GuiGraphicsExtractor GuiGraphicsExtractor, long time) {
-        super.draw(GuiGraphicsExtractor, time);
-
-        float iconAppearProgress = ICON_APPEARANCE.getProgress(time);
-        float bannerAppearProgress = BANNER_APPEARANCE.getProgress(time);
-        float backgroundAppearProgress = BACKGROUND_APPEARANCE.getProgress(time);
-        float textAppearProgress = TEXT_APPEARANCE.getProgress(time);
-        float fadeOutProgress = Appearance.getProgress(time, FADE_OUT_DURATION, DURATION - FADE_OUT_DURATION);
-
-        GuiContext context = new GuiContext(GuiGraphicsExtractor);
-
-        if (fadeOutProgress > 0) {
-            float fadeOutY = Easing.OCT_EASE_IN_OUT.lerp(0, -80.0f, fadeOutProgress);
-
+    public void render(GuiContext context, float renderTicks) {
+        if (FADE_OUT_PHASE.isStarted(renderTicks)) {
             context.push();
+
+            float progress = FADE_OUT_PHASE.getProgress(renderTicks);
+
+            float fadeOutY = Easing.OCT_EASE_IN.lerp(0, -85.0f, progress);
             context.translate(0, fadeOutY);
         }
 
-        if (backgroundAppearProgress > 0) {
+        if (BACKGROUND_PHASE.isStarted(renderTicks)) {
             context.push();
-            if (backgroundAppearProgress != 1) {
-                float y = Easing.OCT_EASE_OUT.lerp(-200.0f, 0, backgroundAppearProgress);
+            if (BACKGROUND_PHASE.isActive(renderTicks)) {
+                float background = BACKGROUND_PHASE.getProgress(renderTicks);
+
+                float y = Easing.OCT_EASE_OUT.lerp(-200.0f, 0, background);
                 context.translate(0, y);
             }
-            this.drawBackground(context);
+            drawBackground(context);
             context.pop();
         }
 
-        if (bannerAppearProgress > 0) {
+        if (BANNER_PHASE.isStarted(renderTicks)) {
             context.push();
-            if (bannerAppearProgress != 1) {
-                float xScale = Easing.OCT_EASE_OUT.lerp(0, 1.0f, bannerAppearProgress);
+            if (BANNER_PHASE.isActive(renderTicks)) {
+                float progress = BANNER_PHASE.getProgress(renderTicks);
+
+                float xScale = Easing.OCT_EASE_OUT.lerp(0, 1.0f, progress);
                 context.scaleAround(xScale, 1, 81, 0);
             }
-            this.drawBanner(context);
+            drawBanner(context);
             context.pop();
         }
 
-        if (iconAppearProgress > 0) {
+        if (ICON_PHASE.isStarted(renderTicks)) {
             context.push();
-            if (iconAppearProgress != 1) {
-                float scale = Easing.OCT_EASE_OUT.lerp(0, 1.0f, iconAppearProgress);
+            if (ICON_PHASE.isActive(renderTicks)) {
+                float progress = ICON_PHASE.getProgress(renderTicks);
+
+                float scale = Easing.OCT_EASE_OUT.lerp(0, 1.0f, progress);
                 context.scaleAround(scale, 81, 13);
 
-                float y = Easing.ELASTIC_OUT.lerp(-40.0f, 0, iconAppearProgress);
+                float y = Easing.ELASTIC_OUT.lerp(-40.0f, 0, progress);
                 context.translate(0, y);
             }
-            float sinY = this.sinusoidLoop(time, 1.6f, 1.5f);
+            float sinY = sinLoop(renderTicks, 1.6f, 1.5f);
             context.translate(0, sinY - 5);
-            this.drawIcon(context);
+            drawIcon(context);
             context.pop();
         }
 
-        if (textAppearProgress > 0) {
-            this.drawTitle(GuiGraphicsExtractor, textAppearProgress);
-            this.drawDescription(GuiGraphicsExtractor, textAppearProgress);
+        if (TEXT_PHASE.isStarted(renderTicks)) {
+            float progress = TEXT_PHASE.getProgress(renderTicks);
+
+            drawTitle(context.guiGraphics(), progress);
+            drawDescription(context.guiGraphics(), progress);
         }
 
-        if (fadeOutProgress > 0) {
+        if (FADE_OUT_PHASE.isStarted(renderTicks)) {
             context.pop();
         }
     }
 
     @Override
-    protected void drawDescription(GuiGraphicsExtractor GuiGraphicsExtractor, float alpha) {
+    protected void drawDescription(GuiGraphics guiGraphics, float alpha) {
         var descriptionLines = getDescriptionLines();
         if (descriptionLines.isEmpty()) {
             return;
         }
 
         int centerToastX = this.toastWidth / 2;
-        int descriptionColorARGB = this.displayInfo.getAdvancementType().getSecondaryColor().withAlpha(alpha).getARGB();
+        int descriptionColorARGB = getDescriptionColor(alpha).getARGB();
 
         if (descriptionLines.size() == 1) {
-            GuiGraphicsExtractor.centeredText(this.minecraft.font, descriptionLines.getFirst(), centerToastX, 42, descriptionColorARGB);
+            guiGraphics.drawCenteredString(this.font, descriptionLines.getFirst(), centerToastX, 42, descriptionColorARGB);
         } else {
             int lineHeight = 38;
-            GuiGraphicsExtractor.centeredText(this.minecraft.font, descriptionLines.getFirst(), centerToastX, lineHeight, descriptionColorARGB);
+            guiGraphics.drawCenteredString(this.font, descriptionLines.getFirst(), centerToastX, lineHeight, descriptionColorARGB);
 
             lineHeight += 9;
             FormattedCharSequence secondLine;
             if (descriptionLines.size() == 2) {
                 secondLine = descriptionLines.get(1);
             } else {
-                secondLine = FormattedCharSequence.composite(descriptionLines.get(1), getDots(descriptionStyle));
+                secondLine = FormattedCharSequence.composite(descriptionLines.get(1), getDots(this.descriptionStyle));
             }
-            GuiGraphicsExtractor.centeredText(this.minecraft.font, secondLine, centerToastX, lineHeight, descriptionColorARGB);
+            guiGraphics.drawCenteredString(this.font, secondLine, centerToastX, lineHeight, descriptionColorARGB);
         }
     }
 
     @Override
     public int getDuration() {
-        return DURATION - 800;
+        return DURATION;
     }
 
     @Override
     public int getToastSoundTiming() {
-        return TEXT_APPEARANCE.startPoint() + 180;
+        return TEXT_PHASE.startTicks() + 3;
     }
 }

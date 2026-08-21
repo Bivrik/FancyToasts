@@ -2,103 +2,106 @@ package net.bivrik.fancytoasts.client.toast.animation;
 
 import net.bivrik.fancytoasts.client.config.data.GeneralConfigData;
 import net.bivrik.fancytoasts.client.toast.AnimationSetup;
-import net.bivrik.fancytoasts.client.toast.Appearance;
+import net.bivrik.fancytoasts.client.toast.Phase;
 import net.bivrik.fancytoasts.core.Easing;
 import net.bivrik.fancytoasts.platform.utility.GuiContext;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.GuiGraphicsExtractor;
+import net.minecraft.client.gui.Font;
 
 public class PlayfulAnimation extends FancyToastAnimation {
-    private final Appearance ICON_APPEARANCE = new Appearance(1000, 0);
-    private final Appearance ICON_MOVEMENT = new Appearance(1500, 1000);
-    private final Appearance BANNER_APPEARANCE = new Appearance(1000, 1500);
-    private final Appearance BACKGROUND_APPEARANCE = new Appearance(800, 1600);
-    private final Appearance TEXT_APPEARANCE = new Appearance(1000, 2000);
+    private final Phase ICON_APPEARANCE = new Phase(20, 0);
+    private final Phase ICON_MOVEMENT = new Phase(30, 20);
+    private final Phase BANNER_APPEARANCE = new Phase(20, 30);
+    private final Phase BACKGROUND_APPEARANCE = new Phase(16, 32);
+    private final Phase TEXT_APPEARANCE = new Phase(20, 40);
 
-    private final int FADE_OUT_DURATION = 1500;
-    private final int DURATION = 6000 + FADE_OUT_DURATION;
+    private final int FADE_OUT_DURATION = 30;
+    private final int DURATION = 120 + FADE_OUT_DURATION;
+    private final Phase FADE_OUT_PHASE = new Phase(FADE_OUT_DURATION, DURATION - FADE_OUT_DURATION);
 
     @Override
-    public void setup(AnimationSetup setup, GeneralConfigData generalConfig, Minecraft minecraft, int toastWidth, int toastHeight) {
-        super.setup(setup, generalConfig, minecraft, toastWidth, toastHeight);
+    public void setup(AnimationSetup setup, GeneralConfigData generalConfig, Font font, int toastWidth, int toastHeight) {
+        super.setup(setup, generalConfig, font, toastWidth, toastHeight);
 
-        this.setLines(displayInfo.getTitle(), displayInfo.getDescription());
+        setLines(this.display.getTitle(), this.display.getDescription());
     }
 
     @Override
-    public void draw(GuiGraphicsExtractor GuiGraphicsExtractor, long time) {
-        super.draw(GuiGraphicsExtractor, time);
+    protected void render(GuiContext context, float renderTicks) {
+        float globalSinY = sinLoop(renderTicks, 2.0f, 1.0f) - 1;
 
-        float iconAppearProgress = ICON_APPEARANCE.getProgress(time);
-        float iconMovementProgress = ICON_MOVEMENT.getProgress(time);
-        float bannerAppearProgress = BANNER_APPEARANCE.getProgress(time);
-        float backgroundAppearProgress = BACKGROUND_APPEARANCE.getProgress(time);
-        float textAppearProgress = TEXT_APPEARANCE.getProgress(time);
-        float fadeOutProgress = Appearance.getProgress(time, FADE_OUT_DURATION, DURATION - FADE_OUT_DURATION);
-
-        GuiContext context = new GuiContext(GuiGraphicsExtractor);
-        float globalSinY = this.sinusoidLoop(time, 2.0f, 1.0f) - 1;
-
-        if (fadeOutProgress > 0) {
-            float fadeOutScale = Easing.OCT_EASE_IN.lerp(1.0f, 0, fadeOutProgress);
-            int toastCenterX = toastWidth / 2;
-            int toastCenterY = toastHeight / 2;
-
+        if (FADE_OUT_PHASE.isStarted(renderTicks)) {
+            int toastCenterX = this.toastWidth / 2;
+            int toastCenterY = this.toastHeight / 2;
             context.push();
+
+            float progress = FADE_OUT_PHASE.getProgress(renderTicks);
+
+            float fadeOutScale = Easing.OCT_EASE_IN.lerp(1.0f, 0, progress);
             context.scaleAround(fadeOutScale, toastCenterX, toastCenterY);
         }
 
-        if (backgroundAppearProgress > 0) {
+        if (BACKGROUND_APPEARANCE.isStarted(renderTicks)) {
             context.push();
-            if (backgroundAppearProgress != 1) {
-                float scale = Easing.ELASTIC_OUT.lerp(0, 1.0f, backgroundAppearProgress);
+            if (BACKGROUND_APPEARANCE.isActive(renderTicks)) {
+                float progress = BACKGROUND_APPEARANCE.getProgress(renderTicks);
+
+                float scale = Easing.ELASTIC_OUT.lerp(0, 1.0f, progress);
                 context.scaleAround(scale, 76, 0);
 
-                float rotation = Easing.ELASTIC_OUT.lerp(-1.0f, 0, backgroundAppearProgress);
+                float rotation = Easing.ELASTIC_OUT.lerp(-1.0f, 0, progress);
                 context.rotateAround(rotation, 76, 0);
 
-                float y = Easing.OCT_EASE_OUT.lerp(-20.0f, 0, backgroundAppearProgress);
+                float y = Easing.OCT_EASE_OUT.lerp(-20.0f, 0, progress);
                 context.translate(0, y);
             }
-            this.drawBackground(context);
+            drawBackground(context);
             context.pop();
         }
 
-        if (bannerAppearProgress > 0) {
+        if (BANNER_APPEARANCE.isStarted(renderTicks)) {
             context.push();
-            if (bannerAppearProgress != 1) {
-                float scaleX = Easing.OCT_EASE_OUT.lerp(0, 1.0f, bannerAppearProgress);
+            if (BANNER_APPEARANCE.isActive(renderTicks)) {
+                float progress = BANNER_APPEARANCE.getProgress(renderTicks);
+
+                float scaleX = Easing.OCT_EASE_OUT.lerp(0, 1.0f, progress);
                 context.scaleAround(scaleX, 1, 15, -12);
             }
             context.translate(0, globalSinY);
-            this.drawBanner(context);
+            drawBanner(context);
             context.pop();
         }
 
-        if (iconAppearProgress > 0) {
+        if (ICON_APPEARANCE.isStarted(renderTicks)) {
             context.push();
-            if (iconAppearProgress != 1) {
-                float scale = Easing.ELASTIC_OUT.lerp(0, 1.0f, iconAppearProgress);
+            if (ICON_APPEARANCE.isActive(renderTicks)) {
+                float progress = ICON_APPEARANCE.getProgress(renderTicks);
+
+                float scale = Easing.ELASTIC_OUT.lerp(0, 1.0f, progress);
                 context.scaleAround(scale, 68 + 13, 13);
 
-                float rotation = Easing.ELASTIC_OUT.lerp(-1.0f, 0, iconAppearProgress);
+                float rotation = Easing.ELASTIC_OUT.lerp(-1.0f, 0, progress);
                 context.rotateAround(rotation, 68 + 13, 13);
             }
-            else if (iconMovementProgress > 0) {
-                float x = Easing.OCT_EASE_OUT.lerp(0, -60.0f, iconMovementProgress);
+            else if (ICON_MOVEMENT.isStarted(renderTicks)) {
+                float progress = ICON_MOVEMENT.getProgress(renderTicks);
+
+                float x = Easing.OCT_EASE_OUT.lerp(0, -60.0f, progress);
                 context.translate(x, 0);
             }
             context.translate(0, globalSinY - 5);
-            this.drawIcon(context);
+            drawIcon(context);
             context.pop();
         }
 
-        if (textAppearProgress > 0) {
-            this.drawTitle(GuiGraphicsExtractor, textAppearProgress);
-            this.drawDescription(GuiGraphicsExtractor, textAppearProgress);
+        if (TEXT_APPEARANCE.isStarted(renderTicks)) {
+            float progress = TEXT_APPEARANCE.getProgress(renderTicks);
+
+            drawTitle(context.guiGraphics(), progress);
+            drawDescription(context.guiGraphics(), progress);
         }
 
-        if (fadeOutProgress > 0) {
+        if (FADE_OUT_PHASE.isActive(renderTicks)) {
             context.pop();
         }
     }
@@ -110,6 +113,6 @@ public class PlayfulAnimation extends FancyToastAnimation {
 
     @Override
     public int getToastSoundTiming() {
-        return TEXT_APPEARANCE.startPoint() + 200;
+        return TEXT_APPEARANCE.startTicks() + 4;
     }
 }

@@ -13,6 +13,8 @@ import net.bivrik.fancytoasts.platform.Services;
 import net.bivrik.fancytoasts.platform.utility.Components;
 import net.bivrik.fancytoasts.utility.DefaultLocations;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.components.toasts.ToastComponent;
 import net.minecraft.resources.ResourceLocation;
 import org.jetbrains.annotations.Nullable;
 import org.lwjgl.glfw.GLFW;
@@ -30,7 +32,7 @@ public final class FancyToasts {
     private CustomTextureManager customTextureManager;
     private KeyBindingManager keyBindingManager;
     private SplashManager splashManager;
-    private ToastManager toastManager;
+    private FancyToastManager fancyToastManager;
 
     /**
      * Only uses in specific cases, when there is no way of DI, like mixins or screens.
@@ -56,11 +58,12 @@ public final class FancyToasts {
         customTextureManager = new CustomTextureManager(minecraft, configManager);
         keyBindingManager = new KeyBindingManager();
         splashManager = new SplashManager(minecraft);
-        toastManager = new ToastManager(minecraft, customTextureManager, configManager);
+        fancyToastManager = new FancyToastManager(minecraft, customTextureManager, configManager);
     }
 
     public void onTick() {
         keyBindingManager.tick();
+        fancyToastManager.tick();
     }
 
     public ConfigManager getConfigManager() {
@@ -84,14 +87,14 @@ public final class FancyToasts {
     }
 
     /**
-     * Some mods trigger Minecraft's ToastManager {@code update()} or {@code render()} on Minecraft initialization. Therefore, it can return null during this phase, and to avoid immediate crash, always check for null.
-     * @return {@link ToastManager}
+     * Some mods trigger Minecraft's ToastManager {@link ToastComponent#render(GuiGraphics)} on Minecraft initialization. Therefore, it can return null during this phase, and to avoid immediate crash, always check for null.
+     * @return {@link FancyToastManager}
      */
-    public @Nullable ToastManager getToastManager() {
-        if (toastManager == null) {
+    public @Nullable FancyToastManager getToastManager() {
+        if (fancyToastManager == null) {
             Debug.warn("You cannot access ToastManager, it is null");
         }
-        return toastManager;
+        return fancyToastManager;
     }
 
     public static void registerKeyBindings() {
