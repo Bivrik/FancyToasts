@@ -1,10 +1,10 @@
 package net.bivrik.fancytoasts.client.toast.animation;
 
+import net.bivrik.fancytoasts.client.config.data.GeneralConfigData;
 import net.bivrik.fancytoasts.client.toast.AnimationSetup;
 import net.bivrik.fancytoasts.client.toast.Appearance;
 import net.bivrik.fancytoasts.core.Easing;
 import net.bivrik.fancytoasts.platform.utility.GuiContext;
-import net.minecraft.advancements.Advancement;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.util.FormattedCharSequence;
@@ -19,10 +19,10 @@ public class StandardAnimation extends FancyToastAnimation {
     private final int DURATION = 5500 + FADE_OUT_DURATION;
 
     @Override
-    public void setup(AnimationSetup setup, Minecraft minecraft, int toastWidth, int toastHeight, Advancement advancement) {
-        super.setup(setup, minecraft, toastWidth, toastHeight, advancement);
+    public void setup(AnimationSetup setup, GeneralConfigData generalConfig, Minecraft minecraft, int toastWidth, int toastHeight) {
+        super.setup(setup, generalConfig, minecraft, toastWidth, toastHeight);
 
-        this.setLines(displayInfo.getAnnouncement(), displayInfo.getTitle());
+        this.setLines(display.getAnnouncement(), display.getTitle());
     }
 
     @Override
@@ -97,13 +97,13 @@ public class StandardAnimation extends FancyToastAnimation {
         }
 
         int centerToastX = this.toastWidth / 2;
-        int descriptionColorARGB = this.displayInfo.getAdvancementType().getSecondaryColor().withAlpha(alpha).getARGB();
+        int descriptionColorARGB = this.display.getDescriptionColor().withAlpha(alpha).getARGB();
 
         if (descriptionLines.size() == 1) {
-            guiGraphics.drawCenteredString(this.minecraft.font, descriptionLines.get(0), centerToastX, 42, descriptionColorARGB);
+            guiGraphics.drawCenteredString(this.minecraft.font, descriptionLines.getFirst(), centerToastX, 42, descriptionColorARGB);
         } else {
             int lineHeight = 38;
-            guiGraphics.drawCenteredString(this.minecraft.font, descriptionLines.get(0), centerToastX, lineHeight, descriptionColorARGB);
+            guiGraphics.drawCenteredString(this.minecraft.font, descriptionLines.getFirst(), centerToastX, lineHeight, descriptionColorARGB);
 
             lineHeight += 9;
             FormattedCharSequence secondLine;
