@@ -102,7 +102,7 @@ public abstract class FancyToastAnimation {
     }
 
     public final void renderWithTransparency(GuiGraphics graphics, int timeTicks, float partialTicks) {
-        if (shouldTransparentToast & Objects.requireNonNull(FancyToasts.getInstance().getToastManager()).isScreenOpened()) {
+        if (shouldTransparentToast && Objects.requireNonNull(FancyToasts.getInstance().getToastManager()).isScreenOpened()) {
             guiAlpha = 0.5f;
         }
         else if (guiAlpha != 1.0f) {
