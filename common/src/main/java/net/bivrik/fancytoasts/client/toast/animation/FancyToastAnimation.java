@@ -3,6 +3,7 @@ package net.bivrik.fancytoasts.client.toast.animation;
 import net.bivrik.fancytoasts.FancyToasts;
 import net.bivrik.fancytoasts.client.config.DisplayTextType;
 import net.bivrik.fancytoasts.client.config.ToastScreenBehavior;
+import net.bivrik.fancytoasts.client.config.data.GeneralConfigData;
 import net.bivrik.fancytoasts.client.toast.AnimationSetup;
 import net.bivrik.fancytoasts.core.Color;
 import net.bivrik.fancytoasts.core.event.GeneralConfigDataEvent;
@@ -51,13 +52,12 @@ public abstract class FancyToastAnimation {
         FancyToasts.EVENTS.subscribeToEvent(GeneralConfigDataEvent.class, generalConfigDataEventConsumer);
     }
 
-    public void setup(AnimationSetup setup, Minecraft minecraft, int toastWidth, int toastHeight) {
-        var data = FancyToasts.getInstance().getConfigManager().getGeneralConfigData();
-        this.shouldTransparentToast = data.getToastScreenBehavior().equals(ToastScreenBehavior.TRANSPARENT);
-        this.loopsStrength = data.getLoopsStrength();
-        this.loopsSpeed = data.getLoopsSpeed();
-        this.titleDisplayTextType = data.getTitleDisplayTextType();
-        this.descriptionDisplayTextType = data.getDescriptionDisplayTextType();
+    public void setup(AnimationSetup setup, GeneralConfigData generalConfig, Minecraft minecraft, int toastWidth, int toastHeight) {
+        this.shouldTransparentToast = generalConfig.getToastScreenBehavior().equals(ToastScreenBehavior.TRANSPARENT);
+        this.loopsStrength = generalConfig.getLoopsStrength();
+        this.loopsSpeed = generalConfig.getLoopsSpeed();
+        this.titleDisplayTextType = generalConfig.getTitleDisplayTextType();
+        this.descriptionDisplayTextType = generalConfig.getDescriptionDisplayTextType();
 
         this.minecraft = minecraft;
         this.toastWidth = toastWidth;

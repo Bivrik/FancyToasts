@@ -63,7 +63,6 @@ public final class FancyToasts {
         keyBindingManager.tick();
     }
 
-    // Refactor to make them DI!
     public ConfigManager getConfigManager() {
         return configManager;
     }

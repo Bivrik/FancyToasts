@@ -13,6 +13,7 @@ import net.bivrik.fancytoasts.core.Color;
 import net.bivrik.fancytoasts.core.Constants;
 import net.bivrik.fancytoasts.core.Easing;
 import net.bivrik.fancytoasts.core.event.ToastConfigDataEvent;
+import net.bivrik.fancytoasts.core.manager.ConfigManager;
 import net.bivrik.fancytoasts.core.manager.CustomTextureManager;
 import net.bivrik.fancytoasts.platform.utility.Components;
 import net.bivrik.fancytoasts.platform.utility.FancyToastType;
@@ -41,6 +42,7 @@ public class ToastConfigScreen extends UniversalScreen {
     private static final Component RELOAD_CUSTOMS_TOOLTIP = Components.of("tooltip.reload_customs");
 
     private final ToastConfigData toastConfigData;
+    private final ConfigManager configManager;
     private final CustomTextureManager customTextureManager;
 
     private IdentifierFilter filter = IdentifierFilter.A_Z;
@@ -64,7 +66,8 @@ public class ToastConfigScreen extends UniversalScreen {
     public ToastConfigScreen(Screen parent) {
         super(TITLE, parent);
 
-        this.toastConfigData = FancyToasts.getInstance().getConfigManager().getToastConfigData();
+        this.configManager = FancyToasts.getInstance().getConfigManager();
+        this.toastConfigData = configManager.getToastConfigData();
         this.customTextureManager = FancyToasts.getInstance().getCustomTextureManager();
         this.customTextureManager.reload();
 
@@ -148,7 +151,7 @@ public class ToastConfigScreen extends UniversalScreen {
 
     private void done() {
         ToastConfigData data = toastConfigData.copy();
-        if (!data.equals(FancyToasts.getInstance().getConfigManager().getToastConfigData())) {
+        if (!data.equals(configManager.getToastConfigData())) {
             save(data);
         } else {
             this.toParentScreen();

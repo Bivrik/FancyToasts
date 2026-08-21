@@ -8,15 +8,13 @@ import net.bivrik.fancytoasts.core.Debug;
 import net.bivrik.fancytoasts.platform.utility.AdvancementDisplay;
 import net.bivrik.fancytoasts.utility.DefaultUVs;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.GuiGraphicsExtractor;
+import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.resources.sounds.SimpleSoundInstance;
 import net.minecraft.client.sounds.SoundManager;
-import net.minecraft.resources.Identifier;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 
-import java.util.Optional;
 import java.util.Random;
 
 public class FancyAdvancementToast {
@@ -27,7 +25,7 @@ public class FancyAdvancementToast {
     private final GeneralConfigData generalConfig;
 
     private FancyToastAnimation animation;
-    private Identifier toastSoundId;
+    private ResourceLocation toastSoundId;
     private float volume;
     private SoundManager soundManager;
 
@@ -35,8 +33,7 @@ public class FancyAdvancementToast {
     private boolean isEnded = false;
     private int playedSoundsCount = 0;
 
-    public FancyAdvancementToast(Minecraft minecraft, AdvancementDisplay display, Identifier soundId, Identifier textureId, Identifier animationId) {
-        var generalConfig = FancyToasts.getInstance().getConfigManager().getGeneralConfigData();
+    public FancyAdvancementToast(Minecraft minecraft, GeneralConfigData generalConfig, AdvancementDisplay display, ResourceLocation soundId, ResourceLocation textureId, ResourceLocation animationId) {
         this.generalConfig = generalConfig;
 
         if (generalConfig.areSoundsEnabled()) {
@@ -51,14 +48,18 @@ public class FancyAdvancementToast {
 
         animation = AnimationRegistry.getAnimation(animationId).get();
         AnimationSetup setup = new AnimationSetup(textureId, display, DefaultUVs.BACKGROUND, DefaultUVs.PLAQUE);
-        animation.setup(setup, minecraft, getWidth(), getHeight());
+        animation.setup(setup, generalConfig, minecraft, getWidth(), getHeight());
 
         toastSoundId = soundId;
 
         Debug.info("Created new fancy advancement toast: {}", display.getTitle().getString());
+
+        Debug.warn("{} - {}", display.getTitle().getString(), display.getTitle().toString());
+        Debug.warn("{} - {}", display.getDescription().getString(), display.getDescription().toString());
+        Debug.warn("{} - {}", display.getAnnouncement().getString(), display.getAnnouncement().toString());
     }
 
-    public void draw(GuiGraphicsExtractor graphics) {
+    public void draw(GuiGraphics graphics) {
         animation.draw(graphics, (long) time);
     }
 
@@ -99,8 +100,8 @@ public class FancyAdvancementToast {
         playedSoundsCount++;
     }
 
-    private void playSound(Identifier soundLocation, float volume) {
-        playSound(new SoundEvent(soundLocation, Optional.empty()), volume);
+    private void playSound(ResourceLocation soundLocation, float volume) {
+        playSound(SoundEvent.createVariableRangeEvent(soundLocation), volume);
     }
 
     public boolean isEnded() {

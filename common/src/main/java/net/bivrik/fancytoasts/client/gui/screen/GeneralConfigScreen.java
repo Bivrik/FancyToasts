@@ -15,6 +15,7 @@ import net.bivrik.fancytoasts.core.Color;
 import net.bivrik.fancytoasts.core.Constants;
 import net.bivrik.fancytoasts.core.Easing;
 import net.bivrik.fancytoasts.core.event.GeneralConfigDataEvent;
+import net.bivrik.fancytoasts.core.manager.ConfigManager;
 import net.bivrik.fancytoasts.platform.Services;
 import net.bivrik.fancytoasts.platform.utility.Components;
 import net.bivrik.fancytoasts.utility.FastMath;
@@ -62,6 +63,7 @@ public class GeneralConfigScreen extends UniversalScreen {
     private static final Component PITCH_RANDOMNESS_TOOLTIP = Components.of("tooltip.pitch_randomness");
     private static final Component ANIMATION_SPEED_TOOLTIP = Components.of("tooltip.animation_speed");
 
+    private final ConfigManager configManager;
     private GeneralConfigData generalConfigData;
 
     private boolean isSaved;
@@ -89,7 +91,9 @@ public class GeneralConfigScreen extends UniversalScreen {
 
     public GeneralConfigScreen(Screen parent) {
         super(TITLE, parent);
-        this.generalConfigData = FancyToasts.getInstance().getConfigManager().getGeneralConfigData();
+
+        this.configManager = FancyToasts.getInstance().getConfigManager();
+        this.generalConfigData = configManager.getGeneralConfigData();
     }
 
     @Override
@@ -198,7 +202,7 @@ public class GeneralConfigScreen extends UniversalScreen {
 
     private void done() {
         GeneralConfigData data = generalConfigData.copy();
-        if (!data.equals(FancyToasts.getInstance().getConfigManager().getGeneralConfigData())) {
+        if (!data.equals(configManager.getGeneralConfigData())) {
             save(data);
         } else {
             this.toParentScreen();
