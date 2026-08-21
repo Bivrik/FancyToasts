@@ -9,9 +9,11 @@ import net.bivrik.fancytoasts.core.Color;
 import net.bivrik.fancytoasts.core.event.GeneralConfigDataEvent;
 import net.bivrik.fancytoasts.platform.utility.GuiContext;
 import net.bivrik.fancytoasts.platform.utility.AdvancementDisplay;
+import net.bivrik.fancytoasts.utility.FastMath;
 import net.bivrik.fancytoasts.utility.TextureUV;
 import net.bivrik.fancytoasts.utility.TypeBasedUVs;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.Style;
@@ -29,7 +31,7 @@ public abstract class FancyToastAnimation {
     private List<FormattedCharSequence> descriptionLines;
 
     protected AdvancementDisplay display;
-    protected Minecraft minecraft;
+    protected Font font;
     protected int toastWidth;
     protected int toastHeight;
 
@@ -52,14 +54,14 @@ public abstract class FancyToastAnimation {
         FancyToasts.EVENTS.subscribeToEvent(GeneralConfigDataEvent.class, generalConfigDataEventConsumer);
     }
 
-    public void setup(AnimationSetup setup, GeneralConfigData generalConfig, Minecraft minecraft, int toastWidth, int toastHeight) {
+    public void setup(AnimationSetup setup, GeneralConfigData generalConfig, Font font, int toastWidth, int toastHeight) {
         this.shouldTransparentToast = generalConfig.getToastScreenBehavior().equals(ToastScreenBehavior.TRANSPARENT);
         this.loopsStrength = generalConfig.getLoopsStrength();
         this.loopsSpeed = generalConfig.getLoopsSpeed();
         this.titleDisplayTextType = generalConfig.getTitleDisplayTextType();
         this.descriptionDisplayTextType = generalConfig.getDescriptionDisplayTextType();
 
-        this.minecraft = minecraft;
+        this.font = font;
         this.toastWidth = toastWidth;
         this.toastHeight = toastHeight;
         this.textureLocation = setup.getTextureId();
@@ -80,15 +82,15 @@ public abstract class FancyToastAnimation {
         loopsSpeed = data.getLoopsSpeed();
     }
 
-    protected void setLines(Component toastTitle, Component toastDescription) {
-        Component title = titleDisplayTextType.getDisplayTextOrElse(display, toastTitle);
-        Component description = descriptionDisplayTextType.getDisplayTextOrElse(display, toastDescription);
+    protected void setLines(Component animationTitle, Component animationDescription) {
+        Component title = titleDisplayTextType.getDisplayTextOrElse(display, animationTitle);
+        Component description = descriptionDisplayTextType.getDisplayTextOrElse(display, animationDescription);
 
         titleStyle = title.getStyle();
         descriptionStyle = description.getStyle();
 
-        titleLines = minecraft.font.split(title, 142);
-        descriptionLines = minecraft.font.split(description, 142);
+        titleLines = font.split(title, 142);
+        descriptionLines = font.split(description, 142);
     }
 
     protected List<FormattedCharSequence> getTitleLines() {
@@ -99,94 +101,113 @@ public abstract class FancyToastAnimation {
         return descriptionLines;
     }
 
-    public void draw(GuiGraphics guiGraphics, long time) {
+    public final void renderWithTransparency(GuiGraphics graphics, int timeTicks, float partialTicks) {
         if (shouldTransparentToast & Objects.requireNonNull(FancyToasts.getInstance().getToastManager()).isScreenOpened()) {
             guiAlpha = 0.5f;
         }
         else if (guiAlpha != 1.0f) {
             guiAlpha = 1.0f;
         }
+
+        render(new GuiContext(graphics), timeTicks + partialTicks);
     }
 
-    public abstract int getDuration();
-
-    public abstract int getToastSoundTiming();
-
-    protected void drawIcon(GuiContext guiContext, float alpha) {
-        guiContext.drawGUITexture(textureLocation, 68, 0, 26, 26, typeBasedUVs.frame(), getColor(alpha));
-        guiContext.guiGraphics().renderFakeItem(display.getIcon(), 73, 5);
+    protected final void drawIcon(GuiContext context, float alpha) {
+        context.drawGUITexture(textureLocation, 68, 0, 26, 26, typeBasedUVs.frame(), getColor(alpha).getARGB());
+        context.guiGraphics().renderFakeItem(display.getIcon(), 73, 5);
     }
-    protected void drawIcon(GuiContext guiContext) {
-        drawIcon(guiContext, 1);
+    protected final void drawIcon(GuiContext context) {
+        drawIcon(context, 1);
     }
 
-    protected void drawBanner(GuiContext guiContext, float alpha) {
-        guiContext.drawGUITexture(textureLocation, 0, 5, 162, 14, typeBasedUVs.banner(), getColor(alpha));
+    protected final void drawBanner(GuiContext context, float alpha) {
+        context.drawGUITexture(textureLocation, 0, 5, 162, 14, typeBasedUVs.banner(), getColor(alpha).getARGB());
     }
-    protected void drawBanner(GuiContext guiContext) {
-        drawBanner(guiContext, 1);
-    }
-
-    protected void drawBackground(GuiContext guiContext, float alpha) {
-        int color = getColor(alpha);
-        guiContext.drawGUITexture(textureLocation, 0, 20, 162, 40, backgroundUV, color);
-        guiContext.drawGUITexture(textureLocation, 144, 56, 9, 14, plaqueUV, color);
-    }
-    protected void drawBackground(GuiContext guiContext) {
-        drawBackground(guiContext, 1);
+    protected void drawBanner(GuiContext context) {
+        drawBanner(context, 1);
     }
 
-    protected void drawTitle(GuiGraphics guiGraphics, float alpha) {
+    protected final void drawBackground(GuiContext context, float alpha) {
+        int color = getColor(alpha).getARGB();
+        context.drawGUITexture(textureLocation, 0, 20, 162, 40, backgroundUV, color);
+        context.drawGUITexture(textureLocation, 144, 54, 9, 14, plaqueUV, color);
+    }
+    protected final void drawBackground(GuiContext context) {
+        drawBackground(context, 1);
+    }
+
+    protected void drawTitle(GuiGraphics graphics, float alpha) {
         if (titleLines.isEmpty()) {
             return;
         }
 
         int toastCenterX = toastWidth / 2;
-        int titleColorARGB = display.getTitleColor().withAlpha(alpha).getARGB();
+        int titleColorARGB = getTitleColor(alpha).getARGB();
         FormattedCharSequence titleLine = titleLines.getFirst();
 
         if (titleLines.size() == 1) {
-            guiGraphics.drawCenteredString(minecraft.font, titleLine, toastCenterX, 25, titleColorARGB);
+            graphics.drawCenteredString(font, titleLine, toastCenterX, 25, titleColorARGB);
         } else {
-            guiGraphics.drawCenteredString(minecraft.font, FormattedCharSequence.composite(titleLine, getDots(titleStyle)), toastCenterX , 25, titleColorARGB);
+            graphics.drawCenteredString(font, FormattedCharSequence.composite(titleLine, getDots(titleStyle)), toastCenterX , 25, titleColorARGB);
         }
     }
 
-    protected void drawDescription(GuiGraphics guiGraphics, float alpha) {
+    protected void drawDescription(GuiGraphics graphics, float alpha) {
         if (descriptionLines.isEmpty()) {
             return;
         }
 
-        int descriptionColorARGB = display.getDescriptionColor().withAlpha(alpha).getARGB();
+        int descriptionColorARGB = getDescriptionColor(alpha).getARGB();
 
-        guiGraphics.drawString(minecraft.font, descriptionLines.get(0), 8, 38, descriptionColorARGB);
+        graphics.drawString(font, descriptionLines.get(0), 8, 38, descriptionColorARGB);
         if (descriptionLines.size() > 1) {
             var descriptionSecondLine = descriptionLines.get(1);
-            guiGraphics.drawString(minecraft.font, descriptionSecondLine, 8, 47, descriptionColorARGB);
+            graphics.drawString(font, descriptionSecondLine, 8, 47, descriptionColorARGB);
 
             if (descriptionLines.size() > 2) {
-                guiGraphics.drawString(minecraft.font, getDots(descriptionStyle), minecraft.font.width(descriptionSecondLine) + 8, 47, descriptionColorARGB);
+                graphics.drawString(font, getDots(descriptionStyle), font.width(descriptionSecondLine) + 8, 47, descriptionColorARGB);
             }
         }
     }
 
-    protected FormattedCharSequence getDots(Style style) {
+    protected final FormattedCharSequence getDots(Style style) {
         return FormattedCharSequence.forward("...", style);
     }
 
-    private final static float TIME_SCALE = 0.00125f;
-
-    protected float sinusoidLoop(long time, float speed, float strength) {
-        float scaledTime = time * TIME_SCALE * speed * loopsSpeed;
-        return (float) Math.sin(scaledTime) * strength * loopsStrength;
+    private Color getColor(float alpha) {
+        return Color.WHITE.withAlpha(guiAlpha * alpha);
     }
 
-    protected float cosineLoop(long time, float speed, float strength) {
-        float scaledTime = time * TIME_SCALE * speed * loopsSpeed;
-        return (float) Math.cos(scaledTime) * strength * loopsStrength;
+    /**
+     * Some weird transformation value I don't remember why, but it gets the job done I guess. 1/16 of tick time.
+     */
+    private final static float TIME_SCALE = 0.0625f;
+
+    protected final float sinLoop(float time, float speed, float strength) {
+        float scaledTime = time * TIME_SCALE;
+        return (float) Math.sin(scaledTime * speed * loopsSpeed) * strength * loopsStrength;
     }
 
-    protected int getColor(float alpha) {
-        return Color.WHITE.withAlpha(guiAlpha * alpha).getARGB();
+    protected final float cosLoop(float time, float speed, float strength) {
+        float scaledTime = time * TIME_SCALE;
+        return (float) Math.cos(scaledTime * speed * loopsSpeed) * strength * loopsStrength;
     }
+
+    protected final Color getTitleColor(float alpha) {
+        return display.getTitleColor().withAlpha(getTextSafeAlpha(alpha));
+    }
+
+    protected final Color getDescriptionColor(float alpha) {
+        return display.getDescriptionColor().withAlpha(getTextSafeAlpha(alpha));
+    }
+
+    private float getTextSafeAlpha(float alpha) {
+        return FastMath.clamp(alpha, 0.04f, 1.0f);
+    }
+
+    protected abstract void render(GuiContext context, float renderTicks);
+
+    public abstract int getDuration();
+
+    public abstract int getToastSoundTiming();
 }

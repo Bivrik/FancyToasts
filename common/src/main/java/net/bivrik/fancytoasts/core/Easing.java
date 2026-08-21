@@ -83,7 +83,6 @@ public enum Easing {
     private float innerLerp(float start, float end, float progress) {
         float delta = end - start;
         float easedProgress = applyEasing(progress);
-
         return start + delta * easedProgress;
     }
 
@@ -99,11 +98,8 @@ public enum Easing {
     }
 
     private int innerLerp(int start, int end, float progress) {
-        if (start == end) return end;
-
         int delta = end - start;
         float easedProgress = applyEasing(progress);
-
         return start + FastMath.round(delta * easedProgress);
     }
 
@@ -114,7 +110,7 @@ public enum Easing {
      * @param progress is a value in range [0,1] on change from <code>start</code> to <code>end</code>
      * @return color between <code>start</code> and <code>end</code> depending on <code>progress</code>
      */
-    public Color lerp (Color start, Color end, float progress) {
+    public Color lerp(Color start, Color end, float progress) {
         return new Color(
                 innerLerp(start.getA(), end.getA(), progress),
                 innerLerp(start.getR(), end.getR(), progress),

@@ -5,7 +5,7 @@ import net.bivrik.fancytoasts.client.config.ConfigHandler;
 import net.bivrik.fancytoasts.client.config.data.ToastsFilteringData;
 import net.bivrik.fancytoasts.client.gui.OptionsList;
 import net.bivrik.fancytoasts.client.gui.WidgetWidthType;
-import net.bivrik.fancytoasts.client.toast.Appearance;
+import net.bivrik.fancytoasts.client.toast.Phase;
 import net.bivrik.fancytoasts.core.Color;
 import net.bivrik.fancytoasts.core.Constants;
 import net.bivrik.fancytoasts.core.Easing;
@@ -161,8 +161,8 @@ public class ToastsFilteringScreen extends UniversalScreen {
         }
         long time = Util.getMillis() - savedFeedbackStartTime;
 
-        float appearanceLerp = Easing.OCT_EASE_OUT.lerp(0, 1.0f, Appearance.getProgress(time, 500, 0));
-        float disappearanceLerp = Appearance.getProgress(time, 500, 400);
+        float appearanceLerp = Easing.OCT_EASE_OUT.lerp(0, 1.0f, Phase.getProgress(time, 500, 0));
+        float disappearanceLerp = Phase.getProgress(time, 500, 400);
 
         Color color = Color.YELLOW.withAlpha(appearanceLerp - disappearanceLerp);
 
