@@ -88,7 +88,7 @@ public class QuirkyAnimation extends FancyToastAnimation {
 
                 posY = Easing.OCT_EASE_OUT.lerp(-95.0f, 55.0f, progress);
             }
-            if (ICON_SCALE.isStarted(renderTicks) & ICON_SCALE.isActive(renderTicks)) {
+            if (ICON_SCALE.isStarted(renderTicks) && ICON_SCALE.isActive(renderTicks)) {
                 float progress = ICON_SCALE.getProgress(renderTicks);
 
                 float scale = Easing.OCT_EASE_OUT.lerp(3.0f, 1.0f, progress);
