@@ -1,16 +1,15 @@
 package net.bivrik.fancytoasts.core.manager;
 
+import net.bivrik.fancytoasts.FancyToasts;
+import net.bivrik.fancytoasts.client.config.ToastScreenBehavior;
 import net.bivrik.fancytoasts.client.config.data.GeneralConfigData;
 import net.bivrik.fancytoasts.client.config.data.ToastConfigData;
-import net.bivrik.fancytoasts.core.IManager;
-import net.bivrik.fancytoasts.core.event.GeneralConfigDataEvent;
 import net.bivrik.fancytoasts.client.toast.FancyAdvancementToast;
-import net.bivrik.fancytoasts.client.config.ToastScreenBehavior;
-import net.bivrik.fancytoasts.core.Managers;
+import net.bivrik.fancytoasts.core.event.GeneralConfigDataEvent;
 import net.bivrik.fancytoasts.core.event.ToastConfigDataEvent;
-import net.bivrik.fancytoasts.platform.utility.GuiContext;
-import net.bivrik.fancytoasts.platform.utility.AdvancementDisplay;
 import net.bivrik.fancytoasts.platform.Services;
+import net.bivrik.fancytoasts.platform.utility.AdvancementDisplay;
+import net.bivrik.fancytoasts.platform.utility.GuiContext;
 import net.minecraft.client.DeltaTracker;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
@@ -21,7 +20,7 @@ import org.joml.Vector2d;
 import java.util.Deque;
 import java.util.concurrent.ConcurrentLinkedDeque;
 
-public class ToastManager implements IManager {
+public class ToastManager {
     private final Deque<FancyAdvancementToast> toasts = new ConcurrentLinkedDeque<>();
 
     private Minecraft minecraft;
@@ -29,23 +28,20 @@ public class ToastManager implements IManager {
 
     private volatile FancyAdvancementToast currentToast;
 
-    private CustomTextureManager customTextureManager;
+    private final CustomTextureManager customTextureManager;
     private GeneralConfigData generalConfigData;
     private ToastConfigData toastConfigData;
 
-    @Override
-    public void onMinecraftInit(Minecraft minecraft) {
+    public ToastManager(Minecraft minecraft, CustomTextureManager customTextureManager, ConfigManager configManager) {
         this.minecraft = minecraft;
         this.deltaTracker = minecraft.getTimer();
 
-        customTextureManager = Managers.getCustomTextureManager();
-        ConfigManager configManager = Managers.getConfigManager();
+        this.customTextureManager = customTextureManager;
         generalConfigData = configManager.getGeneralConfigData();
         toastConfigData = configManager.getToastConfigData();
 
-        EventManager eventManager = Managers.getEventManager();
-        eventManager.subscribeToEvent(GeneralConfigDataEvent.class, this::onGeneralConfigDataChanged);
-        eventManager.subscribeToEvent(ToastConfigDataEvent.class, this::onToastConfigDataChanged);
+        FancyToasts.EVENTS.subscribeToEvent(GeneralConfigDataEvent.class, this::onGeneralConfigDataChanged);
+        FancyToasts.EVENTS.subscribeToEvent(ToastConfigDataEvent.class, this::onToastConfigDataChanged);
     }
 
     private void onGeneralConfigDataChanged(GeneralConfigDataEvent event) {

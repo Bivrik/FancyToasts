@@ -1,10 +1,10 @@
 package net.bivrik.fancytoasts.client.toast.animation;
 
+import net.bivrik.fancytoasts.FancyToasts;
 import net.bivrik.fancytoasts.client.config.DisplayTextType;
 import net.bivrik.fancytoasts.client.config.ToastScreenBehavior;
 import net.bivrik.fancytoasts.client.toast.AnimationSetup;
 import net.bivrik.fancytoasts.core.Color;
-import net.bivrik.fancytoasts.core.Managers;
 import net.bivrik.fancytoasts.core.event.GeneralConfigDataEvent;
 import net.bivrik.fancytoasts.platform.utility.GuiContext;
 import net.bivrik.fancytoasts.platform.utility.AdvancementDisplay;
@@ -46,13 +46,13 @@ public abstract class FancyToastAnimation {
     protected Style titleStyle;
     protected Style descriptionStyle;
 
-    FancyToastAnimation() {
+    public FancyToastAnimation() {
         generalConfigDataEventConsumer = this::onGeneralConfigDataChanged;
-        Managers.getEventManager().subscribeToEvent(GeneralConfigDataEvent.class, generalConfigDataEventConsumer);
+        FancyToasts.EVENTS.subscribeToEvent(GeneralConfigDataEvent.class, generalConfigDataEventConsumer);
     }
 
     public void setup(AnimationSetup setup, Minecraft minecraft, int toastWidth, int toastHeight) {
-        var data = Managers.getConfigManager().getGeneralConfigData();
+        var data = FancyToasts.getInstance().getConfigManager().getGeneralConfigData();
         this.shouldTransparentToast = data.getToastScreenBehavior().equals(ToastScreenBehavior.TRANSPARENT);
         this.loopsStrength = data.getLoopsStrength();
         this.loopsSpeed = data.getLoopsSpeed();
@@ -70,7 +70,7 @@ public abstract class FancyToastAnimation {
     }
 
     public void unsubscribeFromGeneralConfigDataEvent() {
-        Managers.getEventManager().unsubscribeFromEvent(GeneralConfigDataEvent.class, generalConfigDataEventConsumer);
+        FancyToasts.EVENTS.unsubscribeFromEvent(GeneralConfigDataEvent.class, generalConfigDataEventConsumer);
     }
 
     private void onGeneralConfigDataChanged(GeneralConfigDataEvent event) {
@@ -100,7 +100,7 @@ public abstract class FancyToastAnimation {
     }
 
     public void draw(GuiGraphics guiGraphics, long time) {
-        if (shouldTransparentToast && Objects.requireNonNull(Managers.getToastManager()).isScreenOpened()) {
+        if (shouldTransparentToast & Objects.requireNonNull(FancyToasts.getInstance().getToastManager()).isScreenOpened()) {
             guiAlpha = 0.5f;
         }
         else if (guiAlpha != 1.0f) {

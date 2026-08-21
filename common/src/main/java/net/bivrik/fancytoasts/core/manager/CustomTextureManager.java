@@ -1,6 +1,7 @@
 package net.bivrik.fancytoasts.core.manager;
 
 import com.mojang.blaze3d.platform.NativeImage;
+import net.bivrik.fancytoasts.FancyToasts;
 import net.bivrik.fancytoasts.client.config.JsonHelper;
 import net.bivrik.fancytoasts.client.config.data.ToastConfigData;
 import net.bivrik.fancytoasts.client.registry.TextureRegistry;
@@ -8,8 +9,6 @@ import net.bivrik.fancytoasts.client.toast.DisplayData;
 import net.bivrik.fancytoasts.client.toast.FancyAdvancementToast;
 import net.bivrik.fancytoasts.core.Constants;
 import net.bivrik.fancytoasts.core.Debug;
-import net.bivrik.fancytoasts.core.IManager;
-import net.bivrik.fancytoasts.core.Managers;
 import net.bivrik.fancytoasts.core.event.ToastConfigDataEvent;
 import net.bivrik.fancytoasts.platform.utility.ResourceLocations;
 import net.bivrik.fancytoasts.utility.file.FileHelper;
@@ -28,7 +27,7 @@ import java.nio.file.Files;
 import java.util.*;
 import java.util.stream.Collectors;
 
-public class CustomTextureManager implements IManager {
+public class CustomTextureManager {
     private static final Logger LOGGER = Debug.getLogger(CustomTextureManager.class);
 
     private static final File TEXTURES_DIR = new File(Paths.CONFIG_TEXTURES);
@@ -41,14 +40,13 @@ public class CustomTextureManager implements IManager {
     private final List<ResourceLocation> registeredInMinecraft = new ArrayList<>();
     private final Map<ResourceLocation, List<FancyAdvancementToast>> beingUsed = new HashMap<>();
 
-    private TextureManager textureManager;
+    private final TextureManager textureManager;
     private ToastConfigData toastConfigData;
 
-    @Override
-    public void onMinecraftInit(Minecraft minecraft) {
+    public CustomTextureManager(Minecraft minecraft, ConfigManager configManager) {
         textureManager = minecraft.getTextureManager();
-        toastConfigData = Managers.getConfigManager().getToastConfigData();
-        Managers.getEventManager().subscribeToEvent(ToastConfigDataEvent.class, this::onToastConfigDataChanged);
+        toastConfigData = configManager.getToastConfigData();
+        FancyToasts.EVENTS.subscribeToEvent(ToastConfigDataEvent.class, this::onToastConfigDataChanged);
 
         load();
         registerInMainRegistry();

@@ -1,5 +1,6 @@
 package net.bivrik.fancytoasts.client.gui.screen;
 
+import net.bivrik.fancytoasts.FancyToasts;
 import net.bivrik.fancytoasts.client.config.ConfigHandler;
 import net.bivrik.fancytoasts.client.config.data.ToastsFilteringData;
 import net.bivrik.fancytoasts.client.gui.OptionsList;
@@ -8,7 +9,6 @@ import net.bivrik.fancytoasts.client.toast.Appearance;
 import net.bivrik.fancytoasts.core.Color;
 import net.bivrik.fancytoasts.core.Constants;
 import net.bivrik.fancytoasts.core.Easing;
-import net.bivrik.fancytoasts.core.Managers;
 import net.bivrik.fancytoasts.core.event.ToastsFilteringDataEvent;
 import net.bivrik.fancytoasts.platform.Services;
 import net.bivrik.fancytoasts.platform.utility.Components;
@@ -60,7 +60,7 @@ public class ToastsFilteringScreen extends UniversalScreen {
 
     public ToastsFilteringScreen(Screen parent) {
         super(TITLE, parent);
-        this.toastsFilteringData = Managers.getConfigManager().getToastsFilteringData();
+        this.toastsFilteringData = FancyToasts.getInstance().getConfigManager().getToastsFilteringData();
     }
 
     @Override
@@ -132,7 +132,7 @@ public class ToastsFilteringScreen extends UniversalScreen {
 
     private void done() {
         ToastsFilteringData data = toastsFilteringData.copy();
-        if (!data.equals(Managers.getConfigManager().getToastsFilteringData())) {
+        if (!data.equals(FancyToasts.getInstance().getConfigManager().getToastsFilteringData())) {
             save(data);
         } else {
             this.toParentScreen();
@@ -141,7 +141,7 @@ public class ToastsFilteringScreen extends UniversalScreen {
 
     private void save(ToastsFilteringData data) {
         ConfigHandler.save(data);
-        Managers.getEventManager().sendEvent(new ToastsFilteringDataEvent(data));
+        FancyToasts.EVENTS.sendEvent(new ToastsFilteringDataEvent(data));
         isSaved = true;
         savedFeedbackStartTime = Util.getMillis();
     }

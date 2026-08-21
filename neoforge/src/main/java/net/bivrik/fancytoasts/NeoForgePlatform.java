@@ -1,16 +1,15 @@
 package net.bivrik.fancytoasts;
 
-import net.bivrik.fancytoasts.core.Common;
 import net.bivrik.fancytoasts.core.Constants;
 import net.bivrik.fancytoasts.gui.NeoForgeConfigScreen;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.fml.common.Mod;
 
 @Mod(Constants.MOD_ID)
-public class FancyToasts {
+public class NeoForgePlatform {
 
-    public FancyToasts(IEventBus eventBus) {
-        Common.onModInit();
+    public NeoForgePlatform(IEventBus eventBus) {
+        FancyToasts.getInstance().onModInit();
 
         eventBus.addListener(NeoForgeConfigScreen::registerConfigScreen);
     }

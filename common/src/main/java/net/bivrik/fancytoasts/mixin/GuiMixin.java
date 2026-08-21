@@ -1,6 +1,6 @@
 package net.bivrik.fancytoasts.mixin;
 
-import net.bivrik.fancytoasts.core.Managers;
+import net.bivrik.fancytoasts.FancyToasts;
 import net.bivrik.fancytoasts.core.manager.ToastManager;
 import net.minecraft.client.DeltaTracker;
 import net.minecraft.client.gui.Gui;
@@ -14,7 +14,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 public class GuiMixin {
     @Inject(at = @At("HEAD"), method = "render")
     private void onRender(GuiGraphics guiGraphics, DeltaTracker deltaTracker, CallbackInfo info) {
-        ToastManager toastManager = Managers.getToastManager();
+        ToastManager toastManager = FancyToasts.getInstance().getToastManager();
         if (toastManager == null) return;
 
         if (toastManager.shouldRenderBehind()) {

@@ -2,8 +2,8 @@ package net.bivrik.fancytoasts.client.gui.screen;
 
 import com.mojang.blaze3d.platform.GlStateManager;
 import com.mojang.blaze3d.systems.RenderSystem;
+import net.bivrik.fancytoasts.FancyToasts;
 import net.bivrik.fancytoasts.client.gui.CreditsList;
-import net.bivrik.fancytoasts.core.Managers;
 import net.bivrik.fancytoasts.core.manager.CreditsManager;
 import net.bivrik.fancytoasts.platform.utility.GuiContext;
 import net.bivrik.fancytoasts.platform.utility.ResourceLocations;
@@ -25,7 +25,8 @@ public class CreditsScreen extends UniversalScreen {
 
     public CreditsScreen(Screen parent) {
         super(Component.empty(), parent);
-        this.creditsData = Managers.getCreditsManager().getCredits();
+
+        this.creditsData = FancyToasts.getInstance().getCreditsManager().getCredits();
     }
 
     @Override

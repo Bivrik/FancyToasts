@@ -1,7 +1,7 @@
 package net.bivrik.fancytoasts.mixin;
 
+import net.bivrik.fancytoasts.FancyToasts;
 import net.bivrik.fancytoasts.client.gui.IClientTextTooltipAccessor;
-import net.bivrik.fancytoasts.core.Managers;
 import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.screens.inventory.tooltip.ClientTextTooltip;
@@ -25,7 +25,7 @@ public class GuiGraphicsMixin {
             )
     )
     private void redirectRenderText(ClientTooltipComponent instance, Font font, int x, int y, Matrix4f matrix, MultiBufferSource.BufferSource bufferSource) {
-        if (!Objects.requireNonNull(Managers.getToastManager()).isEmpty()) {
+        if (!Objects.requireNonNull(FancyToasts.getInstance().getToastManager()).isEmpty()) {
             if (instance instanceof ClientTextTooltip clientTextTooltip) {
                 GuiGraphics guiGraphics = (GuiGraphics) (Object) this;
                 FormattedCharSequence text = ((IClientTextTooltipAccessor) clientTextTooltip).getText();

@@ -1,15 +1,12 @@
 package net.bivrik.fancytoasts.client.toast;
 
+import net.bivrik.fancytoasts.FancyToasts;
 import net.bivrik.fancytoasts.client.config.data.GeneralConfigData;
 import net.bivrik.fancytoasts.client.registry.AnimationRegistry;
 import net.bivrik.fancytoasts.client.toast.animation.FancyToastAnimation;
 import net.bivrik.fancytoasts.core.Debug;
-import net.bivrik.fancytoasts.core.Managers;
-import net.bivrik.fancytoasts.platform.Services;
 import net.bivrik.fancytoasts.platform.utility.AdvancementDisplay;
-import net.bivrik.fancytoasts.platform.utility.QuestAdvancementDisplay;
 import net.bivrik.fancytoasts.utility.DefaultUVs;
-import net.minecraft.advancements.AdvancementHolder;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.resources.sounds.SimpleSoundInstance;
@@ -37,7 +34,7 @@ public class FancyAdvancementToast {
     private int playedSoundsCount = 0;
 
     public FancyAdvancementToast(Minecraft minecraft, AdvancementDisplay display, ResourceLocation soundId, ResourceLocation textureId, ResourceLocation animationId) {
-        var generalConfig = Managers.getConfigManager().getGeneralConfigData();
+        var generalConfig = FancyToasts.getInstance().getConfigManager().getGeneralConfigData();
         this.generalConfig = generalConfig;
 
         if (generalConfig.areSoundsEnabled()) {
