@@ -4,14 +4,10 @@ import net.bivrik.fancytoasts.client.registry.KeyBindingRegistry;
 import net.bivrik.fancytoasts.utility.KeyBinding;
 
 public class KeyBindingManager {
-    private KeyBinding[] keyBindings;
+    private final KeyBinding[] keyBindings;
 
     public KeyBindingManager() {
-        updateKeyBindings();
-    }
-
-    public void updateKeyBindings() {
-        keyBindings = KeyBindingRegistry.keyBindings();
+        keyBindings = KeyBindingRegistry.getModKeyBindings();
     }
 
     public void tick() {
