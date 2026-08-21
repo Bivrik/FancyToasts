@@ -43,9 +43,6 @@ public final class FancyToasts {
     }
 
     public void onModInit() {
-        if (!Services.PLATFORM.isModLoaded(Constants.MOD_ID)) {
-            return;
-        }
         Debug.info(Constants.MOD_NAME + " initialized on {} ({})", Services.PLATFORM.getName(), Services.PLATFORM.getEnvironmentName());
 
         configManager = new ConfigManager();
