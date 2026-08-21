@@ -54,15 +54,6 @@ public class KeyBindingRegistry {
             extendedKeys[registeredKeys.length + i] = keysToAdd.get(i);
         }
 
-        StringBuilder debug = new StringBuilder();
-        for (int i = 0; i < extendedKeys.length; i++) {
-            debug.append(extendedKeys[i].getName());
-            if (i != extendedKeys.length - 1) {
-                debug.append(", ");
-            }
-        }
-        LOGGER.info(debug.toString());
-
         LOGGER.info("Returned extended keys for options");
         return extendedKeys;
     }
