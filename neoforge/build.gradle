@@ -47,12 +47,15 @@ neoForge {
         }
         client {
             client()
+            gameDirectory = project.file('runs/client')
         }
         data {
             data()
+            gameDirectory = project.file('runs/data')
         }
         server {
             server()
+            gameDirectory = project.file('runs/server')
         }
     }
     mods {
