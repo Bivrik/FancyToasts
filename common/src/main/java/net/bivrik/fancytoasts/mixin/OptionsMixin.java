@@ -4,10 +4,7 @@ import net.bivrik.fancytoasts.client.registry.KeyBindingRegistry;
 import net.bivrik.fancytoasts.FancyToasts;
 import net.minecraft.client.KeyMapping;
 import net.minecraft.client.Options;
-import org.spongepowered.asm.mixin.Final;
-import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.Mutable;
-import org.spongepowered.asm.mixin.Shadow;
+import org.spongepowered.asm.mixin.*;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
@@ -19,10 +16,10 @@ public class OptionsMixin {
     @Shadow
     public KeyMapping[] keyMappings;
 
-    @Inject(at = @At("HEAD"), method = "load()V")
+    @Inject(at = @At("RETURN"), method = "load()V")
     private void onLoad(CallbackInfo info) {
         FancyToasts.registerKeyBindings();
 
-        keyMappings = KeyBindingRegistry.getExtendedKeys(keyMappings);
+        this.keyMappings = KeyBindingRegistry.getExtendedKeys(this.keyMappings);
     }
 }
