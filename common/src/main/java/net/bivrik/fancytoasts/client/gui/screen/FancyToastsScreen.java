@@ -1,7 +1,7 @@
 package net.bivrik.fancytoasts.client.gui.screen;
 
+import net.bivrik.fancytoasts.FancyToasts;
 import net.bivrik.fancytoasts.core.Color;
-import net.bivrik.fancytoasts.core.Managers;
 import net.bivrik.fancytoasts.platform.utility.Components;
 import net.bivrik.fancytoasts.platform.utility.GuiContext;
 import net.minecraft.util.Util;
@@ -43,7 +43,7 @@ public class FancyToastsScreen extends UniversalScreen {
     public FancyToastsScreen(Screen parent) {
         super(TITLE, parent);
 
-        this.splash = Managers.getSplashManager().getSplash();
+        this.splash = FancyToasts.getInstance().getSplashManager().getSplash();
     }
 
     @Override

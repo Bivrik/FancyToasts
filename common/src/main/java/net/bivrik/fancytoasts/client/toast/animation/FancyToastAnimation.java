@@ -1,13 +1,13 @@
 package net.bivrik.fancytoasts.client.toast.animation;
 
+import net.bivrik.fancytoasts.FancyToasts;
 import net.bivrik.fancytoasts.client.config.DisplayTextType;
 import net.bivrik.fancytoasts.client.config.ToastScreenBehavior;
 import net.bivrik.fancytoasts.client.toast.AnimationSetup;
 import net.bivrik.fancytoasts.core.Color;
-import net.bivrik.fancytoasts.core.Managers;
 import net.bivrik.fancytoasts.core.event.GeneralConfigDataEvent;
 import net.bivrik.fancytoasts.platform.utility.GuiContext;
-import net.bivrik.fancytoasts.platform.utility.ToastDisplayInfo;
+import net.bivrik.fancytoasts.platform.utility.AdvancementDisplay;
 import net.bivrik.fancytoasts.utility.TextureUV;
 import net.bivrik.fancytoasts.utility.TypeBasedUVs;
 import net.minecraft.client.Minecraft;
@@ -27,7 +27,7 @@ public abstract class FancyToastAnimation {
     private List<FormattedCharSequence> titleLines;
     private List<FormattedCharSequence> descriptionLines;
 
-    protected ToastDisplayInfo displayInfo;
+    protected AdvancementDisplay display;
     protected Minecraft minecraft;
     protected int toastWidth;
     protected int toastHeight;
@@ -46,13 +46,13 @@ public abstract class FancyToastAnimation {
     protected Style titleStyle;
     protected Style descriptionStyle;
 
-    FancyToastAnimation() {
+    public FancyToastAnimation() {
         generalConfigDataEventConsumer = this::onGeneralConfigDataChanged;
-        Managers.getEventManager().subscribeToEvent(GeneralConfigDataEvent.class, generalConfigDataEventConsumer);
+        FancyToasts.EVENTS.subscribeToEvent(GeneralConfigDataEvent.class, generalConfigDataEventConsumer);
     }
 
     public void setup(AnimationSetup setup, Minecraft minecraft, int toastWidth, int toastHeight) {
-        var data = Managers.getConfigManager().getGeneralConfigData();
+        var data = FancyToasts.getInstance().getConfigManager().getGeneralConfigData();
         this.shouldTransparentToast = data.getToastScreenBehavior().equals(ToastScreenBehavior.TRANSPARENT);
         this.loopsStrength = data.getLoopsStrength();
         this.loopsSpeed = data.getLoopsSpeed();
@@ -62,15 +62,15 @@ public abstract class FancyToastAnimation {
         this.minecraft = minecraft;
         this.toastWidth = toastWidth;
         this.toastHeight = toastHeight;
-        this.textureLocation = setup.textureLocation();
-        this.displayInfo = setup.displayInfo();
-        this.typeBasedUVs = setup.typeBasedUVs();
-        this.backgroundUV = setup.backgroundUV();
-        this.plaqueUV = setup.plaqueUV();
+        this.textureLocation = setup.getTextureId();
+        this.display = setup.getDisplay();
+        this.typeBasedUVs = this.display.getType().getUvs();
+        this.backgroundUV = setup.getBackgroundUV();
+        this.plaqueUV = setup.getPlaqueUV();
     }
 
     public void unsubscribeFromGeneralConfigDataEvent() {
-        Managers.getEventManager().unsubscribeFromEvent(GeneralConfigDataEvent.class, generalConfigDataEventConsumer);
+        FancyToasts.EVENTS.unsubscribeFromEvent(GeneralConfigDataEvent.class, generalConfigDataEventConsumer);
     }
 
     private void onGeneralConfigDataChanged(GeneralConfigDataEvent event) {
@@ -81,8 +81,8 @@ public abstract class FancyToastAnimation {
     }
 
     protected void setLines(Component toastTitle, Component toastDescription) {
-        Component title = titleDisplayTextType.getDisplayTextOrElse(displayInfo, toastTitle);
-        Component description = descriptionDisplayTextType.getDisplayTextOrElse(displayInfo, toastDescription);
+        Component title = titleDisplayTextType.getDisplayTextOrElse(display, toastTitle);
+        Component description = descriptionDisplayTextType.getDisplayTextOrElse(display, toastDescription);
 
         titleStyle = title.getStyle();
         descriptionStyle = description.getStyle();
@@ -100,7 +100,7 @@ public abstract class FancyToastAnimation {
     }
 
     public void draw(GuiGraphicsExtractor GuiGraphicsExtractor, long time) {
-        if (shouldTransparentToast && Objects.requireNonNull(Managers.getToastManager()).isScreenOpened()) {
+        if (shouldTransparentToast & Objects.requireNonNull(FancyToasts.getInstance().getToastManager()).isScreenOpened()) {
             guiAlpha = 0.5f;
         }
         else if (guiAlpha != 1.0f) {
@@ -114,7 +114,7 @@ public abstract class FancyToastAnimation {
 
     protected void drawIcon(GuiContext guiContext, float alpha) {
         guiContext.drawGUITexture(textureLocation, 68, 0, 26, 26, typeBasedUVs.frame(), getColor(alpha));
-        guiContext.getGuiGraphicsExtractor().fakeItem(displayInfo.getIcon(), 73, 5);
+        guiContext.getGuiGraphicsExtractor().fakeItem(display.getIcon(), 73, 5);
     }
     protected void drawIcon(GuiContext guiContext) {
         drawIcon(guiContext, 1);

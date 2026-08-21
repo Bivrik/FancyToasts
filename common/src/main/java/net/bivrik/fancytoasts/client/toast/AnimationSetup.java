@@ -1,46 +1,35 @@
 package net.bivrik.fancytoasts.client.toast;
 
-import net.bivrik.fancytoasts.platform.utility.ToastDisplayInfo;
+import net.bivrik.fancytoasts.platform.utility.AdvancementDisplay;
 import net.bivrik.fancytoasts.utility.TextureUV;
-import net.bivrik.fancytoasts.utility.TypeBasedUVs;
 import net.minecraft.resources.Identifier;
 
 public class AnimationSetup {
     private final Identifier textureLocation;
-    private final ToastDisplayInfo displayInfo;
+    private final AdvancementDisplay display;
     private final TextureUV backgroundUV;
     private final TextureUV plaqueUV;
-    private TypeBasedUVs typeBasedUVs;
 
-    public AnimationSetup(Identifier textureLocation, ToastDisplayInfo displayInfo, TypeBasedUVs typeBasedUVs, TextureUV backgroundUV, TextureUV plaqueUV) {
+    public AnimationSetup(Identifier textureLocation, AdvancementDisplay display, TextureUV backgroundUV, TextureUV plaqueUV) {
         this.textureLocation = textureLocation;
-        this.displayInfo = displayInfo;
+        this.display = display;
         this.backgroundUV = backgroundUV;
         this.plaqueUV = plaqueUV;
-        this.typeBasedUVs = typeBasedUVs;
     }
 
-    public void setTypeBasedUVs(TypeBasedUVs typeBasedUVs) {
-        this.typeBasedUVs = typeBasedUVs;
-    }
-
-    public TypeBasedUVs typeBasedUVs() {
-        return typeBasedUVs;
-    }
-
-    public Identifier textureLocation() {
+    public Identifier getTextureId() {
         return textureLocation;
     }
 
-    public ToastDisplayInfo displayInfo() {
-        return displayInfo;
+    public AdvancementDisplay getDisplay() {
+        return display;
     }
 
-    public TextureUV backgroundUV() {
+    public TextureUV getBackgroundUV() {
         return backgroundUV;
     }
 
-    public TextureUV plaqueUV() {
+    public TextureUV getPlaqueUV() {
         return plaqueUV;
     }
 }

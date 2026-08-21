@@ -24,7 +24,7 @@ public record ToastsHandler(ToastsFilteringData filteringData, ToastManager toas
             info.cancel();
             return;
         }
-        ToastDisplayInfo displayInfo = new ToastDisplayInfo(oldDisplayInfo);
+        AdvancementDisplay displayInfo = new AdvancementDisplay(oldDisplayInfo);
 
         if (filteringData.isTypeIgnored(displayInfo.getAdvancementType())
                 || filteringData.isToastIgnored(advancementHolder.id())) {
@@ -43,7 +43,7 @@ public record ToastsHandler(ToastsFilteringData filteringData, ToastManager toas
         if (filteringData.isFancyQuestToastsEnabled()) {
             info.cancel();
 
-            ToastDisplayInfo displayInfo = Services.FTB_QUESTS.getDisplayInfo(toast);
+            AdvancementDisplay displayInfo = Services.FTB_QUESTS.getDisplayInfo(toast);
             toastManager.addToast(displayInfo);
         }
     }

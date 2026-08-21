@@ -1,17 +1,18 @@
 package net.bivrik.fancytoasts.client.toast;
 
+import net.bivrik.fancytoasts.FancyToasts;
 import net.bivrik.fancytoasts.client.config.data.GeneralConfigData;
 import net.bivrik.fancytoasts.client.registry.AnimationRegistry;
 import net.bivrik.fancytoasts.client.toast.animation.FancyToastAnimation;
 import net.bivrik.fancytoasts.core.Debug;
-import net.bivrik.fancytoasts.core.Managers;
-import net.bivrik.fancytoasts.platform.utility.ToastDisplayInfo;
+import net.bivrik.fancytoasts.platform.utility.AdvancementDisplay;
 import net.bivrik.fancytoasts.utility.DefaultUVs;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.resources.sounds.SimpleSoundInstance;
 import net.minecraft.client.sounds.SoundManager;
 import net.minecraft.resources.Identifier;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 
@@ -34,37 +35,27 @@ public class FancyAdvancementToast {
     private boolean isEnded = false;
     private int playedSoundsCount = 0;
 
-    public FancyAdvancementToast(Minecraft minecraft, ToastDisplayInfo displayInfo, Identifier textureId, Identifier animationId) {
-        var generalConfig = Managers.getConfigManager().getGeneralConfigData();
+    public FancyAdvancementToast(Minecraft minecraft, AdvancementDisplay display, Identifier soundId, Identifier textureId, Identifier animationId) {
+        var generalConfig = FancyToasts.getInstance().getConfigManager().getGeneralConfigData();
         this.generalConfig = generalConfig;
 
         if (generalConfig.areSoundsEnabled()) {
             soundManager = minecraft.getSoundManager();
         }
 
-        AnimationSetup setup = new AnimationSetup(textureId, displayInfo, null, DefaultUVs.BACKGROUND, DefaultUVs.PLAQUE);
-
-        switch (displayInfo.getAdvancementType()) {
-            case TASK -> {
-                setup.setTypeBasedUVs(DefaultUVs.TASK);
-                volume = generalConfig.getTaskVolume();
-            }
-            case GOAL -> {
-                setup.setTypeBasedUVs(DefaultUVs.GOAL);
-                volume = generalConfig.getGoalVolume();
-            }
-            case CHALLENGE -> {
-                setup.setTypeBasedUVs(DefaultUVs.CHALLENGE);
-                volume = generalConfig.getChallengeVolume();
-            }
-            default -> throw new RuntimeException("Could match correct advancement type");
+        switch (display.getType()) {
+            case GOAL -> volume = generalConfig.getGoalVolume();
+            case CHALLENGE -> volume = generalConfig.getChallengeVolume();
+            default -> volume = generalConfig.getTaskVolume();
         }
 
         animation = AnimationRegistry.getAnimation(animationId).get();
+        AnimationSetup setup = new AnimationSetup(textureId, display, DefaultUVs.BACKGROUND, DefaultUVs.PLAQUE);
         animation.setup(setup, minecraft, getWidth(), getHeight());
-        toastSoundId = Managers.getConfigManager().getToastConfigData().getSoundIdByType(displayInfo.getAdvancementType());
 
-        Debug.info("Created new fancy advancement toast: {}; texture: {}; animation: {}", displayInfo.getTitle().getString(), textureId, animationId);
+        toastSoundId = soundId;
+
+        Debug.info("Created new fancy advancement toast: {}", display.getTitle().getString());
     }
 
     public void draw(GuiGraphicsExtractor graphics) {

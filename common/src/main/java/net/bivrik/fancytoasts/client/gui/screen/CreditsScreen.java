@@ -1,14 +1,11 @@
 package net.bivrik.fancytoasts.client.gui.screen;
 
+import com.mojang.blaze3d.systems.RenderSystem;
 import net.bivrik.fancytoasts.client.gui.CreditsList;
-import net.bivrik.fancytoasts.core.Managers;
 import net.bivrik.fancytoasts.core.manager.CreditsManager;
 import net.bivrik.fancytoasts.platform.utility.GuiContext;
-import net.bivrik.fancytoasts.platform.utility.Identifiers;
 import net.bivrik.fancytoasts.utility.TextureUV;
-import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.gui.screens.Screen;
-import net.minecraft.client.renderer.RenderPipelines;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.Identifier;
 import org.jetbrains.annotations.NotNull;
@@ -24,7 +21,8 @@ public class CreditsScreen extends UniversalScreen {
 
     public CreditsScreen(Screen parent) {
         super(Component.empty(), parent);
-        this.creditsData = Managers.getCreditsManager().getCredits();
+
+        this.creditsData = FancyToasts.getInstance().getCreditsManager().getCredits();
     }
 
     @Override
@@ -34,10 +32,10 @@ public class CreditsScreen extends UniversalScreen {
     }
 
     @Override
-    public void extractRenderState(@NotNull GuiGraphicsExtractor GuiGraphicsExtractor, int mouseX, int mouseY, float partialTick) {
-        super.extractRenderState(GuiGraphicsExtractor, mouseX, mouseY, partialTick);
+    public void extractRenderState(@NotNull GuiGraphicsExtractor guiGraphicsExtractor, int mouseX, int mouseY, float partialTick) {
+        super.extractRenderState(guiGraphicsExtractor, mouseX, mouseY, partialTick);
 
-        new GuiContext(GuiGraphicsExtractor).drawTexture(RenderPipelines.VIGNETTE, VIGNETTE_LOCATION, 0, 0, this.width, this.height, TextureUV.ZERO, this.width, this.height);
+        new GuiContext(guiGraphicsExtractor).drawTexture(RenderPipelines.VIGNETTE, VIGNETTE_LOCATION, 0, 0, this.width, this.height, TextureUV.ZERO, this.width, this.height);
 
         creditsList.scroll();
     }

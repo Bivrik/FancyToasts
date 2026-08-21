@@ -1,5 +1,6 @@
 package net.bivrik.fancytoasts.client.gui.screen;
 
+import net.bivrik.fancytoasts.FancyToasts;
 import net.bivrik.fancytoasts.client.config.ConfigHandler;
 import net.bivrik.fancytoasts.client.config.data.ToastConfigData;
 import net.bivrik.fancytoasts.client.gui.InformationList;
@@ -11,7 +12,6 @@ import net.bivrik.fancytoasts.client.toast.DisplayData;
 import net.bivrik.fancytoasts.core.Color;
 import net.bivrik.fancytoasts.core.Constants;
 import net.bivrik.fancytoasts.core.Easing;
-import net.bivrik.fancytoasts.core.Managers;
 import net.bivrik.fancytoasts.core.event.ToastConfigDataEvent;
 import net.bivrik.fancytoasts.core.manager.CustomTextureManager;
 import net.bivrik.fancytoasts.platform.utility.Components;
@@ -64,8 +64,8 @@ public class ToastConfigScreen extends UniversalScreen {
     public ToastConfigScreen(Screen parent) {
         super(TITLE, parent);
 
-        this.toastConfigData = Managers.getConfigManager().getToastConfigData();
-        this.customTextureManager = Managers.getCustomTextureManager();
+        this.toastConfigData = FancyToasts.getInstance().getConfigManager().getToastConfigData();
+        this.customTextureManager = FancyToasts.getInstance().getCustomTextureManager();
         this.customTextureManager.reload();
 
         this.selectedDisplayData = this.settingType.getDisplayData(this.toastConfigData.getTextureId());
@@ -148,7 +148,7 @@ public class ToastConfigScreen extends UniversalScreen {
 
     private void done() {
         ToastConfigData data = toastConfigData.copy();
-        if (!data.equals(Managers.getConfigManager().getToastConfigData())) {
+        if (!data.equals(FancyToasts.getInstance().getConfigManager().getToastConfigData())) {
             save(data);
         } else {
             this.toParentScreen();
@@ -164,7 +164,7 @@ public class ToastConfigScreen extends UniversalScreen {
         }
 
         ConfigHandler.save(data);
-        Managers.getEventManager().sendEvent(new ToastConfigDataEvent(data));
+        FancyToasts.EVENTS.sendEvent(new ToastConfigDataEvent(data));
         isSaved = true;
         savedFeedbackStartTime = Util.getMillis();
     }

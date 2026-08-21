@@ -1,5 +1,6 @@
 package net.bivrik.fancytoasts.client.gui.screen;
 
+import net.bivrik.fancytoasts.FancyToasts;
 import net.bivrik.fancytoasts.client.config.ConfigHandler;
 import net.bivrik.fancytoasts.client.config.DisplayTextType;
 import net.bivrik.fancytoasts.client.config.ToastAnchor;
@@ -13,7 +14,6 @@ import net.bivrik.fancytoasts.client.toast.Appearance;
 import net.bivrik.fancytoasts.core.Color;
 import net.bivrik.fancytoasts.core.Constants;
 import net.bivrik.fancytoasts.core.Easing;
-import net.bivrik.fancytoasts.core.Managers;
 import net.bivrik.fancytoasts.core.event.GeneralConfigDataEvent;
 import net.bivrik.fancytoasts.platform.Services;
 import net.bivrik.fancytoasts.platform.utility.Components;
@@ -89,7 +89,7 @@ public class GeneralConfigScreen extends UniversalScreen {
 
     public GeneralConfigScreen(Screen parent) {
         super(TITLE, parent);
-        this.generalConfigData = Managers.getConfigManager().getGeneralConfigData();
+        this.generalConfigData = FancyToasts.getInstance().getConfigManager().getGeneralConfigData();
     }
 
     @Override
@@ -198,7 +198,7 @@ public class GeneralConfigScreen extends UniversalScreen {
 
     private void done() {
         GeneralConfigData data = generalConfigData.copy();
-        if (!data.equals(Managers.getConfigManager().getGeneralConfigData())) {
+        if (!data.equals(FancyToasts.getInstance().getConfigManager().getGeneralConfigData())) {
             save(data);
         } else {
             this.toParentScreen();
@@ -207,7 +207,7 @@ public class GeneralConfigScreen extends UniversalScreen {
 
     private void save(GeneralConfigData data) {
         ConfigHandler.save(data);
-        Managers.getEventManager().sendEvent(new GeneralConfigDataEvent(data));
+        FancyToasts.EVENTS.sendEvent(new GeneralConfigDataEvent(data));
         isSaved = true;
         savedFeedbackStartTime = Util.getMillis();
     }

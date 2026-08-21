@@ -1,6 +1,6 @@
 package net.bivrik.fancytoasts.mixin;
 
-import net.bivrik.fancytoasts.core.Managers;
+import net.bivrik.fancytoasts.FancyToasts;
 import net.bivrik.fancytoasts.core.manager.ToastManager;
 import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.gui.components.BossHealthOverlay;
@@ -12,11 +12,11 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 @Mixin(BossHealthOverlay.class)
 public class BossHealthOverlayMixin {
     @Inject(at = @At("HEAD"), method = "extractRenderState", cancellable = true)
-    private void onRender(GuiGraphicsExtractor GuiGraphicsExtractor, CallbackInfo info) {
-        ToastManager toastManager = Managers.getToastManager();
+    private void onRender(GuiGraphicsExtractor graphics, CallbackInfo info) {
+        ToastManager toastManager = FancyToasts.getInstance().getToastManager();
         if (toastManager == null) return;
 
-        boolean shouldHide = Managers.getConfigManager().getGeneralConfigData().isBossBarHiding();
+        boolean shouldHide = FancyToasts.getInstance().getConfigManager().getGeneralConfigData().isBossBarHiding();
         if (toastManager.shouldRender() && shouldHide) {
             info.cancel();
         }

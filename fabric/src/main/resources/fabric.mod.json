@@ -16,7 +16,7 @@
   "environment": "client",
   "entrypoints": {
     "main": [
-      "net.bivrik.fancytoasts.FancyToasts"
+      "net.bivrik.fancytoasts.FabricPlatform"
     ],
     "modmenu": [
       "net.bivrik.fancytoasts.gui.ModMenuImplementation"

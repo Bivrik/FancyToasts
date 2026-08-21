@@ -5,15 +5,13 @@ import net.bivrik.fancytoasts.client.config.data.ConfigData;
 import net.bivrik.fancytoasts.client.config.data.GeneralConfigData;
 import net.bivrik.fancytoasts.client.config.data.ToastConfigData;
 import net.bivrik.fancytoasts.client.config.data.ToastsFilteringData;
-import net.bivrik.fancytoasts.core.IManager;
 
 import java.util.HashMap;
 
-public class ConfigManager implements IManager {
+public class ConfigManager {
     private final HashMap<Class<? extends ConfigData>, ConfigData> configs = new HashMap<>();
 
-    @Override
-    public void onModInit() {
+    public ConfigManager() {
         loadConfig(ToastConfigData.class);
         loadConfig(GeneralConfigData.class);
         loadConfig(ToastsFilteringData.class);

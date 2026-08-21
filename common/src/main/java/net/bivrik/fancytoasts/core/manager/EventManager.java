@@ -1,14 +1,12 @@
 package net.bivrik.fancytoasts.core.manager;
 
-import net.bivrik.fancytoasts.core.IManager;
-
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.function.Consumer;
 
-public class EventManager implements IManager {
+public class EventManager {
     private final Map<Class<?>, List<Consumer<?>>> listeners = new ConcurrentHashMap<>();
 
     public <T> void subscribeToEvent(Class<T> eventClass, Consumer<T> listener) {
