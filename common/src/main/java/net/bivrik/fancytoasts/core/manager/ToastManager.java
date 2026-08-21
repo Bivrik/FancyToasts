@@ -1,48 +1,47 @@
 package net.bivrik.fancytoasts.core.manager;
 
+import net.bivrik.fancytoasts.FancyToasts;
+import net.bivrik.fancytoasts.client.config.ToastScreenBehavior;
 import net.bivrik.fancytoasts.client.config.data.GeneralConfigData;
 import net.bivrik.fancytoasts.client.config.data.ToastConfigData;
-import net.bivrik.fancytoasts.core.IManager;
-import net.bivrik.fancytoasts.core.event.GeneralConfigDataEvent;
 import net.bivrik.fancytoasts.client.toast.FancyAdvancementToast;
-import net.bivrik.fancytoasts.client.config.ToastScreenBehavior;
-import net.bivrik.fancytoasts.core.Managers;
+import net.bivrik.fancytoasts.core.event.GeneralConfigDataEvent;
 import net.bivrik.fancytoasts.core.event.ToastConfigDataEvent;
-import net.bivrik.fancytoasts.platform.utility.GuiContext;
-import net.bivrik.fancytoasts.platform.utility.ToastDisplayInfo;
 import net.bivrik.fancytoasts.platform.Services;
-import net.minecraft.advancements.Advancement;
+import net.bivrik.fancytoasts.platform.utility.AdvancementDisplay;
+import net.bivrik.fancytoasts.platform.utility.GuiContext;
+import net.minecraft.client.DeltaTracker;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.screens.ChatScreen;
+import net.minecraft.resources.ResourceLocation;
 import org.joml.Vector2d;
 
 import java.util.Deque;
 import java.util.concurrent.ConcurrentLinkedDeque;
 
-public class ToastManager implements IManager {
+public class ToastManager {
     private final Deque<FancyAdvancementToast> toasts = new ConcurrentLinkedDeque<>();
 
     private Minecraft minecraft;
+    private DeltaTracker deltaTracker;
 
     private volatile FancyAdvancementToast currentToast;
 
-    private CustomTextureManager customTextureManager;
+    private final CustomTextureManager customTextureManager;
     private GeneralConfigData generalConfigData;
     private ToastConfigData toastConfigData;
 
-    @Override
-    public void onMinecraftInit(Minecraft minecraft) {
+    public ToastManager(Minecraft minecraft, CustomTextureManager customTextureManager, ConfigManager configManager) {
         this.minecraft = minecraft;
+        this.deltaTracker = minecraft.getTimer();
 
-        customTextureManager = Managers.getCustomTextureManager();
-        ConfigManager configManager = Managers.getConfigManager();
+        this.customTextureManager = customTextureManager;
         generalConfigData = configManager.getGeneralConfigData();
         toastConfigData = configManager.getToastConfigData();
 
-        EventManager eventManager = Managers.getEventManager();
-        eventManager.subscribeToEvent(GeneralConfigDataEvent.class, this::onGeneralConfigDataChanged);
-        eventManager.subscribeToEvent(ToastConfigDataEvent.class, this::onToastConfigDataChanged);
+        FancyToasts.EVENTS.subscribeToEvent(GeneralConfigDataEvent.class, this::onGeneralConfigDataChanged);
+        FancyToasts.EVENTS.subscribeToEvent(ToastConfigDataEvent.class, this::onToastConfigDataChanged);
     }
 
     private void onGeneralConfigDataChanged(GeneralConfigDataEvent event) {
@@ -53,12 +52,14 @@ public class ToastManager implements IManager {
         toastConfigData = event.toastConfigData();
     }
 
-    public void addToast(ToastDisplayInfo displayInfo, Advancement advancement) {
-        if (displayInfo == null) return;
+    public void addAdvancement(AdvancementDisplay display, ResourceLocation soundId) {
+        if (display == null) return;
 
-        FancyAdvancementToast fancyToast = new FancyAdvancementToast(minecraft, advancement, displayInfo, toastConfigData.getTextureId(), toastConfigData.getAnimationId());
-        toasts.add(fancyToast);
-        customTextureManager.addBeingUsed(toastConfigData.getTextureId(), fancyToast);
+        FancyAdvancementToast toast = new FancyAdvancementToast(minecraft, display,
+                soundId, toastConfigData.getTextureId(), toastConfigData.getAnimationId());
+
+        toasts.add(toast);
+        customTextureManager.addBeingUsed(toastConfigData.getTextureId(), toast);
 
         if (generalConfigData.isJadeHiding()) {
             Services.JADE.tryDisable();
@@ -124,7 +125,7 @@ public class ToastManager implements IManager {
     }
 
     private void updateCurrentToast() {
-        float delta = minecraft.getDeltaFrameTime() * generalConfigData.getAnimationSpeed();
+        float delta = deltaTracker.getGameTimeDeltaTicks() * generalConfigData.getAnimationSpeed();
         currentToast.update(delta);
     }
 

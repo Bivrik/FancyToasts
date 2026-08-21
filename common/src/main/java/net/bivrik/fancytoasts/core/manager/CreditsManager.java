@@ -3,7 +3,6 @@ package net.bivrik.fancytoasts.core.manager;
 import com.google.gson.Gson;
 import net.bivrik.fancytoasts.client.config.JsonHelper;
 import net.bivrik.fancytoasts.core.Debug;
-import net.bivrik.fancytoasts.core.IManager;
 import net.bivrik.fancytoasts.utility.file.FileHelper;
 import net.bivrik.fancytoasts.utility.file.Paths;
 
@@ -19,15 +18,14 @@ import java.time.temporal.ChronoUnit;
 import java.util.*;
 import java.util.concurrent.CompletableFuture;
 
-public class CreditsManager implements IManager {
+public class CreditsManager {
     private static final String COMMON_CREDITS_URL = "https://cdn.jsdelivr.net/gh/Bivrik/ModsCredits@master/credits/common.json";
     private static final String CREDITS_URL = "https://cdn.jsdelivr.net/gh/Bivrik/ModsCredits@master/credits/mods/fancytoasts.json";
     private static final int CACHE_VALIDITY_HOURS = 6;
 
     private CreditsData credits;
 
-    @Override
-    public void onModInit() {
+    public CreditsManager() {
         loadAndCombineCreditsAsync().thenAccept(credits -> {
             if (credits == null) {
                 this.credits = getHardcodedFallback();

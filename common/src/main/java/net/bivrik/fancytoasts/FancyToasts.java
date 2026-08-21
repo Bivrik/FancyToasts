@@ -1,4 +1,4 @@
-package net.bivrik.fancytoasts.core;
+package net.bivrik.fancytoasts;
 
 import net.bivrik.fancytoasts.client.gui.screen.FancyToastsScreen;
 import net.bivrik.fancytoasts.client.registry.AnimationRegistry;
@@ -6,33 +6,93 @@ import net.bivrik.fancytoasts.client.registry.KeyBindingRegistry;
 import net.bivrik.fancytoasts.client.registry.TextureRegistry;
 import net.bivrik.fancytoasts.client.toast.DisplayData;
 import net.bivrik.fancytoasts.client.toast.animation.*;
+import net.bivrik.fancytoasts.core.Constants;
+import net.bivrik.fancytoasts.core.Debug;
+import net.bivrik.fancytoasts.core.manager.*;
 import net.bivrik.fancytoasts.platform.Services;
 import net.bivrik.fancytoasts.platform.utility.Components;
 import net.bivrik.fancytoasts.utility.DefaultLocations;
 import net.minecraft.client.Minecraft;
 import net.minecraft.resources.ResourceLocation;
+import org.jetbrains.annotations.Nullable;
 import org.lwjgl.glfw.GLFW;
 
 import java.util.function.Supplier;
 
-public class Common {
-    // Mod lifecycle
-    public static void onModInit() {
+public final class FancyToasts {
+    private FancyToasts() {}
+
+    public static final EventManager EVENTS = new EventManager();
+    private static final FancyToasts INSTANCE = new FancyToasts();
+
+    private ConfigManager configManager;
+    private CreditsManager creditsManager;
+    private CustomTextureManager customTextureManager;
+    private KeyBindingManager keyBindingManager;
+    private SplashManager splashManager;
+    private ToastManager toastManager;
+
+    /**
+     * Only uses in specific cases, when there is no way of DI, like mixins or screens.
+     * @return {@link FancyToasts}
+     */
+    public static FancyToasts getInstance() {
+        return INSTANCE;
+    }
+
+    public void onModInit() {
         if (!Services.PLATFORM.isModLoaded(Constants.MOD_ID)) {
             return;
         }
-        Debug.info("Initialization on {} in a {} environment", Services.PLATFORM.getName(), Services.PLATFORM.getEnvironmentName());
+        Debug.info(Constants.MOD_NAME + " initialized on {} ({})", Services.PLATFORM.getName(), Services.PLATFORM.getEnvironmentName());
 
-        Managers.init();
-        Managers.onModInit();
+        configManager = new ConfigManager();
+        creditsManager = new CreditsManager();
     }
 
-    public static void onMinecraftInit(Minecraft minecraft) {
-        Managers.onMinecraftInit(minecraft);
+    public void onMinecraftInit(Minecraft minecraft) {
+        Debug.info("Minecraft initialized");
+
+        customTextureManager = new CustomTextureManager(minecraft, configManager);
+        keyBindingManager = new KeyBindingManager();
+        splashManager = new SplashManager(minecraft);
+        toastManager = new ToastManager(minecraft, customTextureManager, configManager);
     }
 
-    public static void onTick() {
-        Managers.onTick();
+    public void onTick() {
+        keyBindingManager.tick();
+    }
+
+    // Refactor to make them DI!
+    public ConfigManager getConfigManager() {
+        return configManager;
+    }
+
+    public CreditsManager getCreditsManager() {
+        return creditsManager;
+    }
+
+    public CustomTextureManager getCustomTextureManager() {
+        return customTextureManager;
+    }
+
+    public KeyBindingManager getKeyBindingManager() {
+        return keyBindingManager;
+    }
+
+    public SplashManager getSplashManager() {
+        return splashManager;
+    }
+
+    /**
+     * Some mods trigger Minecraft's ToastManager {@code update()} or {@code render()} on Minecraft initialization. Therefore, it can return null during this phase, and to avoid immediate crash, always check for null.
+     * @return {@link ToastManager}
+     */
+    public @Nullable ToastManager getToastManager() {
+        if (toastManager == null) {
+            Debug.warn("You cannot access ToastManager, it is null");
+        }
+        return toastManager;
     }
 
     // Registrations
