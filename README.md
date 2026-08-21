@@ -1,5 +1,3 @@
-> 1.4.8-dev - Minecraft 1.21.1
-
 <div>
     <img src="https://raw.githubusercontent.com/Bivrik/FancyToasts/master/.github/assets/logo.png" alt="Fancy Toasts logo" width="150"/>
 </div>
@@ -81,7 +79,7 @@ I plan to port Fancy Toasts to as many versions as possible, but not every of th
 
 | Minecraft version | Mod version |
 |-------------------|-------------|
-| 1.21.10           | 1.4.7       |
+| Latest (26.2)     | 1.4.7       |
 | 1.21.1            | 1.4.7       |
 | 1.20.1            | 1.4.7       |
 
@@ -93,16 +91,16 @@ Developing anything is never an easy job. Therefore, if you like my mods, play w
 
 ## Languages 🌍
 
-| Language              | Key     | Made by      |
-|-----------------------|---------|--------------|
-| English               | `en_us` |              |
-| Russian               | `ru_ru` |              |
-| Spanish               | `es_es` | `translator` |
-| German                | `de_de` | `translator` |
-| Portuguese            | `pt_br` | `translator` |
-| Chinese (Simplified)  | `zh_cn` | Gao Xinyang  |
-| Chinese (Traditional) | `zh_tw` | ChaTian      |
-| Japanese              | `ja_jp` | PExPE3       |
+| Language              | Key     | Made By              |
+|-----------------------|---------|----------------------|
+| English               | `en_us` |                      |
+| Russian               | `ru_ru` |                      |
+| Spanish               | `es_es` | `translator`         |
+| German                | `de_de` | `translator`         |
+| Portuguese            | `pt_br` | `translator`         |
+| Chinese (Simplified)  | `zh_cn` | Gao Xinyang          |
+| Chinese (Traditional) | `zh_tw` | ChaTian, Gao Xinyang |
+| Japanese              | `ja_jp` | PExPE3               |
 
 ## Plans 📜
 
