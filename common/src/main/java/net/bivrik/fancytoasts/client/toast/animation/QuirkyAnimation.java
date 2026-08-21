@@ -2,6 +2,7 @@ package net.bivrik.fancytoasts.client.toast.animation;
 
 import java.util.Random;
 
+import net.bivrik.fancytoasts.client.config.data.GeneralConfigData;
 import net.bivrik.fancytoasts.client.toast.AnimationSetup;
 import net.bivrik.fancytoasts.client.toast.Appearance;
 import net.bivrik.fancytoasts.core.Easing;
@@ -24,8 +25,8 @@ public class QuirkyAnimation extends FancyToastAnimation {
     private float randomRotation;
 
     @Override
-    public void setup(AnimationSetup setup, Minecraft minecraft, int toastWidth, int toastHeight) {
-        super.setup(setup, minecraft, toastWidth, toastHeight);
+    public void setup(AnimationSetup setup, GeneralConfigData generalConfig, Minecraft minecraft, int toastWidth, int toastHeight) {
+        super.setup(setup, generalConfig, minecraft, toastWidth, toastHeight);
 
         this.setLines(display.getAnnouncement(), display.getDescription());
         randomRotation = new Random().nextFloat(-0.4f, 0.4f);
