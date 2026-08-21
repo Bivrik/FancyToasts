@@ -6,14 +6,14 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 import net.bivrik.fancytoasts.client.config.data.ToastsFilteringData;
 import net.bivrik.fancytoasts.client.toast.IAdvancementAccessor;
-import net.bivrik.fancytoasts.core.manager.ToastManager;
+import net.bivrik.fancytoasts.core.manager.FancyToastManager;
 import net.bivrik.fancytoasts.platform.Services;
 import net.minecraft.advancements.AdvancementHolder;
 import net.minecraft.advancements.DisplayInfo;
 import net.minecraft.client.gui.components.toasts.AdvancementToast;
 import net.minecraft.client.gui.components.toasts.Toast;
 
-public record ToastsHandler(ToastsFilteringData filteringData, ToastConfigData toastData, ToastManager toastManager, CallbackInfo info) {
+public record ToastsHandler(ToastsFilteringData filteringData, ToastConfigData toastData, FancyToastManager fancyToastManager, CallbackInfo info) {
 
     public void handleAdvancementToasts(AdvancementToast advancementToast) {
         if (!filteringData.isAdvancementToastsEnabled()) {
@@ -57,7 +57,7 @@ public record ToastsHandler(ToastsFilteringData filteringData, ToastConfigData t
                     toastType.getTitleColor(), toastType.getDescriptionColor(),
                     toastType.getConventionalType());
 
-            toastManager.addAdvancement(display, soundId);
+            fancyToastManager.add(display, soundId);
         }
     }
 
@@ -76,7 +76,7 @@ public record ToastsHandler(ToastsFilteringData filteringData, ToastConfigData t
         }
 
         info.cancel();
-        toastManager.addAdvancement(display, toastData.getSoundIdByQuestType(display.getQuestType()));
+        fancyToastManager.add(display, toastData.getSoundIdByQuestType(display.getQuestType()));
     }
 
     public void handleRecipeToasts() {

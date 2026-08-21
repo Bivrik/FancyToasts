@@ -1,6 +1,5 @@
 package net.bivrik.fancytoasts.client.toast;
 
-import net.bivrik.fancytoasts.FancyToasts;
 import net.bivrik.fancytoasts.client.config.data.GeneralConfigData;
 import net.bivrik.fancytoasts.client.registry.AnimationRegistry;
 import net.bivrik.fancytoasts.client.toast.animation.FancyToastAnimation;
@@ -20,25 +19,21 @@ import java.util.Random;
 public class FancyAdvancementToast {
     private static final int WIDTH = 162;
     private static final int HEIGHT = 70;
-    private static final Random random = new Random();
+    private static final Random RANDOM = new Random();
 
     private final GeneralConfigData generalConfig;
+    private final SoundManager soundManager;
+    private final FancyToastAnimation animation;
+    private final ResourceLocation toastSoundId;
+    private final float volume;
 
-    private FancyToastAnimation animation;
-    private ResourceLocation toastSoundId;
-    private float volume;
-    private SoundManager soundManager;
-
-    private float time = 0;
-    private boolean isEnded = false;
-    private int playedSoundsCount = 0;
+    private int timeTicks;
+    private boolean isDead;
+    private int playedSoundsCount;
 
     public FancyAdvancementToast(Minecraft minecraft, GeneralConfigData generalConfig, AdvancementDisplay display, ResourceLocation soundId, ResourceLocation textureId, ResourceLocation animationId) {
         this.generalConfig = generalConfig;
-
-        if (generalConfig.areSoundsEnabled()) {
-            soundManager = minecraft.getSoundManager();
-        }
+        this.soundManager = minecraft.getSoundManager();
 
         switch (display.getType()) {
             case GOAL -> volume = generalConfig.getGoalVolume();
@@ -47,44 +42,52 @@ public class FancyAdvancementToast {
         }
 
         animation = AnimationRegistry.getAnimation(animationId).get();
-        AnimationSetup setup = new AnimationSetup(textureId, display, DefaultUVs.BACKGROUND, DefaultUVs.PLAQUE);
-        animation.setup(setup, generalConfig, minecraft, getWidth(), getHeight());
-
         toastSoundId = soundId;
 
-        Debug.info("Created new fancy advancement toast: {}", display.getTitle().getString());
+        AnimationSetup setup = new AnimationSetup(textureId, display, DefaultUVs.BACKGROUND, DefaultUVs.PLAQUE);
+        animation.setup(setup, generalConfig, minecraft.font, getWidth(), getHeight());
 
+        Debug.info("New fancy advancement toast: {}", display.getTitle().getString());
+
+        // Temp
         Debug.warn("{} - {}", display.getTitle().getString(), display.getTitle().toString());
         Debug.warn("{} - {}", display.getDescription().getString(), display.getDescription().toString());
         Debug.warn("{} - {}", display.getAnnouncement().getString(), display.getAnnouncement().toString());
     }
 
-    public void draw(GuiGraphics graphics) {
-        animation.draw(graphics, (long) time);
-    }
-
-    public void update(float delta) {
-        time += delta * 50;
-
-        if (time >= animation.getDuration() && !isEnded) {
-            animation.unsubscribeFromGeneralConfigDataEvent();
-            isEnded = true;
+    public void render(GuiGraphics graphics, float partialTick) {
+        if (isDead) {
+            return;
         }
 
-        if (soundManager != null) {
-            int timeInSeconds = (int) (time / 50);
+        animation.renderWithTransparency(graphics, timeTicks, partialTick);
+    }
 
-            switch (playedSoundsCount) {
-                case 0 -> playSound(SoundEvents.UI_TOAST_IN, 1.5f);
-                case 1 -> {
-                    if (timeInSeconds == animation.getToastSoundTiming() / 50) {
-                        playSound(toastSoundId, volume);
-                    }
+    public void tick() {
+        if (isDead) {
+            return;
+        }
+
+        if (timeTicks++ > animation.getDuration()) {
+            animation.unsubscribeFromGeneralConfigDataEvent();
+            isDead = true;
+            return;
+        }
+
+        if (!generalConfig.areSoundsEnabled()) {
+            return;
+        }
+
+        switch (playedSoundsCount) {
+            case 0 -> playSound(SoundEvents.UI_TOAST_IN, 1.5f);
+            case 1 -> {
+                if (timeTicks == animation.getToastSoundTiming()) {
+                    playSound(toastSoundId, volume);
                 }
-                case 2 -> {
-                    if (timeInSeconds == animation.getDuration() / 50 - 10) {
-                        playSound(SoundEvents.UI_TOAST_IN, 1.5f);
-                    }
+            }
+            case 2 -> {
+                if (timeTicks == animation.getDuration() - 10) {
+                    playSound(SoundEvents.UI_TOAST_IN, 1.5f);
                 }
             }
         }
@@ -94,7 +97,7 @@ public class FancyAdvancementToast {
         float pitch = 1.0f;
         float pitchRandomness = generalConfig.getPitchRandomness();
         if (pitchRandomness != 0.0f) {
-            pitch = random.nextFloat(pitch - pitchRandomness, pitch + pitchRandomness);
+            pitch = RANDOM.nextFloat(pitch - pitchRandomness, pitch + pitchRandomness);
         }
         soundManager.play(SimpleSoundInstance.forUI(sound, pitch, volume));
         playedSoundsCount++;
@@ -104,8 +107,8 @@ public class FancyAdvancementToast {
         playSound(SoundEvent.createVariableRangeEvent(soundLocation), volume);
     }
 
-    public boolean isEnded() {
-        return isEnded;
+    public boolean isDead() {
+        return isDead;
     }
 
     public int getWidth() {

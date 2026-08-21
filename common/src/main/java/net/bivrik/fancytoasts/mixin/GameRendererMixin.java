@@ -1,7 +1,7 @@
 package net.bivrik.fancytoasts.mixin;
 
 import net.bivrik.fancytoasts.FancyToasts;
-import net.bivrik.fancytoasts.core.manager.ToastManager;
+import net.bivrik.fancytoasts.core.manager.FancyToastManager;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.toasts.ToastComponent;
 import net.minecraft.client.renderer.GameRenderer;
@@ -21,13 +21,11 @@ public class GameRendererMixin {
     private void onToastManagerRender(ToastComponent toastComponent, GuiGraphics guiGraphics) {
         toastComponent.render(guiGraphics);
 
-        ToastManager toastManager = FancyToasts.getInstance().getToastManager();
-        if (toastManager == null) return;
+        FancyToastManager fancyToastManager = FancyToasts.getInstance().getToastManager();
+        if (fancyToastManager == null) return;
 
-        toastManager.update();
-
-        if (!toastManager.shouldRenderBehind()) {
-            toastManager.render(guiGraphics);
+        if (!fancyToastManager.shouldRenderBehind()) {
+            fancyToastManager.render(guiGraphics);
         }
     }
 }
