@@ -55,7 +55,7 @@ public class ToastManager {
     public void addAdvancement(AdvancementDisplay display, ResourceLocation soundId) {
         if (display == null) return;
 
-        FancyAdvancementToast toast = new FancyAdvancementToast(minecraft, display,
+        FancyAdvancementToast toast = new FancyAdvancementToast(minecraft, generalConfigData, display,
                 soundId, toastConfigData.getTextureId(), toastConfigData.getAnimationId());
 
         toasts.add(toast);

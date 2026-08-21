@@ -33,8 +33,7 @@ public class FancyAdvancementToast {
     private boolean isEnded = false;
     private int playedSoundsCount = 0;
 
-    public FancyAdvancementToast(Minecraft minecraft, AdvancementDisplay display, ResourceLocation soundId, ResourceLocation textureId, ResourceLocation animationId) {
-        var generalConfig = FancyToasts.getInstance().getConfigManager().getGeneralConfigData();
+    public FancyAdvancementToast(Minecraft minecraft, GeneralConfigData generalConfig, AdvancementDisplay display, ResourceLocation soundId, ResourceLocation textureId, ResourceLocation animationId) {
         this.generalConfig = generalConfig;
 
         if (generalConfig.areSoundsEnabled()) {
@@ -49,7 +48,7 @@ public class FancyAdvancementToast {
 
         animation = AnimationRegistry.getAnimation(animationId).get();
         AnimationSetup setup = new AnimationSetup(textureId, display, DefaultUVs.BACKGROUND, DefaultUVs.PLAQUE);
-        animation.setup(setup, minecraft, getWidth(), getHeight());
+        animation.setup(setup, generalConfig, minecraft, getWidth(), getHeight());
 
         toastSoundId = soundId;
 
