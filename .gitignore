@@ -2,4 +2,5 @@
 /.gradle/
 /libs/
 /.idea/
+/.vscode/
 /neoforge/
