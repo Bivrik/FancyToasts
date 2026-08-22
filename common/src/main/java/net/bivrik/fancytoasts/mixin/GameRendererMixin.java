@@ -1,52 +1,58 @@
 package net.bivrik.fancytoasts.mixin;
 
+import com.mojang.blaze3d.platform.Window;
 import net.bivrik.fancytoasts.FancyToasts;
 import net.bivrik.fancytoasts.core.manager.FancyToastManager;
-import net.minecraft.client.gui.Gui;
+import net.minecraft.client.DeltaTracker;
 import net.minecraft.client.gui.GuiGraphics;
-import net.minecraft.client.gui.components.toasts.ToastComponent;
 import net.minecraft.client.renderer.GameRenderer;
+import org.joml.Matrix4f;
+import org.joml.Matrix4fStack;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
-import org.spongepowered.asm.mixin.injection.Redirect;
+import org.spongepowered.asm.mixin.injection.Inject;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
+import org.spongepowered.asm.mixin.injection.callback.LocalCapture;
 
 @Mixin(GameRenderer.class)
 public class GameRendererMixin {
-    @Redirect(
+    @Inject(
             method = "render",
             at = @At(
                     value = "INVOKE",
-                    target = "Lnet/minecraft/client/gui/components/toasts/ToastComponent;render(Lnet/minecraft/client/gui/GuiGraphics;)V"
-            )
+                    target = "Lnet/minecraft/client/gui/Gui;render(Lnet/minecraft/client/gui/GuiGraphics;Lnet/minecraft/client/DeltaTracker;)V"
+            ),
+            locals = LocalCapture.CAPTURE_FAILSOFT
     )
-    private void onToastManagerRender(ToastComponent toastComponent, GuiGraphics guiGraphics) {
-        toastComponent.render(guiGraphics);
-
+    private void beforeGuiRender(DeltaTracker deltaTracker, boolean renderLevel, CallbackInfo info,
+                                 boolean isGameFinishedLoading, int mouseX, int mouseY, Window window,
+                                 Matrix4f matrix, Matrix4fStack stack, GuiGraphics graphics) {
         FancyToastManager fancyToastManager = FancyToasts.getInstance().getToastManager();
         if (fancyToastManager == null) return;
 
-        fancyToastManager.update();
-
-        if (!fancyToastManager.shouldRenderBehind()) {
-            fancyToastManager.render(guiGraphics);
+        if (fancyToastManager.shouldRenderBehind()) {
+            float partialTick = deltaTracker.getGameTimeDeltaPartialTick(false);
+            fancyToastManager.render(graphics, partialTick);
         }
     }
 
-    @Redirect(
+    @Inject(
             method = "render",
             at = @At(
                     value = "INVOKE",
-                    target = "Lnet/minecraft/client/gui/Gui;render(Lnet/minecraft/client/gui/GuiGraphics;F)V"
-            )
+                    target = "Lnet/minecraft/client/gui/GuiGraphics;flush()V"
+            ),
+            locals = LocalCapture.CAPTURE_FAILSOFT
     )
-    private void onGuiRender(Gui instance, GuiGraphics guiGraphics, float partialTicks) {
-        instance.render(guiGraphics, partialTicks);
+    private void afterRender(DeltaTracker deltaTracker, boolean renderLevel, CallbackInfo info,
+                             boolean isGameFinishedLoading, int mouseX, int mouseY, Window window,
+                             Matrix4f matrix, Matrix4fStack stack, GuiGraphics graphics) {
+        FancyToastManager fancyToastManager = FancyToasts.getInstance().getToastManager();
+        if (fancyToastManager == null) return;
 
-        ToastManager toastManager = FancyToasts.getInstance().getToastManager();
-        if (toastManager == null) return;
-
-        if (!toastManager.shouldRenderBehind()) {
-            toastManager.render(guiGraphics);
+        if (!fancyToastManager.shouldRenderBehind()) {
+            float partialTick = deltaTracker.getGameTimeDeltaPartialTick(false);
+            fancyToastManager.render(graphics, partialTick);
         }
     }
 }
