@@ -11,7 +11,7 @@ import java.util.HashMap;
 public class ConfigManager {
     private final HashMap<Class<? extends ConfigData>, ConfigData> configs = new HashMap<>();
 
-    public ConfigManager() {
+    public void init() {
         loadConfig(ToastConfigData.class);
         loadConfig(GeneralConfigData.class);
         loadConfig(ToastsFilteringData.class);
