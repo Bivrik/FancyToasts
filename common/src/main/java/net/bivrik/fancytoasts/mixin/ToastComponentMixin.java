@@ -4,14 +4,14 @@ import net.bivrik.fancytoasts.FancyToasts;
 import net.bivrik.fancytoasts.core.manager.ConfigManager;
 import net.bivrik.fancytoasts.core.manager.FancyToastManager;
 import net.bivrik.fancytoasts.platform.Services;
-import net.bivrik.fancytoasts.platform.utility.ToastsHandler;
+import net.bivrik.fancytoasts.platform.utility.ToastHandler;
 import net.minecraft.client.gui.components.toasts.*;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
-@Mixin(value = ToastComponent.class, priority = 5000)
+@Mixin(value = ToastComponent.class, priority = 2000)
 public class ToastComponentMixin {
     @Inject(at = @At("HEAD"), method = "addToast", cancellable = true)
     private void onAddToast(Toast toast, CallbackInfo info) {
@@ -19,22 +19,13 @@ public class ToastComponentMixin {
         if (fancyToastManager == null) return;
 
         ConfigManager configManager = FancyToasts.getInstance().getConfigManager();
-        ToastsHandler toastsHandler = new ToastsHandler(configManager.getToastsFilteringData(), configManager.getToastConfigData(), fancyToastManager, info);
+        ToastHandler toastHandler = new ToastHandler(configManager.getToastsFilteringData(), configManager.getToastConfigData(), fancyToastManager);
 
         if (toast instanceof AdvancementToast advancementToast) {
-            toastsHandler.handleAdvancementToasts(advancementToast);
+            toastHandler.handleAdvancementToast(advancementToast, info);
         }
         else if (Services.FTB_QUESTS.isQuest(toast)) {
-            toastsHandler.handleFTBQuestsToasts(toast);
-        }
-        else if (toast instanceof RecipeToast) {
-            toastsHandler.handleRecipeToasts();
-        }
-        else if (toast instanceof SystemToast) {
-            toastsHandler.handleSystemToasts();
-        }
-        else if (toast instanceof TutorialToast) {
-            toastsHandler.handleTutorialToasts();
+            toastHandler.handleFTBQuestsToast(toast, info);
         }
     }
 

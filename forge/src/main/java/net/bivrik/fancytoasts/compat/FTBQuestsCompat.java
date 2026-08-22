@@ -1,24 +1,24 @@
 package net.bivrik.fancytoasts.compat;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 import dev.ftb.mods.ftblibrary.icon.Icon;
 import dev.ftb.mods.ftblibrary.icon.IconAnimation;
 import dev.ftb.mods.ftblibrary.icon.ItemIcon;
 import dev.ftb.mods.ftbquests.client.ClientQuestFile;
 import dev.ftb.mods.ftbquests.client.gui.ToastQuestObject;
-import dev.ftb.mods.ftbquests.item.FTBQuestsItems;
 import dev.ftb.mods.ftbquests.quest.Quest;
 import dev.ftb.mods.ftbquests.quest.QuestObjectBase;
+import dev.ftb.mods.ftbquests.registry.ModItems;
 import net.bivrik.fancytoasts.core.Constants;
-import net.bivrik.fancytoasts.platform.utility.FancyToastType;
-import net.bivrik.fancytoasts.platform.utility.QuestToastDisplayInfo;
-import net.bivrik.fancytoasts.platform.utility.ResourceLocations;
-import net.bivrik.fancytoasts.platform.utility.ToastDisplayInfo;
+import net.bivrik.fancytoasts.platform.utility.*;
 import net.minecraft.client.gui.components.toasts.Toast;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
-
-import java.util.*;
 
 public class FTBQuestsCompat {
     private static final Map<Long, Long> REPEATABLE_QUESTS = new HashMap<>(3);
@@ -29,7 +29,7 @@ public class FTBQuestsCompat {
         return toast instanceof ToastQuestObject;
     }
 
-    public static ToastDisplayInfo getDisplayInfo(Toast toast) {
+    public static AdvancementDisplay getDisplayInfo(Toast toast) {
         ToastQuestObject questToast = (ToastQuestObject) toast;
         FancyToastType toastType = !questToast.isImportant() ? FancyToastType.TASK : FancyToastType.CHALLENGE;
 
@@ -80,13 +80,37 @@ public class FTBQuestsCompat {
 
         // If there is custom texture just replace it with a FTBQuests' book. Or just in general other edge cases. It's better to have something than nothing, I guess
         if (icons.isEmpty()) {
-            Item item = FTBQuestsItems.ITEMS.getRegistrar().get(ResourceLocations.withNamespaceAndPath(Constants.Compatibilities.FTB_QUESTS_ID, "book"));
+            Item item = ModItems.ITEMS.getRegistrar().get(ResourceLocations.withNamespaceAndPath(Constants.Compatibilities.FTB_QUESTS_ID, "book"));
             if (item != null) {
                 ItemStack icon = new ItemStack(item);
                 icons.add(icon);
             }
         }
 
-        return new QuestToastDisplayInfo(icons, title, description, toastType, questAnnouncement);
+        // Try to extract quest-type key from the announcement component (falls back to TASK)
+        FancyQuestType questType = FancyQuestType.TASK;
+        String key = Components.extractKey(questAnnouncement);
+        if (key != null) {
+            for (FancyQuestType fq : FancyQuestType.values()) {
+                if (key.startsWith("ftbquests." + fq.getName())) {
+                    questType = fq;
+                    break;
+                }
+            }
+        }
+
+        // If a QUEST toast has a subtitle, swap display lines instead of 'Quest Completed'
+        Component announcementDisplay = questAnnouncement;
+        Component titleDisplay = title;
+        if (questType == FancyQuestType.QUEST && quest != null) {
+            Component questSubtitle = quest.getSubtitle();
+            if (questSubtitle != null && !questSubtitle.getString().isEmpty()) {
+                announcementDisplay = title; // quest title becomes main line
+                titleDisplay = questSubtitle; // quest subtitle becomes secondary line
+            }
+        }
+
+        return null;
+        //return new QuestAdvancementDisplay(icons, titleDisplay, description, toastType, announcementDisplay, questType);
     }
 }
