@@ -97,8 +97,7 @@ public class FTBQuestsCompat {
 
         // Try to extract quest-type key from the announcement component (falls back to TASK)
         FancyQuestType questType = FancyQuestType.TASK;
-        String announcementHolder = announcement.toString();
-        String key = ToastsHandler.extractKey(announcementHolder);
+        String key = Components.extractKey(announcement);
         if (key != null) {
             for (FancyQuestType type : FancyQuestType.values()) {
                 if (key.startsWith("ftbquests." + type.getName())) {

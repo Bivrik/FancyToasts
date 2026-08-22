@@ -14,12 +14,7 @@ import dev.ftb.mods.ftbquests.quest.Quest;
 import dev.ftb.mods.ftbquests.quest.QuestObjectBase;
 import dev.ftb.mods.ftbquests.registry.ModItems;
 import net.bivrik.fancytoasts.core.Constants;
-import net.bivrik.fancytoasts.platform.utility.FancyQuestType;
-import net.bivrik.fancytoasts.platform.utility.FancyToastType;
-import net.bivrik.fancytoasts.platform.utility.QuestAdvancementDisplay;
-import net.bivrik.fancytoasts.platform.utility.ResourceLocations;
-import net.bivrik.fancytoasts.platform.utility.AdvancementDisplay;
-import net.bivrik.fancytoasts.platform.utility.ToastsHandler;
+import net.bivrik.fancytoasts.platform.utility.*;
 import net.minecraft.client.gui.components.toasts.Toast;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.Item;
@@ -94,8 +89,7 @@ public class FTBQuestsCompat {
 
         // Try to extract quest-type key from the announcement component (falls back to TASK)
         FancyQuestType questType = FancyQuestType.TASK;
-        String ann = questAnnouncement.toString();
-        String key = ToastsHandler.extractKey(ann);
+        String key = Components.extractKey(questAnnouncement);
         if (key != null) {
             for (FancyQuestType fq : FancyQuestType.values()) {
                 if (key.startsWith("ftbquests." + fq.getName())) {
