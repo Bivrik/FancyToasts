@@ -79,7 +79,7 @@ public class FancyAdvancementToast {
         }
 
         switch (playedSoundsCount) {
-            case 0 -> playSound(SoundEvents.UI_TOAST_IN, 1.5f);
+            case 0 -> playSound(SoundEvents.UI_TOAST_IN, 1.74f);
             case 1 -> {
                 if (timeTicks == animation.getToastSoundTiming()) {
                     playSound(toastSoundId, volume);
@@ -87,7 +87,7 @@ public class FancyAdvancementToast {
             }
             case 2 -> {
                 if (timeTicks == animation.getDuration() - 10) {
-                    playSound(SoundEvents.UI_TOAST_IN, 1.5f);
+                    playSound(SoundEvents.UI_TOAST_OUT, 1.74f);
                 }
             }
         }
