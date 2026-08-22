@@ -46,6 +46,7 @@ public final class FancyToasts {
         Debug.info(Constants.MOD_NAME + " initialized on {} ({})", Services.PLATFORM.getName(), Services.PLATFORM.getEnvironmentName());
 
         configManager = new ConfigManager();
+        configManager.init();
         creditsManager = new CreditsManager();
     }
 
