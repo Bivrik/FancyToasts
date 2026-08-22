@@ -15,7 +15,7 @@ displayName = "${mod_name}"
 
 # Optional
 displayURL = "${homepage_url}" # displays in the mod UI
-logoFile = "banner.png"
+logoFile = "icon.png"
 credits = "${credits}"
 authors = "${mod_author}"
 description = '''${description}''' # supports multiline text
