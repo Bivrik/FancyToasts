@@ -5,6 +5,7 @@ import net.bivrik.fancytoasts.client.config.ToastScreenBehavior;
 import net.bivrik.fancytoasts.client.config.data.GeneralConfigData;
 import net.bivrik.fancytoasts.client.config.data.ToastConfigData;
 import net.bivrik.fancytoasts.client.toast.FancyAdvancementToast;
+import net.bivrik.fancytoasts.core.Debug;
 import net.bivrik.fancytoasts.core.event.GeneralConfigDataEvent;
 import net.bivrik.fancytoasts.core.event.ToastConfigDataEvent;
 import net.bivrik.fancytoasts.platform.Services;
@@ -23,7 +24,6 @@ import java.util.concurrent.ConcurrentLinkedDeque;
 public class FancyToastManager {
     private final Deque<FancyAdvancementToast> toasts = new ConcurrentLinkedDeque<>();
     private final Minecraft minecraft;
-    private final DeltaTracker deltaTracker;
 
     private volatile FancyAdvancementToast currentToast;
 
@@ -33,7 +33,6 @@ public class FancyToastManager {
 
     public FancyToastManager(Minecraft minecraft, CustomTextureManager customTextureManager, ConfigManager configManager) {
         this.minecraft = minecraft;
-        this.deltaTracker = minecraft.getTimer();
 
         this.customTextureManager = customTextureManager;
         this.generalConfigData = configManager.getGeneralConfigData();
@@ -67,7 +66,7 @@ public class FancyToastManager {
     }
 
     public void tick() {
-        if (isShowingToast()) {
+        if (isToastActive()) {
             if (generalConfigData.isJadeHiding() && Services.JADE.isEnabled()) {
                 Services.JADE.tryEnable();
             }
@@ -93,7 +92,7 @@ public class FancyToastManager {
         }
     }
 
-    public void render(GuiGraphics guiGraphics) {
+    public void render(GuiGraphics guiGraphics, float partialTick) {
         if (!shouldRender()) {
             return;
         }
@@ -105,11 +104,9 @@ public class FancyToastManager {
         int xPos = (int) toastPosition.x() - currentToast.getWidth() / 2;
         int yPos = (int) toastPosition.y() - currentToast.getHeight() / 2;
 
-        float partialTick = deltaTracker.getGameTimeDeltaPartialTick(false);
-
         GuiContext context = new GuiContext(guiGraphics);
         context.push();
-        context.translate(xPos, yPos, 4200);
+        context.translate(xPos, yPos, 2400);
         currentToast.render(guiGraphics, partialTick);
         context.pop();
     }
@@ -134,8 +131,12 @@ public class FancyToastManager {
         currentToast = null;
     }
 
+    public boolean isToastActive() {
+        return currentToast != null;
+    }
+
     public boolean shouldRender() {
-        return isShowingToast() && !minecraft.options.hideGui;
+        return isToastActive() && !minecraft.options.hideGui;
     }
 
     public boolean isScreenOpened() {
@@ -144,9 +145,5 @@ public class FancyToastManager {
 
     public boolean shouldRenderBehind() {
         return generalConfigData.getToastScreenBehavior() == ToastScreenBehavior.BEHIND && isScreenOpened();
-    }
-
-    public boolean isShowingToast() {
-        return currentToast != null;
     }
 }
