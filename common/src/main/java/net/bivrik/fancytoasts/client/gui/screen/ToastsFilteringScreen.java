@@ -55,10 +55,6 @@ public class ToastsFilteringScreen extends UniversalScreen {
     private Button toastsFilteringFileButton;
     private CycleButton<Boolean> fancyAdvancementToastsButton;
     private CycleButton<Boolean> fancyQuestToastsButton;
-    private CycleButton<Boolean> advancementToastsButton;
-    private CycleButton<Boolean> recipeToastsButton;
-    private CycleButton<Boolean> systemToastsButton;
-    private CycleButton<Boolean> tutorialToastsButton;
 
     public ToastsFilteringScreen(Screen parent) {
         super(TITLE, parent);
@@ -83,18 +79,6 @@ public class ToastsFilteringScreen extends UniversalScreen {
             fancyQuestToastsButton = list.addElement(createBooleanButton(FANCY_QUEST_TOASTS, toastsFilteringData.isFancyQuestToastsEnabled(),
                     (button, value) -> toastsFilteringData.setFancyQuestToastsEnabled(value), 0, 0), WidgetWidthType.BIG);
         }
-
-        advancementToastsButton = list.addElement(createBooleanButton(ADVANCEMENT_TOASTS, toastsFilteringData.isAdvancementToastsEnabled(),
-                (button, value) -> toastsFilteringData.setAdvancementToastsEnabled(value), 0, 0));
-
-        recipeToastsButton = list.addElement(createBooleanButton(RECIPE_TOASTS, toastsFilteringData.isRecipeToastsEnabled(),
-                (button, value) -> toastsFilteringData.setRecipeToastsEnabled(value), 0, 0));
-
-        systemToastsButton = list.addElement(createBooleanButton(SYSTEM_TOASTS, toastsFilteringData.isSystemToastsEnabled(),
-                (button, value) -> toastsFilteringData.setSystemToastsEnabled(value), 0, 0));
-
-        tutorialToastsButton = list.addElement(createBooleanButton(TUTORIAL_TOASTS, toastsFilteringData.isTutorialToastsEnabled(),
-                (button, value) -> toastsFilteringData.setTutorialToastsEnabled(value), 0, 0));
 
         toastsFilteringFileButton = list.addElement(createButton(IGNORED_TOASTS, button -> openToastsFilteringFile(),
                 0, 0, Tooltip.create(TOASTS_FILTERING_TOOLTIP)), WidgetWidthType.BIG);
