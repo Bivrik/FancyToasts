@@ -40,32 +40,36 @@ dependencies {
 
 neoForge {
     version = neoforge_version
+
     def at = project(':common').file('src/main/resources/META-INF/accesstransformer.cfg')
     if (at.exists()) {
-        accessTransformers.add(at.absolutePath)
+        accessTransformers.from(at.absolutePath)
     }
+
     parchment {
         minecraftVersion = parchment_minecraft
         mappingsVersion = parchment_version
     }
+
     runs {
         configureEach {
-            systemProperty('neoforge.enabledGameTestNamespaces', mod_id)
-            ideName = "NeoForge ${it.name.capitalize()} (${project.path})"
+            systemProperty 'neoforge.enabledGameTestNamespaces', mod_id
         }
         client {
             client()
             gameDirectory = project.file('runs/client')
         }
-        data {
-            data()
-            gameDirectory = project.file('runs/data')
-        }
         server {
             server()
             gameDirectory = project.file('runs/server')
         }
+        data {
+            data()
+            programArguments.addAll '--mod', project.mod_id, '--all', '--output', file('src/generated/resources/').getAbsolutePath(), '--existing', file('src/main/resources/').getAbsolutePath()
+            gameDirectory = project.file('runs/data')
+        }
     }
+
     mods {
         "${mod_id}" {
             sourceSet sourceSets.main

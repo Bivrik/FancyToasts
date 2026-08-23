@@ -21,14 +21,14 @@ dependencies {
     commonResources project(path: ':common', configuration: 'commonResources')
 }
 
-tasks.named('compileJava', JavaCompile) {
-    dependsOn(configurations.commonJava)
-    source(configurations.commonJava)
-}
-
 processResources {
     dependsOn(configurations.commonResources)
     from(configurations.commonResources)
+}
+
+tasks.named('compileJava', JavaCompile) {
+    dependsOn(configurations.commonJava)
+    source(configurations.commonJava)
 }
 
 tasks.named('javadoc', Javadoc).configure {
