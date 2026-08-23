@@ -83,8 +83,15 @@ public abstract class FancyToastAnimation {
     }
 
     protected void setLines(Component animationTitle, Component animationDescription) {
-        Component title = titleDisplayTextType.getDisplayTextOrElse(display, animationTitle);
-        Component description = descriptionDisplayTextType.getDisplayTextOrElse(display, animationDescription);
+        Component title;
+        Component description;
+        if (!display.getDescription().equals(Component.empty())) {
+            title = titleDisplayTextType.getDisplayTextOrElse(display, animationTitle);
+            description = descriptionDisplayTextType.getDisplayTextOrElse(display, animationDescription);
+        } else {
+            title = display.getAnnouncement();
+            description = display.getTitle();
+        }
 
         titleStyle = title.getStyle();
         descriptionStyle = description.getStyle();

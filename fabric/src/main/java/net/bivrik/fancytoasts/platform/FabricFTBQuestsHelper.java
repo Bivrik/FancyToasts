@@ -2,7 +2,7 @@ package net.bivrik.fancytoasts.platform;
 
 import net.bivrik.fancytoasts.compat.FTBQuestsCompat;
 import net.bivrik.fancytoasts.platform.services.IFTBQuestsHelper;
-import net.bivrik.fancytoasts.platform.utility.ToastDisplayInfo;
+import net.bivrik.fancytoasts.platform.utility.AdvancementDisplay;
 import net.minecraft.client.gui.components.toasts.Toast;
 
 public class FabricFTBQuestsHelper implements IFTBQuestsHelper {
@@ -16,9 +16,9 @@ public class FabricFTBQuestsHelper implements IFTBQuestsHelper {
     }
 
     @Override
-    public ToastDisplayInfo getDisplayInfo(Toast toast) {
+    public AdvancementDisplay getDisplayInfo(Toast toast) {
         if (isLoaded()) {
-            var toastDisplayInfo = FTBQuestsCompat.getDisplayInfo(toast);
+            AdvancementDisplay toastDisplayInfo = FTBQuestsCompat.getDisplayInfo(toast);
             if (toastDisplayInfo == null) {
                 return IFTBQuestsHelper.super.getDisplayInfo(toast);
             }

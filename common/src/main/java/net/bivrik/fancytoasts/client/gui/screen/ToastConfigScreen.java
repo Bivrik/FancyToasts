@@ -16,7 +16,7 @@ import net.bivrik.fancytoasts.core.event.ToastConfigDataEvent;
 import net.bivrik.fancytoasts.core.manager.ConfigManager;
 import net.bivrik.fancytoasts.core.manager.CustomTextureManager;
 import net.bivrik.fancytoasts.platform.utility.Components;
-import net.bivrik.fancytoasts.platform.utility.FancyToastType;
+import net.bivrik.fancytoasts.platform.utility.FancyAdvancementType;
 import net.bivrik.fancytoasts.utility.file.Paths;
 import net.minecraft.Util;
 import net.minecraft.client.Minecraft;
@@ -47,7 +47,7 @@ public class ToastConfigScreen extends UniversalScreen {
 
     private ResourceLocationFilter filter = ResourceLocationFilter.A_Z;
     private SettingType settingType = SettingType.TEXTURES;
-    private FancyToastType advancementType = FancyToastType.TASK;
+    private FancyAdvancementType advancementType = FancyAdvancementType.TASK;
     private DisplayData selectedDisplayData;
     private boolean isSaved;
     private long savedFeedbackStartTime;
@@ -58,7 +58,7 @@ public class ToastConfigScreen extends UniversalScreen {
     private Button reloadConfigsButton;
     private CycleButton<SettingType> settingTypeButton;
     private CycleButton<ResourceLocationFilter> locationsFilterButton;
-    private CycleButton<FancyToastType> advancementTypeButton;
+    private CycleButton<FancyAdvancementType> advancementTypeButton;
     private EditBox editBox;
     private ResourceLocationList locationsList;
     private InformationList informationList;
@@ -74,7 +74,7 @@ public class ToastConfigScreen extends UniversalScreen {
         this.selectedDisplayData = this.settingType.getDisplayData(this.toastConfigData.getTextureId());
     }
 
-    public FancyToastType getAdvancementType() {
+    public FancyAdvancementType getAdvancementType() {
         return advancementType;
     }
 
@@ -129,8 +129,8 @@ public class ToastConfigScreen extends UniversalScreen {
         reloadConfigsButton = this.addFWidget(createButton(RELOAD_CUSTOMS, button -> reloadCustomTextures(),
                 xCenter + 129 - 86, ySecondRowBottom, 86, BUTTON_HEIGHT, Tooltip.create(RELOAD_CUSTOMS_TOOLTIP)));
 
-        advancementTypeButton = this.addFWidget(CycleButton.builder(FancyToastType::getDisplayName).displayOnlyValue()
-                .withValues(FancyToastType.values())
+        advancementTypeButton = this.addFWidget(CycleButton.builder(FancyAdvancementType::getDisplayName).displayOnlyValue()
+                .withValues(FancyAdvancementType.values())
                 .withTooltip(advancementType -> getTooltip(advancementType.getName()))
                 .create(xCenter - 129, ySecondRowBottom, 70, BUTTON_HEIGHT, Component.empty(), (button, value) -> setAdvancementType(value)));
         tryToggleAdvancementTypeButton();
@@ -230,7 +230,7 @@ public class ToastConfigScreen extends UniversalScreen {
         informationList$updateOnReload();
     }
 
-    private void setAdvancementType(FancyToastType type) {
+    private void setAdvancementType(FancyAdvancementType type) {
         advancementType = type;
 
         informationList$updateOnReload();
