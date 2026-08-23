@@ -21,12 +21,20 @@ dependencies {
     def architectury_version = "curse.maven:architectury-api-419699:${project.neoforge_architectury_version}"
     compileOnly(ftbquests_version)
     compileOnly(ftblibrary_version)
-    compileOnly(runtimeOnly(architectury_version))
+    compileOnly(architectury_version)
     if (project.ftbquests_enable.toBoolean()) {
         runtimeOnly(ftbquests_version)
         runtimeOnly(ftblibrary_version)
         runtimeOnly(architectury_version)
         runtimeOnly("curse.maven:ftb-teams-forge-404468:${project.neoforge_ftb_teams_version}")
+    }
+
+    // Questlog compatibility
+    def questlog_version = "maven.modrinth:questlog:${project.neoforge_questlog_version}"
+    compileOnly(questlog_version)
+    if (project.questlog_enable.toBoolean()) {
+        runtimeOnly(questlog_version)
+        runtimeOnly("maven.modrinth:cloth-config:${project.neoforge_cloth_config_version}")
     }
 }
 

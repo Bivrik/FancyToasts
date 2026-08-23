@@ -26,6 +26,8 @@ public class ToastComponentMixin {
         }
         else if (Services.FTB_QUESTS.isQuest(toast)) {
             toastHandler.handleFTBQuestsToast(toast, info);
+        } else if (Services.QUESTLOG_HELPER.isQuest(toast)) {
+            toastHandler.handleQuestlogToast(toast, info);
         }
     }
 

@@ -1,10 +1,7 @@
 package net.bivrik.fancytoasts.platform;
 
 import net.bivrik.fancytoasts.core.Debug;
-import net.bivrik.fancytoasts.platform.services.IAetherHelper;
-import net.bivrik.fancytoasts.platform.services.IFTBQuestsHelper;
-import net.bivrik.fancytoasts.platform.services.IJadeHelper;
-import net.bivrik.fancytoasts.platform.services.IPlatformHelper;
+import net.bivrik.fancytoasts.platform.services.*;
 import org.slf4j.Logger;
 
 import java.util.Map;
@@ -21,12 +18,14 @@ public class Services {
     private static final Map<Class<?>, Supplier<?>> FALLBACKS = Map.of(
             IJadeHelper.class, () -> new IJadeHelper() {},
             IFTBQuestsHelper.class, () -> new IFTBQuestsHelper() {},
-            IAetherHelper.class, () -> new IAetherHelper() {}
+            IAetherHelper.class, () -> new IAetherHelper() {},
+            IQuestlogHelper.class, () -> new IQuestlogHelper() {}
     );
 
     public static final IJadeHelper JADE = loadOptional(IJadeHelper.class);
     public static final IFTBQuestsHelper FTB_QUESTS = loadOptional(IFTBQuestsHelper.class);
     public static final IAetherHelper AETHER_HELPER = loadOptional(IAetherHelper.class);
+    public static final IQuestlogHelper QUESTLOG_HELPER = loadOptional(IQuestlogHelper.class);
 
     public static <T> T load(Class<T> clazz) {
         final T loadedService = ServiceLoader.load(clazz).findFirst().orElseThrow(() -> new NullPointerException("Failed to load service for " + clazz.getName()));

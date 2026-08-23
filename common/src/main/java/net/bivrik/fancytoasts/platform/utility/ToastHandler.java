@@ -72,4 +72,25 @@ public record ToastHandler(ToastsFilteringData filteringData, ToastConfigData to
 
         fancyToastManager.add(display, toastData.getSoundIdByQuestType(type));
     }
+
+    public void handleQuestlogToast(Toast questlogToast, CallbackInfo info) {
+        if (!filteringData.isFancyQuestlogToastsEnabled()) {
+            return;
+        }
+        info.cancel();
+
+        AdvancementDisplay display = Services.QUESTLOG_HELPER.getDisplay(questlogToast);
+        if (display == null) {
+            return;
+        }
+
+        FancyAdvancementType type;
+        switch (display.getType()) {
+            case GOAL -> type = FancyAdvancementType.GOAL;
+            case CHALLENGE -> type = FancyAdvancementType.CHALLENGE;
+            default -> type = FancyAdvancementType.TASK;
+        }
+
+        fancyToastManager.add(display, toastData.getSoundIdByType(type));
+    }
 }
