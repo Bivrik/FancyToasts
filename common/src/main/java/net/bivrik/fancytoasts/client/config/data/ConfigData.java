@@ -1,5 +1,7 @@
 package net.bivrik.fancytoasts.client.config.data;
 
+import org.apache.commons.lang3.builder.ToStringBuilder;
+
 public abstract class ConfigData {
     private transient final String path;
     private int version;
@@ -39,8 +41,12 @@ public abstract class ConfigData {
     public abstract int getLatestVersion();
     public abstract ConfigData copy();
 
+    protected final ToStringBuilder getBaseToStringBuilder() {
+        return new ToStringBuilder(this).append("path", path).append("version", version);
+    }
+
     @Override
     public String toString() {
-        return getClass().getSimpleName() + String.format("{path='%s', version='%s'}", path, version);
+        return getBaseToStringBuilder().toString();
     }
 }
