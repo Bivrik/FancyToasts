@@ -49,10 +49,9 @@ public class FancyAdvancementToast {
 
         Debug.info("New fancy advancement toast: {}", display.getTitle().getString());
 
-        // Temp
-        Debug.warn("{} - {}", display.getTitle().getString(), display.getTitle().toString());
+        /*Debug.warn("{} - {}", display.getTitle().getString(), display.getTitle().toString());
         Debug.warn("{} - {}", display.getDescription().getString(), display.getDescription().toString());
-        Debug.warn("{} - {}", display.getAnnouncement().getString(), display.getAnnouncement().toString());
+        Debug.warn("{} - {}", display.getAnnouncement().getString(), display.getAnnouncement().toString());*/
     }
 
     public void render(GuiGraphics graphics, float partialTick) {
