@@ -44,11 +44,8 @@
   "fancytoasts.gui.animation_speed": "アニメーション速度", // machine translation
   "fancytoasts.gui.anchor": "アンカー", // machine translation
   "fancytoasts.gui.fancy_advancement_toasts": "華やかな進級祝賀会", // machine translation
-  "fancytoasts.gui.advancement_toasts": "進級祝杯", // machine translation
-  "fancytoasts.gui.fancy_quest_toasts": "ファンシークエストトースト", // machine translation
-  "fancytoasts.gui.recipe_toasts": "レシピトースト", // machine translation
-  "fancytoasts.gui.system_toasts": "システムトースト", // machine translation
-  "fancytoasts.gui.tutorial_toasts": "チュートリアルトースト", // machine translation
+  "fancytoasts.gui.fancy_quest_toasts": "おしゃれなFTBクエストトースト", // machine translation
+  "fancytoasts.gui.fancy_questlog_toasts": "おしゃれなクエストログのトースト", // machine translation
   "fancytoasts.gui.ignored_toasts": "無視するトースト", // machine translation
   "fancytoasts.gui.title_display_text": "トーストタイトル", // machine translation
   "fancytoasts.gui.description_display_text": "トースト説明", // machine translation
