@@ -87,6 +87,7 @@ public class ToastsFilteringData extends ConfigData {
     public boolean isFancyAdvancementToastsEnabled() {
         return fancyAdvancementToastsEnabled;
     }
+
     public void setFancyAdvancementToastsEnabled(boolean fancyAdvancementToastsEnabled) {
         this.fancyAdvancementToastsEnabled = fancyAdvancementToastsEnabled;
     }
@@ -94,23 +95,9 @@ public class ToastsFilteringData extends ConfigData {
     public boolean isFancyQuestToastsEnabled() {
         return fancyQuestToastsEnabled;
     }
+
     public void setFancyQuestToastsEnabled(boolean fancyQuestToastsEnabled) {
         this.fancyQuestToastsEnabled = fancyQuestToastsEnabled;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (!(o instanceof ToastsFilteringData that)) return false;
-        return fancyAdvancementToastsEnabled == that.fancyAdvancementToastsEnabled
-                && fancyQuestToastsEnabled == that.fancyQuestToastsEnabled
-                && Objects.equals(typesToIgnore, that.typesToIgnore)
-                && Objects.equals(questTypesToIgnore, that.questTypesToIgnore)
-                && Objects.equals(toastsToIgnore, that.toastsToIgnore);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(fancyAdvancementToastsEnabled, fancyQuestToastsEnabled, toastsToIgnore, typesToIgnore, questTypesToIgnore);
     }
 
     @Override
@@ -124,10 +111,28 @@ public class ToastsFilteringData extends ConfigData {
     }
 
     @Override
+    public int hashCode() {
+        return Objects.hash(fancyAdvancementToastsEnabled, fancyQuestToastsEnabled, toastsToIgnore, typesToIgnore, questTypesToIgnore);
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (!(o instanceof ToastsFilteringData that)) return false;
+        return fancyAdvancementToastsEnabled == that.fancyAdvancementToastsEnabled
+                && fancyQuestToastsEnabled == that.fancyQuestToastsEnabled
+                && Objects.equals(typesToIgnore, that.typesToIgnore)
+                && Objects.equals(questTypesToIgnore, that.questTypesToIgnore)
+                && Objects.equals(toastsToIgnore, that.toastsToIgnore);
+    }
+
+    @Override
     public String toString() {
-        return super.toString().replace("}", ", ") + String.format(
-                "fancyAdvancementToastsEnabled='%s', fancyQuestToastsEnabled='%s', toastsToIgnore='%s', typesToIgnore='%s', questTypesToIgnore='%s'}",
-                fancyAdvancementToastsEnabled, fancyQuestToastsEnabled, toastsToIgnore, typesToIgnore, questTypesToIgnore
-        );
+        return getBaseToStringBuilder()
+                .append("fancyAdvancementToastsEnabled", fancyAdvancementToastsEnabled)
+                .append("fancyQuestToastsEnabled", fancyQuestToastsEnabled)
+                .append("toastsToIgnore", toastsToIgnore)
+                .append("typesToIgnore", typesToIgnore)
+                .append("questTypesToIgnore", questTypesToIgnore)
+                .toString();
     }
 }
