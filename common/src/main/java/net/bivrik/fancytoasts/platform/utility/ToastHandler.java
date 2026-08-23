@@ -26,11 +26,11 @@ public record ToastHandler(ToastsFilteringData filteringData, ToastConfigData to
             return;
         }
 
-        FancyToastType type;
+        FancyAdvancementType type;
         switch (vanillaDisplay.getType()) {
-            case GOAL -> type = FancyToastType.GOAL;
-            case CHALLENGE -> type = FancyToastType.CHALLENGE;
-            default -> type = FancyToastType.TASK;
+            case GOAL -> type = FancyAdvancementType.GOAL;
+            case CHALLENGE -> type = FancyAdvancementType.CHALLENGE;
+            default -> type = FancyAdvancementType.TASK;
         }
 
         if (filteringData.isTypeIgnored(type) || filteringData.isToastIgnored(advancementHolder.id())) {
@@ -47,7 +47,7 @@ public record ToastHandler(ToastsFilteringData filteringData, ToastConfigData to
 
         AdvancementDisplay display = new AdvancementDisplay(
                 vanillaDisplay.getIcon(),
-                vanillaDisplay.getTitle(), vanillaDisplay.getDescription(), type.getDisplayAnnouncement(),
+                vanillaDisplay.getTitle(), vanillaDisplay.getDescription(), vanillaDisplay.getType().getDisplayName(),
                 type.getTitleColor(), type.getDescriptionColor(),
                 type.getConventionalType());
 
@@ -60,11 +60,16 @@ public record ToastHandler(ToastsFilteringData filteringData, ToastConfigData to
         }
         info.cancel();
 
-        QuestAdvancementDisplay display = (QuestAdvancementDisplay) Services.FTB_QUESTS.getDisplayInfo(questToast);
-        if (filteringData.isQuestTypeIgnored(display.getQuestType())) {
+        QuestDisplay display = (QuestDisplay) Services.FTB_QUESTS.getDisplayInfo(questToast);
+        if (display == null) {
             return;
         }
 
-        fancyToastManager.add(display, toastData.getSoundIdByQuestType(display.getQuestType()));
+        QuestType type = display.getQuestType();
+        if (filteringData.isQuestTypeIgnored(type)) {
+            return;
+        }
+
+        fancyToastManager.add(display, toastData.getSoundIdByQuestType(type));
     }
 }
