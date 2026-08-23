@@ -19,6 +19,7 @@ public class ToastsFilteringData extends ConfigData {
 
     private boolean fancyAdvancementToastsEnabled;
     private boolean fancyQuestToastsEnabled;
+    private boolean fancyQuestlogToastsEnabled;
 
     // Only set on load, changing through config file
     private final List<String> toastsToIgnore = new ArrayList<>();
@@ -28,11 +29,12 @@ public class ToastsFilteringData extends ConfigData {
     private final transient Set<String> exactMatches = new HashSet<>();
     private final transient Set<String> prefixMatches = new HashSet<>();
 
-    private ToastsFilteringData(boolean fancyAdvancementToastsEnabled, boolean fancyQuestToastsEnabled, List<String> toastsToIgnore, Map<FancyAdvancementType, Boolean> typesToIgnore, Map<QuestType, Boolean> questTypesToIgnore) {
+    private ToastsFilteringData(boolean fancyAdvancementToastsEnabled, boolean fancyQuestToastsEnabled, boolean fancyQuestlogToastsEnabled, List<String> toastsToIgnore, Map<FancyAdvancementType, Boolean> typesToIgnore, Map<QuestType, Boolean> questTypesToIgnore) {
         super(Paths.TOASTS_FILTERING_FILE);
 
         this.fancyAdvancementToastsEnabled = fancyAdvancementToastsEnabled;
         this.fancyQuestToastsEnabled = fancyQuestToastsEnabled;
+        this.fancyQuestlogToastsEnabled = fancyQuestlogToastsEnabled;
 
         this.toastsToIgnore.addAll(toastsToIgnore);
         for (String toastToIgnore : toastsToIgnore) {
@@ -47,7 +49,7 @@ public class ToastsFilteringData extends ConfigData {
     }
 
         public ToastsFilteringData() {
-            this(true, true, new ArrayList<>(),
+            this(true, true, true, new ArrayList<>(),
                     Map.of(
                             FancyAdvancementType.TASK, false,
                             FancyAdvancementType.GOAL, false,
@@ -100,6 +102,14 @@ public class ToastsFilteringData extends ConfigData {
         this.fancyQuestToastsEnabled = fancyQuestToastsEnabled;
     }
 
+    public boolean isFancyQuestlogToastsEnabled() {
+        return fancyQuestlogToastsEnabled;
+    }
+
+    public void setFancyQuestlogToastsEnabled(boolean fancyQuestlogToastsEnabled) {
+        this.fancyQuestlogToastsEnabled = fancyQuestlogToastsEnabled;
+    }
+
     @Override
     public int getLatestVersion() {
         return VERSION;
@@ -107,12 +117,12 @@ public class ToastsFilteringData extends ConfigData {
 
     @Override
     public ToastsFilteringData copy() {
-        return new ToastsFilteringData(fancyAdvancementToastsEnabled, fancyQuestToastsEnabled, toastsToIgnore, typesToIgnore, questTypesToIgnore).withLatestVersion();
+        return new ToastsFilteringData(fancyAdvancementToastsEnabled, fancyQuestToastsEnabled, fancyQuestlogToastsEnabled, toastsToIgnore, typesToIgnore, questTypesToIgnore).withLatestVersion();
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(fancyAdvancementToastsEnabled, fancyQuestToastsEnabled, toastsToIgnore, typesToIgnore, questTypesToIgnore);
+        return Objects.hash(fancyAdvancementToastsEnabled, fancyQuestToastsEnabled, fancyQuestlogToastsEnabled, toastsToIgnore, typesToIgnore, questTypesToIgnore);
     }
 
     @Override
@@ -120,6 +130,7 @@ public class ToastsFilteringData extends ConfigData {
         if (!(o instanceof ToastsFilteringData that)) return false;
         return fancyAdvancementToastsEnabled == that.fancyAdvancementToastsEnabled
                 && fancyQuestToastsEnabled == that.fancyQuestToastsEnabled
+                && fancyQuestlogToastsEnabled == that.fancyQuestlogToastsEnabled
                 && Objects.equals(typesToIgnore, that.typesToIgnore)
                 && Objects.equals(questTypesToIgnore, that.questTypesToIgnore)
                 && Objects.equals(toastsToIgnore, that.toastsToIgnore);
@@ -130,6 +141,7 @@ public class ToastsFilteringData extends ConfigData {
         return getBaseToStringBuilder()
                 .append("fancyAdvancementToastsEnabled", fancyAdvancementToastsEnabled)
                 .append("fancyQuestToastsEnabled", fancyQuestToastsEnabled)
+                .append("fancyQuestlogToastsEnabled", fancyQuestlogToastsEnabled)
                 .append("toastsToIgnore", toastsToIgnore)
                 .append("typesToIgnore", typesToIgnore)
                 .append("questTypesToIgnore", questTypesToIgnore)

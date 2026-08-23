@@ -37,6 +37,7 @@ public class ToastsFilteringScreen extends UniversalScreen {
     private static final Component FANCY_ADVANCEMENT_TOASTS = Components.of("gui.fancy_advancement_toasts");
     private static final Component ADVANCEMENT_TOASTS = Components.of("gui.advancement_toasts");
     private static final Component FANCY_QUEST_TOASTS = Components.of("gui.fancy_quest_toasts");
+    private static final Component FANCY_QUESTLOG_TOASTS = Components.of("gui.fancy_questlog_toasts");
     private static final Component RECIPE_TOASTS = Components.of("gui.recipe_toasts");
     private static final Component SYSTEM_TOASTS = Components.of("gui.system_toasts");
     private static final Component TUTORIAL_TOASTS = Components.of("gui.tutorial_toasts");
@@ -55,6 +56,7 @@ public class ToastsFilteringScreen extends UniversalScreen {
     private Button toastsFilteringFileButton;
     private CycleButton<Boolean> fancyAdvancementToastsButton;
     private CycleButton<Boolean> fancyQuestToastsButton;
+    private CycleButton<Boolean> fancyQuestlogToastsButton;
 
     public ToastsFilteringScreen(Screen parent) {
         super(TITLE, parent);
@@ -77,7 +79,12 @@ public class ToastsFilteringScreen extends UniversalScreen {
 
         if (Services.PLATFORM.isModLoaded(Constants.Compatibilities.FTB_QUESTS_ID)) {
             fancyQuestToastsButton = list.addElement(createBooleanButton(FANCY_QUEST_TOASTS, toastsFilteringData.isFancyQuestToastsEnabled(),
-                    (button, value) -> toastsFilteringData.setFancyQuestToastsEnabled(value), 0, 0), WidgetWidthType.BIG);
+                    (button, value) -> toastsFilteringData.setFancyQuestToastsEnabled(value), 0, 0), WidgetWidthType.MEDIUM);
+        }
+
+        if (Services.PLATFORM.isModLoaded(Constants.Compatibilities.QUESTLOG_ID)) {
+            fancyQuestlogToastsButton = list.addElement(createBooleanButton(FANCY_QUESTLOG_TOASTS, toastsFilteringData.isFancyQuestlogToastsEnabled(),
+                    (button, value) -> toastsFilteringData.setFancyQuestlogToastsEnabled(value), 0, 0), WidgetWidthType.MEDIUM);
         }
 
         toastsFilteringFileButton = list.addElement(createButton(IGNORED_TOASTS, button -> openToastsFilteringFile(),
