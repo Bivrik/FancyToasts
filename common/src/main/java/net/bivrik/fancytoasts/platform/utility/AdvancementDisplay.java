@@ -15,6 +15,9 @@ public class AdvancementDisplay {
     private final Color descriptionColor;
     private final AdvancementType type;
 
+    /**
+     * Description can be {@link Component#empty()}, but title and announcement must be always filled
+     */
     public AdvancementDisplay(ItemStack icon, Component title, Component description, Component announcement, Color titleColor, Color descriptionColor, AdvancementType type) {
         this.icon = icon;
         this.title = fixUnicode(title);

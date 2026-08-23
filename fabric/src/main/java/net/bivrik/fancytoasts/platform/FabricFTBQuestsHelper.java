@@ -3,7 +3,6 @@ package net.bivrik.fancytoasts.platform;
 import net.bivrik.fancytoasts.compat.FTBQuestsCompat;
 import net.bivrik.fancytoasts.platform.services.IFTBQuestsHelper;
 import net.bivrik.fancytoasts.platform.utility.AdvancementDisplay;
-import net.bivrik.fancytoasts.platform.utility.QuestAdvancementDisplay;
 import net.minecraft.client.gui.components.toasts.Toast;
 
 public class FabricFTBQuestsHelper implements IFTBQuestsHelper {

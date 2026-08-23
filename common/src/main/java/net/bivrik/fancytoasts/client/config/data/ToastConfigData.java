@@ -8,8 +8,8 @@ import net.bivrik.fancytoasts.client.config.ConfigHandler;
 import net.bivrik.fancytoasts.client.registry.AnimationRegistry;
 import net.bivrik.fancytoasts.client.registry.TextureRegistry;
 import net.bivrik.fancytoasts.core.Constants;
-import net.bivrik.fancytoasts.platform.utility.FancyQuestType;
-import net.bivrik.fancytoasts.platform.utility.FancyToastType;
+import net.bivrik.fancytoasts.platform.utility.QuestType;
+import net.bivrik.fancytoasts.platform.utility.FancyAdvancementType;
 import net.bivrik.fancytoasts.utility.DefaultLocations;
 import net.bivrik.fancytoasts.utility.file.Paths;
 import net.minecraft.client.Minecraft;
@@ -21,10 +21,10 @@ public class ToastConfigData extends ConfigData {
 
     private ResourceLocation textureId;
     private ResourceLocation animationId;
-    private final Map<FancyToastType, ResourceLocation> soundIds = new EnumMap<>(FancyToastType.class);
-    private final Map<FancyQuestType, ResourceLocation> questSoundIds = new EnumMap<>(FancyQuestType.class);
+    private final Map<FancyAdvancementType, ResourceLocation> soundIds = new EnumMap<>(FancyAdvancementType.class);
+    private final Map<QuestType, ResourceLocation> questSoundIds = new EnumMap<>(QuestType.class);
 
-    private ToastConfigData(ResourceLocation textureId, ResourceLocation animationId, Map<FancyToastType, ResourceLocation> soundIds, Map<FancyQuestType, ResourceLocation> questSoundIds) {
+    private ToastConfigData(ResourceLocation textureId, ResourceLocation animationId, Map<FancyAdvancementType, ResourceLocation> soundIds, Map<QuestType, ResourceLocation> questSoundIds) {
         super(Paths.TOAST_CONFIG_FILE);
 
         this.textureId = textureId;
@@ -35,13 +35,13 @@ public class ToastConfigData extends ConfigData {
 
     public ToastConfigData() {
         this(DefaultLocations.Textures.VANILLA, DefaultLocations.Animations.STANDARD, Map.of(
-                FancyToastType.TASK, SoundEvents.NOTE_BLOCK_CHIME.value().getLocation(),
-                FancyToastType.GOAL, SoundEvents.FIREWORK_ROCKET_TWINKLE_FAR.getLocation(),
-                FancyToastType.CHALLENGE, SoundEvents.UI_TOAST_CHALLENGE_COMPLETE.getLocation()), Map.of(
-                FancyQuestType.TASK, SoundEvents.NOTE_BLOCK_CHIME.value().getLocation(),
-                FancyQuestType.QUEST, SoundEvents.NOTE_BLOCK_CHIME.value().getLocation(),
-                FancyQuestType.CHAPTER, SoundEvents.FIREWORK_ROCKET_TWINKLE_FAR.getLocation(),
-                FancyQuestType.BOOK, SoundEvents.UI_TOAST_CHALLENGE_COMPLETE.getLocation()));
+                FancyAdvancementType.TASK, SoundEvents.NOTE_BLOCK_CHIME.value().getLocation(),
+                FancyAdvancementType.GOAL, SoundEvents.FIREWORK_ROCKET_TWINKLE_FAR.getLocation(),
+                FancyAdvancementType.CHALLENGE, SoundEvents.UI_TOAST_CHALLENGE_COMPLETE.getLocation()), Map.of(
+                QuestType.TASK, SoundEvents.NOTE_BLOCK_CHIME.value().getLocation(),
+                QuestType.QUEST, SoundEvents.NOTE_BLOCK_CHIME.value().getLocation(),
+                QuestType.CHAPTER, SoundEvents.FIREWORK_ROCKET_TWINKLE_FAR.getLocation(),
+                QuestType.BOOK, SoundEvents.UI_TOAST_CHALLENGE_COMPLETE.getLocation()));
     }
 
     public ResourceLocation getTextureId() {
@@ -67,7 +67,7 @@ public class ToastConfigData extends ConfigData {
         animationId = id;
     }
 
-    public ResourceLocation getSoundIdByType(FancyToastType type) {
+    public ResourceLocation getSoundIdByType(FancyAdvancementType type) {
         var availableSounds = Minecraft.getInstance().getSoundManager().getAvailableSounds();
         ResourceLocation soundId = soundIds.get(type);
 
@@ -80,11 +80,11 @@ public class ToastConfigData extends ConfigData {
 
         return soundIds.get(type);
     }
-    public void putSoundIdForType(ResourceLocation location, FancyToastType type) {
+    public void putSoundIdForType(ResourceLocation location, FancyAdvancementType type) {
         soundIds.put(type, location);
     }
 
-    public ResourceLocation getSoundIdByQuestType(FancyQuestType type) {
+    public ResourceLocation getSoundIdByQuestType(QuestType type) {
         var availableSounds = Minecraft.getInstance().getSoundManager().getAvailableSounds();
         ResourceLocation soundId = questSoundIds.get(type);
 
@@ -98,7 +98,7 @@ public class ToastConfigData extends ConfigData {
         return questSoundIds.get(type);
     }
 
-    public void putSoundIdForQuestType(ResourceLocation location, FancyQuestType type) {
+    public void putSoundIdForQuestType(ResourceLocation location, QuestType type) {
         questSoundIds.put(type, location);
     }
 
