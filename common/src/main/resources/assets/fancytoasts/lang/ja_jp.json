@@ -2,55 +2,56 @@
   // By PExPE3
   "fancytoasts.title.visual_settings": "カスタマイズ設定",
   "fancytoasts.title.general_settings": "一般設定",
-  "fancytoasts.title.toasts_filtering": "トーストフィルタリング", // Machine translation
-  "fancytoasts.title.reset_general_settings": "一般設定をリセット", // Machine translation
-  "fancytoasts.title.reset_toasts_filtering": "トーストフィルタリングをリセット", // Machine translation
+  "fancytoasts.title.toasts_filtering": "トーストフィルタリング", // machine translation
+  "fancytoasts.title.reset_general_settings": "一般設定をリセット", // machine translation
+  "fancytoasts.title.reset_toasts_filtering": "トーストフィルタリングをリセット", // machine translation
 
-  "fancytoasts.label.support": "私のBoostyブログを見てみてね!", // Machine translation
+  "fancytoasts.label.creator_note": "Bivrikからの愛と心を込めてお届けします。どうぞお楽しみください！", // machine translation
   "fancytoasts.label.unknown": "不明",
   "fancytoasts.label.custom": "カスタム",
-  "fancytoasts.label.reset_general_settings": "一般設定をリセットすると、既存の設定が標準設定に戻ります。実行してもよろしいですか？", // Machine translation
-  "fancytoasts.label.reset_toasts_filtering": "トーストフィルタリングをリセットすると、既存のフィルターが標準設定に戻ります。実行してもよろしいですか？", // Machine translation
+  "fancytoasts.label.reset_general_settings": "一般設定をリセットすると、既存の設定が標準設定に戻ります。実行してもよろしいですか？", // machine translation
+  "fancytoasts.label.reset_toasts_filtering": "トーストフィルタリングをリセットすると、既存のフィルターが標準設定に戻ります。実行してもよろしいですか？", // machine translation
   "fancytoasts.label.author": "作者:",
   "fancytoasts.label.description": "説明:",
-  "fancytoasts.label.translators": "翻訳者", // Machine translation
-  "fancytoasts.label.github_activists": "GitHubコントリビューター", // Machine translation
-  "fancytoasts.label.boosters": "サポーター", // Machine translation
-  "fancytoasts.label.special_thanks": "スペシャルサンクス", // Machine translation
-  "fancytoasts.label.credits_fallback": "クレジットを読み込む接続がありません", // Machine translation
-  "fancytoasts.label.saved": "保存しました!", // Machine translation
+  "fancytoasts.label.translators": "翻訳者", // machine translation
+  "fancytoasts.label.github_activists": "GitHubコントリビューター", // machine translation
+  "fancytoasts.label.boosters": "サポーター", // machine translation
+  "fancytoasts.label.special_thanks": "スペシャルサンクス", // machine translation
+  "fancytoasts.label.credits_fallback": "クレジットを読み込む接続がありません", // machine translation
+  "fancytoasts.label.saved": "保存しました!", // machine translation
 
   "fancytoasts.gui.textures": "テクスチャ",
   "fancytoasts.gui.animations": "アニメーション",
   "fancytoasts.gui.sounds": "サウンド",
-  "fancytoasts.gui.credits": "クレジット", // Machine translation
-  "fancytoasts.gui.config_folder": "設定フォルダ", // Machine translation
-  "fancytoasts.gui.reload_customs": "カスタムを再読み込み", // Machine translation
+  "fancytoasts.gui.credits": "クレジット", // machine translation
+  "fancytoasts.gui.config_folder": "設定フォルダ", // machine translation
+  "fancytoasts.gui.reload_customs": "カスタムを再読み込み", // machine translation
   "fancytoasts.gui.reset": "リセット",
   "fancytoasts.gui.general_settings": "設定",
   "fancytoasts.gui.toast_settings": "トースト設定",
-  "fancytoasts.gui.toasts_filtering": "トーストフィルタリング", // Machine translation
-  "fancytoasts.gui.jade_hiding": "トースト中にJadeを非表示", // Machine translation
+  "fancytoasts.gui.toasts_filtering": "トーストフィルタリング", // machine translation
+  "fancytoasts.gui.jade_hiding": "トースト中にJadeを非表示", // machine translation
+  "fancytoasts.gui.aether_compat": "Aether の上書きサウンドを使用する", // machine translation
   "fancytoasts.gui.sounds_enabled": "トーストの音",
   "fancytoasts.gui.task_volume": "タスクタイプの音量",
   "fancytoasts.gui.goal_volume": "目標タイプの音量",
   "fancytoasts.gui.challenge_volume": "チャレンジタイプの音量",
   "fancytoasts.gui.screen_behavior": "表示方法",
-  "fancytoasts.gui.loops_strength": "ループの強度", // Machine translation
-  "fancytoasts.gui.loops_speed": "ループの速度", // Machine translation
-  "fancytoasts.gui.boss_bar_hiding": "トースト中にボスバーを非表示", // Machine translation
-  "fancytoasts.gui.pitch_randomness": "ピッチのランダム性", // Machine translation
-  "fancytoasts.gui.animation_speed": "アニメーション速度", // Machine translation
-  "fancytoasts.gui.anchor": "アンカー", // Machine translation
-  "fancytoasts.gui.fancy_advancement_toasts": "華やかな進級祝賀会", // Machine translation
-  "fancytoasts.gui.advancement_toasts": "進級祝杯", // Machine translation
-  "fancytoasts.gui.fancy_quest_toasts": "ファンシークエストトースト", // Machine translation
-  "fancytoasts.gui.recipe_toasts": "レシピトースト", // Machine translation
-  "fancytoasts.gui.system_toasts": "システムトースト", // Machine translation
-  "fancytoasts.gui.tutorial_toasts": "チュートリアルトースト", // Machine translation
-  "fancytoasts.gui.ignored_toasts": "無視するトースト", // Machine translation
-  "fancytoasts.gui.title_display_text": "トーストタイトル", // Machine translation
-  "fancytoasts.gui.description_display_text": "トースト説明", // Machine translation
+  "fancytoasts.gui.loops_strength": "ループの強度", // machine translation
+  "fancytoasts.gui.loops_speed": "ループの速度", // machine translation
+  "fancytoasts.gui.boss_bar_hiding": "トースト中にボスバーを非表示", // machine translation
+  "fancytoasts.gui.pitch_randomness": "ピッチのランダム性", // machine translation
+  "fancytoasts.gui.animation_speed": "アニメーション速度", // machine translation
+  "fancytoasts.gui.anchor": "アンカー", // machine translation
+  "fancytoasts.gui.fancy_advancement_toasts": "華やかな進級祝賀会", // machine translation
+  "fancytoasts.gui.advancement_toasts": "進級祝杯", // machine translation
+  "fancytoasts.gui.fancy_quest_toasts": "ファンシークエストトースト", // machine translation
+  "fancytoasts.gui.recipe_toasts": "レシピトースト", // machine translation
+  "fancytoasts.gui.system_toasts": "システムトースト", // machine translation
+  "fancytoasts.gui.tutorial_toasts": "チュートリアルトースト", // machine translation
+  "fancytoasts.gui.ignored_toasts": "無視するトースト", // machine translation
+  "fancytoasts.gui.title_display_text": "トーストタイトル", // machine translation
+  "fancytoasts.gui.description_display_text": "トースト説明", // machine translation
 
   "fancytoasts.toast_type.task": "タスク",
   "fancytoasts.toast_type.goal": "目標",
@@ -60,25 +61,25 @@
   "fancytoasts.screen_behavior.behind": "背面",
   "fancytoasts.screen_behavior.top": "最前面",
 
-  "fancytoasts.text_type.default": "デフォルト", // Machine translation
-  "fancytoasts.text_type.title": "タイトル", // Machine translation
-  "fancytoasts.text_type.description": "説明", // Machine translation
-  "fancytoasts.text_type.announcement": "告知", // Machine translation
+  "fancytoasts.text_type.default": "デフォルト", // machine translation
+  "fancytoasts.text_type.title": "タイトル", // machine translation
+  "fancytoasts.text_type.description": "説明", // machine translation
+  "fancytoasts.text_type.announcement": "告知", // machine translation
 
-  "fancytoasts.anchor.top_left": "左上", // Machine translation
-  "fancytoasts.anchor.top": "上中央", // Machine translation
-  "fancytoasts.anchor.top_right": "右上", // Machine translation
-  "fancytoasts.anchor.center_left": "中央左", // Machine translation
-  "fancytoasts.anchor.center": "中央", // Machine translation
-  "fancytoasts.anchor.center_right": "中央右", // Machine translation
-  "fancytoasts.anchor.bottom_left": "左下", // Machine translation
-  "fancytoasts.anchor.bottom": "下中央", // Machine translation
-  "fancytoasts.anchor.bottom_right": "右下", // Machine translation
+  "fancytoasts.anchor.top_left": "左上", // machine translation
+  "fancytoasts.anchor.top": "上中央", // machine translation
+  "fancytoasts.anchor.top_right": "右上", // machine translation
+  "fancytoasts.anchor.center_left": "中央左", // machine translation
+  "fancytoasts.anchor.center": "中央", // machine translation
+  "fancytoasts.anchor.center_right": "中央右", // machine translation
+  "fancytoasts.anchor.bottom_left": "左下", // machine translation
+  "fancytoasts.anchor.bottom": "下中央", // machine translation
+  "fancytoasts.anchor.bottom_right": "右下", // machine translation
 
   "fancytoasts.filter.a_z": "A-Z",
   "fancytoasts.filter.z_a": "Z-A",
-  "fancytoasts.filter.built_in": "組み込み", // Machine translation
-  "fancytoasts.filter.custom": "カスタム", // Machine translation
+  "fancytoasts.filter.built_in": "組み込み", // machine translation
+  "fancytoasts.filter.custom": "カスタム", // machine translation
 
   "fancytoasts.tooltip.task": "タスクタイプの進捗に使用される音",
   "fancytoasts.tooltip.goal": "目標タイプの進捗に使用される音",
@@ -86,21 +87,25 @@
   "fancytoasts.tooltip.textures": "トーストに使用されるテクスチャ。カスタムテクスチャは \"./config/textures/\" フォルダから読み込めます",
   "fancytoasts.tooltip.animations": "トーストが表示される際に使われるアニメーション",
   "fancytoasts.tooltip.sounds": "トーストが表示されたときに再生される音",
-  "fancytoasts.tooltip.jade_hiding": "Jadeの非表示を切り替えます。オンにすると、進捗トーストが表示されたときにJadeのプレートが非表示になり、その後再表示されます", // Machine translation
+  "fancytoasts.tooltip.jade_hiding": "Jadeの非表示を切り替えます。オンにすると、進捗トーストが表示されたときにJadeのプレートが非表示になり、その後再表示されます", // machine translation
+  "fancytoasts.tooltip.aether_compat": "Aether 互換性を切り替えます。オンにすると、Aether は意図した通りに進捗のサウンドを上書きします。", // machine translation
   "fancytoasts.tooltip.sounds_enabled": "サウンドを切り替えます。オフにすると、全てのトースト音がミュートされます",
-  "fancytoasts.tooltip.anchor": "画面上での進捗トーストのアンカーポイントを表します。位置\"x\"と\"y\"は、アンカーポイントに基づいて計算されたオフセットです", // Machine translation
+  "fancytoasts.tooltip.anchor": "画面上での進捗トーストのアンカーポイントを表します。位置\"x\"と\"y\"は、アンカーポイントに基づいて計算されたオフセットです", // machine translation
   "fancytoasts.tooltip.screen_behavior": "画面（インベントリ、チェストなど）を開いたときの進捗トーストの表示方法",
-  "fancytoasts.tooltip.reload_customs": "テクスチャなどの設定ベースのファイルをすべて再読み込みし、上記のリストに追加/削除します", // Machine translation
-  "fancytoasts.tooltip.loops_strength": "サイン/コサイン波の強度を表し、弱い/強い波になります", // Machine translation
-  "fancytoasts.tooltip.loops_speed": "サイン/コサイン波の速度を表し、遅い/速い波になります", // Machine translation
-  "fancytoasts.tooltip.boss_bar_hiding": "ボスバーの非表示を切り替えます。オンにすると、進捗トースト表示中にボスバーが非表示になり、終了後に再表示されます。", // Machine translation
-  "fancytoasts.tooltip.pitch_randomness": "サウンド再生時にピッチのランダム性を適用して単調さを軽減します。0% = ピッチ変化なし。", // Machine translation
-  "fancytoasts.tooltip.animation_speed": "アニメーション速度の乗数として機能します。", // Machine translation
-  "fancytoasts.tooltip.toasts_filtering": "Minecraftの再起動が必要です。単一の進捗をブラックリストに登録するには、\"namespace:category/advancement\"を'toastsToIgnore'に入れてください。カテゴリ全体をブラックリストに登録するには、\"namespace:category/...\"を入れてください", // Machine translation
-  "fancytoasts.tooltip.display_text.default": "トーストのタイトル/説明として、アニメーションのデフォルトプリセットを表示します。", // Machine translation
-  "fancytoasts.tooltip.display_text.title": "トーストのタイトル/説明として、進捗のタイトルを表示します。", // Machine translation
-  "fancytoasts.tooltip.display_text.description": "トーストのタイトル/説明として、進捗の説明を表示します。", // Machine translation
-  "fancytoasts.tooltip.display_text.announcement": "トーストのタイトル/説明として、進捗の告知を表示します。", // Machine translation
+  "fancytoasts.tooltip.reload_customs": "テクスチャなどの設定ベースのファイルをすべて再読み込みし、上記のリストに追加/削除します", // machine translation
+  "fancytoasts.tooltip.loops_strength": "サイン/コサイン波の強度を表し、弱い/強い波になります", // machine translation
+  "fancytoasts.tooltip.loops_speed": "サイン/コサイン波の速度を表し、遅い/速い波になります", // machine translation
+  "fancytoasts.tooltip.boss_bar_hiding": "ボスバーの非表示を切り替えます。オンにすると、進捗トースト表示中にボスバーが非表示になり、終了後に再表示されます。", // machine translation
+  "fancytoasts.tooltip.pitch_randomness": "サウンド再生時にピッチのランダム性を適用して単調さを軽減します。0% = ピッチ変化なし。", // machine translation
+  "fancytoasts.tooltip.animation_speed": "アニメーション速度の乗数として機能します。", // machine translation
+  "fancytoasts.tooltip.toasts_filtering": "Minecraftの再起動が必要です。単一の進捗をブラックリストに登録するには、\"namespace:category/advancement\"を'toastsToIgnore'に入れてください。カテゴリ全体をブラックリストに登録するには、\"namespace:category/...\"を入れてください", // machine translation
+  "fancytoasts.tooltip.display_text.default": "トーストのタイトル/説明として、アニメーションのデフォルトプリセットを表示します。", // machine translation
+  "fancytoasts.tooltip.display_text.title": "トーストのタイトル/説明として、進捗のタイトルを表示します。", // machine translation
+  "fancytoasts.tooltip.display_text.description": "トーストのタイトル/説明として、進捗の説明を表示します。", // machine translation
+  "fancytoasts.tooltip.display_text.announcement": "トーストのタイトル/説明として、進捗の告知を表示します。", // machine translation
+  "fancytoasts.tooltip.discord": "Discordサーバー「Bivrik's Palace」！", // machine translation
+  "fancytoasts.tooltip.boosty": "Boostyで私を応援してください！<3", // machine translation
+  "fancytoasts.tooltip.youtube": "作品紹介動画などを掲載しているYouTubeチャンネル。", // machine translation
 
   "fancytoasts.toast.animation.standard": "標準",
   "fancytoasts.toast.animation.standard.description": "標準的なアニメーション。落ち着いていて安定感があり、バニラのマインクラフトの様にゆるやかにスライドします",
@@ -108,8 +113,8 @@
   "fancytoasts.toast.animation.playful.description": "エナジー！遊び心！ゲーム感！活発でより実験的なアニメーション",
   "fancytoasts.toast.animation.quirky": "風変わり",
   "fancytoasts.toast.animation.quirky.description": "グラグラ揺れていて野性的。止まることなく常に動き続けます",
-  "fancytoasts.toast.animation.oldlike": "旧式風", // Machine translation
-  "fancytoasts.toast.animation.oldlike.description": "今日は少し気分がファンシー？懐かしい進捗トーストにインスパイアされました。右から左にスライドし、透明な状態から現れます", // Machine translation
+  "fancytoasts.toast.animation.oldlike": "旧式風", // machine translation
+  "fancytoasts.toast.animation.oldlike.description": "今日は少し気分がファンシー？懐かしい進捗トーストにインスパイアされました。右から左にスライドし、透明な状態から現れます", // machine translation
 
   "fancytoasts.toast.texture.vanilla": "バニラ風",
   "fancytoasts.toast.texture.vanilla.description": "バニラのマインクラフトにインスパイアされたもの",
@@ -123,14 +128,14 @@
   "fancytoasts.toast.texture.terracraft.description": "なんだこれ？空に大きな赤い目が見えたぞ！あっ、突進してきた… Terrariaにインスパイアされたもの",
   "fancytoasts.toast.texture.steamy": "スチーミー",
   "fancytoasts.toast.texture.steamy.description": "1500時間かけて実績を100%にしたんだ！ママ、誇りに思ってくれる？ Steamにインスパイアされたもの",
-  "fancytoasts.toast.texture.landspaper": "ランドスペーパー", // Machine translation
-  "fancytoasts.toast.texture.landspaper.description": "新しい手紙が届いたようです！どこかにピン留めしてよく見てみましょう。濡れて溶けないといいですね", // Machine translation
-  "fancytoasts.toast.texture.neon": "ネオン", // Machine translation
-  "fancytoasts.toast.texture.neon.description": "少しダークな雰囲気がお好きですか？ネオンサインは夜にとても魅力的ですよ", // Machine translation
+  "fancytoasts.toast.texture.landspaper": "ランドスペーパー", // machine translation
+  "fancytoasts.toast.texture.landspaper.description": "新しい手紙が届いたようです！どこかにピン留めしてよく見てみましょう。濡れて溶けないといいですね", // machine translation
+  "fancytoasts.toast.texture.neon": "ネオン", // machine translation
+  "fancytoasts.toast.texture.neon.description": "少しダークな雰囲気がお好きですか？ネオンサインは夜にとても魅力的ですよ", // machine translation
 
   "fancytoasts.toast.sound.minecraft.description": "Minecraftに内蔵された音",
-  "fancytoasts.toast.sound.mod.description": "Modからの音", // Machine translation
-  "fancytoasts.toast.sound.resourcepack.description": "リソースパックからの音", // Machine translation
+  "fancytoasts.toast.sound.mod.description": "Modからの音", // machine translation
+  "fancytoasts.toast.sound.resourcepack.description": "リソースパックからの音", // machine translation
 
-  "key.fancytoasts.config_menu": "Fancy Toastsメニュー" // Machine translation
+  "key.fancytoasts.config_menu": "Fancy Toastsメニュー" // machine translation
 }

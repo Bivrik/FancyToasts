@@ -6,7 +6,7 @@
   "fancytoasts.title.reset_general_settings": "Redefinir Configurações Gerais",
   "fancytoasts.title.reset_toasts_filtering": "Redefinir Filtro de Notificações",
 
-  "fancytoasts.label.support": "Confira o meu blog no Boosty!",
+  "fancytoasts.label.creator_note": "Com amor e carinho de Bivrik, aproveite!",
   "fancytoasts.label.unknown": "Desconhecido",
   "fancytoasts.label.custom": "Personalizado",
   "fancytoasts.label.reset_general_settings": "Redefinir as configurações gerais irá apagar todas as configurações existentes para os padrões. Tem certeza que deseja fazer isso?",
@@ -101,6 +101,9 @@
   "fancytoasts.tooltip.display_text.title": "Exibe o título da promoção como título/descrição do brinde.",
   "fancytoasts.tooltip.display_text.description": "Exibe a descrição da promoção como título/descrição do brinde.",
   "fancytoasts.tooltip.display_text.announcement": "Exibe o anúncio da promoção como título/descrição do brinde.",
+  "fancytoasts.tooltip.discord": "Servidor do Discord: Palácio de Bivrik!",
+  "fancytoasts.tooltip.boosty": "Boosty para me apoiar! <3",
+  "fancytoasts.tooltip.youtube": "Canal do YouTube com vídeos de apresentação e outras coisas.",
 
   "fancytoasts.toast.animation.standard": "Padrão",
   "fancytoasts.toast.animation.standard.description": "Padronizado. Calmo e estável. Desliza do topo com o ícone indo primeiro. Em um estilo meio Vanilla.",

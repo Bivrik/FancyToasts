@@ -34,7 +34,7 @@ import org.jetbrains.annotations.NotNull;
 import static net.bivrik.fancytoasts.client.gui.LayoutValues.*;
 
 public class GeneralConfigScreen extends UniversalScreen {
-    private static final Component TITLE = Components.of("title.general_settings");;
+    private static final Component TITLE = Components.of("title.general_settings");
     private static final Component RESET_GENERAL_SETTINGS_TITLE = Components.of("title.reset_general_settings");
     private static final Component RESET_GENERAL_SETTINGS_LABEL = Components.of("label.reset_general_settings");
     private static final Component SAVED_LABEL = Components.of("label.saved");
