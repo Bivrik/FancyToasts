@@ -30,18 +30,15 @@ public class AdvancementDisplay {
 
     private Component fixUnicode(Component message) {
         String temp = message.getString();
-        Debug.error("BEFORE {}", temp);
         if (temp.contains("§")) {
             for (int i = 0; i + 1 < temp.length(); i++) {
                 char c = temp.toCharArray()[i + 1];
 
                 if (c == '§') {
-                    Debug.error("AFTER {}", temp.substring(0, i));
                     return Component.literal(temp.substring(0, i));
                 }
             }
         }
-        Debug.error("Did not change");
         return message;
     }
 
