@@ -6,7 +6,7 @@
   "fancytoasts.title.reset_general_settings": "重置通用设置",
   "fancytoasts.title.reset_toasts_filtering": "重置提示过滤设置",
 
-  "fancytoasts.label.support": "在 Boosty 上查看我的博客！",
+  "fancytoasts.label.creator_note": "來自 Bivrik 的愛與關懷，請盡情享用！", // machine translation
   "fancytoasts.label.unknown": "未知",
   "fancytoasts.label.custom": "自定义",
   "fancytoasts.label.reset_general_settings": "重置通用设置将会把所有现有设置恢复为默认值。确定要继续吗？",
@@ -101,6 +101,9 @@
   "fancytoasts.tooltip.display_text.title": "将进度的标题显示为提示的标题或描述。",
   "fancytoasts.tooltip.display_text.description": "将进度的描述显示为提示的标题或描述。",
   "fancytoasts.tooltip.display_text.announcement": "将进度的公告显示为提示的标题或描述。",
+  "fancytoasts.tooltip.discord": "Discord 伺服器 Bivrik's Palace！", // machine translation
+  "fancytoasts.tooltip.boosty": "Boosty支持我！ <3", // machine translation
+  "fancytoasts.tooltip.youtube": "YouTube頻道，包含作品展示和其他內容。", // machine translation
 
   "fancytoasts.toast.animation.standard": "标准",
   "fancytoasts.toast.animation.standard.description": "标准感，沉稳平静。图标先行，自上而下轻柔滑入。略带原版风格。",
@@ -132,7 +135,5 @@
   "fancytoasts.toast.sound.mod.description": "来自模组的音效",
   "fancytoasts.toast.sound.resourcepack.description": "来自资源包的音效",
 
-  "key.fancytoasts.config_menu": "Fancy Toasts 设置菜单",
-
-  "modmenu.descriptionTranslation.fancytoasts": "重新设计了旧的进度提示系统，用更吸引人、更有趣的提示样式取而代之。"
+  "key.fancytoasts.config_menu": "Fancy Toasts 设置菜单"
 }

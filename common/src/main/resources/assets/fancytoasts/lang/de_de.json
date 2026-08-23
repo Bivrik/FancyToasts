@@ -6,7 +6,7 @@
   "fancytoasts.title.reset_general_settings": "Allgemeine Einstellungen zurücksetzen",
   "fancytoasts.title.reset_toasts_filtering": "Toast-Filterung zurücksetzen",
 
-  "fancytoasts.label.support": "Besuche meinen Blog auf Boosty!",
+  "fancytoasts.label.creator_note": "Mit Liebe und Sorgfalt von Bivrik, viel Spaß!",
   "fancytoasts.label.unknown": "Unbekannt",
   "fancytoasts.label.custom": "Benutzerdefiniert",
   "fancytoasts.label.reset_general_settings": "Das Zurücksetzen der allgemeinen Einstellungen löscht alle vorhandenen Einstellungen und setzt sie auf die Standardwerte zurück. Bist du sicher, dass du das tun möchtest?",
@@ -103,6 +103,9 @@
   "fancytoasts.tooltip.display_text.title": "Zeigt den Titel der Beförderung als Titel/Beschreibung des Toasts an.",
   "fancytoasts.tooltip.display_text.description": "Zeigt die Beschreibung des Aufstiegs als Titel/Beschreibung des Toasts an.",
   "fancytoasts.tooltip.display_text.announcement": "Die Bekanntgabe der Beförderung wird als Titel/Beschreibung des Toasts angezeigt.",
+  "fancytoasts.tooltip.discord": "Discord-Server Bivriks Palast!",
+  "fancytoasts.tooltip.boosty": "Boosty, um mich zu unterstützen! <3",
+  "fancytoasts.tooltip.youtube": "YouTube-Kanal mit Präsentationen und anderen Inhalten.",
 
   "fancytoasts.toast.animation.standard": "Standard",
   "fancytoasts.toast.animation.standard.description": "Standardmäßig. Ruhig und stetig. Gleitet von oben herein, wobei das Symbol zuerst kommt. In einer Art Vanilla-Stil.",

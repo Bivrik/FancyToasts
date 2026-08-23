@@ -6,7 +6,7 @@
   "fancytoasts.title.reset_general_settings": "Reset General Settings",
   "fancytoasts.title.reset_toasts_filtering": "Reset Toasts Filtering",
 
-  "fancytoasts.label.support": "Check out my blog on Boosty!",
+  "fancytoasts.label.creator_note": "With love and care from Bivrik, enjoy!",
   "fancytoasts.label.unknown": "Unknown",
   "fancytoasts.label.custom": "Custom",
   "fancytoasts.label.reset_general_settings": "Resetting general settings lead to erasing all existing settings to standard ones. Are you sure you want to do that?",
@@ -103,6 +103,9 @@
   "fancytoasts.tooltip.display_text.title": "Shows title of the advancement as title/description of the toast.",
   "fancytoasts.tooltip.display_text.description": "Shows description of the advancement as title/description of the toast.",
   "fancytoasts.tooltip.display_text.announcement": "Shows announcement of the advancement as title/description of the toast.",
+  "fancytoasts.tooltip.discord": "Discord server Bivrik's Palace!",
+  "fancytoasts.tooltip.boosty": "Boosty to support me! <3",
+  "fancytoasts.tooltip.youtube": "YouTube channel with showcases and other stuff.",
 
   "fancytoasts.toast.animation.standard": "Standard",
   "fancytoasts.toast.animation.standard.description": "Standardness. Calm and steady. Slides from the top with icon going first. In some sort of Vanilla Style",

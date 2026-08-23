@@ -6,7 +6,7 @@
   "fancytoasts.title.reset_general_settings": "Restablecer Ajustes Generales",
   "fancytoasts.title.reset_toasts_filtering": "Restablecer Filtrado de Toasts",
 
-  "fancytoasts.label.support": "¡Visita mi blog en Boosty!",
+  "fancytoasts.label.creator_note": "Con amor y cariño de parte de Bivrik, ¡que lo disfrutes!",
   "fancytoasts.label.unknown": "Desconocido",
   "fancytoasts.label.custom": "Personalizado",
   "fancytoasts.label.reset_general_settings": "Restablecer los ajustes generales eliminará toda la configuración existente y la volverá a los valores estándar. ¿Estás seguro de que quieres hacer esto?",
@@ -103,6 +103,9 @@
   "fancytoasts.tooltip.display_text.title": "Muestra el título del ascenso como título/descripción del brindis.",
   "fancytoasts.tooltip.display_text.description": "Muestra la descripción del ascenso como título/descripción del brindis.",
   "fancytoasts.tooltip.display_text.announcement": "Muestra el anuncio del ascenso como título/descripción del brindis.",
+  "fancytoasts.tooltip.discord": "¡Servidor de Discord: El Palacio de Bivrik!",
+  "fancytoasts.tooltip.boosty": "¡Boosty me apoya! <3",
+  "fancytoasts.tooltip.youtube": "Canal de YouTube con muestras y otras cosas.",
 
   "fancytoasts.toast.animation.standard": "Estándar",
   "fancytoasts.toast.animation.standard.description": "Lo estándar. Calma y firmeza. Se desliza desde la parte superior, con el icono yendo primero. En un estilo similar al Vanilla.",
