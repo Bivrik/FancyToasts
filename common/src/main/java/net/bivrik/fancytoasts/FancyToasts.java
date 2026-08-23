@@ -1,5 +1,6 @@
 package net.bivrik.fancytoasts;
 
+import net.bivrik.fancytoasts.client.credits.CreditsManager;
 import net.bivrik.fancytoasts.client.gui.screen.FancyToastsScreen;
 import net.bivrik.fancytoasts.client.registry.AnimationRegistry;
 import net.bivrik.fancytoasts.client.registry.KeyBindingRegistry;
