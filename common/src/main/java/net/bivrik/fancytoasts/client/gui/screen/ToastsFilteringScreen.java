@@ -35,12 +35,8 @@ public class ToastsFilteringScreen extends UniversalScreen {
     private static final Component SAVED_LABEL = Components.of("label.saved");
     private static final Component RESET = Components.of("gui.reset");
     private static final Component FANCY_ADVANCEMENT_TOASTS = Components.of("gui.fancy_advancement_toasts");
-    private static final Component ADVANCEMENT_TOASTS = Components.of("gui.advancement_toasts");
     private static final Component FANCY_QUEST_TOASTS = Components.of("gui.fancy_quest_toasts");
     private static final Component FANCY_QUESTLOG_TOASTS = Components.of("gui.fancy_questlog_toasts");
-    private static final Component RECIPE_TOASTS = Components.of("gui.recipe_toasts");
-    private static final Component SYSTEM_TOASTS = Components.of("gui.system_toasts");
-    private static final Component TUTORIAL_TOASTS = Components.of("gui.tutorial_toasts");
     private static final Component IGNORED_TOASTS = Components.of("gui.ignored_toasts");
     private static final Component TOASTS_FILTERING_TOOLTIP = Components.of("tooltip.toasts_filtering");
 
@@ -79,12 +75,12 @@ public class ToastsFilteringScreen extends UniversalScreen {
 
         if (Services.PLATFORM.isModLoaded(Constants.Compatibilities.FTB_QUESTS_ID)) {
             fancyQuestToastsButton = list.addElement(createBooleanButton(FANCY_QUEST_TOASTS, toastsFilteringData.isFancyQuestToastsEnabled(),
-                    (button, value) -> toastsFilteringData.setFancyQuestToastsEnabled(value), 0, 0), WidgetWidthType.MEDIUM);
+                    (button, value) -> toastsFilteringData.setFancyQuestToastsEnabled(value), 0, 0), WidgetWidthType.BIG);
         }
 
         if (Services.PLATFORM.isModLoaded(Constants.Compatibilities.QUESTLOG_ID)) {
             fancyQuestlogToastsButton = list.addElement(createBooleanButton(FANCY_QUESTLOG_TOASTS, toastsFilteringData.isFancyQuestlogToastsEnabled(),
-                    (button, value) -> toastsFilteringData.setFancyQuestlogToastsEnabled(value), 0, 0), WidgetWidthType.MEDIUM);
+                    (button, value) -> toastsFilteringData.setFancyQuestlogToastsEnabled(value), 0, 0), WidgetWidthType.BIG);
         }
 
         toastsFilteringFileButton = list.addElement(createButton(IGNORED_TOASTS, button -> openToastsFilteringFile(),

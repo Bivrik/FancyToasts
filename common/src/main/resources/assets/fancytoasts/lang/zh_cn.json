@@ -43,11 +43,8 @@
   "fancytoasts.gui.animation_speed": "动画速度倍率",
   "fancytoasts.gui.anchor": "定位锚点",
   "fancytoasts.gui.fancy_advancement_toasts": "花式进度提示",
-  "fancytoasts.gui.advancement_toasts": "进度提示",
-  "fancytoasts.gui.fancy_quest_toasts": "花式任务提示",
-  "fancytoasts.gui.recipe_toasts": "配方提示",
-  "fancytoasts.gui.system_toasts": "系统提示",
-  "fancytoasts.gui.tutorial_toasts": "教程提示",
+  "fancytoasts.gui.fancy_quest_toasts": "精美的 FTB Quest 祝酒词", // machine translation
+  "fancytoasts.gui.fancy_questlog_toasts": "精美任务日志祝酒词", // machine translation
   "fancytoasts.gui.ignored_toasts": "已忽略的提示",
   "fancytoasts.gui.title_display_text": "标题显示文本",
   "fancytoasts.gui.description_display_text": "描述显示文本",
