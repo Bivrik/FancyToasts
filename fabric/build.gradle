@@ -47,12 +47,12 @@ dependencies {
     }
 
     // Questlog compatibility
-    /*def questlog_version = "maven.modrinth:questlog:${project.fabric_questlog_version}"
+    def questlog_version = "maven.modrinth:questlog:${project.fabric_questlog_version}"
     modCompileOnly(questlog_version)
     if (project.questlog_enable.toBoolean()) {
         modRuntimeOnly(questlog_version)
         modRuntimeOnly("maven.modrinth:cloth-config:${project.fabric_cloth_config_version}")
-    }*/
+    }
 }
 
 loom {
