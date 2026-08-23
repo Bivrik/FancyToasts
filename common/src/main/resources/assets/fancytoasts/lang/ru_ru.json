@@ -6,7 +6,7 @@
   "fancytoasts.title.reset_general_settings": "Сброс общих настроек",
   "fancytoasts.title.reset_toasts_filtering": "Сброс фильтрации уведомлений",
 
-  "fancytoasts.label.support": "Загляните в мой блог на Boosty!",
+  "fancytoasts.label.creator_note": "С любовью и уважением, Bivrik, наслаждайтесь!",
   "fancytoasts.label.unknown": "Неизвестно",
   "fancytoasts.label.custom": "Пользовательский",
   "fancytoasts.label.reset_general_settings": "Сброс общих настроек приведёт к удалению всех существующих настроек до стандартных. Вы уверены, что хотите это сделать?",
@@ -103,6 +103,9 @@
   "fancytoasts.tooltip.display_text.title": "Показывает название достижения как название/описание тоста.",
   "fancytoasts.tooltip.display_text.description": "Показывает описание достижения как название/описание тоста.",
   "fancytoasts.tooltip.display_text.announcement": "Показывает уведомления достижения как название/описание тоста.",
+  "fancytoasts.tooltip.discord": "Discord сервер Bivrik's Palace!",
+  "fancytoasts.tooltip.boosty": "Boosty для поддержки!",
+  "fancytoasts.tooltip.youtube": "YouTube канал с шоукейсами и другими вещами.",
 
   "fancytoasts.toast.animation.standard": "Стандарт",
   "fancytoasts.toast.animation.standard.description": "Стандартная анимация. Спокойная и аккуратная. Въезжает сверху вниз. В каком-то смысле в стиле Minecraft",

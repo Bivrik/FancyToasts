@@ -6,7 +6,7 @@
   "fancytoasts.title.reset_general_settings": "重設一般設定",
   "fancytoasts.title.reset_toasts_filtering": "重設提示過濾設定",
 
-  "fancytoasts.label.support": "快來看看我在 Boosty 上的部落格！",
+  "fancytoasts.label.creator_note": "来自 Bivrik 的爱心与关怀，祝您玩得开心！", // machine translation
   "fancytoasts.label.unknown": "未知",
   "fancytoasts.label.custom": "自訂",
   "fancytoasts.label.reset_general_settings": "重設一般設定將會清除所有現有設定並恢復為預設值。確定要這麼做嗎？",
@@ -101,6 +101,9 @@
   "fancytoasts.tooltip.display_text.title": "將進度的標題顯示為提示的標題或描述。",
   "fancytoasts.tooltip.display_text.description": "將進度的描述顯示為提示的標題或描述。",
   "fancytoasts.tooltip.display_text.announcement": "將進度的公告顯示為提示的標題或描述。",
+  "fancytoasts.tooltip.discord": "Discord 服务器：Bivrik's Palace！", // machine translation
+  "fancytoasts.tooltip.boosty": "在 Boosty 上支持我！<3", // machine translation
+  "fancytoasts.tooltip.youtube": "YouTube 频道，包含展示视频及其他内容。", // machine translation
 
   "fancytoasts.toast.animation.standard": "標準",
   "fancytoasts.toast.animation.standard.description": "標準動畫。平穩柔和，滑動順暢。帶有原版風格",
