@@ -59,6 +59,7 @@ public class ToastConfigData extends ConfigData {
 
         return textureId;
     }
+
     public void setTextureId(ResourceLocation id) {
         textureId = id;
     }
@@ -66,6 +67,7 @@ public class ToastConfigData extends ConfigData {
     public ResourceLocation getAnimationId() {
         return animationId;
     }
+
     public void setAnimationId(ResourceLocation id) {
         animationId = id;
     }
@@ -83,6 +85,7 @@ public class ToastConfigData extends ConfigData {
 
         return soundIds.get(type);
     }
+
     public void putSoundIdForType(ResourceLocation location, FancyAdvancementType type) {
         soundIds.put(type, location);
     }
@@ -120,24 +123,13 @@ public class ToastConfigData extends ConfigData {
         return isValid;
     }
 
-    @Override
-    public int getLatestVersion() {
-        return VERSION;
-    }
-
     private boolean isConfig(ResourceLocation id) {
         return id.toLanguageKey().contains(Constants.CONFIG);
     }
 
     @Override
-    public boolean equals(Object o) {
-        if (!(o instanceof ToastConfigData that)) return false;
-        return Objects.equals(textureId, that.textureId) && Objects.equals(animationId, that.animationId) && Objects.equals(soundIds, that.soundIds) && Objects.equals(questSoundIds, that.questSoundIds);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(textureId, animationId, soundIds, questSoundIds);
+    public int getLatestVersion() {
+        return VERSION;
     }
 
     @Override
@@ -146,10 +138,26 @@ public class ToastConfigData extends ConfigData {
     }
 
     @Override
+    public int hashCode() {
+        return Objects.hash(textureId, animationId, soundIds, questSoundIds);
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (!(o instanceof ToastConfigData that)) return false;
+        return Objects.equals(textureId, that.textureId)
+                && Objects.equals(animationId, that.animationId)
+                && Objects.equals(soundIds, that.soundIds)
+                && Objects.equals(questSoundIds, that.questSoundIds);
+    }
+
+    @Override
     public String toString() {
-        return super.toString().replace("}", ", ") + String.format(
-            "textureId='%s', animationId='%s', soundIds='%s', questSoundIds='%s'}",
-            textureId, animationId, soundIds, questSoundIds
-        );
+        return getBaseToStringBuilder()
+                .append("textureId", textureId)
+                .append("animationId", animationId)
+                .append("soundIds", soundIds)
+                .append("questSoundIds", questSoundIds)
+                .toString();
     }
 }
