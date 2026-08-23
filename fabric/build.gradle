@@ -5,8 +5,8 @@ plugins {
 
 repositories {
     maven {
-        name = "Terraformers"
-        url = uri("https://maven.terraformersmc.com")
+        name = 'Terraformers'
+        url = 'https://maven.terraformersmc.com'
     }
 }
 
@@ -55,13 +55,20 @@ dependencies {
     }
 }
 
+remapJar {
+    destinationDirectory = rootProject.file('build/libs')
+    archiveVersion = ""
+}
+
 loom {
     if (project(":common").file("src/main/resources/${mod_id}.accesswidener").exists()) {
         accessWidenerPath.set(project(":common").file("src/main/resources/${mod_id}.accesswidener"))
     }
+
     mixin {
         defaultRefmapName.set("${mod_id}.refmap.json")
     }
+
     runs {
         client {
             client()

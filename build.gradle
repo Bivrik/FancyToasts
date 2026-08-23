@@ -1,4 +1,27 @@
 plugins {
-    id 'fabric-loom' version '1.9-SNAPSHOT' apply(false)
-    id 'net.neoforged.moddev.legacyforge' version '2.0.77' apply(false)
+    // https://fabricmc.net/develop
+    id 'fabric-loom' version '1.9-SNAPSHOT' apply false
+
+    // https://projects.neoforged.net/neoforged/moddevgradle
+    id 'net.neoforged.moddev.legacyforge' version '2.0.77' apply false
+
+    // https://files.minecraftforge.net/net/minecraftforge/gradle/ForgeGradle
+    id 'net.minecraftforge.gradle' version '[6.0, 6.2)' apply false
+    id 'org.spongepowered.mixin' version '0.7-SNAPSHOT' apply false
+}
+
+allprojects {
+    repositories {
+        exclusiveContent {
+            forRepository {
+                maven {
+                    name = 'ParchmentMC'
+                    url = 'https://maven.parchmentmc.org'
+                }
+            }
+            filter {
+                includeGroup 'org.parchmentmc.data'
+            }
+        }
+    }
 }
