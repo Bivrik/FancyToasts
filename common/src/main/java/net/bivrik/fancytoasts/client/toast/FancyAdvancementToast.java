@@ -27,7 +27,7 @@ public class FancyAdvancementToast {
     private final ResourceLocation toastSoundId;
     private final float volume;
 
-    private int timeTicks;
+    private float timeTicks;
     private boolean isDead;
     private int playedSoundsCount;
 
@@ -67,7 +67,7 @@ public class FancyAdvancementToast {
             return;
         }
 
-        if (timeTicks++ > animation.getDuration()) {
+        if ((timeTicks += generalConfig.getAnimationSpeed()) > animation.getDuration()) {
             animation.unsubscribeFromGeneralConfigDataEvent();
             isDead = true;
             return;
@@ -80,12 +80,12 @@ public class FancyAdvancementToast {
         switch (playedSoundsCount) {
             case 0 -> playSound(SoundEvents.UI_TOAST_IN, 1.74f);
             case 1 -> {
-                if (timeTicks == animation.getToastSoundTiming()) {
+                if (timeTicks >= animation.getToastSoundTiming()) {
                     playSound(toastSoundId, volume);
                 }
             }
             case 2 -> {
-                if (timeTicks == animation.getDuration() - 10) {
+                if (timeTicks >= animation.getDuration() - 10) {
                     playSound(SoundEvents.UI_TOAST_OUT, 1.74f);
                 }
             }
