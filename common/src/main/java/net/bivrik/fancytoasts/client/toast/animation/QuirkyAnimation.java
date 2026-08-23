@@ -57,7 +57,7 @@ public class QuirkyAnimation extends FancyToastAnimation {
 
         if (BANNER_APPEARANCE.isStarted(renderTicks)) {
             context.push();
-            float y = 57;
+            float y = 58;
             if (BANNER_APPEARANCE.isActive(renderTicks)) {
                 float progress = BANNER_APPEARANCE.getProgress(renderTicks);
 
