@@ -71,7 +71,7 @@ public class FancyToastManager {
                 Services.JADE.tryEnable();
             }
 
-            currentToast.tick(); // NO SPEED CHANGE RN
+            currentToast.tick();
 
             if (currentToast.isDead()) {
                 removeCurrentToast();
