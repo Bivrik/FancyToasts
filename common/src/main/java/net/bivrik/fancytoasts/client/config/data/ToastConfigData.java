@@ -34,14 +34,17 @@ public class ToastConfigData extends ConfigData {
     }
 
     public ToastConfigData() {
-        this(DefaultLocations.Textures.VANILLA, DefaultLocations.Animations.STANDARD, Map.of(
-                FancyAdvancementType.TASK, SoundEvents.NOTE_BLOCK_CHIME.value().getLocation(),
-                FancyAdvancementType.GOAL, SoundEvents.FIREWORK_ROCKET_TWINKLE_FAR.getLocation(),
-                FancyAdvancementType.CHALLENGE, SoundEvents.UI_TOAST_CHALLENGE_COMPLETE.getLocation()), Map.of(
-                QuestType.TASK, SoundEvents.NOTE_BLOCK_CHIME.value().getLocation(),
-                QuestType.QUEST, SoundEvents.NOTE_BLOCK_CHIME.value().getLocation(),
-                QuestType.CHAPTER, SoundEvents.FIREWORK_ROCKET_TWINKLE_FAR.getLocation(),
-                QuestType.BOOK, SoundEvents.UI_TOAST_CHALLENGE_COMPLETE.getLocation()));
+        this(DefaultLocations.Textures.VANILLA, DefaultLocations.Animations.STANDARD,
+                Map.of(
+                        FancyAdvancementType.TASK, SoundEvents.NOTE_BLOCK_CHIME.value().getLocation(),
+                        FancyAdvancementType.GOAL, SoundEvents.FIREWORK_ROCKET_TWINKLE_FAR.getLocation(),
+                        FancyAdvancementType.CHALLENGE, SoundEvents.UI_TOAST_CHALLENGE_COMPLETE.getLocation()),
+                Map.of(
+                        QuestType.TASK, SoundEvents.NOTE_BLOCK_BELL.value().getLocation(),
+                        QuestType.QUEST, SoundEvents.NOTE_BLOCK_CHIME.value().getLocation(),
+                        QuestType.CHAPTER, SoundEvents.FIREWORK_ROCKET_TWINKLE_FAR.getLocation(),
+                        QuestType.BOOK, SoundEvents.UI_TOAST_CHALLENGE_COMPLETE.getLocation())
+        );
     }
 
     public ResourceLocation getTextureId() {
