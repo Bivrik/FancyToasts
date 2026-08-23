@@ -15,7 +15,6 @@ import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
-// TODO: override sounds
 public class QuestlogCompat {
     private static final Component ANNOUNCEMENT = Component.translatable("questlog.toast.quest_completed");
     // Holy spam of reflection :sob:
@@ -81,7 +80,7 @@ public class QuestlogCompat {
             icon = Items.KNOWLEDGE_BOOK.getDefaultInstance();
         }
 
-        FancyAdvancementType type = FancyAdvancementType.GOAL;
+        FancyAdvancementType type = FancyAdvancementType.TASK;
         return new AdvancementDisplay(icon, displayData.getTitle(), displayData.getDescription(), ANNOUNCEMENT,
                 type.getTitleColor(), type.getDescriptionColor(), type.getConventionalType());
     }
