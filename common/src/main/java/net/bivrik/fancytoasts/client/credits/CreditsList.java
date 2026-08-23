@@ -1,15 +1,13 @@
-package net.bivrik.fancytoasts.client.gui;
+package net.bivrik.fancytoasts.client.credits;
 
 import net.bivrik.fancytoasts.core.Color;
-import net.bivrik.fancytoasts.core.manager.CreditsManager;
+import net.bivrik.fancytoasts.core.Constants;
 import net.bivrik.fancytoasts.platform.utility.Components;
-import net.bivrik.fancytoasts.platform.utility.GuiContext;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.AbstractSelectionList;
 import net.minecraft.client.gui.narration.NarrationElementOutput;
-import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.network.chat.Component;
 import org.jetbrains.annotations.NotNull;
 import org.lwjgl.glfw.GLFW;
@@ -47,11 +45,13 @@ public class CreditsList extends AbstractSelectionList<CreditsList.Entry> {
         }
 
         for (String category : data.getCategories().keySet()) {
-            addCategory(category);
-            for (CreditsManager.CreditsData.User user : data.getCategories().get(category)) {
-                addLine(user);
+            if (!data.getCategories().get(category).isEmpty()) {
+                addCategory(category);
+                for (CreditsManager.CreditsData.User user : data.getCategories().get(category)) {
+                    addLine(user);
+                }
+                addSpace();
             }
-            addSpace();
         }
 
         for (int i = 0; i < this.height / this.itemHeight; i++) {

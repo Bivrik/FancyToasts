@@ -1,4 +1,4 @@
-package net.bivrik.fancytoasts.core.manager;
+package net.bivrik.fancytoasts.client.credits;
 
 import com.google.gson.Gson;
 import net.bivrik.fancytoasts.client.config.JsonHelper;
