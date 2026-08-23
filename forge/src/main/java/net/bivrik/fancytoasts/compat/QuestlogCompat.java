@@ -80,7 +80,7 @@ public class QuestlogCompat {
             icon = Items.KNOWLEDGE_BOOK.getDefaultInstance();
         }
 
-        FancyAdvancementType type = FancyAdvancementType.GOAL;
+        FancyAdvancementType type = FancyAdvancementType.TASK;
         return new AdvancementDisplay(icon, displayData.getTitle(), displayData.getDescription(), ANNOUNCEMENT,
                 type.getTitleColor(), type.getDescriptionColor(), type.getConventionalType());
     }
