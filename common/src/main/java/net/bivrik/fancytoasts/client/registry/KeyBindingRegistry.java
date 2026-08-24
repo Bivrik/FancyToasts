@@ -22,7 +22,7 @@ public class KeyBindingRegistry {
             return;
         }
 
-        KeyMapping key = new KeyMapping(name, keyCode, KeyMapping.CATEGORY_MISC);
+        KeyMapping key = new KeyMapping(name, keyCode, KeyMapping.Category.MISC);
         KeyBinding bind = new KeyBinding(key, executor);
 
         KEY_BINDINGS.put(name, bind);

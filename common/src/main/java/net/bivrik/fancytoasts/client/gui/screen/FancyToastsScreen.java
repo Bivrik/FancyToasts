@@ -4,14 +4,14 @@ import net.bivrik.fancytoasts.FancyToasts;
 import net.bivrik.fancytoasts.core.Color;
 import net.bivrik.fancytoasts.platform.utility.Components;
 import net.bivrik.fancytoasts.platform.utility.GuiContext;
-import net.bivrik.fancytoasts.platform.utility.ResourceLocations;
-import net.minecraft.Util;
-import net.minecraft.client.gui.GuiGraphics;
+import net.bivrik.fancytoasts.platform.utility.Identifiers;
+import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.gui.components.*;
 import net.minecraft.client.gui.screens.ConfirmLinkScreen;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.network.chat.CommonComponents;
 import net.minecraft.network.chat.Component;
+import net.minecraft.util.Util;
 import org.jetbrains.annotations.NotNull;
 
 import java.net.URI;
@@ -59,19 +59,19 @@ public class FancyToastsScreen extends UniversalScreen {
         int xCenter = this.width / 2 - HALF_TITLE_BUTTON_WIDTH;
         int yCenter = this.height / 2;
 
-        toastConfigButton = this.addFWidget(this.createButton(TOAST_SETTINGS, button -> openToastConfigScreen(),
+        toastConfigButton = addRenderableWidget(this.createButton(TOAST_SETTINGS, button -> openToastConfigScreen(),
                 xCenter, yCenter - BUTTON_HEIGHT - PADDING));
 
-        generalConfigButton = this.addFWidget(this.createButton(GENERAL_SETTINGS, button -> openGeneralConfigScreen(),
+        generalConfigButton = addRenderableWidget(this.createButton(GENERAL_SETTINGS, button -> openGeneralConfigScreen(),
                 xCenter, yCenter));
 
-        toastsFilteringButton = this.addFWidget(this.createButton(TOASTS_FILTERING, button -> openToastsFilteringScreen(),
+        toastsFilteringButton = addRenderableWidget(this.createButton(TOASTS_FILTERING, button -> openToastsFilteringScreen(),
                 xCenter, yCenter + BUTTON_HEIGHT + PADDING, HALF_TITLE_BUTTON_WIDTH - HALF_PADDING, BUTTON_HEIGHT));
 
-        creditsButton = this.addFWidget(this.createButton(CREDITS, button -> openCreditsScreen(),
+        creditsButton = addRenderableWidget(this.createButton(CREDITS, button -> openCreditsScreen(),
                 xCenter + HALF_PADDING + HALF_TITLE_BUTTON_WIDTH, yCenter + BUTTON_HEIGHT + PADDING, HALF_TITLE_BUTTON_WIDTH - HALF_PADDING, BUTTON_HEIGHT));
 
-        backButton = this.addFWidget(this.createButton(CommonComponents.GUI_BACK, button -> this.toParentScreen(),
+        backButton = addRenderableWidget(this.createButton(CommonComponents.GUI_BACK, button -> this.toParentScreen(),
                 xCenter, this.height - BUTTON_HEIGHT - 16));
 
         List<ImageButton> linkButtons = new ArrayList<>();
@@ -89,14 +89,14 @@ public class FancyToastsScreen extends UniversalScreen {
         int y = toastConfigButton.getY();
         for (ImageButton button : linkButtons) {
             button.setPosition(x, y);
-            addFWidget(button);
+            addRenderableWidget(button);
             y += button.getHeight() + 5;
         }
 
         int supportButtonWidth = this.font.width(GITHUB_LABEL);
         Button.OnPress openGithubAction = ConfirmLinkScreen.confirmLink(this, GITHUB_URI);
         supportButton = new PlainTextButton(this.width - supportButtonWidth - 2, this.height - 9 - 1, supportButtonWidth, 9, GITHUB_LABEL, openGithubAction, this.font);
-        addFWidget(supportButton);
+        addRenderableWidget(supportButton);
     }
 
     @Override
@@ -106,7 +106,7 @@ public class FancyToastsScreen extends UniversalScreen {
 
     private ImageButton createLinkButton(String icon, String iconHovered, URI link, Component tooltip) {
         Button.OnPress action = ConfirmLinkScreen.confirmLink(this, link);
-        ImageButton button = new ImageButton(0, 0, 18, 18, new WidgetSprites(ResourceLocations.of(icon), ResourceLocations.of(iconHovered)), action);
+        ImageButton button = new ImageButton(0, 0, 18, 18, new WidgetSprites(Identifiers.of(icon), Identifiers.of(iconHovered)), action);
         button.setTooltip(Tooltip.create(tooltip));
         return button;
     }
@@ -128,19 +128,18 @@ public class FancyToastsScreen extends UniversalScreen {
     }
 
     @Override
-    public void render(@NotNull GuiGraphics guiGraphics, int mouseX, int mouseY, float partialTick) {
-        super.render(guiGraphics, mouseX, mouseY, partialTick);
-
-        drawSplash(guiGraphics);
+    public void extractRenderState(@NotNull GuiGraphicsExtractor graphics, int mouseX, int mouseY, float partialTick) {
+        super.extractRenderState(graphics, mouseX, mouseY, partialTick);
+        drawSplash(graphics);
     }
 
-    private void drawSplash(@NotNull GuiGraphics guiGraphics) {
+    private void drawSplash(@NotNull GuiGraphicsExtractor graphics) {
         float size = (float) (Math.abs(Math.cos((double) Util.getMillis() / 250) * 0.1f) + 0.9f);
 
-        GuiContext context = new GuiContext(guiGraphics);
+        GuiContext context = new GuiContext(graphics);
         context.push();
         context.scaleAround(size, (float) (this.width / 2), 12 + 9 + 4.5F);
-        guiGraphics.drawCenteredString(this.font, splash, this.width / 2, 12 + 9, Color.YELLOW.getARGB());
+        graphics.centeredText(this.font, splash, this.width / 2, 12 + 9, Color.YELLOW.getARGB());
         context.pop();
     }
 }

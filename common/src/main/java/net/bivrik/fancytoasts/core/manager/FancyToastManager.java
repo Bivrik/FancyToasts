@@ -13,9 +13,9 @@ import net.bivrik.fancytoasts.platform.utility.AdvancementDisplay;
 import net.bivrik.fancytoasts.platform.utility.GuiContext;
 import net.minecraft.client.DeltaTracker;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.gui.screens.ChatScreen;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import org.joml.Vector2d;
 
 import java.util.Deque;
@@ -50,7 +50,7 @@ public class FancyToastManager {
         toastConfigData = event.toastConfigData();
     }
 
-    public void add(AdvancementDisplay display, ResourceLocation soundId) {
+    public void add(AdvancementDisplay display, Identifier soundId) {
         if (display == null) {
             return;
         }
@@ -92,22 +92,22 @@ public class FancyToastManager {
         }
     }
 
-    public void render(GuiGraphics guiGraphics, float partialTick) {
+    public void render(GuiGraphicsExtractor graphics, float partialTick) {
         if (!shouldRender()) {
             return;
         }
 
-        int screenWidth = guiGraphics.guiWidth();
-        int screenHeight = guiGraphics.guiHeight();
+        int screenWidth = graphics.guiWidth();
+        int screenHeight = graphics.guiHeight();
 
         Vector2d toastPosition = generalConfigData.getToastAnchor().getPosition(screenWidth, screenHeight, generalConfigData.getOffsetX(), -generalConfigData.getOffsetY());
         int xPos = (int) toastPosition.x() - currentToast.getWidth() / 2;
         int yPos = (int) toastPosition.y() - currentToast.getHeight() / 2;
 
-        GuiContext context = new GuiContext(guiGraphics);
+        GuiContext context = new GuiContext(graphics);
         context.push();
-        context.translate(xPos, yPos, 2400);
-        currentToast.render(guiGraphics, partialTick);
+        context.translate(xPos, yPos);
+        currentToast.render(graphics, partialTick);
         context.pop();
     }
 
@@ -136,11 +136,11 @@ public class FancyToastManager {
     }
 
     public boolean shouldRender() {
-        return isToastActive() && !minecraft.options.hideGui;
+        return isToastActive() && !minecraft.gui.hud.isHidden();
     }
 
     public boolean isScreenOpened() {
-        return minecraft.screen != null && !(minecraft.screen instanceof ChatScreen);
+        return minecraft.gui.screen() != null && !(minecraft.gui.screen() instanceof ChatScreen);
     }
 
     public boolean shouldRenderBehind() {

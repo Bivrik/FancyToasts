@@ -258,7 +258,7 @@ public class IdentifierList extends ObjectSelectionList<IdentifierList.Entry> {
         }
 
         @Override
-        public void extractContent(@NotNull GuiGraphicsExtractor GuiGraphicsExtractor, int mouseX, int mouseY, boolean isHovering, float partialTick) {
+        public void extractContent(@NotNull GuiGraphicsExtractor graphics, int mouseX, int mouseY, boolean isHovering, float partialTick) {
             Color mainColor = Color.WHITE;
             Color secondColor = Color.LIGHT_GRAY;
 
@@ -267,7 +267,7 @@ public class IdentifierList extends ObjectSelectionList<IdentifierList.Entry> {
                 secondColor = Color.PURPLE;
             }
             else if (isHovering) {
-                var context = new GuiContext(GuiGraphicsExtractor);
+                var context = new GuiContext(graphics);
                 context.fill(x(), y(), width(), height(), Color.WHITE.withAlpha(16).getARGB());
                 context.fill(x() + 1, y() + 1, width() - 2, height() - 2, Color.BLACK.withAlpha(64).getARGB());
             }
@@ -277,15 +277,15 @@ public class IdentifierList extends ObjectSelectionList<IdentifierList.Entry> {
             FormattedCharSequence nameFirstLine = nameLines.getFirst();
 
             if (nameLines.size() == 1) {
-                GuiGraphicsExtractor.text(font, nameFirstLine, nameX, nameY, mainColor.getARGB());
+                graphics.text(font, nameFirstLine, nameX, nameY, mainColor.getARGB());
             }
             else {
-                GuiGraphicsExtractor.text(font, nameLines.get(1), nameX, nameY + 3, secondColor.getARGB());
-                GuiGraphicsExtractor.text(font, nameFirstLine, nameX, nameY - 3, mainColor.getARGB());
+                graphics.text(font, nameLines.get(1), nameX, nameY + 3, secondColor.getARGB());
+                graphics.text(font, nameFirstLine, nameX, nameY - 3, mainColor.getARGB());
             }
 
             if (isConfig) {
-                GuiGraphicsExtractor.text(font, Component.literal("c"), x() + width() - 10, nameY, Color.LIGHT_GRAY.getARGB());
+                graphics.text(font, Component.literal("c"), x() + width() - 10, nameY, Color.LIGHT_GRAY.getARGB());
             }
         }
     }

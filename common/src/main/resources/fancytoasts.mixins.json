@@ -8,7 +8,6 @@
     "AdvancementToastMixinAccessor",
     "BossHealthOverlayMixin",
     "GuiMixin",
-    "HudMixin",
     "MinecraftMixin",
     "OptionsMixin",
     "ToastManagerMixin"

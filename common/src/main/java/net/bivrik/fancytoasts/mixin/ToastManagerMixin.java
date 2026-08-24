@@ -11,8 +11,8 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
-@Mixin(value = ToastComponent.class, priority = 2000)
-public class ToastComponentMixin {
+@Mixin(value = ToastManager.class, priority = 2000)
+public class ToastManagerMixin {
     @Inject(at = @At("HEAD"), method = "addToast", cancellable = true)
     private void onAddToast(Toast toast, CallbackInfo info) {
         FancyToastManager fancyToastManager = FancyToasts.getInstance().getToastManager();

@@ -7,7 +7,7 @@ import net.bivrik.fancytoasts.core.Easing;
 import net.bivrik.fancytoasts.platform.utility.GuiContext;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
-import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.util.FormattedCharSequence;
 
 public class StandardAnimation extends FancyToastAnimation {
@@ -82,8 +82,8 @@ public class StandardAnimation extends FancyToastAnimation {
         if (TEXT_PHASE.isStarted(renderTicks)) {
             float progress = TEXT_PHASE.getProgress(renderTicks);
 
-            drawTitle(context.guiGraphics(), progress);
-            drawDescription(context.guiGraphics(), progress);
+            drawTitle(context.graphics(), progress);
+            drawDescription(context.graphics(), progress);
         }
 
         if (FADE_OUT_PHASE.isStarted(renderTicks)) {
@@ -92,7 +92,7 @@ public class StandardAnimation extends FancyToastAnimation {
     }
 
     @Override
-    protected void drawDescription(GuiGraphics guiGraphics, float alpha) {
+    protected void drawDescription(GuiGraphicsExtractor graphics, float alpha) {
         var descriptionLines = getDescriptionLines();
         if (descriptionLines.isEmpty()) {
             return;
@@ -102,10 +102,10 @@ public class StandardAnimation extends FancyToastAnimation {
         int descriptionColorARGB = getDescriptionColor(alpha).getARGB();
 
         if (descriptionLines.size() == 1) {
-            guiGraphics.drawCenteredString(this.font, descriptionLines.getFirst(), centerToastX, 42, descriptionColorARGB);
+            graphics.centeredText(this.font, descriptionLines.getFirst(), centerToastX, 42, descriptionColorARGB);
         } else {
             int lineHeight = 38;
-            guiGraphics.drawCenteredString(this.font, descriptionLines.getFirst(), centerToastX, lineHeight, descriptionColorARGB);
+            graphics.centeredText(this.font, descriptionLines.getFirst(), centerToastX, lineHeight, descriptionColorARGB);
 
             lineHeight += 9;
             FormattedCharSequence secondLine;
@@ -114,7 +114,7 @@ public class StandardAnimation extends FancyToastAnimation {
             } else {
                 secondLine = FormattedCharSequence.composite(descriptionLines.get(1), getDots(this.descriptionStyle));
             }
-            guiGraphics.drawCenteredString(this.font, secondLine, centerToastX, lineHeight, descriptionColorARGB);
+            graphics.centeredText(this.font, secondLine, centerToastX, lineHeight, descriptionColorARGB);
         }
     }
 

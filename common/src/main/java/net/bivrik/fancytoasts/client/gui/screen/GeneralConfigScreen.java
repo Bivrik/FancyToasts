@@ -103,7 +103,7 @@ public class GeneralConfigScreen extends UniversalScreen {
     }
 
     private void addOptionsList() {
-        var list = this.addFWidget(new OptionsList(this.minecraft, this.width, this.height - MARGIN * 2 - 2, MARGIN, 25, this));
+        var list = addRenderableWidget(new OptionsList(this.minecraft, this.width, this.height - MARGIN * 2 - 2, MARGIN, 25, this));
 
         if (Services.PLATFORM.isModLoaded(Constants.Compatibilities.JADE_ID)) {
             jadeHidingButton = list.addElement(createBooleanButton(JADE_HIDING, generalConfigData.isJadeHiding(),
@@ -175,7 +175,7 @@ public class GeneralConfigScreen extends UniversalScreen {
 
         layout.arrangeElements();
         layout.setPosition(this.width / 2 - layout.getWidth() / 2, this.height - BUTTON_HEIGHT - 6);
-        layout.visitWidgets(this::addFWidget);
+        layout.visitWidgets(this::addRenderableWidget);
     }
 
     private void changeToastAnchor(ToastAnchor anchor) {
@@ -217,24 +217,24 @@ public class GeneralConfigScreen extends UniversalScreen {
     }
 
     @Override
-    public void extractRenderState(@NotNull GuiGraphicsExtractor GuiGraphicsExtractor, int mouseX, int mouseY, float partialTick) {
-        super.extractRenderState(GuiGraphicsExtractor, mouseX, mouseY, partialTick);
-        drawSavedFeedback(GuiGraphicsExtractor, doneButton.getRight() + PADDING, this.height - BUTTON_HEIGHT);
-        drawPositionHints(GuiGraphicsExtractor);
+    public void extractRenderState(@NotNull GuiGraphicsExtractor graphics, int mouseX, int mouseY, float partialTick) {
+        super.extractRenderState(graphics, mouseX, mouseY, partialTick);
+        drawSavedFeedback(graphics, doneButton.getRight() + PADDING, this.height - BUTTON_HEIGHT);
+        drawPositionHints(graphics);
     }
 
-    private void drawPositionHints(GuiGraphicsExtractor GuiGraphicsExtractor) {
+    private void drawPositionHints(GuiGraphicsExtractor graphics) {
         if (offsetXEditBox == null || offsetYEditBox == null) {
             return;
         }
 
         int offsetX = 7;
         int offsetY = 5;
-        GuiGraphicsExtractor.text(this.font, "x:", offsetXEditBox.getX() - offsetX, offsetXEditBox.getY() + offsetY, Color.LIGHT_GRAY.getARGB());
-        GuiGraphicsExtractor.text(this.font, "y:", offsetYEditBox.getX() - offsetX, offsetYEditBox.getY() + offsetY, Color.LIGHT_GRAY.getARGB());
+        graphics.text(this.font, "x:", offsetXEditBox.getX() - offsetX, offsetXEditBox.getY() + offsetY, Color.LIGHT_GRAY.getARGB());
+        graphics.text(this.font, "y:", offsetYEditBox.getX() - offsetX, offsetYEditBox.getY() + offsetY, Color.LIGHT_GRAY.getARGB());
     }
 
-    private void drawSavedFeedback(GuiGraphicsExtractor GuiGraphicsExtractor, int x, int y) {
+    private void drawSavedFeedback(GuiGraphicsExtractor graphics, int x, int y) {
         if (!isSaved) {
             return;
         }
@@ -245,7 +245,7 @@ public class GeneralConfigScreen extends UniversalScreen {
 
         Color color = Color.YELLOW.withAlpha(appearanceLerp - disappearanceLerp);
 
-        GuiGraphicsExtractor.text(this.font, SAVED_LABEL, x, y, color.getARGB());
+        graphics.text(this.font, SAVED_LABEL, x, y, color.getARGB());
 
         if (time >= 1000) {
             isSaved = false;

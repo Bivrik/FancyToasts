@@ -35,11 +35,7 @@ public class ToastsFilteringScreen extends UniversalScreen {
     private static final Component SAVED_LABEL = Components.of("label.saved");
     private static final Component RESET = Components.of("gui.reset");
     private static final Component FANCY_ADVANCEMENT_TOASTS = Components.of("gui.fancy_advancement_toasts");
-    private static final Component ADVANCEMENT_TOASTS = Components.of("gui.advancement_toasts");
     private static final Component FANCY_QUEST_TOASTS = Components.of("gui.fancy_quest_toasts");
-    private static final Component RECIPE_TOASTS = Components.of("gui.recipe_toasts");
-    private static final Component SYSTEM_TOASTS = Components.of("gui.system_toasts");
-    private static final Component TUTORIAL_TOASTS = Components.of("gui.tutorial_toasts");
     private static final Component IGNORED_TOASTS = Components.of("gui.ignored_toasts");
     private static final Component TOASTS_FILTERING_TOOLTIP = Components.of("tooltip.toasts_filtering");
 
@@ -70,7 +66,7 @@ public class ToastsFilteringScreen extends UniversalScreen {
     }
 
     private void addOptionsList() {
-        var list = this.addFWidget(new OptionsList(this.minecraft, this.width, this.height - MARGIN * 2 - 2, MARGIN, 25, this));
+        var list = addRenderableWidget(new OptionsList(this.minecraft, this.width, this.height - MARGIN * 2 - 2, MARGIN, 25, this));
 
         fancyAdvancementToastsButton = list.addElement(createBooleanButton(FANCY_ADVANCEMENT_TOASTS, toastsFilteringData.isFancyAdvancementToastsEnabled(),
                 (button, value) -> toastsFilteringData.setFancyAdvancementToastsEnabled(value), 0, 0), WidgetWidthType.BIG);
@@ -95,7 +91,7 @@ public class ToastsFilteringScreen extends UniversalScreen {
 
         layout.arrangeElements();
         layout.setPosition(this.width / 2 - layout.getWidth() / 2, this.height - BUTTON_HEIGHT - 6);
-        layout.visitWidgets(this::addFWidget);
+        layout.visitWidgets(this::addRenderableWidget);
     }
 
     private void openToastsFilteringFile() {
@@ -135,12 +131,12 @@ public class ToastsFilteringScreen extends UniversalScreen {
     }
 
     @Override
-    public void extractRenderState(@NotNull GuiGraphicsExtractor GuiGraphicsExtractor, int mouseX, int mouseY, float partialTick) {
-        super.extractRenderState(GuiGraphicsExtractor, mouseX, mouseY, partialTick);
-        drawSavedFeedback(GuiGraphicsExtractor, doneButton.getRight() + PADDING, this.height - BUTTON_HEIGHT);
+    public void extractRenderState(@NotNull GuiGraphicsExtractor graphics, int mouseX, int mouseY, float partialTick) {
+        super.extractRenderState(graphics, mouseX, mouseY, partialTick);
+        drawSavedFeedback(graphics, doneButton.getRight() + PADDING, this.height - BUTTON_HEIGHT);
     }
 
-    private void drawSavedFeedback(GuiGraphicsExtractor GuiGraphicsExtractor, int x, int y) {
+    private void drawSavedFeedback(GuiGraphicsExtractor graphics, int x, int y) {
         if (!isSaved) {
             return;
         }
@@ -151,7 +147,7 @@ public class ToastsFilteringScreen extends UniversalScreen {
 
         Color color = Color.YELLOW.withAlpha(appearanceLerp - disappearanceLerp);
 
-        GuiGraphicsExtractor.text(this.font, SAVED_LABEL, x, y, color.getARGB());
+        graphics.text(this.font, SAVED_LABEL, x, y, color.getARGB());
 
         if (time >= 1000) {
             isSaved = false;

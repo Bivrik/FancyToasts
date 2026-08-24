@@ -3,7 +3,7 @@ plugins {
 }
 
 base {
-    archivesName = "${mod_id}-${project.name}-${minecraft_version}"
+    archivesName = "${mod_id}-${project.version}-${project.name}-${minecraft_version}"
 }
 
 java {
@@ -30,15 +30,17 @@ repositories {
 }
 
 jar {
+    destinationDirectory = rootProject.file('build/libs/')
+    archiveVersion = ''
+
     manifest {
-        attributes([
-                'Specification-Title'   : mod_name,
-                'Specification-Vendor'  : mod_author,
-                'Specification-Version' : project.version,
-                'Implementation-Title'  : project.name,
-                'Implementation-Version': project.version,
-                'Implementation-Vendor' : mod_author,
-                'Built-On-Minecraft'    : minecraft_version
+        attributes(['Specification-Title'   : mod_name,
+                    'Specification-Vendor'  : mod_author,
+                    'Specification-Version' : '1',
+                    'Implementation-Title'  : project.name,
+                    'Implementation-Version': project.version,
+                    'Implementation-Vendor' : mod_author,
+                    'Built-On-Minecraft'    : minecraft_version
         ])
     }
 }

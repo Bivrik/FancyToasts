@@ -99,10 +99,10 @@ public class CreditsList extends AbstractSelectionList<CreditsList.Entry> {
     public void refreshScrollAmount() {}
 
     @Override
-    protected void extractListBackground(@NotNull GuiGraphicsExtractor GuiGraphicsExtractor) {}
+    protected void extractListBackground(@NotNull GuiGraphicsExtractor graphics) {}
 
     @Override
-    protected void extractListSeparators(@NotNull GuiGraphicsExtractor GuiGraphicsExtractor) {}
+    protected void extractListSeparators(@NotNull GuiGraphicsExtractor graphics) {}
 
     @Override
     protected boolean scrollable() {
@@ -135,7 +135,7 @@ public class CreditsList extends AbstractSelectionList<CreditsList.Entry> {
         }
 
         @Override
-        public void extractContent(@NotNull GuiGraphicsExtractor GuiGraphicsExtractor, int mouseX, int mouseY, boolean isHovering, float partialTick) {}
+        public void extractContent(@NotNull GuiGraphicsExtractor graphics, int mouseX, int mouseY, boolean isHovering, float partialTick) {}
     }
 
     private static class CategoryEntry extends Entry {
@@ -150,8 +150,8 @@ public class CreditsList extends AbstractSelectionList<CreditsList.Entry> {
         }
 
         @Override
-        public void extractContent(@NotNull GuiGraphicsExtractor GuiGraphicsExtractor, int mouseX, int mouseY, boolean isHovering, float partialTick) {
-            GuiGraphicsExtractor.centeredText(font, displayName, xCenter, getY(), Color.YELLOW.getARGB());
+        public void extractContent(@NotNull GuiGraphicsExtractor graphics, int mouseX, int mouseY, boolean isHovering, float partialTick) {
+            graphics.centeredText(font, displayName, xCenter, getY(), Color.YELLOW.getARGB());
         }
     }
 
@@ -172,11 +172,11 @@ public class CreditsList extends AbstractSelectionList<CreditsList.Entry> {
         }
 
         @Override
-        public void extractContent(@NotNull GuiGraphicsExtractor GuiGraphicsExtractor, int mouseX, int mouseY, boolean isHovering, float partialTick) {
-            GuiGraphicsExtractor.text(this.font, this.content, this.getX(), this.getY(), Color.WHITE.getARGB());
+        public void extractContent(@NotNull GuiGraphicsExtractor graphics, int mouseX, int mouseY, boolean isHovering, float partialTick) {
+            graphics.text(this.font, this.content, this.getX(), this.getY(), Color.WHITE.getARGB());
 
             if (isValidAnnotation) {
-                GuiGraphicsExtractor.text(this.font, annotation, this.getX() + font.width(this.content) + 8, this.getY(), Color.LIGHT_GRAY.getARGB());
+                graphics.text(this.font, annotation, this.getX() + font.width(this.content) + 8, this.getY(), Color.LIGHT_GRAY.getARGB());
             }
         }
     }

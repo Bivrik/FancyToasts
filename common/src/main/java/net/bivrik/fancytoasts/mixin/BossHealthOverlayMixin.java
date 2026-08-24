@@ -2,7 +2,7 @@ package net.bivrik.fancytoasts.mixin;
 
 import net.bivrik.fancytoasts.FancyToasts;
 import net.bivrik.fancytoasts.core.manager.FancyToastManager;
-import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.gui.components.BossHealthOverlay;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
@@ -11,8 +11,8 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(BossHealthOverlay.class)
 public class BossHealthOverlayMixin {
-    @Inject(at = @At("HEAD"), method = "render", cancellable = true)
-    private void onRender(GuiGraphics guiGraphics, CallbackInfo info) {
+    @Inject(at = @At("HEAD"), method = "extractRenderState", cancellable = true)
+    private void onRender(GuiGraphicsExtractor graphics, CallbackInfo info) {
         FancyToastManager fancyToastManager = FancyToasts.getInstance().getToastManager();
         if (fancyToastManager == null) return;
 

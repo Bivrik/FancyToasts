@@ -106,11 +106,11 @@ public class OptionsList extends ContainerObjectSelectionList<OptionsList.Entry>
         }
 
         @Override
-        public void extractContent(@NotNull GuiGraphicsExtractor GuiGraphicsExtractor, int mouseX, int mouseY, boolean isHovering, float partialTick) {
+        public void extractContent(@NotNull GuiGraphicsExtractor graphics, int mouseX, int mouseY, boolean isHovering, float partialTick) {
             int i = 0;
             for (var widget : children) {
                 widget.setPosition(list.getRowLeft() + i, this.getContentY());
-                widget.extractRenderState(GuiGraphicsExtractor, mouseX, mouseY, partialTick);
+                widget.extractRenderState(graphics, mouseX, mouseY, partialTick);
                 i += widget.getWidth() + 10;
             }
         }

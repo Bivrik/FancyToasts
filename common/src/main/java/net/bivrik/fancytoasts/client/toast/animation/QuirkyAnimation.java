@@ -9,7 +9,7 @@ import net.bivrik.fancytoasts.core.Easing;
 import net.bivrik.fancytoasts.platform.utility.GuiContext;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
-import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.util.FormattedCharSequence;
 
 public class QuirkyAnimation extends FancyToastAnimation {
@@ -103,8 +103,8 @@ public class QuirkyAnimation extends FancyToastAnimation {
         if (TEXT_APPEARANCE.isStarted(renderTicks)) {
             float progress = TEXT_APPEARANCE.getProgress(renderTicks);
 
-            drawTitle(context.guiGraphics(), progress);
-            drawDescription(context.guiGraphics(), progress);
+            drawTitle(context.graphics(), progress);
+            drawDescription(context.graphics(), progress);
         }
 
         if (FADE_OUT_PHASE.isStarted(renderTicks)) {
@@ -115,7 +115,7 @@ public class QuirkyAnimation extends FancyToastAnimation {
     }
 
     @Override
-    protected void drawDescription(GuiGraphics guiGraphics, float alpha) {
+    protected void drawDescription(GuiGraphicsExtractor graphics, float alpha) {
         var descriptionLines = getDescriptionLines();
         if (descriptionLines.isEmpty()) {
             return;
@@ -124,13 +124,13 @@ public class QuirkyAnimation extends FancyToastAnimation {
         int centerToastX = this.toastWidth / 2;
         int descriptionColorARGB = getDescriptionColor(alpha).getARGB();
 
-        guiGraphics.drawCenteredString(this.font, descriptionLines.get(0), centerToastX, 38, descriptionColorARGB);
+        graphics.centeredText(this.font, descriptionLines.get(0), centerToastX, 38, descriptionColorARGB);
         if (descriptionLines.size() > 1) {
             FormattedCharSequence descriptionSecondLine = descriptionLines.get(1);
             if (descriptionLines.size() == 2) {
-                guiGraphics.drawCenteredString(this.font, descriptionSecondLine, centerToastX, 47, descriptionColorARGB);
+                graphics.centeredText(this.font, descriptionSecondLine, centerToastX, 47, descriptionColorARGB);
             } else {
-                guiGraphics.drawCenteredString(this.font, FormattedCharSequence.composite(descriptionSecondLine, getDots(this.descriptionStyle)), centerToastX, 47, descriptionColorARGB);
+                graphics.centeredText(this.font, FormattedCharSequence.composite(descriptionSecondLine, getDots(this.descriptionStyle)), centerToastX, 47, descriptionColorARGB);
             }
         }
     }

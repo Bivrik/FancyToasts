@@ -3,19 +3,11 @@ plugins {
     id 'net.fabricmc.fabric-loom'
 }
 
-repositories {
-    maven {
-        name = "Terraformers"
-        url = uri("https://maven.terraformersmc.com")
-    }
-}
-
 dependencies {
     minecraft "com.mojang:minecraft:${minecraft_version}"
     implementation "net.fabricmc:fabric-loader:${fabric_loader_version}"
     implementation "net.fabricmc.fabric-api:fabric-api:${fabric_version}"
-
-    implementation "com.terraformersmc:modmenu:${project.fabric_modmenu_version}"
+    implementation "maven.modrinth:modmenu:${project.fabric_modmenu_version}"
     implementation "maven.modrinth:jade:${project.fabric_jade_version}"
 }
 
@@ -43,7 +35,7 @@ loom {
 // Implement mcgradleconventions loader attribute
 def loaderAttribute = Attribute.of('io.github.mcgradleconventions.loader', String)
 ['apiElements', 'runtimeElements', 'sourcesElements', 'javadocElements', 'includeInternal', 'modCompileClasspath'].each { variant ->
-    configurations.named("$variant") {
+    configurations.named(variant) {
         attributes {
             attribute(loaderAttribute, 'fabric')
         }
@@ -51,7 +43,7 @@ def loaderAttribute = Attribute.of('io.github.mcgradleconventions.loader', Strin
 }
 sourceSets.configureEach {
     [it.compileClasspathConfigurationName, it.runtimeClasspathConfigurationName].each { variant->
-        configurations.named("$variant") {
+        configurations.named(variant) {
             attributes {
                 attribute(loaderAttribute, 'fabric')
             }

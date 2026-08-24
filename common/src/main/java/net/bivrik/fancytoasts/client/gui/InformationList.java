@@ -84,10 +84,10 @@ public class InformationList extends AbstractSelectionList<InformationList.Entry
     }
 
     @Override
-    public void extractWidgetRenderState(@NotNull GuiGraphicsExtractor GuiGraphicsExtractor, int mouseX, int mouseY, float partialTick) {
-        super.extractWidgetRenderState(GuiGraphicsExtractor, mouseX, mouseY, partialTick);
+    public void extractWidgetRenderState(@NotNull GuiGraphicsExtractor graphics, int mouseX, int mouseY, float partialTick) {
+        super.extractWidgetRenderState(graphics, mouseX, mouseY, partialTick);
 
-        GuiContext context = new GuiContext(GuiGraphicsExtractor);
+        GuiContext context = new GuiContext(graphics);
         context.drawSprite(location, this.getRight() - 8 - 3, this.getY() + 1, 8, 8);
     }
 
@@ -123,8 +123,8 @@ public class InformationList extends AbstractSelectionList<InformationList.Entry
         }
 
         @Override
-        public void extractContent(@NotNull GuiGraphicsExtractor GuiGraphicsExtractor, int mouseX, int mouseY, boolean hovering, float partialTick) {
-            GuiGraphicsExtractor.text(font, content, this.getX(), this.getY() + 3, color);
+        public void extractContent(@NotNull GuiGraphicsExtractor graphics, int mouseX, int mouseY, boolean hovering, float partialTick) {
+            graphics.text(font, content, this.getX(), this.getY() + 3, color);
         }
     }
 }

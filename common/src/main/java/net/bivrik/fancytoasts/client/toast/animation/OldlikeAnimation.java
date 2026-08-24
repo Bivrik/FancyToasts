@@ -7,7 +7,7 @@ import net.bivrik.fancytoasts.core.Easing;
 import net.bivrik.fancytoasts.platform.utility.GuiContext;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
-import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.GuiGraphicsExtractor;
 
 public class OldlikeAnimation extends FancyToastAnimation {
     private final Phase ICON_PHASE = new Phase(40, 0);
@@ -104,7 +104,7 @@ public class OldlikeAnimation extends FancyToastAnimation {
                 float x = Easing.ELASTIC_OUT.lerp(28, 0, progress);
                 context.translate(x, 0);
             }
-            drawTitle(context.guiGraphics(), progress - fadeOutTextAlpha);
+            drawTitle(context.graphics(), progress - fadeOutTextAlpha);
             context.pop();
         }
 
@@ -115,7 +115,7 @@ public class OldlikeAnimation extends FancyToastAnimation {
                 float x = Easing.ELASTIC_OUT.lerp(28, 0, progress);
                 context.translate(x, 0);
             }
-            drawDescription(context.guiGraphics(), progress - fadeOutTextAlpha);
+            drawDescription(context.graphics(), progress - fadeOutTextAlpha);
             context.pop();
         }
     }

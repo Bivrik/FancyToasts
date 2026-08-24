@@ -7,10 +7,10 @@ import net.bivrik.fancytoasts.core.Debug;
 import net.bivrik.fancytoasts.platform.utility.AdvancementDisplay;
 import net.bivrik.fancytoasts.utility.DefaultUVs;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.resources.sounds.SimpleSoundInstance;
 import net.minecraft.client.sounds.SoundManager;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 
@@ -24,14 +24,14 @@ public class FancyAdvancementToast {
     private final GeneralConfigData generalConfig;
     private final SoundManager soundManager;
     private final FancyToastAnimation animation;
-    private final ResourceLocation toastSoundId;
+    private final Identifier toastSoundId;
     private final float volume;
 
     private float timeTicks;
     private boolean isDead;
     private int playedSoundsCount;
 
-    public FancyAdvancementToast(Minecraft minecraft, GeneralConfigData generalConfig, AdvancementDisplay display, ResourceLocation soundId, ResourceLocation textureId, ResourceLocation animationId) {
+    public FancyAdvancementToast(Minecraft minecraft, GeneralConfigData generalConfig, AdvancementDisplay display, Identifier soundId, Identifier textureId, Identifier animationId) {
         this.generalConfig = generalConfig;
         this.soundManager = minecraft.getSoundManager();
 
@@ -54,7 +54,7 @@ public class FancyAdvancementToast {
         Debug.warn("{} - {}", display.getAnnouncement().getString(), display.getAnnouncement().toString());*/
     }
 
-    public void render(GuiGraphics graphics, float partialTick) {
+    public void render(GuiGraphicsExtractor graphics, float partialTick) {
         if (isDead) {
             return;
         }
@@ -102,7 +102,7 @@ public class FancyAdvancementToast {
         playedSoundsCount++;
     }
 
-    private void playSound(ResourceLocation soundLocation, float volume) {
+    private void playSound(Identifier soundLocation, float volume) {
         playSound(SoundEvent.createVariableRangeEvent(soundLocation), volume);
     }
 

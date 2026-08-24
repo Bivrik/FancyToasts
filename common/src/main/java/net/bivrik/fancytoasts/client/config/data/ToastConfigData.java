@@ -10,21 +10,21 @@ import net.bivrik.fancytoasts.client.registry.TextureRegistry;
 import net.bivrik.fancytoasts.core.Constants;
 import net.bivrik.fancytoasts.platform.utility.QuestType;
 import net.bivrik.fancytoasts.platform.utility.FancyAdvancementType;
-import net.bivrik.fancytoasts.utility.DefaultLocations;
+import net.bivrik.fancytoasts.utility.DefaultIdentifiers;
 import net.bivrik.fancytoasts.utility.file.Paths;
 import net.minecraft.client.Minecraft;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.sounds.SoundEvents;
 
 public class ToastConfigData extends ConfigData {
     private static final int VERSION = Constants.ConfigVersions.TOAST;
 
-    private ResourceLocation textureId;
-    private ResourceLocation animationId;
-    private final Map<FancyAdvancementType, ResourceLocation> soundIds = new EnumMap<>(FancyAdvancementType.class);
-    private final Map<QuestType, ResourceLocation> questSoundIds = new EnumMap<>(QuestType.class);
+    private Identifier textureId;
+    private Identifier animationId;
+    private final Map<FancyAdvancementType, Identifier> soundIds = new EnumMap<>(FancyAdvancementType.class);
+    private final Map<QuestType, Identifier> questSoundIds = new EnumMap<>(QuestType.class);
 
-    private ToastConfigData(ResourceLocation textureId, ResourceLocation animationId, Map<FancyAdvancementType, ResourceLocation> soundIds, Map<QuestType, ResourceLocation> questSoundIds) {
+    private ToastConfigData(Identifier textureId, Identifier animationId, Map<FancyAdvancementType, Identifier> soundIds, Map<QuestType, Identifier> questSoundIds) {
         super(Paths.TOAST_CONFIG_FILE);
 
         this.textureId = textureId;
@@ -34,23 +34,23 @@ public class ToastConfigData extends ConfigData {
     }
 
     public ToastConfigData() {
-        this(DefaultLocations.Textures.VANILLA, DefaultLocations.Animations.STANDARD,
+        this(DefaultIdentifiers.Textures.VANILLA, DefaultIdentifiers.Animations.STANDARD,
                 Map.of(
-                        FancyAdvancementType.TASK, SoundEvents.NOTE_BLOCK_CHIME.value().getLocation(),
-                        FancyAdvancementType.GOAL, SoundEvents.FIREWORK_ROCKET_TWINKLE_FAR.getLocation(),
-                        FancyAdvancementType.CHALLENGE, SoundEvents.UI_TOAST_CHALLENGE_COMPLETE.getLocation()),
+                        FancyAdvancementType.TASK, SoundEvents.NOTE_BLOCK_CHIME.value().location(),
+                        FancyAdvancementType.GOAL, SoundEvents.FIREWORK_ROCKET_TWINKLE_FAR.location(),
+                        FancyAdvancementType.CHALLENGE, SoundEvents.UI_TOAST_CHALLENGE_COMPLETE.location()),
                 Map.of(
-                        QuestType.TASK, SoundEvents.NOTE_BLOCK_BELL.value().getLocation(),
-                        QuestType.QUEST, SoundEvents.NOTE_BLOCK_CHIME.value().getLocation(),
-                        QuestType.CHAPTER, SoundEvents.FIREWORK_ROCKET_TWINKLE_FAR.getLocation(),
-                        QuestType.BOOK, SoundEvents.UI_TOAST_CHALLENGE_COMPLETE.getLocation())
+                        QuestType.TASK, SoundEvents.NOTE_BLOCK_BELL.value().location(),
+                        QuestType.QUEST, SoundEvents.NOTE_BLOCK_CHIME.value().location(),
+                        QuestType.CHAPTER, SoundEvents.FIREWORK_ROCKET_TWINKLE_FAR.location(),
+                        QuestType.BOOK, SoundEvents.UI_TOAST_CHALLENGE_COMPLETE.location())
         );
     }
 
-    public ResourceLocation getTextureId() {
+    public Identifier getTextureId() {
         if (isConfig(textureId)) {
             if (!TextureRegistry.isRegistered(textureId)) {
-                ResourceLocation standardTextureId = new ToastConfigData().textureId;
+                Identifier standardTextureId = new ToastConfigData().textureId;
                 setTextureId(standardTextureId);
                 ConfigHandler.save(copy());
                 return standardTextureId;
@@ -60,24 +60,24 @@ public class ToastConfigData extends ConfigData {
         return textureId;
     }
 
-    public void setTextureId(ResourceLocation id) {
+    public void setTextureId(Identifier id) {
         textureId = id;
     }
 
-    public ResourceLocation getAnimationId() {
+    public Identifier getAnimationId() {
         return animationId;
     }
 
-    public void setAnimationId(ResourceLocation id) {
+    public void setAnimationId(Identifier id) {
         animationId = id;
     }
 
-    public ResourceLocation getSoundIdByType(FancyAdvancementType type) {
+    public Identifier getSoundIdByType(FancyAdvancementType type) {
         var availableSounds = Minecraft.getInstance().getSoundManager().getAvailableSounds();
-        ResourceLocation soundId = soundIds.get(type);
+        Identifier soundId = soundIds.get(type);
 
         if (!availableSounds.contains(soundId)) {
-            ResourceLocation standardSoundId = new ToastConfigData().soundIds.get(type);
+            Identifier standardSoundId = new ToastConfigData().soundIds.get(type);
             putSoundIdForType(standardSoundId, type);
             ConfigHandler.save(copy());
             return standardSoundId;
@@ -86,16 +86,16 @@ public class ToastConfigData extends ConfigData {
         return soundIds.get(type);
     }
 
-    public void putSoundIdForType(ResourceLocation location, FancyAdvancementType type) {
+    public void putSoundIdForType(Identifier location, FancyAdvancementType type) {
         soundIds.put(type, location);
     }
 
-    public ResourceLocation getSoundIdByQuestType(QuestType type) {
+    public Identifier getSoundIdByQuestType(QuestType type) {
         var availableSounds = Minecraft.getInstance().getSoundManager().getAvailableSounds();
-        ResourceLocation soundId = questSoundIds.get(type);
+        Identifier soundId = questSoundIds.get(type);
 
         if (!availableSounds.contains(soundId)) {
-            ResourceLocation standardSoundId = new ToastConfigData().questSoundIds.get(type);
+            Identifier standardSoundId = new ToastConfigData().questSoundIds.get(type);
             putSoundIdForQuestType(standardSoundId, type);
             ConfigHandler.save(copy());
             return standardSoundId;
@@ -104,7 +104,7 @@ public class ToastConfigData extends ConfigData {
         return questSoundIds.get(type);
     }
 
-    public void putSoundIdForQuestType(ResourceLocation location, QuestType type) {
+    public void putSoundIdForQuestType(Identifier location, QuestType type) {
         questSoundIds.put(type, location);
     }
 
@@ -123,7 +123,7 @@ public class ToastConfigData extends ConfigData {
         return isValid;
     }
 
-    private boolean isConfig(ResourceLocation id) {
+    private boolean isConfig(Identifier id) {
         return id.toLanguageKey().contains(Constants.CONFIG);
     }
 

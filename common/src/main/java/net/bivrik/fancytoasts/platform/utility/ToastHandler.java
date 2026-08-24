@@ -1,7 +1,7 @@
 package net.bivrik.fancytoasts.platform.utility;
 
 import net.bivrik.fancytoasts.client.config.data.ToastConfigData;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 import net.bivrik.fancytoasts.client.config.data.ToastsFilteringData;
@@ -37,13 +37,7 @@ public record ToastHandler(ToastsFilteringData filteringData, ToastConfigData to
             return;
         }
 
-        ResourceLocation soundId = toastData.getSoundIdByType(type);
-        if (Services.AETHER_HELPER.isLoaded()) {
-            ResourceLocation aetherSoundOverrideId = Services.AETHER_HELPER.getOverrideId(advancementHolder);
-            if (aetherSoundOverrideId != null) {
-                soundId = aetherSoundOverrideId;
-            }
-        }
+        Identifier soundId = toastData.getSoundIdByType(type);
 
         AdvancementDisplay display = new AdvancementDisplay(
                 vanillaDisplay.getIcon(),

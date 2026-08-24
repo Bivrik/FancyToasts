@@ -97,11 +97,11 @@ public class PlayfulAnimation extends FancyToastAnimation {
         if (TEXT_APPEARANCE.isStarted(renderTicks)) {
             float progress = TEXT_APPEARANCE.getProgress(renderTicks);
 
-            drawTitle(context.guiGraphics(), progress);
-            drawDescription(context.guiGraphics(), progress);
+            drawTitle(context.graphics(), progress);
+            drawDescription(context.graphics(), progress);
         }
 
-        if (FADE_OUT_PHASE.isActive(renderTicks)) {
+        if (FADE_OUT_PHASE.isStarted(renderTicks)) {
             context.pop();
         }
     }

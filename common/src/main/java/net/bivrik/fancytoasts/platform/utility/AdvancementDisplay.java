@@ -3,11 +3,12 @@ package net.bivrik.fancytoasts.platform.utility;
 import net.bivrik.fancytoasts.core.Color;
 import net.bivrik.fancytoasts.core.Debug;
 import net.minecraft.network.chat.Component;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.ItemStackTemplate;
 
 public class AdvancementDisplay {
-    private final ItemStack icon;
+    private final ItemStackTemplate icon;
     private final Component title;
     private final Component description;
     private final Component announcement;
@@ -18,7 +19,7 @@ public class AdvancementDisplay {
     /**
      * Description can be {@link Component#empty()}, but title and announcement must be always filled
      */
-    public AdvancementDisplay(ItemStack icon, Component title, Component description, Component announcement, Color titleColor, Color descriptionColor, AdvancementType type) {
+    public AdvancementDisplay(ItemStackTemplate icon, Component title, Component description, Component announcement, Color titleColor, Color descriptionColor, AdvancementType type) {
         this.icon = icon;
         this.title = fixUnicode(title);
         this.description = fixUnicode(description);
@@ -43,7 +44,7 @@ public class AdvancementDisplay {
     }
 
     public ItemStack getIcon() {
-        return icon;
+        return icon.create();
     }
 
     public Component getTitle() {

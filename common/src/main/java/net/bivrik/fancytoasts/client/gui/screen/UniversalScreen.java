@@ -20,7 +20,6 @@ import java.util.function.Consumer;
 import java.util.function.Function;
 
 public abstract class UniversalScreen extends Screen {
-    private final List<Renderable> renderables = new ArrayList<>();
     protected final Screen parent;
 
     public UniversalScreen(Component title, Screen parent) {
@@ -33,41 +32,10 @@ public abstract class UniversalScreen extends Screen {
         toParentScreen();
     }
 
-    protected <T extends GuiEventListener & Renderable & NarratableEntry> T addFWidget(T widget) {
-        addFRenderable(widget);
-        return super.addWidget(widget);
-    }
-
-    protected <T extends GuiEventListener & Renderable & NarratableEntry> void removeFWidget(T widget) {
-        removeFRenderable(widget);
-        super.removeWidget(widget);
-    }
-
-    protected <T extends Renderable> T addFRenderable(T renderable) {
-        renderables.add(renderable);
-        return renderable;
-    }
-
-    protected <T extends Renderable> void removeFRenderable(T renderable) {
-        renderables.remove(renderable);
-    }
-
     @Override
-    protected void clearWidgets() {
-        renderables.clear();
-        super.clearWidgets();
-    }
-
-    @Override
-    public void extractRenderState(@NotNull GuiGraphicsExtractor GuiGraphicsExtractor, int mouseX, int mouseY, float partialTick) {
-        drawRenderables(GuiGraphicsExtractor, mouseX, mouseY, partialTick);
-        drawTitle(GuiGraphicsExtractor);
-    }
-
-    public void drawRenderables(GuiGraphicsExtractor GuiGraphicsExtractor, int mouseX, int mouseY, float partialTick) {
-        for (Renderable renderable : renderables) {
-            renderable.extractRenderState(GuiGraphicsExtractor, mouseX, mouseY, partialTick);
-        }
+    public void extractRenderState(@NotNull GuiGraphicsExtractor graphics, int mouseX, int mouseY, float partialTick) {
+        super.extractRenderState(graphics, mouseX, mouseY, partialTick);
+        drawTitle(graphics);
     }
 
     protected void toParentScreen() {
@@ -78,8 +46,8 @@ public abstract class UniversalScreen extends Screen {
         this.minecraft.gui.setScreen(screen);
     }
 
-    protected void drawTitle(GuiGraphicsExtractor GuiGraphicsExtractor) {
-        GuiGraphicsExtractor.centeredText(this.font, this.title, this.width / 2, 12, -1);
+    protected void drawTitle(GuiGraphicsExtractor graphics) {
+        graphics.centeredText(this.font, this.title, this.width / 2, 12, -1);
     }
 
     protected Button createButton(Component label, Button.OnPress action, int x, int y, int width, int height, Tooltip tooltip) {

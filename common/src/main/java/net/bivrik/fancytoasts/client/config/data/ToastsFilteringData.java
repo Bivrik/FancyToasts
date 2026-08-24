@@ -12,7 +12,7 @@ import net.bivrik.fancytoasts.core.Constants;
 import net.bivrik.fancytoasts.platform.utility.QuestType;
 import net.bivrik.fancytoasts.platform.utility.FancyAdvancementType;
 import net.bivrik.fancytoasts.utility.file.Paths;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 
 public class ToastsFilteringData extends ConfigData {
     private static final int VERSION = Constants.ConfigVersions.TOAST_FILTERING;
@@ -68,7 +68,7 @@ public class ToastsFilteringData extends ConfigData {
         return questTypesToIgnore.getOrDefault(key, false);
     }
 
-    public boolean isToastIgnored(ResourceLocation toastLocation) {
+    public boolean isToastIgnored(Identifier toastLocation) {
         String toast = toastLocation.toString();
 
         if (exactMatches.contains(toast)) {
