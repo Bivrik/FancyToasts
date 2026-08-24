@@ -5,7 +5,7 @@ import net.bivrik.fancytoasts.platform.services.IFTBQuestsHelper;
 import net.bivrik.fancytoasts.platform.utility.AdvancementDisplay;
 import net.minecraft.client.gui.components.toasts.Toast;
 
-public class NeoForgeFTBQuestsHelper implements IFTBQuestsHelper {
+public class ForgeFTBQuestsHelper implements IFTBQuestsHelper {
     @Override
     public boolean isQuest(Toast toast) {
         if (isLoaded()) {

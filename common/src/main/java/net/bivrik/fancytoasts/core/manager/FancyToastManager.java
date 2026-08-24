@@ -5,13 +5,12 @@ import net.bivrik.fancytoasts.client.config.ToastScreenBehavior;
 import net.bivrik.fancytoasts.client.config.data.GeneralConfigData;
 import net.bivrik.fancytoasts.client.config.data.ToastConfigData;
 import net.bivrik.fancytoasts.client.toast.FancyAdvancementToast;
-import net.bivrik.fancytoasts.core.Debug;
 import net.bivrik.fancytoasts.core.event.GeneralConfigDataEvent;
 import net.bivrik.fancytoasts.core.event.ToastConfigDataEvent;
 import net.bivrik.fancytoasts.platform.Services;
 import net.bivrik.fancytoasts.platform.utility.AdvancementDisplay;
 import net.bivrik.fancytoasts.platform.utility.GuiContext;
-import net.minecraft.client.DeltaTracker;
+import net.minecraft.advancements.Advancement;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.screens.ChatScreen;
@@ -50,12 +49,12 @@ public class FancyToastManager {
         toastConfigData = event.toastConfigData();
     }
 
-    public void add(AdvancementDisplay display, ResourceLocation soundId) {
+    public void add(AdvancementDisplay display, ResourceLocation soundId, Advancement advancement) {
         if (display == null) {
             return;
         }
 
-        FancyAdvancementToast toast = new FancyAdvancementToast(minecraft, generalConfigData, display,
+        FancyAdvancementToast toast = new FancyAdvancementToast(minecraft, advancement, generalConfigData, display,
                 soundId, toastConfigData.getTextureId(), toastConfigData.getAnimationId());
 
         addToast(toast);

@@ -7,12 +7,13 @@ import net.bivrik.fancytoasts.client.config.data.GeneralConfigData;
 import net.bivrik.fancytoasts.client.toast.AnimationSetup;
 import net.bivrik.fancytoasts.core.Color;
 import net.bivrik.fancytoasts.core.event.GeneralConfigDataEvent;
-import net.bivrik.fancytoasts.platform.utility.GuiContext;
+import net.bivrik.fancytoasts.platform.Services;
 import net.bivrik.fancytoasts.platform.utility.AdvancementDisplay;
+import net.bivrik.fancytoasts.platform.utility.GuiContext;
 import net.bivrik.fancytoasts.utility.FastMath;
 import net.bivrik.fancytoasts.utility.TextureUV;
 import net.bivrik.fancytoasts.utility.TypeBasedUVs;
-import net.minecraft.client.Minecraft;
+import net.minecraft.advancements.Advancement;
 import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.network.chat.Component;
@@ -48,19 +49,21 @@ public abstract class FancyToastAnimation {
     private DisplayTextType descriptionDisplayTextType;
     protected Style titleStyle;
     protected Style descriptionStyle;
+    private Advancement advancement;
 
     public FancyToastAnimation() {
         generalConfigDataEventConsumer = this::onGeneralConfigDataChanged;
         FancyToasts.EVENTS.subscribeToEvent(GeneralConfigDataEvent.class, generalConfigDataEventConsumer);
     }
 
-    public void setup(AnimationSetup setup, GeneralConfigData generalConfig, Font font, int toastWidth, int toastHeight) {
+    public void setup(AnimationSetup setup, Advancement advancement, GeneralConfigData generalConfig, Font font, int toastWidth, int toastHeight) {
         this.shouldTransparentToast = generalConfig.getToastScreenBehavior().equals(ToastScreenBehavior.TRANSPARENT);
         this.loopsStrength = generalConfig.getLoopsStrength();
         this.loopsSpeed = generalConfig.getLoopsSpeed();
         this.titleDisplayTextType = generalConfig.getTitleDisplayTextType();
         this.descriptionDisplayTextType = generalConfig.getDescriptionDisplayTextType();
 
+        this.advancement = advancement;
         this.font = font;
         this.toastWidth = toastWidth;
         this.toastHeight = toastHeight;
@@ -121,7 +124,11 @@ public abstract class FancyToastAnimation {
 
     protected final void drawIcon(GuiContext context, float alpha) {
         context.drawGUITexture(textureLocation, 68, 0, 26, 26, typeBasedUVs.frame(), getColor(alpha).getARGB());
-        context.guiGraphics().renderFakeItem(display.getIcon(), 73, 5);
+        if (Services.DAWN_ERA_HELPER.isLoaded() && advancement != null && Services.DAWN_ERA_HELPER.isCustomIcon(advancement)) {
+            Services.DAWN_ERA_HELPER.drawCustomIcon(context.guiGraphics(), advancement, 66, 0);
+        } else {
+            context.guiGraphics().renderFakeItem(display.getIcon(), 73, 5);
+        }
     }
     protected final void drawIcon(GuiContext context) {
         drawIcon(context, 1);
@@ -150,7 +157,7 @@ public abstract class FancyToastAnimation {
 
         int toastCenterX = toastWidth / 2;
         int titleColorARGB = getTitleColor(alpha).getARGB();
-        FormattedCharSequence titleLine = titleLines.getFirst();
+        FormattedCharSequence titleLine = titleLines.get(0);
 
         if (titleLines.size() == 1) {
             graphics.drawCenteredString(font, titleLine, toastCenterX, 25, titleColorARGB);

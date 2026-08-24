@@ -6,6 +6,7 @@ import net.bivrik.fancytoasts.client.toast.animation.FancyToastAnimation;
 import net.bivrik.fancytoasts.core.Debug;
 import net.bivrik.fancytoasts.platform.utility.AdvancementDisplay;
 import net.bivrik.fancytoasts.utility.DefaultUVs;
+import net.minecraft.advancements.Advancement;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.resources.sounds.SimpleSoundInstance;
@@ -31,7 +32,7 @@ public class FancyAdvancementToast {
     private boolean isDead;
     private int playedSoundsCount;
 
-    public FancyAdvancementToast(Minecraft minecraft, GeneralConfigData generalConfig, AdvancementDisplay display, ResourceLocation soundId, ResourceLocation textureId, ResourceLocation animationId) {
+    public FancyAdvancementToast(Minecraft minecraft, Advancement advancement, GeneralConfigData generalConfig, AdvancementDisplay display, ResourceLocation soundId, ResourceLocation textureId, ResourceLocation animationId) {
         this.generalConfig = generalConfig;
         this.soundManager = minecraft.getSoundManager();
 
@@ -45,7 +46,7 @@ public class FancyAdvancementToast {
         toastSoundId = soundId;
 
         AnimationSetup setup = new AnimationSetup(textureId, display, DefaultUVs.BACKGROUND, DefaultUVs.PLAQUE);
-        animation.setup(setup, generalConfig, minecraft.font, getWidth(), getHeight());
+        animation.setup(setup, advancement, generalConfig, minecraft.font, getWidth(), getHeight());
 
         Debug.info("New fancy advancement toast: {}", display.getTitle().getString());
 

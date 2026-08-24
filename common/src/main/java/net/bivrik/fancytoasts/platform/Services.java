@@ -19,12 +19,14 @@ public class Services {
             IJadeHelper.class, () -> new IJadeHelper() {},
             IFTBQuestsHelper.class, () -> new IFTBQuestsHelper() {},
             IAetherHelper.class, () -> new IAetherHelper() {},
+            IDawnEraHelper.class, () -> new IDawnEraHelper() {},
             IQuestlogHelper.class, () -> new IQuestlogHelper() {}
     );
 
     public static final IJadeHelper JADE = loadOptional(IJadeHelper.class);
     public static final IFTBQuestsHelper FTB_QUESTS = loadOptional(IFTBQuestsHelper.class);
     public static final IAetherHelper AETHER_HELPER = loadOptional(IAetherHelper.class);
+    public static final IDawnEraHelper DAWN_ERA_HELPER = loadOptional(IDawnEraHelper.class);
     public static final IQuestlogHelper QUESTLOG_HELPER = loadOptional(IQuestlogHelper.class);
 
     public static <T> T load(Class<T> clazz) {

@@ -34,7 +34,7 @@ public class AdvancementDisplay {
             for (int i = 0; i + 1 < temp.length(); i++) {
                 char c = temp.toCharArray()[i + 1];
 
-                if (c == '§') {
+                if (c == '\u00a7') {
                     return Component.literal(temp.substring(0, i));
                 }
             }

@@ -1,18 +1,13 @@
 package net.bivrik.fancytoasts.compat;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
 import dev.ftb.mods.ftblibrary.icon.Icon;
 import dev.ftb.mods.ftblibrary.icon.IconAnimation;
 import dev.ftb.mods.ftblibrary.icon.ItemIcon;
 import dev.ftb.mods.ftbquests.client.ClientQuestFile;
 import dev.ftb.mods.ftbquests.client.gui.ToastQuestObject;
+import dev.ftb.mods.ftbquests.item.FTBQuestsItems;
 import dev.ftb.mods.ftbquests.quest.Quest;
 import dev.ftb.mods.ftbquests.quest.QuestObjectBase;
-import dev.ftb.mods.ftbquests.registry.ModItems;
 import net.bivrik.fancytoasts.core.Constants;
 import net.bivrik.fancytoasts.platform.utility.*;
 import net.minecraft.client.gui.components.toasts.Toast;
@@ -20,6 +15,11 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public class FTBQuestsCompat {
     private static final ResourceLocation BOOK_ID = ResourceLocations.withNamespaceAndPath(Constants.Compatibilities.FTB_QUESTS_ID, "book");
@@ -84,7 +84,7 @@ public class FTBQuestsCompat {
         // Or just in general any other edge cases. It's better
         // to have at least something rather than nothing, I guess
         if (icons.isEmpty()) {
-            Item item = ModItems.ITEMS.getRegistrar().get(BOOK_ID);
+            Item item = FTBQuestsItems.ITEMS.getRegistrar().get(BOOK_ID);
             if (item != null) {
                 icons.add(new ItemStack(item));
             }

@@ -24,7 +24,7 @@ public class QuestDisplay extends AdvancementDisplay {
     @Override
     public ItemStack getIcon() {
         if (icons.size() == 1) {
-            return icons.getFirst();
+            return icons.get(0);
         } else if (!icons.isEmpty()) {
             return getOrderedIcon();
         }

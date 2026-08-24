@@ -5,25 +5,66 @@ plugins {
 }
 
 mixin {
-    config("${mod_id}.mixins.json")
+    add sourceSets.main, "${mod_id}.refmap.json"
+    config "${mod_id}.mixins.json"
 }
 
 jar {
+    finalizedBy 'reobfJar'
     manifest {
-        attributes["MixinConfigs"] = "${mod_id}.mixins.json"
+        attributes['MixinConfigs'] = "${mod_id}.mixins.json"
     }
 }
 
 dependencies {
     minecraft "net.minecraftforge:forge:${minecraft_version}-${forge_version}"
     annotationProcessor 'org.spongepowered:mixin:0.8.5:processor'
-
     implementation('net.sf.jopt-simple:jopt-simple:5.0.4') { version { strictly '5.0.4' } }
+
+    implementation(fg.deobf("curse.maven:jade-324717:${project.forge_jade_version}"))
+
+    // Dawn Era compatibility
+    def dawn_era_version = fg.deobf("maven.modrinth:the-dawn-era:${project.forge_dawn_era_version}")
+    compileOnly(dawn_era_version)
+    if (project.dawn_era_enable.toBoolean()) {
+        runtimeOnly(dawn_era_version)
+        runtimeOnly(fg.deobf("maven.modrinth:astemirlib:${project.forge_astemirlib_version}"))
+    }
+
+    // Aether compatibility
+    def aether_version = fg.deobf("maven.modrinth:aether:${project.forge_aether_version}")
+    compileOnly(aether_version)
+    if (project.aether_enable.toBoolean()) {
+        runtimeOnly(aether_version)
+        runtimeOnly(fg.deobf("maven.modrinth:curios:${project.forge_curios_api_version}"))
+    }
+
+    // FTB Quests compatibility
+    def ftbquests_version = fg.deobf("curse.maven:ftb-quests-forge-289412:${project.forge_ftb_quests_version}")
+    def ftblibrary_version = fg.deobf("curse.maven:ftb-library-forge-404465:${project.forge_ftb_library_version}")
+    def architectury_version = fg.deobf("curse.maven:architectury-api-419699:${project.forge_architectury_version}")
+    compileOnly(ftbquests_version)
+    compileOnly(ftblibrary_version)
+    compileOnly(architectury_version)
+    if (project.ftbquests_enable.toBoolean()) {
+        runtimeOnly(ftbquests_version)
+        runtimeOnly(ftblibrary_version)
+        runtimeOnly(architectury_version)
+        runtimeOnly(fg.deobf("curse.maven:ftb-teams-forge-404468:${project.forge_ftb_teams_version}"))
+    }
+
+    // Questlog compatibility
+    def questlog_version = "maven.modrinth:questlog:${project.forge_questlog_version}"
+    compileOnly(questlog_version)
+    if (project.questlog_enable.toBoolean()) {
+        runtimeOnly(questlog_version)
+        runtimeOnly("maven.modrinth:cloth-config:${project.forge_cloth_config_version}")
+    }
 }
 
 minecraft {
     mappings channel: 'official', version: minecraft_version
-    reobf = false // if >=1.20.6 then false, otherwise true
+    reobf = true // if >=1.20.6 then false, otherwise true
 
     copyIdeResources = true
 

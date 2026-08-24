@@ -12,6 +12,7 @@ import net.minecraft.client.gui.screens.ConfirmLinkScreen;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.network.chat.CommonComponents;
 import net.minecraft.network.chat.Component;
+import net.minecraft.resources.ResourceLocation;
 import org.jetbrains.annotations.NotNull;
 
 import java.net.URI;
@@ -23,6 +24,7 @@ import static net.bivrik.fancytoasts.client.gui.LayoutValues.*;
 public class FancyToastsScreen extends UniversalScreen {
     private static final int TITLE_BUTTON_WIDTH = 200;
     private static final int HALF_TITLE_BUTTON_WIDTH = TITLE_BUTTON_WIDTH / 2;
+    private static final ResourceLocation LINKS = ResourceLocations.of("textures/gui/links.png");
 
     private static final Component TITLE = Component.literal("Fancy Toasts");
     private static final Component TOAST_SETTINGS = Components.of("gui.toast_settings");
@@ -34,10 +36,10 @@ public class FancyToastsScreen extends UniversalScreen {
     private static final Component BOOSTY_TOOLTIP = Components.of("tooltip.boosty");
     private static final Component YOUTUBE_TOOLTIP = Components.of("tooltip.youtube");
 
-    private static final URI GITHUB_URI = URI.create("https://github.com/Bivrik");
-    private static final URI DISCORD_URI = URI.create("https://discord.gg/9XuRDgbbZe");
-    private static final URI BOOSTY_URI = URI.create("https://boosty.to/bivrik");
-    private static final URI YOUTUBE_URI = URI.create("https://www.youtube.com/@modsEnjoyer");
+    private static final String GITHUB_LINK = "https://github.com/Bivrik";
+    private static final String DISCORD_LINK = "https://discord.gg/9XuRDgbbZe";
+    private static final String BOOSTY_LINK = "https://boosty.to/bivrik";
+    private static final String YOUTUBE_LINK = "https://www.youtube.com/@modsEnjoyer";
 
     private final String splash;
 
@@ -74,27 +76,24 @@ public class FancyToastsScreen extends UniversalScreen {
         backButton = this.addFWidget(this.createButton(CommonComponents.GUI_BACK, button -> this.toParentScreen(),
                 xCenter, this.height - BUTTON_HEIGHT - 16));
 
-        List<ImageButton> linkButtons = new ArrayList<>();
+        List<LinkButton> linkButtons = new ArrayList<>();
 
-        linkButtons.add(createLinkButton("links/discord", "links/discord_hover",
-                DISCORD_URI, DISCORD_TOOLTIP));
+        linkButtons.add(createLinkButton(DISCORD_LINK, DISCORD_TOOLTIP, new UV(0, 18), new UV(18, 18)));
 
-        linkButtons.add(createLinkButton("links/boosty", "links/boosty_hover",
-                BOOSTY_URI, BOOSTY_TOOLTIP));
+        linkButtons.add(createLinkButton(BOOSTY_LINK, BOOSTY_TOOLTIP, new UV(0, 0), new UV(18, 0)));
 
-        linkButtons.add(createLinkButton("links/youtube", "links/youtube_hover",
-                YOUTUBE_URI, YOUTUBE_TOOLTIP));
+        linkButtons.add(createLinkButton(YOUTUBE_LINK, YOUTUBE_TOOLTIP, new UV(0, 36), new UV(18, 36)));
 
-        int x = toastConfigButton.getRight() + PADDING;
+        int x = toastConfigButton.getX() + toastConfigButton.getWidth() + PADDING;
         int y = toastConfigButton.getY();
-        for (ImageButton button : linkButtons) {
+        for (LinkButton button : linkButtons) {
             button.setPosition(x, y);
             addFWidget(button);
             y += button.getHeight() + 5;
         }
 
         int supportButtonWidth = this.font.width(GITHUB_LABEL);
-        Button.OnPress openGithubAction = ConfirmLinkScreen.confirmLink(this, GITHUB_URI);
+        Button.OnPress openGithubAction = ConfirmLinkScreen.confirmLink(GITHUB_LINK, this, true);
         supportButton = new PlainTextButton(this.width - supportButtonWidth - 2, this.height - 9 - 1, supportButtonWidth, 9, GITHUB_LABEL, openGithubAction, this.font);
         addFWidget(supportButton);
     }
@@ -104,12 +103,40 @@ public class FancyToastsScreen extends UniversalScreen {
         return super.createButton(label, action, x, y, TITLE_BUTTON_WIDTH, BUTTON_HEIGHT);
     }
 
-    private ImageButton createLinkButton(String icon, String iconHovered, URI link, Component tooltip) {
-        Button.OnPress action = ConfirmLinkScreen.confirmLink(this, link);
-        ImageButton button = new ImageButton(0, 0, 18, 18, new WidgetSprites(ResourceLocations.of(icon), ResourceLocations.of(iconHovered)), action);
+    private LinkButton createLinkButton(String link, Component tooltip, UV iconUv, UV iconHoveredUv) {
+        Button.OnPress action = ConfirmLinkScreen.confirmLink(link, this, true);
+        LinkButton button = new LinkButton(LINKS, action, iconUv, iconHoveredUv);
         button.setTooltip(Tooltip.create(tooltip));
         return button;
     }
+
+    private static class LinkButton extends Button {
+        private final ResourceLocation sprites;
+        private final UV iconUv;
+        private final UV iconHoveredUv;
+
+        public LinkButton(ResourceLocation sprites, OnPress onPress, UV iconUv, UV iconHoveredUv) {
+            super(0, 0, 18, 18, Component.empty(), onPress, DEFAULT_NARRATION);
+
+            this.sprites = sprites;
+            this.iconUv = iconUv;
+            this.iconHoveredUv = iconHoveredUv;
+        }
+
+        @Override
+        protected void renderWidget(@NotNull GuiGraphics guiGraphics, int mouseX, int mouseY, float partialTick) {
+            UV uv;
+            if (isHoveredOrFocused()) {
+                uv = iconHoveredUv;
+            } else {
+                uv = iconUv;
+            }
+
+            guiGraphics.blit(sprites, getX(), getY(), uv.uOffset, uv.vOffset, getWidth(), getHeight(), 64, 64);
+        }
+    }
+
+    private record UV(int uOffset, int vOffset) {}
 
     private void openToastConfigScreen() {
         this.openScreen(new ToastConfigScreen(this));

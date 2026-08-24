@@ -1,6 +1,7 @@
 package net.bivrik.fancytoasts.platform.utility;
 
 import net.bivrik.fancytoasts.client.config.data.ToastConfigData;
+import net.minecraft.advancements.Advancement;
 import net.minecraft.resources.ResourceLocation;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
@@ -8,7 +9,6 @@ import net.bivrik.fancytoasts.client.config.data.ToastsFilteringData;
 import net.bivrik.fancytoasts.client.toast.IAdvancementAccessor;
 import net.bivrik.fancytoasts.core.manager.FancyToastManager;
 import net.bivrik.fancytoasts.platform.Services;
-import net.minecraft.advancements.AdvancementHolder;
 import net.minecraft.advancements.DisplayInfo;
 import net.minecraft.client.gui.components.toasts.AdvancementToast;
 import net.minecraft.client.gui.components.toasts.Toast;
@@ -20,26 +20,26 @@ public record ToastHandler(ToastsFilteringData filteringData, ToastConfigData to
         }
         info.cancel();
 
-        AdvancementHolder advancementHolder = ((IAdvancementAccessor) advancementToast).getAdvancementHolder();
-        DisplayInfo vanillaDisplay = advancementHolder.value().display().orElse(null);
+        Advancement advancement = ((IAdvancementAccessor) advancementToast).getAdvancement();
+        DisplayInfo vanillaDisplay = advancement.getDisplay();
         if (vanillaDisplay == null) {
             return;
         }
 
         FancyAdvancementType type;
-        switch (vanillaDisplay.getType()) {
+        switch (vanillaDisplay.getFrame()) {
             case GOAL -> type = FancyAdvancementType.GOAL;
             case CHALLENGE -> type = FancyAdvancementType.CHALLENGE;
             default -> type = FancyAdvancementType.TASK;
         }
 
-        if (filteringData.isTypeIgnored(type) || filteringData.isToastIgnored(advancementHolder.id())) {
+        if (filteringData.isTypeIgnored(type) || filteringData.isToastIgnored(advancement.getId())) {
             return;
         }
 
         ResourceLocation soundId = toastData.getSoundIdByType(type);
         if (Services.AETHER_HELPER.isLoaded()) {
-            ResourceLocation aetherSoundOverrideId = Services.AETHER_HELPER.getOverrideId(advancementHolder);
+            ResourceLocation aetherSoundOverrideId = Services.AETHER_HELPER.getOverrideId(advancement);
             if (aetherSoundOverrideId != null) {
                 soundId = aetherSoundOverrideId;
             }
@@ -47,11 +47,11 @@ public record ToastHandler(ToastsFilteringData filteringData, ToastConfigData to
 
         AdvancementDisplay display = new AdvancementDisplay(
                 vanillaDisplay.getIcon(),
-                vanillaDisplay.getTitle(), vanillaDisplay.getDescription(), vanillaDisplay.getType().getDisplayName(),
+                vanillaDisplay.getTitle(), vanillaDisplay.getDescription(), vanillaDisplay.getFrame().getDisplayName(),
                 type.getTitleColor(), type.getDescriptionColor(),
                 type.getConventionalType());
 
-        fancyToastManager.add(display, soundId);
+        fancyToastManager.add(display, soundId, advancement);
     }
 
     public void handleFTBQuestsToast(Toast questToast, CallbackInfo info) {
@@ -70,7 +70,7 @@ public record ToastHandler(ToastsFilteringData filteringData, ToastConfigData to
             return;
         }
 
-        fancyToastManager.add(display, toastData.getSoundIdByQuestType(type));
+        fancyToastManager.add(display, toastData.getSoundIdByQuestType(type), null);
     }
 
     public void handleQuestlogToast(Toast questlogToast, CallbackInfo info) {
@@ -91,6 +91,6 @@ public record ToastHandler(ToastsFilteringData filteringData, ToastConfigData to
             default -> type = FancyAdvancementType.TASK;
         }
 
-        fancyToastManager.add(display, toastData.getSoundIdByType(type));
+        fancyToastManager.add(display, toastData.getSoundIdByType(type), null);
     }
 }
