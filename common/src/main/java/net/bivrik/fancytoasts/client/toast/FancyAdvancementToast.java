@@ -2,13 +2,13 @@ package net.bivrik.fancytoasts.client.toast;
 
 import net.bivrik.fancytoasts.client.config.data.GeneralConfigData;
 import net.bivrik.fancytoasts.client.registry.AnimationRegistry;
+import net.bivrik.fancytoasts.client.sound.UISoundInstance;
 import net.bivrik.fancytoasts.client.toast.animation.FancyToastAnimation;
 import net.bivrik.fancytoasts.core.Debug;
 import net.bivrik.fancytoasts.platform.utility.AdvancementDisplay;
 import net.bivrik.fancytoasts.utility.DefaultUVs;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
-import net.minecraft.client.resources.sounds.SimpleSoundInstance;
 import net.minecraft.client.sounds.SoundManager;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvent;
@@ -98,7 +98,7 @@ public class FancyAdvancementToast {
         if (pitchRandomness != 0.0f) {
             pitch = RANDOM.nextFloat(pitch - pitchRandomness, pitch + pitchRandomness);
         }
-        soundManager.play(SimpleSoundInstance.forUI(sound, pitch, volume));
+        soundManager.play(UISoundInstance.create(sound, volume, pitch));
         playedSoundsCount++;
     }
 
