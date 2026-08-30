@@ -12,7 +12,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 @Mixin(SubtitleOverlay.class)
 public class SubtitleOverlayMixin {
     @Inject(method = "onPlaySound", at = @At("HEAD"), cancellable = true)
-    private void onPlayedSound(SoundInstance sound, WeighedSoundEvents accessor, float range, CallbackInfo info) {
+    private void onPlayedSound(SoundInstance sound, WeighedSoundEvents accessor, CallbackInfo info) {
         if (sound instanceof UISoundInstance) {
             info.cancel();
         }
