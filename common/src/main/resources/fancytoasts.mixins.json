@@ -12,6 +12,7 @@
     "GuiGraphicsMixin",
     "MinecraftMixin",
     "OptionsMixin",
+    "SubtitleOverlayMixin",
     "ToastComponentMixin"
   ],
   "injectors": {
