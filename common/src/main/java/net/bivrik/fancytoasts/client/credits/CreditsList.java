@@ -1,5 +1,6 @@
 package net.bivrik.fancytoasts.client.credits;
 
+import net.bivrik.fancytoasts.client.toast.DisplayData;
 import net.bivrik.fancytoasts.core.Color;
 import net.bivrik.fancytoasts.core.Constants;
 import net.bivrik.fancytoasts.platform.utility.Components;
@@ -8,6 +9,7 @@ import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.AbstractSelectionList;
 import net.minecraft.client.gui.narration.NarrationElementOutput;
+import net.minecraft.locale.Language;
 import net.minecraft.network.chat.Component;
 import org.jetbrains.annotations.NotNull;
 import org.lwjgl.glfw.GLFW;
@@ -117,7 +119,7 @@ public class CreditsList extends AbstractSelectionList<CreditsList.Entry> {
         public Entry(CreditsList parentList, String content) {
             this.parentList = parentList;
             this.content = content;
-            this.font = this.parentList.minecraft.font;
+            this.font = parentList.minecraft.font;
         }
 
         @Override
@@ -131,7 +133,12 @@ public class CreditsList extends AbstractSelectionList<CreditsList.Entry> {
         public CategoryEntry(CreditsList parentList, String content) {
             super(parentList, content);
 
-            this.displayName = Component.translatable(Constants.MOD_ID + ".label." + this.content);
+            String translationKey = Constants.MOD_ID + ".label." + content;
+            if (Language.getInstance().has(translationKey)) {
+                this.displayName = Component.translatable(translationKey);
+            } else {
+                this.displayName = Component.literal(DisplayData.getVisualAppealingString(content));
+            }
             this.xCenter = parentList.getWidth() / 2;
         }
 
@@ -154,7 +161,7 @@ public class CreditsList extends AbstractSelectionList<CreditsList.Entry> {
         public UserEntry(CreditsList parentList, String content, String annotation) {
             super(parentList, content);
             this.annotation = annotation;
-            this.isValidAnnotation = this.annotation != null && !this.annotation.isEmpty();
+            this.isValidAnnotation = annotation != null && !annotation.isEmpty();
         }
 
         @Override
