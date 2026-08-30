@@ -10,7 +10,8 @@
     "GuiMixin",
     "MinecraftMixin",
     "OptionsMixin",
-    "ToastManagerMixin"
+    "ToastManagerMixin",
+    "SubtitleOverlayMixin"
   ],
   "server": [],
   "injectors": {

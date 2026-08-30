@@ -2,6 +2,7 @@ package net.bivrik.fancytoasts.client.toast;
 
 import net.bivrik.fancytoasts.client.config.data.GeneralConfigData;
 import net.bivrik.fancytoasts.client.registry.AnimationRegistry;
+import net.bivrik.fancytoasts.client.sound.UISoundInstance;
 import net.bivrik.fancytoasts.client.toast.animation.FancyToastAnimation;
 import net.bivrik.fancytoasts.core.Debug;
 import net.bivrik.fancytoasts.platform.utility.AdvancementDisplay;
@@ -98,7 +99,7 @@ public class FancyAdvancementToast {
         if (pitchRandomness != 0.0f) {
             pitch = RANDOM.nextFloat(pitch - pitchRandomness, pitch + pitchRandomness);
         }
-        soundManager.play(SimpleSoundInstance.forUI(sound, pitch, volume));
+        soundManager.play(UISoundInstance.create(sound, volume, pitch));
         playedSoundsCount++;
     }
 
