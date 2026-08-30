@@ -10,16 +10,15 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(Options.class)
-public class OptionsMixin {
+public abstract class OptionsMixin {
     @Mutable
     @Final
     @Shadow
     public KeyMapping[] keyMappings;
 
-    @Inject(at = @At("RETURN"), method = "load()V")
+    @Inject(at = @At("HEAD"), method = "load()V")
     private void onLoad(CallbackInfo info) {
         FancyToasts.registerKeyBindings();
-
-        this.keyMappings = KeyBindingRegistry.getExtendedKeys(this.keyMappings);
+        this.keyMappings = KeyBindingRegistry.mergeKeys(this.keyMappings);
     }
 }
