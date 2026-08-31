@@ -1,39 +1,39 @@
 # Changelog
 
 ## 1.5.1
-* Bug fixes:
-  * Fixed key bindings not saving properly, now it's 100% robust
-* Adjustments:
-  * Sounds from completing advancements are no longer shown in subtitles since it's UI
-  * Categories in credits screen now has fallback to visual appealing string, if there is no translation
+### Bug fixes:
+* Fixed key bindings not saving properly, now it's 100% robust
+### Adjustments:
+* Sounds from completing advancements are no longer shown in subtitles since it's UI
+* Categories in credits screen now has fallback to visual appealing string, if there is no translation
 > How did I mess up key bindings?! (30.08.26)
 
 ## 1.5.0
-* New features:
-  * Finer FTB Quests control (implemented by Furglitch)
-  * Better handling of title/description/announcement and icons
-  * Added ability to choose sounds for each type (only through `toast.json`)
-  * Added ability to ignore quest types (only through `toast_filtering.json`)
-  * Questlog support (suggested by FlowStudios)
-  * All quests handled like `TASK` since there are no difference in quests
-  * Sounds play as intended upon completing quest
-* Bug fixes:
-  * NeoForge crashes under mysterious occasions because of keybinds
-  * Text alpha flickering on toasts sometimes
-  * Render type Behind flickering when any screen is opened with Gnetum (found by Fyoncle)
-  * Wrong sound played during fade phase of every animation (UI_TOAST_IN -> UI_TOAST_OUT)
-* Adjustments:
-  * Changed managers system to be more robust and use less memory
-  * Animations now tick based
-  * Updated logo
-  * If description of toast display is missing, it now always shows announcement/title
-  * Removed filtering of vanilla toasts
-  * Updated Credits screen
-  * Added image link buttons in Fancy Toasts screen
-  * Clearer config logging
-  * Tweaked `Vanilla`, `Neon`, `Steamy`, and `OG` texture types
-  * Tweaked `Quirky` and `Vanilla-Like` animation types
-  * Changed archive name to `mod_id-mod_version-loader-mc_version` pattern
+### New features:
+* Finer FTB Quests control (implemented by Furglitch)
+* Better handling of title/description/announcement and icons
+* Added ability to choose sounds for each type (only through `toast.json`)
+* Added ability to ignore quest types (only through `toast_filtering.json`)
+* Questlog support (suggested by FlowStudios)
+* All quests handled like `TASK` since there are no difference in quests
+* Sounds play as intended upon completing quest
+### Bug fixes:
+* NeoForge crashes under mysterious occasions because of keybinds
+* Text alpha flickering on toasts sometimes
+* Render type Behind flickering when any screen is opened with Gnetum (found by Fyoncle)
+* Wrong sound played during fade phase of every animation (UI_TOAST_IN -> UI_TOAST_OUT)
+### Adjustments:
+* Changed managers system to be more robust and use less memory
+* Animations now tick based
+* Updated logo
+* If description of toast display is missing, it now always shows announcement/title
+* Removed filtering of vanilla toasts
+* Updated Credits screen
+* Added image link buttons in Fancy Toasts screen
+* Clearer config logging
+* Tweaked `Vanilla`, `Neon`, `Steamy`, and `OG` texture types
+* Tweaked `Quirky` and `Vanilla-Like` animation types
+* Changed archive name to `mod_id-mod_version-loader-mc_version` pattern
 > Just a lot of changes after a while (25.08.26)
 
 ### 1.4.7
