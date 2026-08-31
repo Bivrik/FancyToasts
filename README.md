@@ -20,8 +20,8 @@
 Fancy Toasts is a Minecraft mod that replaces plain, boring, and annoying advancement toasts with something new, customizable, and exciting! It was never about gameplay or mechanics, but the atmosphere.
 
 <div>
-    <img src="https://raw.githubusercontent.com/Bivrik/FancyToasts/master/.github/assets/standard_animation.gif" alt="Standard Animation showcase" width="400"/>
-    <img src="https://raw.githubusercontent.com/Bivrik/FancyToasts/master/.github/assets/playful_animation.gif" alt="Playful Animation showcase" width="400"/>
+    <img src="https://raw.githubusercontent.com/Bivrik/FancyToasts/refs/heads/master/.github/assets/standard_animtion.gif" alt="Standard animation showcase" width="400"/>
+    <img src="https://raw.githubusercontent.com/Bivrik/FancyToasts/refs/heads/master/.github/assets/quirky_animation.gif" alt="Quirky animation showcase" width="400"/>
 </div>
 
 ## Download 💾
