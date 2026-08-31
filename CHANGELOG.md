@@ -36,7 +36,7 @@
 * Changed archive name to `mod_id-mod_version-loader-mc_version` pattern
 > Just a lot of changes after a while (25.08.26)
 
-### 1.4.7
+## 1.4.7
 ### New features
 * Ability to change type of announcement for toasts instead of just hard-codded ones (title/description/announcement)
 * Aether overridden sounds compatibility (suggested by TwoBluDogs)
@@ -54,7 +54,7 @@
 * Slightly better optimization and new easing system
 > QoL changes which I should've done much faster, oops. And also new GitHub page :D (25.04.26)
 
-### 1.4.6
+## 1.4.6
 ### New features
 * Texture type `Neon`
 * Setting to hide boss bar health during an advancement (suggested by capaMEC)
@@ -69,7 +69,7 @@
 * Configs versioning system tweaked (?)
 > A Jack of all trades is master of none. Got carried away and scraped 1.5.0 update for future, duh (04.02.26)
 
-### 1.4.5.1
+## 1.4.5.1
 ### Bug fixes
 * Memory leak due to lack of unsubscribing from events (sorry)
 * FTBQuests compatibility:
@@ -83,7 +83,7 @@
 * Inverted `y` position (`50` is now `-50`), because it just makes more sense
 * New config version system (for easier migrating in the future, so configs don't reset to default when updated version)
 
-### v1.4.5
+## 1.4.5
 ### New features
 * Advancements filtering! Can be changed types of advancements, toasts and even specific advancement or whole categories to enable/disable
 * FTBQuests support! Now quests from FTBQuests can be seen on the screen in new fancy way!
@@ -113,12 +113,12 @@
 * Toast Control won't disable Fancy Toasts anymore, but they still conflict
 > I'm gonna need a rest after this... huh, a rest? (30.11.25)
 
-### v1.4.4.1
+## 1.4.4.1
 ### Bug fixes
 * Key bindings can't be changed on Forge/NeoForge
 * Render type `behind` quirks a bit
 
-### v1.4.4
+## 1.4.4
 ### New features
 * Community "Credits" screen! For everyone who supported or contributed!
 * Filtering! Easier way to find sounds, textures and animations
@@ -138,14 +138,14 @@
 * By default Render Type is set to `Transparent` instead of `Top`
 > I need to refactor it tho... Whatever, press UPDATE! (13.11.25)
 
-### v1.4.3.1
+## 1.4.3.1
 ### Bug fixes
 * Fabric version not working
 * Crash with Paladin's Furniture
 ### Adjustments
 * More robust rendering system
 
-### v1.4.3
+## 1.4.3
 ### New features
 * UI highlights. Now it's more visual appealing when selecting animation/texture/sound
 * `Modern` texture redraw!
@@ -161,7 +161,7 @@
 * ???
 > More technical update for easier maintaining (09.10.25)
 
-### v1.4.2
+## 1.4.2
 ### New features
 * Volume slider now changes by 1% instead of 10% (suggested by VaporeonScripts)
 * Ability to change toast's general position! Top left, top center or top right
@@ -173,7 +173,7 @@
 * Slight optimization when rendering toasts
 > I wanted to call it Update Nobody Asked For, but there are a lot of community suggestions, actually (28.09.25)
 
-### v1.4.1
+## 1.4.1
 ### New features
 * Complete config screen overhaul! Now there are 3 screens, which makes it more user-friendly. Also much more options, descriptions, authors, searching... just check it out!
 * Ability to change sounds! Just as quite a lot of people asked for. Now you can choose from any Minecraft built-in sounds
@@ -188,7 +188,7 @@
 * Changed config system
 > User-friendly gui screen update, baby (13.09.25)
 
-### v1.4.0
+## 1.4.0
 ### New features
 * Support for custom textures in configs! Create your own textures using simple template and json file!
 * Texture type `Steamy`
@@ -203,7 +203,7 @@
 * Changed registration system and half of the code in general
 > Yet biggest update with custom texture system (26.08.25)
 
-### v1.3.3
+## 1.3.3
 ### New features
 * Texture type `Modern`
 ### Bug fixes
@@ -213,12 +213,12 @@
 * Changed slightly code for easier version changes and multiloader support
 > Port to Fabric/Forge/NeoForge (18.08.25)
 
-### v1.3.2
+## 1.3.2
 ### Bug fixes
 * Wrong audio delaying due to pause menu
 ### Adjustments
 * Changed links
 > Bug fixes (14.08.25)
 
-### v1.3.1
+## 1.3.1
 > Initial release on Fabric (13.08.25)
