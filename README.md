@@ -20,8 +20,8 @@
 Fancy Toasts is a Minecraft mod that replaces plain, boring, and annoying advancement toasts with something new, customizable, and exciting! It was never about gameplay or mechanics, but the atmosphere.
 
 <div>
-    <img src="https://raw.githubusercontent.com/Bivrik/FancyToasts/master/.github/assets/standard_animation_showcase.gif" alt="Standard Animation showcase" width="400"/>
-    <img src="https://raw.githubusercontent.com/Bivrik/FancyToasts/master/.github/assets/playful_animation_showcase.gif" alt="Playful Animation showcase" width="400"/>
+    <img src="https://raw.githubusercontent.com/Bivrik/FancyToasts/master/.github/assets/standard_animation.gif" alt="Standard Animation showcase" width="400"/>
+    <img src="https://raw.githubusercontent.com/Bivrik/FancyToasts/master/.github/assets/playful_animation.gif" alt="Playful Animation showcase" width="400"/>
 </div>
 
 ## Download 💾
@@ -30,9 +30,9 @@ You can download it from [CurseForge](https://www.curseforge.com/minecraft/mc-mo
 
 # Features
 
-## Textures and Animations 🖼️
+## Visual settings 🖼️
 
-It adds a wide variety of textures and animations for advancement toasts, as well as some features to adjust their look to match your playstyle, vibe, and atmosphere. Currently, the mod has 32 standard toast variants:
+It has a wide variety of textures and animations, which are the main visual settings. Currently, there are 8 textures and 4 animations, which can be combined into 32 unique patterns to better match player's mood, playstyle, and vibe!
 
 ### Textures
 
@@ -40,8 +40,8 @@ It adds a wide variety of textures and animations for advancement toasts, as wel
 * Nature
 * OG
 * Modern
-* Terracraft
-* Steamy
+* Terracraft (inspired by Terraria)
+* Steamy (inspired by Steam)
 * Landspaper
 * Neon
 
@@ -77,11 +77,11 @@ I really care about players convenience. Because of that, it adds new polished m
 
 I plan to port Fancy Toasts to as many versions as possible, but not every of them would get constant updates. Therefore, currently supported versions are:
 
-| Minecraft version | Mod version |
-|-------------------|-------------|
-| Latest (26.2)     | 1.4.7       |
-| 1.21.1            | 1.4.7       |
-| 1.20.1            | 1.4.7       |
+| Minecraft version |
+|-------------------|
+| Latest (26.2)     |
+| 1.21.1            |
+| 1.20.1            |
 
 # Other
 
@@ -98,8 +98,8 @@ Developing anything is never an easy job. Therefore, if you like my mods, play w
 | Spanish               | `es_es` | `translator`         |
 | German                | `de_de` | `translator`         |
 | Portuguese            | `pt_br` | `translator`         |
-| Chinese (Simplified)  | `zh_cn` | Gao Xinyang          |
-| Chinese (Traditional) | `zh_tw` | ChaTian, Gao Xinyang |
+| Chinese (simplified)  | `zh_cn` | Gao Xinyang          |
+| Chinese (traditional) | `zh_tw` | ChaTian, Gao Xinyang |
 | Japanese              | `ja_jp` | PExPE3               |
 
 ## Plans 📜
