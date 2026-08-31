@@ -1,7 +1,7 @@
 # Changelog
 
 ## 1.5.1
-### Bug fixes
+### Fixes
 * Fixed key bindings not saving properly, now it's 100% robust
 ### Adjustments
 * Sounds from completing advancements are no longer shown in subtitles since it's UI
@@ -9,7 +9,7 @@
 > How did I mess up key bindings?! (30.08.26)
 
 ## 1.5.0
-### New features
+### Features
 * Finer FTB Quests control (implemented by Furglitch)
 * Better handling of title/description/announcement and icons
 * Added ability to choose sounds for each type (only through `toast.json`)
@@ -17,7 +17,7 @@
 * Questlog support (suggested by FlowStudios)
 * All quests handled like `TASK` since there are no difference in quests
 * Sounds play as intended upon completing quest
-### Bug fixes
+### Fixes
 * NeoForge crashes under mysterious occasions because of keybinds
 * Text alpha flickering on toasts sometimes
 * Render type Behind flickering when any screen is opened with Gnetum (found by Fyoncle)
@@ -37,11 +37,11 @@
 > Just a lot of changes after a while (25.08.26)
 
 ## 1.4.7
-### New features
+### Features
 * Ability to change type of announcement for toasts instead of just hard-codded ones (title/description/announcement)
 * Aether overridden sounds compatibility (suggested by TwoBluDogs)
 * The Dawn Era advancement icons compatibility (suggested by SundGGs)
-### Bug fixes
+### Fixes
 * Credits not being loaded due to daily cap (found by Fyoncle)
 * Dots of wrapped text is now the same color as the text
 ### Adjustments
@@ -55,12 +55,12 @@
 > QoL changes which I should've done much faster, oops. And also new GitHub page :D (25.04.26)
 
 ## 1.4.6
-### New features
+### Features
 * Texture type `Neon`
 * Setting to hide boss bar health during an advancement (suggested by capaMEC)
 * Setting to tweak pitch difference for sfx (suggested by shbashi)
 * Setting to multiply animation's speed
-### Bug fixes
+### Fixes
 * Crash on Linux and MacOS with custom textures (found by Furglitch & Fyoncle)
 * Issue with texture packs that add unicode emojis (found by Fyoncle)
 * More stable animation timings
@@ -70,7 +70,7 @@
 > A Jack of all trades is master of none. Got carried away and scraped 1.5.0 update for future, duh (04.02.26)
 
 ## 1.4.5.1
-### Bug fixes
+### Fixes
 * Memory leak due to lack of unsubscribing from events (sorry)
 * FTBQuests compatibility:
   * Quest not being rendered if there are multiple icons
@@ -84,7 +84,7 @@
 * New config version system (for easier migrating in the future, so configs don't reset to default when updated version)
 
 ## 1.4.5
-### New features
+### Features
 * Advancements filtering! Can be changed types of advancements, toasts and even specific advancement or whole categories to enable/disable
 * FTBQuests support! Now quests from FTBQuests can be seen on the screen in new fancy way!
   * Announcement text -> Quest's announcement
@@ -93,7 +93,7 @@
 * Texture type `Landspaper`
 * Toast advanced positioning. It supports anchor system with offsets relative to this anchor
 * Customizable loops. Now strength and speed of them (sin/cos waves) can be changed
-### Bug fixes
+### Fixes
 * Key bindings don't register sometimes
 * Credits' vignette offset
 * 1.21.1 and lower: tooltips not being rendered properly under toast with `transparent` setting
@@ -114,19 +114,19 @@
 > I'm gonna need a rest after this... huh, a rest? (30.11.25)
 
 ## 1.4.4.1
-### Bug fixes
+### Fixes
 * Key bindings can't be changed on Forge/NeoForge
 * Render type `behind` quirks a bit
 
 ## 1.4.4
-### New features
+### Features
 * Community "Credits" screen! For everyone who supported or contributed!
 * Filtering! Easier way to find sounds, textures and animations
 * Config button inside key-bindings! No actual need to install extra mods to access config screen (got an idea because of pupcakie)
 * Animation type `Old-Like` (suggested by Redls07)
 * Traditional Chinese language by ChaTian (`zh_tw`)
 * Portuguese language by translator (`pt_br`)
-### Bug fixes
+### Fixes
 * UI highlight is being rendered beyond selection list
 * More robust render checking, because of crash with some other mods (found by LiterallyLink)
 * Filtering not working properly
@@ -139,18 +139,18 @@
 > I need to refactor it tho... Whatever, press UPDATE! (13.11.25)
 
 ## 1.4.3.1
-### Bug fixes
+### Fixes
 * Fabric version not working
 * Crash with Paladin's Furniture
 ### Adjustments
 * More robust rendering system
 
 ## 1.4.3
-### New features
+### Features
 * UI highlights. Now it's more visual appealing when selecting animation/texture/sound
 * `Modern` texture redraw!
 * Simplified Chinese language by Gao Xinyang (`zh_cn` instead of `zh_tw`)
-### Bug fixes
+### Fixes
 * Toast becomes transparent/darken when opened chat or chat in bed
 * Custom texture loses its texture upon opening texture selection screen
 * Crash when there is no any custom texture in the folder
@@ -162,11 +162,11 @@
 > More technical update for easier maintaining (09.10.25)
 
 ## 1.4.2
-### New features
+### Features
 * Volume slider now changes by 1% instead of 10% (suggested by VaporeonScripts)
 * Ability to change toast's general position! Top left, top center or top right
 * Ability to change toast's render type when any screen is opened (chests, invetory, etc). Top, behind or transparent (suggested by guguz)
-### Bug fixes
+### Fixes
 * Doesn't show toast when installed BadOptimizations mod
 ### Adjustments
 * Toast system code overhaul, which is slightly more optimizied (I hope)
@@ -174,12 +174,12 @@
 > I wanted to call it Update Nobody Asked For, but there are a lot of community suggestions, actually (28.09.25)
 
 ## 1.4.1
-### New features
+### Features
 * Complete config screen overhaul! Now there are 3 screens, which makes it more user-friendly. Also much more options, descriptions, authors, searching... just check it out!
 * Ability to change sounds! Just as quite a lot of people asked for. Now you can choose from any Minecraft built-in sounds
 * Ability to change Jade compatibilty. As a few people suggested, were added a button to disable Jade hiding upon advancement toast showing
 * Splashes. It isn't about why. It's about why not
-### Bug fixes
+### Fixes
 * Crashes when title/description of advancement is empty. No idea why it happens... but it fixed now
 * Doesn't load custom textures
 * Sometimes text doesn't appear when toast shows
@@ -189,14 +189,14 @@
 > User-friendly gui screen update, baby (13.09.25)
 
 ## 1.4.0
-### New features
+### Features
 * Support for custom textures in configs! Create your own textures using simple template and json file!
 * Texture type `Steamy`
 * Texture type `Terracraft`
 * Animation type `Quirky`
 * Jade compatibility! Now jade display hides, when advancement is shown
 * Japanese language by PExPE3 (`ja_jp`)
-### Bug fixes
+### Fixes
 * Sometimes delyaed sound
 ### Adjustments
 * Updated configs (not the screen)
@@ -204,9 +204,9 @@
 > Yet biggest update with custom texture system (26.08.25)
 
 ## 1.3.3
-### New features
+### Features
 * Texture type `Modern`
-### Bug fixes
+### Fixes
 * NeoForge crashes when open config screen
 * Forge looses mixins after build
 ### Adjustments
@@ -214,7 +214,7 @@
 > Port to Fabric/Forge/NeoForge (18.08.25)
 
 ## 1.3.2
-### Bug fixes
+### Fixes
 * Wrong audio delaying due to pause menu
 ### Adjustments
 * Changed links
