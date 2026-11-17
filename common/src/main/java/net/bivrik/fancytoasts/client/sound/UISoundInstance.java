@@ -12,7 +12,13 @@ public class UISoundInstance extends AbstractSoundInstance {
         super(location, source, random);
         this.volume = volume;
         this.pitch = pitch;
+        this.x = 0.0;
+        this.y = 0.0;
+        this.z = 0.0;
         this.attenuation = Attenuation.NONE;
+        this.relative = true;
+        this.looping = false;
+        this.delay = 0;
     }
 
     public static UISoundInstance create(SoundEvent sound, float volume, float pitch) {
