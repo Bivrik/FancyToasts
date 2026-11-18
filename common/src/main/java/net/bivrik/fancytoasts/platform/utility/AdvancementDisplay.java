@@ -1,12 +1,20 @@
 package net.bivrik.fancytoasts.platform.utility;
 
 import net.bivrik.fancytoasts.core.Color;
-import net.bivrik.fancytoasts.core.Debug;
 import net.minecraft.network.chat.Component;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.network.chat.MutableComponent;
+import net.minecraft.network.chat.Style;
 import net.minecraft.world.item.ItemStack;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
+import java.util.regex.Pattern;
+
 public class AdvancementDisplay {
+    private static final Pattern WHITESPACE = Pattern.compile("\\s+");
+    private static final Pattern LEFTOVERS = Pattern.compile("(?:\\s|§[0-9a-fk-or])+$", Pattern.CASE_INSENSITIVE);
+
     private final ItemStack icon;
     private final Component title;
     private final Component description;
@@ -20,26 +28,54 @@ public class AdvancementDisplay {
      */
     public AdvancementDisplay(ItemStack icon, Component title, Component description, Component announcement, Color titleColor, Color descriptionColor, AdvancementType type) {
         this.icon = icon;
-        this.title = fixUnicode(title);
-        this.description = fixUnicode(description);
+        this.title = fixComponent(title);
+        this.description = fixComponent(description);
         this.announcement = announcement;
         this.titleColor = titleColor;
         this.descriptionColor = descriptionColor;
         this.type = type;
     }
 
-    private Component fixUnicode(Component message) {
-        String temp = message.getString();
-        if (temp.contains("§")) {
-            for (int i = 0; i + 1 < temp.length(); i++) {
-                char c = temp.toCharArray()[i + 1];
+    private Component fixComponent(Component text) {
+        List<Part> parts = new ArrayList<>();
 
-                if (c == '§') {
-                    return Component.literal(temp.substring(0, i));
-                }
+        text.visit((style, content) -> {
+            String formatted = removeUnsupportedCharacters(content);
+            formatted = WHITESPACE.matcher(formatted).replaceAll(" ");
+            if (!formatted.isEmpty()) {
+                parts.add(new Part(formatted, style));
+            }
+            return Optional.empty();
+        }, Style.EMPTY);
+
+        while (!parts.isEmpty()) {
+            int last = parts.size() - 1;
+            Part part = parts.get(last);
+            String stripped = LEFTOVERS.matcher(part.content()).replaceAll("");
+            if (stripped.isEmpty()) {
+                parts.remove(last);
+                continue;
+            }
+            parts.set(last, new Part(stripped, part.style()));
+            break;
+        }
+
+        MutableComponent result = Component.empty();
+        parts.forEach(part -> {
+            result.append(Component.literal(part.content()).withStyle(part.style()));
+        });
+
+        return result;
+    }
+
+    private String removeUnsupportedCharacters(String source) {
+        StringBuilder output = new StringBuilder(source.length());
+        for (char c : source.toCharArray()) {
+            if (!Character.isSurrogate(c)) {
+                output.append(c);
             }
         }
-        return message;
+        return output.toString();
     }
 
     public ItemStack getIcon() {
@@ -69,4 +105,6 @@ public class AdvancementDisplay {
     public final AdvancementType getType() {
         return type;
     }
+
+    private record Part(String content, Style style) {}
 }
