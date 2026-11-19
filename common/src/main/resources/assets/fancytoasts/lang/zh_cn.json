@@ -132,5 +132,8 @@
   "fancytoasts.toast.sound.mod.description": "来自模组的音效",
   "fancytoasts.toast.sound.resourcepack.description": "来自资源包的音效",
 
-  "key.fancytoasts.config_menu": "Fancy Toasts 设置菜单"
+  "key.fancytoasts.config_menu": "Fancy Toasts 设置菜单",
+
+  "fancytoasts.gui.animation_duration": "动画时长", // machine translation
+  "fancytoasts.tooltip.animation_duration": "表示进度通知显示时长的倍率。" // machine translation
 }

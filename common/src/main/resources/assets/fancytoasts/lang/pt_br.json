@@ -134,5 +134,8 @@
   "fancytoasts.toast.sound.mod.description": "Som de uma modificação",
   "fancytoasts.toast.sound.resourcepack.description": "Som de um resource pack",
 
-  "key.fancytoasts.config_menu": "Menu do Fancy Toasts"
+  "key.fancytoasts.config_menu": "Menu do Fancy Toasts",
+
+  "fancytoasts.gui.animation_duration": "Duração da animação",
+  "fancytoasts.tooltip.animation_duration": "Representa um multiplicador para a duração de exibição das notificações de avanço."
 }

@@ -134,5 +134,8 @@
   "fancytoasts.toast.sound.mod.description": "Modからの音", // machine translation
   "fancytoasts.toast.sound.resourcepack.description": "リソースパックからの音", // machine translation
 
-  "key.fancytoasts.config_menu": "Fancy Toastsメニュー" // machine translation
+  "key.fancytoasts.config_menu": "Fancy Toastsメニュー", // machine translation
+
+  "fancytoasts.gui.animation_duration": "アニメーション時間", // machine translation
+  "fancytoasts.tooltip.animation_duration": "進捗トーストの表示時間にかける倍率を表します。" // machine translation
 }
