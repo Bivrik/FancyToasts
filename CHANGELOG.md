@@ -1,5 +1,15 @@
 # Changelog
 
+## 1.6.0
+### Features
+* Ability to change duration of toast being displayed on the screen x0.5 - x5.0 (suggested by AGOAwakened)
+### Fixes
+* Removed paragraphs incorrectly (to prevent Icons resource pack overlaps) when used with legacy text formatting (found by 7bbbbbbb)
+* Unsubtitled sounds being muffled when used with mods for physics based sound system (found by 7bbbbbbb)
+### Adjustments
+* Moved back to system based on wall-clock instead of tick based for animations, allowing finer control over timings and changing duration dynamically
+> I'm so tired, man (20.11.26)
+
 ## 1.5.1
 ### Fixes
 * Fixed key bindings not saving properly, now it's 100% robust
