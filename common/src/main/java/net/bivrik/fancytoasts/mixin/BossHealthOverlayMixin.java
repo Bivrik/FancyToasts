@@ -13,10 +13,9 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 public class BossHealthOverlayMixin {
     @Inject(at = @At("HEAD"), method = "render", cancellable = true)
     private void onRender(GuiGraphics guiGraphics, CallbackInfo info) {
-        FancyToastManager fancyToastManager = FancyToasts.getInstance().getToastManager();
-        if (fancyToastManager == null) return;
-
-        boolean shouldHide = FancyToasts.getInstance().getConfigManager().getGeneralConfigData().isBossBarHiding();
+        FancyToasts fancyToasts =  FancyToasts.getInstance();
+        FancyToastManager fancyToastManager = fancyToasts.getFancyToastManager();
+        boolean shouldHide = fancyToasts.getConfigManager().getGeneralConfigData().isBossBarHiding();
         if (fancyToastManager.shouldRender() && shouldHide) {
             info.cancel();
         }

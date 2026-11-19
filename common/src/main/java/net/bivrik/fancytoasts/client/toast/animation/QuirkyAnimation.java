@@ -12,13 +12,13 @@ import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.util.FormattedCharSequence;
 
 public class QuirkyAnimation extends FancyToastAnimation {
-    private final Phase ICON_APPEARANCE = new Phase(40, 0);
-    private final Phase ICON_SCALE = new Phase(70, 0);
-    private final Phase BANNER_APPEARANCE = new Phase(18, 24);
-    private final Phase BACKGROUND_APPEARANCE = new Phase(20, 20);
-    private final Phase TEXT_APPEARANCE = new Phase(20, 36);
+    private final Phase ICON_APPEARANCE = new Phase(2000, 0);
+    private final Phase ICON_SCALE = new Phase(3500, 0);
+    private final Phase BANNER_APPEARANCE = new Phase(900, 1200);
+    private final Phase BACKGROUND_APPEARANCE = new Phase(1000, 1000);
+    private final Phase TEXT_APPEARANCE = new Phase(1000, 1800);
 
-    private final int FADE_OUT_DURATION = 30;
+    private final int FADE_OUT_DURATION = 1500;
     private Phase FADE_OUT_PHASE;
 
     private float randomRotation;
@@ -34,19 +34,19 @@ public class QuirkyAnimation extends FancyToastAnimation {
     }
 
     @Override
-    public void render(GuiContext context, float renderTicks) {
+    public void render(GuiContext context, float lifetimeMs) {
         context.push();
 
-        float globalSinX = sinLoop(renderTicks, 1.0f, 7.0f);
-        float globalSinY = sinLoop(renderTicks, 2.0f, 5.0f);
+        float globalSinX = sinLoop(lifetimeMs, 1.0f, 7.0f);
+        float globalSinY = sinLoop(lifetimeMs, 2.0f, 5.0f);
         context.translate(globalSinX, globalSinY - 20);
 
-        if (FADE_OUT_PHASE.isStarted(renderTicks)) {
+        if (FADE_OUT_PHASE.isStarted(lifetimeMs)) {
             int toastCenterX = this.toastWidth / 2;
             int toastCenterY = this.toastHeight / 2;
             context.push();
 
-            float progress = Phase.getProgress(renderTicks, FADE_OUT_DURATION, getDuration() - FADE_OUT_DURATION);
+            float progress = Phase.getProgress(lifetimeMs, FADE_OUT_DURATION, getDuration() - FADE_OUT_DURATION);
 
             float fadeOutScaleX = Easing.OCT_EASE_IN.lerp(1.0f, 0, progress);
             context.scaleAround(fadeOutScaleX, toastCenterX, toastCenterY);
@@ -55,11 +55,11 @@ public class QuirkyAnimation extends FancyToastAnimation {
             context.rotateAround(fadeOutRotation, toastCenterX, toastCenterY);
         }
 
-        if (BANNER_APPEARANCE.isStarted(renderTicks)) {
+        if (BANNER_APPEARANCE.isStarted(lifetimeMs)) {
             context.push();
             float y = 58;
-            if (BANNER_APPEARANCE.isActive(renderTicks)) {
-                float progress = BANNER_APPEARANCE.getProgress(renderTicks);
+            if (BANNER_APPEARANCE.isActive(lifetimeMs)) {
+                float progress = BANNER_APPEARANCE.getProgress(lifetimeMs);
 
                 y = Easing.OCT_EASE_OUT.lerp(10.0f, 58.0f, progress);
             }
@@ -68,10 +68,10 @@ public class QuirkyAnimation extends FancyToastAnimation {
             context.pop();
         }
 
-        if (BACKGROUND_APPEARANCE.isStarted(renderTicks)) {
+        if (BACKGROUND_APPEARANCE.isStarted(lifetimeMs)) {
             context.push();
-            if (BACKGROUND_APPEARANCE.isActive(renderTicks)) {
-                float progress = BACKGROUND_APPEARANCE.getProgress(renderTicks);
+            if (BACKGROUND_APPEARANCE.isActive(lifetimeMs)) {
+                float progress = BACKGROUND_APPEARANCE.getProgress(lifetimeMs);
 
                 float y = Easing.OCT_EASE_OUT.lerp(-95.0f, 0, progress);
                 context.translate(0, y);
@@ -80,34 +80,34 @@ public class QuirkyAnimation extends FancyToastAnimation {
             context.pop();
         }
 
-        if (ICON_APPEARANCE.isStarted(renderTicks)) {
+        if (ICON_APPEARANCE.isStarted(lifetimeMs)) {
             context.push();
             float posY = 55;
-            if (ICON_APPEARANCE.isActive(renderTicks)) {
-                float progress = ICON_APPEARANCE.getProgress(renderTicks);
+            if (ICON_APPEARANCE.isActive(lifetimeMs)) {
+                float progress = ICON_APPEARANCE.getProgress(lifetimeMs);
 
                 posY = Easing.OCT_EASE_OUT.lerp(-95.0f, 55.0f, progress);
             }
-            if (ICON_SCALE.isStarted(renderTicks) && ICON_SCALE.isActive(renderTicks)) {
-                float progress = ICON_SCALE.getProgress(renderTicks);
+            if (ICON_SCALE.isStarted(lifetimeMs) && ICON_SCALE.isActive(lifetimeMs)) {
+                float progress = ICON_SCALE.getProgress(lifetimeMs);
 
                 float scale = Easing.OCT_EASE_OUT.lerp(3.0f, 1.0f, progress);
                 context.scaleAround(scale, 68 + 13, 17);
             }
-            float sinY = sinLoop(renderTicks, 2.0F, -1.2F);
+            float sinY = sinLoop(lifetimeMs, 2.0F, -1.2F);
             context.translate(0, sinY + posY);
             drawIcon(context);
             context.pop();
         }
 
-        if (TEXT_APPEARANCE.isStarted(renderTicks)) {
-            float progress = TEXT_APPEARANCE.getProgress(renderTicks);
+        if (TEXT_APPEARANCE.isStarted(lifetimeMs)) {
+            float progress = TEXT_APPEARANCE.getProgress(lifetimeMs);
 
             drawTitle(context.guiGraphics(), progress);
             drawDescription(context.guiGraphics(), progress);
         }
 
-        if (FADE_OUT_PHASE.isStarted(renderTicks)) {
+        if (FADE_OUT_PHASE.isStarted(lifetimeMs)) {
             context.pop();
         }
 
@@ -137,11 +137,12 @@ public class QuirkyAnimation extends FancyToastAnimation {
 
     @Override
     public int getAnimationDuration() {
-        return 130 + FADE_OUT_DURATION;
+        return 6500 + FADE_OUT_DURATION;
     }
 
     @Override
     public int getToastSoundTiming() {
-        return TEXT_APPEARANCE.startTicks() + 3;
+        return TEXT_APPEARANCE.startTimeMs() + 150
+                ;
     }
 }

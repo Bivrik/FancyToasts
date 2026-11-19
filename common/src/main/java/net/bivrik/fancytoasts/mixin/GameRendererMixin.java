@@ -27,12 +27,16 @@ public class GameRendererMixin {
     private void beforeGuiRender(DeltaTracker deltaTracker, boolean renderLevel, CallbackInfo info,
                                  boolean isGameFinishedLoading, int mouseX, int mouseY, Window window,
                                  Matrix4f matrix, Matrix4fStack stack, GuiGraphics graphics) {
-        FancyToastManager fancyToastManager = FancyToasts.getInstance().getToastManager();
-        if (fancyToastManager == null) return;
+        FancyToasts fancyToasts = FancyToasts.getInstance();
 
-        if (fancyToastManager.shouldRenderBehind()) {
-            float partialTick = deltaTracker.getGameTimeDeltaPartialTick(false);
-            fancyToastManager.render(graphics, partialTick);
+        if (!fancyToasts.isMinecraftFinishedLoading()) {
+            return;
+        }
+
+        FancyToastManager toastManager = fancyToasts.getFancyToastManager();
+        if (toastManager.shouldRenderBehind()) {
+            toastManager.update();
+            toastManager.render(graphics);
         }
     }
 
@@ -44,15 +48,19 @@ public class GameRendererMixin {
             ),
             locals = LocalCapture.CAPTURE_FAILSOFT
     )
-    private void afterRender(DeltaTracker deltaTracker, boolean renderLevel, CallbackInfo info,
-                             boolean isGameFinishedLoading, int mouseX, int mouseY, Window window,
-                             Matrix4f matrix, Matrix4fStack stack, GuiGraphics graphics) {
-        FancyToastManager fancyToastManager = FancyToasts.getInstance().getToastManager();
-        if (fancyToastManager == null) return;
+    private void afterGuiRender(DeltaTracker deltaTracker, boolean renderLevel, CallbackInfo info,
+                                boolean isGameFinishedLoading, int mouseX, int mouseY, Window window,
+                                Matrix4f matrix, Matrix4fStack stack, GuiGraphics graphics) {
+        FancyToasts fancyToasts = FancyToasts.getInstance();
 
-        if (!fancyToastManager.shouldRenderBehind()) {
-            float partialTick = deltaTracker.getGameTimeDeltaPartialTick(false);
-            fancyToastManager.render(graphics, partialTick);
+        if (!fancyToasts.isMinecraftFinishedLoading()) {
+            return;
+        }
+
+        FancyToastManager toastManager = fancyToasts.getFancyToastManager();
+        if (!toastManager.shouldRenderBehind()) {
+            toastManager.update();
+            toastManager.render(graphics);
         }
     }
 }

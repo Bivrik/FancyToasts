@@ -7,6 +7,7 @@ import net.bivrik.fancytoasts.client.toast.animation.FancyToastAnimation;
 import net.bivrik.fancytoasts.core.Debug;
 import net.bivrik.fancytoasts.platform.utility.AdvancementDisplay;
 import net.bivrik.fancytoasts.utility.DefaultUVs;
+import net.minecraft.Util;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.sounds.SoundManager;
@@ -27,7 +28,8 @@ public class FancyAdvancementToast {
     private final ResourceLocation toastSoundId;
     private final float volume;
 
-    private float timeTicks;
+    private float lifetimeMs;
+    private long lastFrameTimeMs;
     private boolean isDead;
     private int playedSoundsCount;
 
@@ -50,42 +52,53 @@ public class FancyAdvancementToast {
         Debug.info("New fancy advancement toast: {}", display.getTitle().getString());
     }
 
-    public void render(GuiGraphics graphics, float partialTick) {
+    public void update() {
         if (isDead) {
             return;
         }
 
-        animation.renderWithTransparency(graphics, timeTicks, partialTick);
+        updateLifetime();
+
+        if (generalConfig.areSoundsEnabled()) {
+            switch (playedSoundsCount) {
+                case 0 -> playSound(SoundEvents.UI_TOAST_IN, 1.74f);
+                case 1 -> {
+                    if (lifetimeMs >= animation.getToastSoundTiming()) {
+                        playSound(toastSoundId, volume);
+                    }
+                }
+                case 2 -> {
+                    if (lifetimeMs >= Math.max(animation.getDuration() - 500, 500)) {
+                        playSound(SoundEvents.UI_TOAST_OUT, 1.74f);
+                    }
+                }
+            }
+        }
     }
 
-    public void tick() {
+    private void updateLifetime() {
+        long currentTimeMs = Util.getMillis();
+        if (lastFrameTimeMs == 0) {
+            lastFrameTimeMs = currentTimeMs;
+        }
+
+        long deltaMs = currentTimeMs - lastFrameTimeMs;
+        lastFrameTimeMs = currentTimeMs;
+
+        lifetimeMs += deltaMs * generalConfig.getAnimationSpeed();
+
+        if (lifetimeMs > animation.getDuration()) {
+            animation.unsubscribeFromGeneralConfigDataEvent();
+            isDead = true;
+        }
+    }
+
+    public void render(GuiGraphics graphics) {
         if (isDead) {
             return;
         }
 
-        if ((timeTicks += generalConfig.getAnimationSpeed()) > animation.getDuration()) {
-            animation.unsubscribeFromGeneralConfigDataEvent();
-            isDead = true;
-            return;
-        }
-
-        if (!generalConfig.areSoundsEnabled()) {
-            return;
-        }
-
-        switch (playedSoundsCount) {
-            case 0 -> playSound(SoundEvents.UI_TOAST_IN, 1.74f);
-            case 1 -> {
-                if (timeTicks >= animation.getToastSoundTiming()) {
-                    playSound(toastSoundId, volume);
-                }
-            }
-            case 2 -> {
-                if (timeTicks >= Math.max(animation.getDuration() - 10, 10)) {
-                    playSound(SoundEvents.UI_TOAST_OUT, 1.74f);
-                }
-            }
-        }
+        animation.renderWithTransparency(graphics, lifetimeMs);
     }
 
     private void playSound(SoundEvent sound, float volume) {

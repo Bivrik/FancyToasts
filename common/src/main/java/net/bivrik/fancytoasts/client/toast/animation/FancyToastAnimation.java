@@ -20,7 +20,6 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.FormattedCharSequence;
 
 import java.util.List;
-import java.util.Objects;
 import java.util.function.Consumer;
 
 public abstract class FancyToastAnimation {
@@ -109,15 +108,15 @@ public abstract class FancyToastAnimation {
         return descriptionLines;
     }
 
-    public final void renderWithTransparency(GuiGraphics graphics, float timeTicks, float partialTicks) {
-        if (shouldTransparentToast && Objects.requireNonNull(FancyToasts.getInstance().getToastManager()).isScreenOpened()) {
+    public final void renderWithTransparency(GuiGraphics graphics, float lifetimeMs) {
+        if (shouldTransparentToast && FancyToasts.getInstance().getFancyToastManager().isScreenOpened()) {
             guiAlpha = 0.5f;
         }
         else if (guiAlpha != 1.0f) {
             guiAlpha = 1.0f;
         }
 
-        render(new GuiContext(graphics), timeTicks + partialTicks);
+        render(new GuiContext(graphics), lifetimeMs);
     }
 
     protected final void drawIcon(GuiContext context, float alpha) {
@@ -187,17 +186,17 @@ public abstract class FancyToastAnimation {
     }
 
     /**
-     * Some weird transformation value I don't remember why, but it gets the job done I guess. 1/16 of tick time.
+     * Some weird transformation value I don't remember why, but it gets the job done I guess.
      */
-    private final static float TIME_SCALE = 0.0625f;
+    private final static float TIME_SCALE = 0.00125f;
 
-    protected final float sinLoop(float time, float speed, float strength) {
-        float scaledTime = time * TIME_SCALE;
+    protected final float sinLoop(float timeMs, float speed, float strength) {
+        float scaledTime = timeMs * TIME_SCALE;
         return (float) Math.sin(scaledTime * speed * loopsSpeed) * strength * loopsStrength;
     }
 
-    protected final float cosLoop(float time, float speed, float strength) {
-        float scaledTime = time * TIME_SCALE;
+    protected final float cosLoop(float timeMs, float speed, float strength) {
+        float scaledTime = timeMs * TIME_SCALE;
         return (float) Math.cos(scaledTime * speed * loopsSpeed) * strength * loopsStrength;
     }
 
@@ -213,7 +212,7 @@ public abstract class FancyToastAnimation {
         return FastMath.clamp(alpha, 0.04f, 1.0f);
     }
 
-    protected abstract void render(GuiContext context, float renderTicks);
+    protected abstract void render(GuiContext context, float lifetimeMs);
 
     protected abstract int getAnimationDuration();
 

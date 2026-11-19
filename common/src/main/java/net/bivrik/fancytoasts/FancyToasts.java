@@ -17,7 +17,6 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.toasts.ToastComponent;
 import net.minecraft.resources.ResourceLocation;
-import org.jetbrains.annotations.Nullable;
 import org.lwjgl.glfw.GLFW;
 
 import java.util.function.Supplier;
@@ -34,6 +33,7 @@ public final class FancyToasts {
     private KeyBindingManager keyBindingManager;
     private SplashManager splashManager;
     private FancyToastManager fancyToastManager;
+    private boolean isMinecraftFinishedLoading;
 
     /**
      * Only uses in specific cases, when there is no way of DI, like mixins or screens.
@@ -58,11 +58,12 @@ public final class FancyToasts {
         keyBindingManager = new KeyBindingManager();
         splashManager = new SplashManager(minecraft);
         fancyToastManager = new FancyToastManager(minecraft, customTextureManager, configManager);
+
+        isMinecraftFinishedLoading = true;
     }
 
     public void onTick() {
         keyBindingManager.tick();
-        fancyToastManager.tick();
     }
 
     public ConfigManager getConfigManager() {
@@ -86,14 +87,18 @@ public final class FancyToasts {
     }
 
     /**
-     * Some mods trigger Minecraft's ToastManager {@link ToastComponent#render(GuiGraphics)} on Minecraft initialization. Therefore, it can return null during this phase, and to avoid immediate crash, always check for null.
+     * Some mods trigger Minecraft's ToastManager {@link ToastComponent#render(GuiGraphics)} on Minecraft initialization. Therefore, it can return null during this phase, and to avoid immediate crash, always check if Minecraft is finished loading through {@link #isMinecraftFinishedLoading()}
      * @return {@link FancyToastManager}
      */
-    public @Nullable FancyToastManager getToastManager() {
+    public FancyToastManager getFancyToastManager() {
         if (fancyToastManager == null) {
             Debug.warn("You cannot access ToastManager, it is null");
         }
         return fancyToastManager;
+    }
+
+    public boolean isMinecraftFinishedLoading() {
+        return isMinecraftFinishedLoading;
     }
 
     public static void registerKeyBindings() {

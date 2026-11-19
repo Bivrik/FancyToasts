@@ -13,8 +13,6 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Redirect;
 
-import java.util.Objects;
-
 @Mixin(GuiGraphics.class)
 public class GuiGraphicsMixin {
     @Redirect(
@@ -25,7 +23,7 @@ public class GuiGraphicsMixin {
             )
     )
     private void redirectRenderText(ClientTooltipComponent instance, Font font, int x, int y, Matrix4f matrix, MultiBufferSource.BufferSource bufferSource) {
-        if (Objects.requireNonNull(FancyToasts.getInstance().getToastManager()).isToastActive()) {
+        if (FancyToasts.getInstance().getFancyToastManager().isShowingToast()) {
             if (instance instanceof ClientTextTooltip clientTextTooltip) {
                 GuiGraphics guiGraphics = (GuiGraphics) (Object) this;
                 FormattedCharSequence text = ((IClientTextTooltipAccessor) clientTextTooltip).getText();

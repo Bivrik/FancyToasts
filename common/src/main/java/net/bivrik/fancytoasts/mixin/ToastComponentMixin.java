@@ -15,16 +15,19 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 public class ToastComponentMixin {
     @Inject(at = @At("HEAD"), method = "addToast", cancellable = true)
     private void onAddToast(Toast toast, CallbackInfo info) {
-        FancyToastManager fancyToastManager = FancyToasts.getInstance().getToastManager();
-        if (fancyToastManager == null) return;
+        FancyToasts fancyToasts = FancyToasts.getInstance();
+        if (!fancyToasts.isMinecraftFinishedLoading()) {
+            return;
+        }
 
-        ConfigManager configManager = FancyToasts.getInstance().getConfigManager();
-        ToastHandler toastHandler = new ToastHandler(configManager.getToastsFilteringData(), configManager.getToastConfigData(), fancyToastManager);
+        ConfigManager configManager = fancyToasts.getConfigManager();
+        FancyToastManager toastManager = fancyToasts.getFancyToastManager();
+
+        ToastHandler toastHandler = new ToastHandler(configManager.getToastsFilteringData(), configManager.getToastConfigData(), toastManager);
 
         if (toast instanceof AdvancementToast advancementToast) {
             toastHandler.handleAdvancementToast(advancementToast, info);
-        }
-        else if (Services.FTB_QUESTS.isQuest(toast)) {
+        } else if (Services.FTB_QUESTS.isQuest(toast)) {
             toastHandler.handleFTBQuestsToast(toast, info);
         } else if (Services.QUESTLOG_HELPER.isQuest(toast)) {
             toastHandler.handleQuestlogToast(toast, info);
@@ -33,9 +36,12 @@ public class ToastComponentMixin {
 
     @Inject(at = @At("HEAD"), method = "clear")
     private void onClear(CallbackInfo info) {
-        FancyToastManager fancyToastManager = FancyToasts.getInstance().getToastManager();
-        if (fancyToastManager == null) return;
+        FancyToasts fancyToasts = FancyToasts.getInstance();
+        if (!fancyToasts.isMinecraftFinishedLoading()) {
+            return;
+        }
 
-        fancyToastManager.clear();
+        FancyToastManager toastManager = fancyToasts.getFancyToastManager();
+        toastManager.clear();
     }
 }

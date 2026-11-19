@@ -5,13 +5,11 @@ import net.bivrik.fancytoasts.client.config.ToastScreenBehavior;
 import net.bivrik.fancytoasts.client.config.data.GeneralConfigData;
 import net.bivrik.fancytoasts.client.config.data.ToastConfigData;
 import net.bivrik.fancytoasts.client.toast.FancyAdvancementToast;
-import net.bivrik.fancytoasts.core.Debug;
 import net.bivrik.fancytoasts.core.event.GeneralConfigDataEvent;
 import net.bivrik.fancytoasts.core.event.ToastConfigDataEvent;
 import net.bivrik.fancytoasts.platform.Services;
 import net.bivrik.fancytoasts.platform.utility.AdvancementDisplay;
 import net.bivrik.fancytoasts.platform.utility.GuiContext;
-import net.minecraft.client.DeltaTracker;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.screens.ChatScreen;
@@ -65,13 +63,13 @@ public class FancyToastManager {
         }
     }
 
-    public void tick() {
-        if (isToastActive()) {
+    public void update() {
+        if (isShowingToast()) {
             if (generalConfigData.isJadeHiding() && Services.JADE.isEnabled()) {
                 Services.JADE.tryEnable();
             }
 
-            currentToast.tick();
+            currentToast.update();
 
             if (currentToast.isDead()) {
                 removeCurrentToast();
@@ -92,7 +90,7 @@ public class FancyToastManager {
         }
     }
 
-    public void render(GuiGraphics guiGraphics, float partialTick) {
+    public void render(GuiGraphics guiGraphics) {
         if (!shouldRender()) {
             return;
         }
@@ -107,7 +105,7 @@ public class FancyToastManager {
         GuiContext context = new GuiContext(guiGraphics);
         context.push();
         context.translate(xPos, yPos, 2400);
-        currentToast.render(guiGraphics, partialTick);
+        currentToast.render(guiGraphics);
         context.pop();
     }
 
@@ -131,12 +129,12 @@ public class FancyToastManager {
         currentToast = null;
     }
 
-    public boolean isToastActive() {
+    public boolean isShowingToast() {
         return currentToast != null;
     }
 
     public boolean shouldRender() {
-        return isToastActive() && !minecraft.options.hideGui;
+        return isShowingToast() && !minecraft.options.hideGui;
     }
 
     public boolean isScreenOpened() {

@@ -2,22 +2,22 @@ package net.bivrik.fancytoasts.client.toast;
 
 import net.bivrik.fancytoasts.utility.FastMath;
 
-public record Phase(int durationTicks, int startTicks) {
-    public static float getProgress(float timeTicks, int durationTicks, int startTicks) {
-        float progress = (timeTicks - startTicks) / durationTicks;
+public record Phase(int durationMs, int startTimeMs) {
+    public static float getProgress(float timeMs, int durationMs, int startTimeMs) {
+        float progress = (timeMs - startTimeMs) / durationMs;
         return FastMath.clamp(progress, 0.0f, 1.0f);
     }
 
-    public float getProgress(float timeTicks) {
-        float progress = (timeTicks - startTicks) / durationTicks;
+    public float getProgress(float timeMs) {
+        float progress = (timeMs - startTimeMs) / durationMs;
         return FastMath.clamp(progress, 0.0f, 1.0f);
     }
 
-    public boolean isStarted(float timeTicks) {
-        return timeTicks > startTicks;
+    public boolean isStarted(float timeMs) {
+        return timeMs > startTimeMs;
     }
 
-    public boolean isActive(float timeTicks) {
-        return timeTicks <= startTicks + durationTicks;
+    public boolean isActive(float timeMs) {
+        return timeMs <= startTimeMs + durationMs;
     }
 }
