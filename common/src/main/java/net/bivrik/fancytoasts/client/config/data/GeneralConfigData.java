@@ -23,6 +23,7 @@ public class GeneralConfigData extends ConfigData {
     private float loopsSpeed;
     private float pitchRandomness;
     private float animationSpeed;
+    private float animationDuration;
     private int offsetX;
     private int offsetY;
     private ToastAnchor toastAnchor;
@@ -33,7 +34,7 @@ public class GeneralConfigData extends ConfigData {
     private GeneralConfigData(boolean isJadeHiding, boolean isBossBarHiding, boolean isAetherEnabled, boolean areSoundsEnabled,
                               float taskVolume, float goalVolume, float challengeVolume,
                               float loopsStrength, float loopsSpeed, float pitchRandomness,
-                              float animationSpeed, int offsetX, int offsetY,
+                              float animationSpeed, float animationDuration, int offsetX, int offsetY,
                               ToastAnchor toastAnchor, ToastScreenBehavior toastScreenBehavior,
                               DisplayTextType titleDisplayTextType, DisplayTextType descriptionDisplayTextType) {
         super(Paths.GENERAL_CONFIG_FILE);
@@ -49,6 +50,7 @@ public class GeneralConfigData extends ConfigData {
         this.loopsSpeed = loopsSpeed;
         this.pitchRandomness = pitchRandomness;
         this.animationSpeed = animationSpeed;
+        this.animationDuration = animationDuration;
         this.offsetX = offsetX;
         this.offsetY = offsetY;
         this.toastAnchor = toastAnchor;
@@ -60,7 +62,7 @@ public class GeneralConfigData extends ConfigData {
     public GeneralConfigData() {
         this(true, true, true, true,
                 1.0f, 1.0f, 1.0f,
-                1.0f, 1.0f, 0.05f, 1.0f,
+                1.0f, 1.0f, 0.05f, 1.0f, 1.0f,
                 ToastAnchor.TOP.getBaseOffsetX(), ToastAnchor.TOP.getBaseOffsetY(), ToastAnchor.TOP,
                 ToastScreenBehavior.TRANSPARENT, DisplayTextType.DEFAULT, DisplayTextType.DEFAULT);
     }
@@ -157,6 +159,14 @@ public class GeneralConfigData extends ConfigData {
         this.animationSpeed = animationSpeed;
     }
 
+    public float getAnimationDuration() {
+        return animationDuration;
+    }
+
+    public void setAnimationDuration(float animationDuration) {
+        this.animationDuration = animationDuration;
+    }
+
     public int getOffsetX() {
         return offsetX;
     }
@@ -214,7 +224,7 @@ public class GeneralConfigData extends ConfigData {
     public GeneralConfigData copy() {
         return new GeneralConfigData(isJadeHiding, isBossBarHiding, isAetherEnabled, areSoundsEnabled,
                 taskVolume, goalVolume, challengeVolume, loopsStrength, loopsSpeed,
-                pitchRandomness, animationSpeed, offsetX, offsetY, toastAnchor,
+                pitchRandomness, animationSpeed, animationDuration, offsetX, offsetY, toastAnchor,
                 toastScreenBehavior, titleDisplayTextType, descriptionDisplayTextType).withLatestVersion();
     }
 
@@ -222,7 +232,7 @@ public class GeneralConfigData extends ConfigData {
     public int hashCode() {
         return Objects.hash(isJadeHiding, isBossBarHiding, isAetherEnabled, areSoundsEnabled,
                 taskVolume, goalVolume, challengeVolume, loopsStrength, loopsSpeed,
-                pitchRandomness, animationSpeed, offsetX, offsetY, toastAnchor,
+                pitchRandomness, animationSpeed, animationDuration, offsetX, offsetY, toastAnchor,
                 toastScreenBehavior, titleDisplayTextType, descriptionDisplayTextType);
     }
 
@@ -240,6 +250,7 @@ public class GeneralConfigData extends ConfigData {
                 && Float.compare(loopsSpeed, that.loopsSpeed) == 0
                 && Float.compare(pitchRandomness, that.pitchRandomness) == 0
                 && Float.compare(animationSpeed, that.animationSpeed) == 0
+                && Float.compare(animationDuration, that.animationDuration) == 0
                 && offsetX == that.offsetX
                 && offsetY == that.offsetY
                 && toastAnchor == that.toastAnchor
@@ -262,6 +273,7 @@ public class GeneralConfigData extends ConfigData {
                 .append("loopsSpeed", loopsSpeed)
                 .append("pitchRandomness", pitchRandomness)
                 .append("animationSpeed", animationSpeed)
+                .append("animationDuration", animationDuration)
                 .append("offsetX", offsetX)
                 .append("offsetY", offsetY)
                 .append("toastAnchor", toastAnchor)

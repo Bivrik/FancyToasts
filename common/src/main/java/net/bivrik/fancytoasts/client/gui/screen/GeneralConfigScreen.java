@@ -50,6 +50,7 @@ public class GeneralConfigScreen extends UniversalScreen {
     private static final Component LOOPS_SPEED = Components.of("gui.loops_speed");
     private static final Component PITCH_RANDOMNESS = Components.of("gui.pitch_randomness");
     private static final Component ANIMATION_SPEED = Components.of("gui.animation_speed");
+    private static final Component ANIMATION_DURATION = Components.of("gui.animation_duration");
     private static final Component RESET = Components.of("gui.reset");
     private static final Component ANCHOR = Components.of("gui.anchor");
     private static final Component TITLE_DISPLAY_TEXT = Components.of("gui.title_display_text");
@@ -64,6 +65,7 @@ public class GeneralConfigScreen extends UniversalScreen {
     private static final Component LOOPS_SPEED_TOOLTIP = Components.of("tooltip.loops_speed");
     private static final Component PITCH_RANDOMNESS_TOOLTIP = Components.of("tooltip.pitch_randomness");
     private static final Component ANIMATION_SPEED_TOOLTIP = Components.of("tooltip.animation_speed");
+    private static final Component ANIMATION_DURATION_TOOLTIP = Components.of("tooltip.animation_duration");
 
     private final ConfigManager configManager;
     private GeneralConfigData generalConfigData;
@@ -86,6 +88,7 @@ public class GeneralConfigScreen extends UniversalScreen {
     private Slider loopsSpeedSlider;
     private Slider pitchRandomnessSlider;
     private Slider animationSpeedSlider;
+    private Slider animationDurationSlider;
     private Slider taskVolumeSlider;
     private Slider goalVolumeSlider;
     private Slider challengeVolumeSlider;
@@ -161,6 +164,9 @@ public class GeneralConfigScreen extends UniversalScreen {
 
         animationSpeedSlider = list.addElement(createSlider(ANIMATION_SPEED, generalConfigData.getAnimationSpeed(), 0.5f, 3.0f, 0.02f,
                 this::multiplierDisplayer, generalConfigData::setAnimationSpeed, 0, 0, BUTTON_WIDTH, BUTTON_HEIGHT, Tooltip.create(ANIMATION_SPEED_TOOLTIP)));
+
+        animationDurationSlider = list.addElement(createSlider(ANIMATION_DURATION, generalConfigData.getAnimationDuration(), 0.5f, 5.0f, 0.02f,
+                this::multiplierDisplayer, generalConfigData::setAnimationDuration, 0, 0, BUTTON_WIDTH, BUTTON_HEIGHT, Tooltip.create(ANIMATION_DURATION_TOOLTIP)));
 
         taskVolumeSlider = list.addElement(createSlider(TASK_VOLUME, generalConfigData.getTaskVolume(), 2.0f,
                 this::percentDisplayer, generalConfigData::setTaskVolume, 0, 0));

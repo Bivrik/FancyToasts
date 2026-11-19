@@ -12,7 +12,6 @@ import net.bivrik.fancytoasts.platform.utility.AdvancementDisplay;
 import net.bivrik.fancytoasts.utility.FastMath;
 import net.bivrik.fancytoasts.utility.TextureUV;
 import net.bivrik.fancytoasts.utility.TypeBasedUVs;
-import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.network.chat.Component;
@@ -44,6 +43,7 @@ public abstract class FancyToastAnimation {
     private boolean shouldTransparentToast;
     private float loopsStrength;
     private float loopsSpeed;
+    protected float animationDuration = 1.0f;
     private DisplayTextType titleDisplayTextType;
     private DisplayTextType descriptionDisplayTextType;
     protected Style titleStyle;
@@ -58,6 +58,7 @@ public abstract class FancyToastAnimation {
         this.shouldTransparentToast = generalConfig.getToastScreenBehavior().equals(ToastScreenBehavior.TRANSPARENT);
         this.loopsStrength = generalConfig.getLoopsStrength();
         this.loopsSpeed = generalConfig.getLoopsSpeed();
+        this.animationDuration = generalConfig.getAnimationDuration();
         this.titleDisplayTextType = generalConfig.getTitleDisplayTextType();
         this.descriptionDisplayTextType = generalConfig.getDescriptionDisplayTextType();
 
@@ -214,7 +215,11 @@ public abstract class FancyToastAnimation {
 
     protected abstract void render(GuiContext context, float renderTicks);
 
-    public abstract int getDuration();
+    protected abstract int getAnimationDuration();
+
+    public final int getDuration() {
+        return (int) (getAnimationDuration() * animationDuration);
+    }
 
     public abstract int getToastSoundTiming();
 }

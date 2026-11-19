@@ -5,9 +5,7 @@ import net.bivrik.fancytoasts.client.toast.AnimationSetup;
 import net.bivrik.fancytoasts.client.toast.Phase;
 import net.bivrik.fancytoasts.core.Easing;
 import net.bivrik.fancytoasts.platform.utility.GuiContext;
-import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
-import net.minecraft.client.gui.GuiGraphics;
 
 public class OldlikeAnimation extends FancyToastAnimation {
     private final Phase ICON_PHASE = new Phase(40, 0);
@@ -17,14 +15,14 @@ public class OldlikeAnimation extends FancyToastAnimation {
     private final Phase DESCRIPTION_TEXT_PHASE = new Phase(40, 17);
 
     private final int FADE_OUT_DURATION = 60;
-    private final int DURATION = 70 + FADE_OUT_DURATION;
-    private final Phase FADE_OUT_PHASE = new Phase(FADE_OUT_DURATION, DURATION - FADE_OUT_DURATION);
+    private Phase FADE_OUT_PHASE;
 
     @Override
     public void setup(AnimationSetup setup, GeneralConfigData generalConfig, Font font, int toastWidth, int toastHeight) {
         super.setup(setup, generalConfig, font, toastWidth, toastHeight);
 
         setLines(this.display.getAnnouncement(), this.display.getDescription());
+        FADE_OUT_PHASE = new Phase(FADE_OUT_DURATION, getDuration() - FADE_OUT_DURATION);
     }
 
     @Override
@@ -121,8 +119,8 @@ public class OldlikeAnimation extends FancyToastAnimation {
     }
 
     @Override
-    public int getDuration() {
-        return DURATION;
+    public int getAnimationDuration() {
+        return 70 + FADE_OUT_DURATION;
     }
 
     @Override

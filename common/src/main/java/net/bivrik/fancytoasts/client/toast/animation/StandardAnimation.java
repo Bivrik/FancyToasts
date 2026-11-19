@@ -5,7 +5,6 @@ import net.bivrik.fancytoasts.client.toast.AnimationSetup;
 import net.bivrik.fancytoasts.client.toast.Phase;
 import net.bivrik.fancytoasts.core.Easing;
 import net.bivrik.fancytoasts.platform.utility.GuiContext;
-import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.util.FormattedCharSequence;
@@ -17,14 +16,14 @@ public class StandardAnimation extends FancyToastAnimation {
     private final Phase TEXT_PHASE = new Phase(20, 40);
 
     private final int FADE_OUT_DURATION = 40;
-    private final int DURATION = 110 + FADE_OUT_DURATION;
-    private final Phase FADE_OUT_PHASE = new Phase(FADE_OUT_DURATION, DURATION - FADE_OUT_DURATION);
+    private Phase FADE_OUT_PHASE;
 
     @Override
     public void setup(AnimationSetup setup, GeneralConfigData generalConfig, Font font, int toastWidth, int toastHeight) {
         super.setup(setup, generalConfig, font, toastWidth, toastHeight);
 
         setLines(this.display.getAnnouncement(), this.display.getTitle());
+        FADE_OUT_PHASE = new Phase(FADE_OUT_DURATION, getDuration() - FADE_OUT_DURATION);
     }
 
     @Override
@@ -119,8 +118,8 @@ public class StandardAnimation extends FancyToastAnimation {
     }
 
     @Override
-    public int getDuration() {
-        return DURATION;
+    public int getAnimationDuration() {
+        return 110 + FADE_OUT_DURATION;
     }
 
     @Override

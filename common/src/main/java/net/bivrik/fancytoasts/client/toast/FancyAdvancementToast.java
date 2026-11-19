@@ -81,7 +81,7 @@ public class FancyAdvancementToast {
                 }
             }
             case 2 -> {
-                if (timeTicks >= animation.getDuration() - 10) {
+                if (timeTicks >= Math.max(animation.getDuration() - 10, 10)) {
                     playSound(SoundEvents.UI_TOAST_OUT, 1.74f);
                 }
             }

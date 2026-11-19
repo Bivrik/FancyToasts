@@ -7,7 +7,6 @@ import net.bivrik.fancytoasts.client.toast.AnimationSetup;
 import net.bivrik.fancytoasts.client.toast.Phase;
 import net.bivrik.fancytoasts.core.Easing;
 import net.bivrik.fancytoasts.platform.utility.GuiContext;
-import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.util.FormattedCharSequence;
@@ -20,8 +19,7 @@ public class QuirkyAnimation extends FancyToastAnimation {
     private final Phase TEXT_APPEARANCE = new Phase(20, 36);
 
     private final int FADE_OUT_DURATION = 30;
-    private final int DURATION = 130 + FADE_OUT_DURATION;
-    private final Phase FADE_OUT_PHASE = new Phase(FADE_OUT_DURATION, DURATION - FADE_OUT_DURATION);
+    private Phase FADE_OUT_PHASE;
 
     private float randomRotation;
 
@@ -30,6 +28,8 @@ public class QuirkyAnimation extends FancyToastAnimation {
         super.setup(setup, generalConfig, font, toastWidth, toastHeight);
 
         setLines(this.display.getAnnouncement(), this.display.getDescription());
+        FADE_OUT_PHASE = new Phase(FADE_OUT_DURATION, getDuration() - FADE_OUT_DURATION);
+
         randomRotation = new Random().nextFloat(-0.4f, 0.4f);
     }
 
@@ -46,7 +46,7 @@ public class QuirkyAnimation extends FancyToastAnimation {
             int toastCenterY = this.toastHeight / 2;
             context.push();
 
-            float progress = Phase.getProgress(renderTicks, FADE_OUT_DURATION, DURATION - FADE_OUT_DURATION);
+            float progress = Phase.getProgress(renderTicks, FADE_OUT_DURATION, getDuration() - FADE_OUT_DURATION);
 
             float fadeOutScaleX = Easing.OCT_EASE_IN.lerp(1.0f, 0, progress);
             context.scaleAround(fadeOutScaleX, toastCenterX, toastCenterY);
@@ -136,8 +136,8 @@ public class QuirkyAnimation extends FancyToastAnimation {
     }
 
     @Override
-    public int getDuration() {
-        return DURATION;
+    public int getAnimationDuration() {
+        return 130 + FADE_OUT_DURATION;
     }
 
     @Override
